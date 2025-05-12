@@ -20,6 +20,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import FolderIcon from '@mui/icons-material/Folder';
+import BusinessIcon from '@mui/icons-material/Business';
 
 const Dashboard = () => {
   const { logout, token, user } = useAuth();
@@ -166,6 +167,15 @@ const Dashboard = () => {
                 sx={{ mr: 2 }}
               >
                 Project Management
+              </Button>
+              <Button 
+                color="inherit" 
+                component={Link} 
+                to="/crm"
+                startIcon={<BusinessIcon />}
+                sx={{ mr: 2 }}
+              >
+                CRM Dashboard
               </Button>
             </Paper>
           </Grid>

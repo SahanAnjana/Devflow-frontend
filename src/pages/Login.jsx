@@ -193,11 +193,11 @@ const Login = () => {
               Sign In
             </Button>
             
-            <Box sx={{ mt: 3, textAlign: 'center' }}>
+            {/* <Box sx={{ mt: 3, textAlign: 'center' }}>
               <Typography variant="body2">
                 Don't have an account? <Link to="/register" style={{ color: '#4285F4', textDecoration: 'none' }}>Create one</Link>
               </Typography>
-            </Box>
+            </Box> */}
           </Box>
         </Box>
       </Box>

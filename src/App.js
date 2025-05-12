@@ -37,16 +37,16 @@ function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <AuthProvider>
-        <CssBaseline />
-        <Router>
-          <Container maxWidth="xl">
-            <Routes>
-              {routes.map((route, index) => (
-                <Route key={index} path={route.path} element={route.element} />
-              ))}
-            </Routes>
-          </Container>
-        </Router>
+          <CssBaseline />
+          <Router>
+            <Container maxWidth="xl">
+              <Routes>
+                {routes.map((route, index) => (
+                  <Route key={index} path={route.path} element={route.element} />
+                ))}
+              </Routes>
+            </Container>
+          </Router>
       </AuthProvider>
     </LocalizationProvider>
   );

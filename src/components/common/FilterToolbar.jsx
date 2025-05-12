@@ -21,18 +21,18 @@ import FilterListIcon from '@mui/icons-material/FilterList';
  * @param {Object} props Component props
  * @param {string} props.searchValue Current search term
  * @param {function} props.onSearchChange Handler for search input changes
- * @param {Object} props.filters Current filter values
  * @param {function} props.onFilterChange Handler for filter changes
  * @param {function} props.onClearFilters Handler for clearing all filters
- * @param {Array} props.filterFields Configuration for filter fields
+ * @param {Array} props.filterColumns Configuration for filter columns
+ * @param {Object} props.filters Current filter values
  */
 const FilterToolbar = ({
   searchValue = '',
   onSearchChange,
-  filters = {},
   onFilterChange,
   onClearFilters,
-  filterFields = []
+  filterColumns = [],
+  filters = {}
 }) => {
   return (
     <Card sx={{ mb: 3 }}>
@@ -56,7 +56,7 @@ const FilterToolbar = ({
           </Grid>
           
           {/* Filter Fields */}
-          {filterFields.map((field) => (
+          {filterColumns.map((field) => (
             <Grid item xs={12} md={field.gridSize || 2} key={field.name}>
               <FormControl fullWidth>
                 <InputLabel>{field.label}</InputLabel>

@@ -79,7 +79,7 @@ const EmployeesList = () => {
     }
   ];
 
-  const filterFields = [
+  const filterColumns = [
     {
       name: 'department_id',
       label: 'Department',
@@ -176,10 +176,10 @@ const EmployeesList = () => {
         <FilterToolbar
           searchValue={searchTerm}
           onSearchChange={(e) => setSearchTerm(e.target.value)}
-          filters={filters}
           onFilterChange={handleFilterChange}
           onClearFilters={clearFilters}
-          filterFields={filterFields}
+          filterColumns={filterColumns}
+          filters={filters}
         />
 
         <DataTable
