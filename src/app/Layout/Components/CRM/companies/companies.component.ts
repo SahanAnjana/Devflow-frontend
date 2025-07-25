@@ -3,6 +3,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { CompaniesService } from 'src/app/_services/crm/companies.service';
 import { AddNewCompanyComponent } from './add-new-company/add-new-company.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { DataService } from 'src/app/_services/shared-data/data.service';
 
 @Component({
   selector: 'app-companies',
@@ -18,7 +19,8 @@ export class CompaniesComponent {
   constructor(
     private companyService: CompaniesService,
     private modalService: NzModalService,
-    private notificationService: NzNotificationService
+    private notificationService: NzNotificationService,
+    public dataService: DataService
   ) {}
 
   ngOnInit() {
