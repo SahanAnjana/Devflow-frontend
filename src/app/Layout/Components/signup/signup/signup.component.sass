@@ -1,0 +1,82 @@
+@import '../../../../../assets/sass/index'
+
+::ng-deep .signup
+    @include media_query_all_im(1032,null,null,null,1032,1032,"width")
+
+::ng-deep .signup .ant-modal-header
+    border-radius: 6px 6px 0px 0px
+    background: #F45300
+:host ::ng-deep.ant-select-status-error
+    border-color: #ff4d4f
+:host ::ng-deep.ant-picker-status-error
+    border-color: #ff4d4f !important
+::ng-deep .signup .ant-modal-title
+    color: #fff
+    font-weight: 600
+    font-size: 20px
+
+::ng-deep .signup .ant-modal-close
+    color: #fff
+::ng-deep .signup .ant-modal-body
+    padding: 40px
+    font-size: 16px
+
+::ng-deep .signup .ant-form-item-label > label
+    font-size: 16px
+    font-weight: 600
+
+.required-mark
+    color: #FF0D0D
+
+.ant-select.ant-select-in-form-item
+    &:hover
+        border: 1px solid $input-border !important
+        box-shadow: none !important
+
+::ng-deep .signup .ant-picker
+    width: 100%
+    @include media_query_all(35,null,null,null,35,50,"height")
+    border-radius: 3px
+    border: 0.5px solid rgba(0, 0, 0, 0.40)
+    background: #FFF
+
+.btn
+    color: #FFF
+    @include media_query_all(16,null,null,null,16,16,"font-size")
+    font-style: normal
+    font-weight: 600
+    &__cancel
+        width: 100% !important
+        @include media_query_all_im(35,null,null,null,35,50,"height")
+
+    &__high_orange
+        width: 100% !important
+        @include media_query_all_im(35,null,null,null,35,50,"height")
+
+    &__Add
+        width: 100% !important
+        @include media_query_all_im(35,null,null,null,35,50,"height")
+::ng-deep .signup .dropdown.ant-select:not(.ant-select-customize-input) .ant-select-selector
+    // height: 48px
+    display: flex
+    align-items: center
+    @include media_query_all(32,null,null,null,32,48,"height")
+
+::ng-deep .signup .ant-input
+    // height: 50px 
+    @include media_query_all(35,null,null,null,35,50,"height")
+
+.date
+    background: #F2F2F2
+    border-radius: 3px
+    border: 0.5px solid rgba(0, 0, 0, 0.40)
+
+.dropdown
+    @include media_query_all(35,null,null,null,35,50,"height")
+    .anticon
+        color: #a6a3a3
+
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)
+:host ::ng-deep .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector input
+    height: 100%

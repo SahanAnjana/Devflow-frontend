@@ -1,0 +1,115 @@
+<form [formGroup]="transferlimitform">
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="24" nzXs="24" nzSm="24" nzMd="24">
+      <nz-form-item>
+        <nz-form-label>Agent Customer Name </nz-form-label>
+        <nz-form-control>
+          <input
+            [disabled]="true"
+            type="text"
+            nz-input
+            nzAllowClear
+            class="modal-input"
+            formControlName="agentCustomerName"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Agent Approved Sending Currencies<span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <nz-select
+            nzSuffixIcon="caret-down"
+            nzAllowClear
+            class="modal-dropdown"
+            formControlName="agentApprovedSendingCurrencies"
+            nzShowSearch
+          >
+            <nz-option
+              *ngFor="let data of currenciestype"
+              [nzLabel]="data.currencyCode"
+              [nzValue]="data.agentTransferApprovedSendingCurrenciesId"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Duration <span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <nz-select
+            nzSuffixIcon="caret-down"
+            nzAllowClear
+            class="modal-dropdown"
+            formControlName="duration"
+            nzShowSearch
+          >
+            <nz-option
+              *ngFor="let data of durations"
+              [nzLabel]="data.duration"
+              [nzValue]="data.limitDurationId"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Maximum Transfer Limit<span class="required-mark"
+            >*</span
+          ></nz-form-label
+        >
+        <nz-form-control>
+          <input
+            nz-input
+            type="number"
+            placeholder="3"
+            min="0"
+            class="modal-input"
+            formControlName="maximumtransferlimit"
+            (keypress)="numberOnly($event)"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Maximum Transfer Amount<span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input
+            type="number"
+            nz-input
+            min="0"
+            (keypress)="numberOnly($event)"
+            nzplaceholder="Sureshkumar Thiyakeeshan"
+            nzAllowClear
+            class="modal-input"
+            formControlName="maximumtransferamount"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <button nz-col nz-button class="btn btn_save" (click)="updatesetting()">
+      Save Transfer limit
+    </button>
+  </div>
+</form>

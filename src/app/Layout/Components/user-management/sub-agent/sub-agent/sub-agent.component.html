@@ -1,0 +1,331 @@
+<div class="content">
+  <div nz-row [nzGutter]="10" class="filter-section">
+    <div class="filter-row filter-row2">
+      <span class="filter-txt">Filter by:</span>
+
+      <div nz-col [nzSpan]="4">
+        <ng-container>
+          <button
+            nz-dropdown
+            class="filter_btn"
+            [nzDropdownMenu]="menu1"
+            nzPlacement="bottomCenter"
+            [nzClickHide]="false"
+            nzTrigger="click"
+          >
+            Name
+          </button>
+          <nz-dropdown-menu #menu1="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <div class="ref-select">
+                  <input nz-input placeholder="Name" [(ngModel)]="userName" />
+                </div>
+              </li>
+              <li nz-menu-item class="btn__section">
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="resetNameFilter()"
+                >
+                  Reset
+                </button>
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="getAllSubAgentDetails()"
+                >
+                  Save
+                </button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-container>
+      </div>
+
+      <div nz-col [nzSpan]="4">
+        <ng-container>
+          <button
+            nz-dropdown
+            class="filter_btn"
+            [nzDropdownMenu]="menu2"
+            nzPlacement="bottomCenter"
+            [nzClickHide]="false"
+            nzTrigger="click"
+          >
+            Email
+          </button>
+          <nz-dropdown-menu #menu2="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <div class="ref-select">
+                  <input nz-input placeholder="Email" [(ngModel)]="email" />
+                </div>
+              </li>
+              <li nz-menu-item class="btn__section">
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="resetMailFilter()"
+                >
+                  Reset
+                </button>
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="getAllSubAgentDetails()"
+                >
+                  Save
+                </button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-container>
+      </div>
+
+      <div nz-col [nzSpan]="4">
+        <ng-container>
+          <button
+            nz-dropdown
+            class="filter_btn"
+            [nzDropdownMenu]="menu3"
+            nzPlacement="bottomCenter"
+            [nzClickHide]="false"
+            nzTrigger="click"
+          >
+            Contact Number
+          </button>
+          <nz-dropdown-menu #menu3="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <div class="ref-select">
+                  <input
+                    nz-input
+                    placeholder="Contact Number"
+                    [(ngModel)]="contactNumber"
+                  />
+                </div>
+              </li>
+              <li nz-menu-item class="btn__section">
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="resetContactFilter()"
+                >
+                  Reset
+                </button>
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="getAllSubAgentDetails()"
+                >
+                  Save
+                </button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-container>
+      </div>
+
+      <div nz-col [nzSpan]="4">
+        <ng-container>
+          <button
+            nz-button
+            nz-dropdown
+            class="filter_btn"
+            [nzDropdownMenu]="menu4"
+            nzPlacement="bottomCenter"
+            [nzClickHide]="false"
+            nzTrigger="click"
+          >
+            Agent Name
+          </button>
+          <nz-dropdown-menu #menu4="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <input
+                  nz-input
+                  placeholder="Agent Name"
+                  [(ngModel)]="agentName"
+                />
+              </li>
+              <li nz-menu-item class="btn__section">
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="resetAgentFilter()"
+                >
+                  Reset
+                </button>
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="getAllSubAgentDetails()"
+                >
+                  Save
+                </button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-container>
+      </div>
+
+      <div nz-col [nzSpan]="4">
+        <ng-container>
+          <button
+            nz-dropdown
+            class="filter_btn"
+            [nzDropdownMenu]="menu5"
+            nzPlacement="bottomCenter"
+            [nzClickHide]="false"
+            nzTrigger="click"
+          >
+            Address
+          </button>
+          <nz-dropdown-menu #menu5="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <div class="ref-select">
+                  <input nz-input placeholder="Address" [(ngModel)]="address" />
+                </div>
+              </li>
+              <li nz-menu-item class="btn__section">
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="resetAddressFilter()"
+                >
+                  Reset
+                </button>
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="getAllSubAgentDetails()"
+                >
+                  Save
+                </button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-container>
+      </div>
+    </div>
+    <div nz-col class="right-sec">
+      <div>
+        <a nz-button nzType="link" [routerLink]="['view-new-sub-agent']">
+          <img src="./assets/icons/view_eye.svg" />
+          &nbsp;
+          <u>View New Sub Agent</u></a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <nz-table
+      #basicTable
+      [nzData]="tableDatas"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th>
+            <div class="border-start-th">NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">AGENT NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">EMAIL</div>
+          </th>
+          <th>
+            <div class="border-middle-th">CONTACT NUMBER</div>
+          </th>
+          <th>
+            <div class="border-middle-th">ADDRESS</div>
+          </th>
+          <th>
+            <div class="border-middle-th">REGISTERED DATE</div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let data of basicTable.data">
+          <td>
+            <div class="border-middle">{{ data.name }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.agentName }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ data.email }}
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.contactNumber }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.address }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.registeredDate }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              <img
+                src="./assets/icons/mail-icon.svg"
+                class="email_img"
+                (click)="sendEmail(data)"
+              />
+            </div>
+          </td>
+          <td>
+            <div
+              class="border-middle"
+              (click)="viewAgentPrivillageSettings('subAgent', data)"
+            >
+              <img
+                class="images"
+                src="./assets/icons/ic_baseline-settings.svg"
+              />
+            </div>
+          </td>
+
+          <td>
+            <div (click)="viewSubAgentById(data)" class="border-middle">
+              <img class="images" src="./assets/icons/icons8-eye-30.png" />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="pageNumber"
+      [nzTotal]="totalRecords"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+      (nzPageIndexChange)="pageIndexChange($event)"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

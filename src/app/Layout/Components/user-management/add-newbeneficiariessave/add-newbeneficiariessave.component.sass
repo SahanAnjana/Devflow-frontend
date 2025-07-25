@@ -1,0 +1,49 @@
+@import '../../../../../assets/sass/index'
+.input-sec
+    .ant-row
+        background: none !important
+
+.ant-form-item-label
+    text-align: left !important
+.table_head>h2
+    @include media_query_all_im(20,null,null,null,null,20,'font-size')
+    font-weight: 600
+.data-row
+    background: #FFF8F5
+    padding: 10px 20px
+    border-radius: 6px 0px 0px 6px
+
+    margin-top: 10px
+    @include media_query_all(50,null,null,null,null,68,'height')
+.heading-row
+    background: #FFE8DE
+    flex-wrap: nowrap
+    @include media_query_all(10,null,null,null,null,10,'padding')
+    border-radius: 6px 6px 6px 6px
+    // height: 68px
+    margin: 0
+    .table-col
+        @include media_query_all(16,null,null,null,null,16,'font-size')
+
+        font-weight: 600
+
+            color: #000
+.Title-row
+
+    @include media_query_all_im(30,null,null,null,null,30,'margin-bottom')
+    h4
+
+        color: #000
+        font-weight: 600
+        @include media_query_all(16,null,null,null,null,20,'font-size')
+.heading-row
+    margin-bottom: 18px !important
+
+:host ::ng-deep.data-row
+    margin-bottom: 18px !important
+:host ::ng-deep.modal_content
+    padding: 0
+h2
+    padding-bottom: 10px
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)

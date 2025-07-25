@@ -1,0 +1,93 @@
+<div class="tab-header">
+  <div>
+    <div>
+      <nz-form-control>
+        <nz-form-label
+          >Sending Currencies :<span class="required-mark"
+            >*</span
+          ></nz-form-label
+        >
+
+        <nz-form-item>
+          <nz-checkbox-wrapper
+            style="width: 100%"
+            (nzOnChange)="getSendingCurrencies($event)"
+          >
+            <div nz-row *ngIf="currencySendingList == null">
+              <div nz-col nzSpan="8" *ngFor="let data of currencyList">
+                <label nz-checkbox [nzValue]="data.currencyId">{{
+                  data.currencyCode + "-" + data.currencyName
+                }}</label>
+              </div>
+            </div>
+            <div nz-row *ngIf="currencySendingList != null">
+              <div nz-col nzSpan="8" *ngFor="let data of currencyList">
+                <label
+                  nz-checkbox
+                  [nzValue]="data.currencyId"
+                  [nzChecked]="isCountrySendChecked(data.currencyId)"
+                  >{{ data.currencyCode + "-" + data.currencyName }}</label
+                >
+              </div>
+            </div>
+            <!-- <div nz-row *ngIf="currencySendingList != null">
+              <div nz-col nzSpan="8" *ngFor="let data of currencySendingList">
+                <label
+                  nz-checkbox
+                  [nzValue]="data.clientCurrencyId"
+                  [nzChecked]="data.currencySendingList"
+                  >{{ data.currencyCode + "-" + data.currencyName }}</label
+                >
+              </div>
+            </div> -->
+          </nz-checkbox-wrapper>
+        </nz-form-item>
+      </nz-form-control>
+    </div>
+  </div>
+  <div>
+    <div>
+      <nz-form-control>
+        <nz-form-label
+          >Receiving Currencies :
+          <span class="required-mark">*</span></nz-form-label
+        >
+
+        <nz-form-item>
+          <nz-checkbox-wrapper
+            style="width: 100%"
+            (nzOnChange)="getReceivingCurrencies($event)"
+          >
+            <div nz-row *ngIf="currencyRecList == null">
+              <div nz-col nzSpan="8" *ngFor="let data of currencyList">
+                <label nz-checkbox [nzValue]="data.currencyId">{{
+                  data.currencyCode + "-" + data.currencyName
+                }}</label>
+              </div>
+            </div>
+            <div nz-row *ngIf="currencyRecList != null">
+              <div nz-col nzSpan="8" *ngFor="let data of currencyList">
+                <label
+                  nz-checkbox
+                  [nzValue]="data.currencyId"
+                  [nzChecked]="isCountryRecChecked(data.clientCurrencyId)"
+                  >{{ data.currencyCode + "-" + data.currencyName }}</label
+                >
+              </div>
+            </div>
+            <!-- <div nz-row *ngIf="currencyRecList != null">
+              <div nz-col nzSpan="8" *ngFor="let data of currencyRecList">
+                <label
+                  nz-checkbox
+                  [nzValue]="data.clientCurrencyId"
+                  [nzChecked]="data.currencyRecList"
+                  >{{ data.currencyCode + "-" + data.currencyName }}</label
+                >
+              </div>
+            </div> -->
+          </nz-checkbox-wrapper>
+        </nz-form-item>
+      </nz-form-control>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+@import '../../../../../../../assets/sass/index'
+
+.modal-content
+    width: 100%
+    height: auto
+    padding: 20px 40px
+
+::ng-deep .view-cus-trans .ant-input
+    @include media_query_all(35,null,null,null,35,50,"height")
+    @include media_query_all(12,null,null,null,12,16,"font-size")
+    width: 100%
+
+::ng-deep .view-cus-trans .ant-modal-content .ant-modal-close-x
+    // top: 10px
+    position: relative
+
+:host ::ng-deep .ant-modal .ant-tabs-content-holder .ant-row
+    background: transparent
+    height: 79px !important
+
+::ng-deep .view-cus-trans .ant-picker
+    @include media_query_all(35,null,null,null,35,50,"height")
+    width: 100%
+    background: #fff
+    .anticon
+        color: #a6a3a3
+
+// ::ng-deep .view-cus-trans .ant-input,
+// ::ng-deep .view-cus-trans .ant-picker-input > input,
+// ::ng-deep .view-cus-trans .ant-select
+//     font-size: 16px
+
+::ng-deep .view-cus-trans .ant-form-item-label > label
+    font-size: 16px
+    color: #000
+    font-weight: 600
+
+:host ::ng-deep .ant-select.ant-select-in-form-item:hover
+    border: 1px solid #C4C4C4 !important
+
+.required-mark
+    color: #FF0D0D
+
+::ng-deep .view-cus-trans .dropdown.ant-select:not(.ant-select-customize-input) .ant-select-selector
+    @include media_query_all_im(30,null,null,null,30,45,"height")
+
+//---------btn section--------------//
+.btn
+    // width: 100%
+    // height: 50px
+    @include media_query_all(35,null,null,null,35,50,"height")
+
+    // font-size:12px
+    @include media_query_all(12,null,null,null,12,16,"font-size")
+    &__download
+        display: flex
+        @include media_query_all_im(150,null,null,null,200,200,"min-width")
+        // width: 200px
+        height: 50px
+
+        justify-content: center
+        align-items: center
+        gap: 10px
+        background: #1AA3FF
+        // font-size: 16px !important
+        @include media_query_all_im(12,null,null,null,12,16,"font-size")
+    &__cancel
+        background: #FF0D0D
+        @include media_query_all_im(35,null,null,null,35,50,"height")
+        @include media_query_all_im(150,null,null,null,200,200,"width")
+        // height: 50px !important
+        @include media_query_all_im(12,null,null,null,12,16,"font-size")
+        // font-weight: 600
+    &__high_orange
+        @include media_query_all_im(150,null,null,null,200,200,"width")
+        @include media_query_all_im(12,null,null,null,12,16,"font-size")
+        // font-weight: 600
+    &__approve
+
+        @include media_query_all_im(150,null,null,null,200,200,"width")
+        @include media_query_all_im(12,null,null,null,12,16,"font-size")
+        // font-weight: 600
+        background: #00A03E
+        // border: 1px solid #FF0D0D 
+        color: #FFF
+
+    &__decline
+
+        @include media_query_all_im(150,null,null,null,200,200,"width")
+        // height: 50px !important
+        @include media_query_all_im(12,null,null,null,12,16,"font-size")
+        // font-weight: 600
+        background: none
+        border: 1px solid #FF0D0D
+        background: #FF0D0D
+
+.date
+    background: #F2F2F2
+    border-radius: 3px
+    border: 0.5px solid rgba(0, 0, 0, 0.40)
+
+.dropdown
+    @include media_query_all_im(35,null,null,null,35,50,"height")
+    .anticon
+        color: #a6a3a3
+
+.add-new-customer-row
+    margin-right: 50px
+
+.btn-row
+    margin-top: 10px
+    display: flex
+
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)
+.view_btn
+    display: flex
+    gap: 10px
+.flex-end
+    display: flex
+    justify-content: flex-end
+.gap
+    gap: 10px

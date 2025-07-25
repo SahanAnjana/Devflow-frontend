@@ -1,0 +1,29 @@
+<div class="main">
+  <div class="main-content">
+    <div class="left">
+      <h1>Welcome to Devflow Dashboard</h1>
+      <h3>
+        This is your workflow management dashboard. Start planning, creating,
+        and controlling your projects.
+      </h3>
+
+      <h2>Workflow</h2>
+      <div class="btn-row">
+        <button class="btn" (click)="navigateToDepartment('hr')">
+          HR DASHBOARD</button
+        ><button class="btn" (click)="navigateToDepartment('finance')">
+          FINANCE DASHBOARD</button
+        ><button class="btn" (click)="navigateToDepartment('project')">
+          PROJECT DASHBOARD</button
+        ><button class="btn" (click)="navigateToDepartment('crm')">
+          CRM DASHBOARD
+        </button>
+      </div>
+    </div>
+    <div class="right">
+      <nz-card nzTitle="Recent Activity">
+        <p>No recent activities to display.</p>
+      </nz-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="modal-content">
+  <form nz-form [nzLayout]="'vertical'" [formGroup]="addNoteForm">
+    <div nz-row [nzGutter]="10">
+      <div nz-col [nzSpan]="24">
+        <nz-form-item style="width: 100%">
+          <nz-form-label
+            >Subject<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <nz-select
+              class="modal-dropdown"
+              bindLabel=""
+              nzPlaceHolder="Select Subject"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              formControlName="subject"
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let sub of subjects"
+                [nzValue]="sub.subject"
+                [nzLabel]="sub.subject"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="10">
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label
+            >Note<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <angular-editor
+              [config]="editorConfig"
+              formControlName="note"
+              placeholder="Enter note here..."
+            ></angular-editor>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="10" class="btn-row">
+      <div nz-col [nzSpan]="4">
+        <button nz-button class="btn btn__cancel" (click)="closeModal()">
+          Cancel
+        </button>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <button nz-button class="btn btn__Add" (click)="addNote()">Add</button>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="10" class="btn-row">
+      <div nz-col [nzSpan]="24" class="all_notes">
+        <h2>All Notes:</h2>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="10" class="btn-row">
+      <div
+        nz-col
+        [nzSpan]="24"
+        class="notes-figure"
+        style="margin-bottom: 50px"
+        *ngFor="let subject of customerNotes"
+      >
+        <div>
+          <h3>{{ subject.subject }}</h3>
+          <div [innerHTML]="subject.note"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="pageNumber"
+      [nzTotal]="totalRecords"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+      (nzPageIndexChange)="pageIndexChange($event)"
+    ></nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

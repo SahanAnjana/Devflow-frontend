@@ -1,0 +1,250 @@
+<div class="modal_content">
+  <div>
+    <form
+      class="form-figure input-sec"
+      [formGroup]="currencyAmountValidationForm"
+    >
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="8" nzMd="8">
+          <nz-form-item>
+            <nz-form-label>Agent Name </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Agent Name"
+                class="modal-input"
+                formControlName="agentName"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="8" nzMd="8">
+          <nz-form-item>
+            <nz-form-label
+              >Sending Currency
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                class="modal-dropdown"
+                nzPlaceHolder="Select Sending Currency"
+                nzSuffixIcon="caret-down"
+                nzAllowClear
+                formControlName="sendingCurrency"
+                nzShowSearch
+              >
+                <nz-option
+                  *ngFor="let data of sendingCurrency_data"
+                  [nzValue]="data.agentTransferApprovedSendingCurrenciesId"
+                  [nzLabel]="data.currencyName"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="8" nzMd="8">
+          <nz-form-item>
+            <nz-form-label
+              >Recipient Currency
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                class="modal-dropdown"
+                nzPlaceHolder="Select Recipient Currency"
+                nzSuffixIcon="caret-down"
+                nzAllowClear
+                nzShowSearch
+                formControlName="receipientCurrency"
+              >
+                <nz-option
+                  *ngFor="let data of receivingCurrency_data"
+                  [nzValue]="data.agentTransferApprovedReceivingCurrenciesId"
+                  [nzLabel]="data.currencyName"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="8" nzMd="8">
+          <nz-form-item>
+            <nz-form-label
+              >Payment Mode
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                class="modal-dropdown"
+                nzPlaceHolder="Select Payment Mode"
+                nzSuffixIcon="caret-down"
+                nzAllowClear
+                formControlName="paymentMode"
+                nzShowSearch
+              >
+                <nz-option
+                  *ngFor="let data of paymentMode_data"
+                  [nzValue]="data.paymentModeDto.paymentModeId"
+                  [nzLabel]="data.paymentModeDto.paymentModeDesc"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="8" nzMd="8">
+          <nz-form-item>
+            <nz-form-label
+              >Minimum Send Amount<span class="required-mark"
+                >*</span
+              ></nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                type="number"
+                placeholder="Enter Minimum Send Amount"
+                class="modal-input"
+                formControlName="minimumSendAmount"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="8" nzMd="8">
+          <nz-form-item>
+            <nz-form-label
+              >Maximum Send Amount<span class="required-mark"
+                >*</span
+              ></nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                type="number"
+                placeholder="Enter Maximum Send Amount"
+                class="modal-input"
+                formControlName="maximumSendAmount"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="8" nzMd="8">
+          <nz-form-item>
+            <nz-form-label
+              >Minimum Received Amount
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="number"
+                placeholder="Enter Minimum Received Amount"
+                class="modal-input"
+                formControlName="minimumReceivedAmount"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="8" nzMd="8">
+          <nz-form-item>
+            <nz-form-label
+              >Maximum Received Amount
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="number"
+                placeholder="Enter Maximum Received Amount"
+                class="modal-input"
+                formControlName="maximumReceivedAmount"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="btn_row">
+    <button class="btn btn__cancel" (click)="closeCurrency()">Cancel</button>
+    <button class="btn btn__next" (click)="saveCurrency()">Save</button>
+  </div>
+  <div class="table_head">
+    <h2>Currency Amount Validation</h2>
+  </div>
+
+  <nz-table
+    #currencyAmountTable
+    [nzData]="tableData"
+    [nzPageSize]="10"
+    [nzShowPagination]="false"
+    class="modal_table"
+  >
+    <thead>
+      <tr>
+        <th>SENDING CURRENCY</th>
+        <th>RECIPIENT CURRENCY</th>
+        <th>PAYMENT MODE</th>
+        <th>MINIMUM SEND AMOUNT</th>
+        <th>MAXIMUM SEND AMOUNT</th>
+        <th>MINIMUM RECEIVED AMOUNT</th>
+        <th>MAXIMUM RECEIVED AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody class="body_tr">
+      <tr *ngFor="let data of currencyAmountTable.data">
+        <td>
+          {{
+            data?.agentTransferApprovedSendingCurrenciesDto?.currencyDto
+              ?.currencyName
+          }}
+        </td>
+
+        <td>
+          {{
+            data?.agentTransferApprovedReceivingCurrenciesResponseDto
+              ?.currencyDto?.currencyName
+          }}
+        </td>
+
+        <td>
+          {{ data?.agentPaymentModeDto?.paymentModeDto?.paymentModeDesc }}
+        </td>
+
+        <td>
+          {{ data.minSendingAmount | number : "0.2-2" }}
+        </td>
+
+        <td>
+          {{ data.maxSendingAmount | number : "0.2-2" }}
+        </td>
+
+        <td>
+          {{ data.minReceivingAmount | number : "0.2-2" }}
+        </td>
+
+        <td>
+          {{ data.maxReceivingAmount | number : "0.2-2" }}
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="pageNumber"
+      [nzTotal]="totalRecords"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+      (nzPageIndexChange)="pageIndexChange($event)"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

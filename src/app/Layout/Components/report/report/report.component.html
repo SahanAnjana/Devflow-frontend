@@ -1,0 +1,82 @@
+<div nz-row class="title-bar">
+  <div class="comp_title">Report</div>
+</div>
+<div class="module-selector">
+  <nz-select
+    nzPlaceHolder="Summary Report"
+    nzSuffixIcon="caret-down"
+    class="dropdown_select"
+    [(ngModel)]="selectedOption"
+    (ngModelChange)="changeReportType($event)"
+    nzShowSearch
+  >
+    <nz-option nzLabel="Summary Report" nzValue="Summary Report"></nz-option>
+    <nz-option
+      nzLabel="Transfer Amendment"
+      nzValue="Transfer Amendment"
+    ></nz-option>
+    <nz-option
+      nzLabel="Cash Collection Report"
+      nzValue="Cash Collection Report"
+    ></nz-option>
+    <nz-option
+      nzLabel="Sub Agent Commission"
+      nzValue="Sub Agent Commission"
+    ></nz-option>
+  </nz-select>
+  <div *ngIf="this.privileges.CORE_SHOW_REPORTS_DOWNLOAD_BUTTON">
+    <button
+      class="btn btn_download"
+      nzType="primary"
+      *ngIf="selectedReportType === 'Summary Report'"
+      (click)="downloadReport()"
+    >
+      Download
+    </button>
+    <button
+      class="btn btn_download"
+      nzType="primary"
+      *ngIf="selectedReportType === 'Transfer Amendment'"
+      (click)="downloadTransferAmenment()"
+    >
+      Download
+    </button>
+    <button
+      class="btn btn_download"
+      nzType="primary"
+      *ngIf="selectedReportType === 'Sub Agent Commission'"
+      (click)="downloadcommisionfee()"
+    >
+      Download
+    </button>
+    <button
+      class="btn btn_download"
+      nzType="primary"
+      *ngIf="selectedReportType === 'Cash Collection Report'"
+      (click)="downloadcashcommision()"
+    >
+      Download
+    </button>
+  </div>
+</div>
+
+<div class="page-content">
+  <app-transfer-summary-report
+    *ngIf="selectedReportType === null"
+  ></app-transfer-summary-report>
+  <app-transfer-summary-report
+    *ngIf="selectedReportType === 'Summary Report'"
+  ></app-transfer-summary-report>
+  <app-transfer-amenment-report
+    *ngIf="selectedReportType === 'Transfer Amendment'"
+  ></app-transfer-amenment-report>
+  <app-cash-collection-report
+    *ngIf="selectedReportType === 'Cash Collection Report'"
+  ></app-cash-collection-report>
+  <app-sub-agent-commission-report
+    *ngIf="selectedReportType === 'Sub Agent Commission'"
+  ></app-sub-agent-commission-report>
+  <!-- <app-affiliate-transaction-report
+    *ngIf="selectedReportType=== 'Affiliate Transaction Report'"
+  ></app-affiliate-transaction-report> -->
+</div>

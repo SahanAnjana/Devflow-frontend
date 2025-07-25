@@ -1,0 +1,512 @@
+<div class="content">
+  <div nz-row [nzGutter]="10" class="filter-section">
+    <div class="filter-row filter-row2">
+      <span class="filter-txt">Filter by:</span>
+
+      <div class="filter-inputs filter3">
+        <button
+          class="filter_btn"
+          nz-dropdown
+          [nzDropdownMenu]="menu2"
+          nzPlacement="bottomCenter"
+          [nzClickHide]="false"
+          nzTrigger="click"
+          class="filter_btn"
+        >
+          Sender Name
+        </button>
+        <nz-dropdown-menu #menu2="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>
+              <div class="amount-select">
+                <input
+                  nz-input
+                  placeholder="Enter Sender Name"
+                  class="start-amount"
+                  [(ngModel)]="senderName"
+                />
+              </div>
+            </li>
+            <li nz-menu-item class="btn__section">
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="resetFiltersendername()"
+              >
+                Reset
+              </button>
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="getTransferDetails()"
+              >
+                Save
+              </button>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+      <div class="filter-inputs filter3">
+        <button
+          class="filter_btn"
+          nz-dropdown
+          [nzDropdownMenu]="menu3"
+          nzPlacement="bottomCenter"
+          [nzClickHide]="false"
+          nzTrigger="click"
+        >
+          Agent Name
+        </button>
+        <nz-dropdown-menu #menu3="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>
+              <div class="amount-select">
+                <input
+                  nz-input
+                  placeholder="Enter Agent Name"
+                  class="start-amount"
+                  [(ngModel)]="agentName"
+                />
+              </div>
+            </li>
+            <li nz-menu-item class="btn__section">
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="resetFilterByagentName()"
+              >
+                Reset
+              </button>
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="getTransferDetails()"
+              >
+                Save
+              </button>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+
+      <div class="filter-inputs filter3">
+        <button
+          class="filter_btn"
+          nz-dropdown
+          [nzDropdownMenu]="menu5"
+          nzPlacement="bottomCenter"
+          [nzClickHide]="false"
+          nzTrigger="click"
+        >
+          Transfer Ref.
+        </button>
+        <nz-dropdown-menu #menu5="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>
+              <div class="amount-select">
+                <input
+                  nz-input
+                  placeholder="Enter Transfer Reference"
+                  class="start-amount"
+                  [(ngModel)]="customerReference"
+                />
+              </div>
+            </li>
+            <li nz-menu-item class="btn__section">
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="resetFilterBytransferref()"
+              >
+                Reset
+              </button>
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="getTransferDetails()"
+              >
+                Save
+              </button>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+      <div class="filter-inputs filter3">
+        <button
+          class="filter_btn"
+          nz-dropdown
+          [nzDropdownMenu]="menu6"
+          nzPlacement="bottomCenter"
+          [nzClickHide]="false"
+          nzTrigger="click"
+        >
+          Country
+        </button>
+        <nz-dropdown-menu #menu6="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>
+              <div class="amount-select">
+                <nz-select
+                  items="clientNames"
+                  nzSuffixIcon="caret-down"
+                  nzPlaceHolder="Select Country"
+                  class="dropdown"
+                  [(ngModel)]="beneficiaryCountryName"
+                  nzShowSearch
+                >
+                  <nz-option
+                    *ngFor="let data of country"
+                    [nzLabel]="data.countryName"
+                    [nzValue]="data.countryName"
+                  ></nz-option
+                ></nz-select>
+              </div>
+            </li>
+            <li nz-menu-item class="btn__section">
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="resetFilterBycountry()"
+              >
+                Reset
+              </button>
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="getTransferDetails()"
+              >
+                Save
+              </button>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+      <div class="filter-inputs filter3">
+        <button
+          class="filter_btn"
+          nz-dropdown
+          [nzDropdownMenu]="menu7"
+          nzPlacement="bottomCenter"
+          [nzClickHide]="false"
+          nzTrigger="click"
+        >
+          Date
+        </button>
+        <nz-dropdown-menu #menu7="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>
+              <div class="date-select">
+                <nz-date-picker
+                  nzPlaceHolder="Start Date"
+                  class="start-date"
+                  [nzAllowClear]="true"
+                  [(ngModel)]="transactionFromDate"
+                  [nzDisabledDate]="disabledFutureDates"
+                ></nz-date-picker>
+                <nz-date-picker
+                  nzPlaceHolder="End Date"
+                  class="start-date"
+                  [nzAllowClear]="true"
+                  class="end-date"
+                  [(ngModel)]="transactionToDate"
+                  [nzDisabledDate]="disabledFutureDates"
+                ></nz-date-picker>
+              </div>
+            </li>
+            <li nz-menu-item class="btn__section">
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="resetFilterBydate()"
+              >
+                Reset
+              </button>
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="getTransferDetails()"
+              >
+                Save
+              </button>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </div>
+  </div>
+  <div class="heading2">Transfer Requests</div>
+  <nz-table
+    [nzScroll]="{ x: '2300px' }"
+    #basicTable
+    [nzData]="TransferDetails"
+    nzShowPagination="false"
+  >
+    <thead>
+      <tr class="heading_tr">
+        <th>
+          <div class="border-start-th">DATE</div>
+        </th>
+        <th>
+          <div class="border-middle-th">REFERENCE NUMBER</div>
+        </th>
+        <th>
+          <div class="border-middle-th">SENDER NAME</div>
+        </th>
+        <th>
+          <div class="border-middle-th">AGENT NAME</div>
+        </th>
+        <th>
+          <div class="border-middle-th">CUSTOMER REFERENCE</div>
+        </th>
+        <th>
+          <div class="border-middle-th">BENEFICIARY COUNTRY</div>
+        </th>
+        <th>
+          <div class="border-middle-th">SENDING AMOUNT</div>
+        </th>
+        <th>
+          <div class="border-middle-th">RECEIVING AMOUNT</div>
+        </th>
+        <th>
+          <div class="border-middle-th">PAYING BY</div>
+        </th>
+        <th>
+          <div class="border-middle-th">TRANSFER BY</div>
+        </th>
+        <th *ngIf="this.privileges.CORE_SHOW_TRANSFERS_PAYMENT_RECEIVED_TOOGLE">
+          <div class="border-middle-th">PAYMENT RECEIVED STATUS</div>
+        </th>
+        <th>
+          <div class="border-middle-th">EXECUTION TYPE</div>
+        </th>
+        <th>
+          <div class="border-middle-th">PAYMENT MODE SETTING</div>
+        </th>
+        <!-- <th>
+          <div class="border-middle-th">DECLINE STATUS</div>
+        </th> -->
+        <th>
+          <div class="border-middle-th">SETTLEMENT STATUS</div>
+        </th>
+        <th>
+          <div class="border-middle-th">PRIORITY LEVEL</div>
+        </th>
+        <th>
+          <div class="border-middle-th"></div>
+        </th>
+        <th *ngIf="this.privileges.CORE_SHOW_TRANSFER_VIEW">
+          <div class="border-middle-th"></div>
+        </th>
+        <th>
+          <div class="border-middle-th"></div>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="body_tr">
+      <tr *ngFor="let data of basicTable.data">
+        <td>
+          <div class="border-middle">{{ data.date }}</div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data.referenceNumber }}</div>
+        </td>
+        <td>
+          <div class="border-middle">
+            {{ data.senderName }}
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">
+            {{ data.agentName }}
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">
+            {{ data.customerReference }}
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">
+            {{ data.beneficiaryCountryName }}
+          </div>
+        </td>
+        <td>
+          <div
+            class="border-middle red-underlines"
+            (click)="changeTransferAmount(data, 'sendAmount')"
+          >
+            {{ data.totalPayable | number : "1.2-2" }}
+            <!-- {{ formatCurrency(data.totalPayable) }} -->
+          </div>
+        </td>
+        <td>
+          <div
+            class="border-middle red-underlines"
+            (click)="changeTransferAmount(data, 'receivedAmount')"
+          >
+            {{ data.receivingAmount | number : "1.2-2" }}
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">
+            {{ data.payingBy }}
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">
+            {{ data.transferBy }}
+          </div>
+        </td>
+        <td *ngIf="this.privileges.CORE_SHOW_TRANSFERS_PAYMENT_RECEIVED_TOOGLE">
+          <div class="border-middle">
+            <nz-switch
+              [(ngModel)]="data.paymentReceivedStatus"
+              (ngModelChange)="changeStatus(data)"
+              nzSize="small"
+            ></nz-switch>
+          </div>
+        </td>
+        <td class="dropd">
+          <div>
+            <nz-select
+              *ngIf="data.paymentReceivedStatus == true"
+              class="tableSelect"
+              nzAllowClear
+              [(ngModel)]="data.executionType"
+              (ngModelChange)="selectexecutionType(data, $event)"
+            >
+              <nz-option
+                *ngFor="let data of executionTypes"
+                [nzValue]="data.value"
+                [nzLabel]="data.label"
+              ></nz-option>
+              <!-- <nz-option nzValue="manual" nzLabel="Manual"></nz-option>
+              <nz-option nzValue="terraPay" nzLabel="Terra Pay"></nz-option>
+              <nz-option nzValue="cargills" nzLabel="Cargills"></nz-option>
+              <nz-option nzValue="linkfx" nzLabel="LinkFx"></nz-option> -->
+            </nz-select>
+          </div>
+        </td>
+        <td>
+          <div class="border-middle"></div>
+        </td>
+        <!-- <td>
+          <div class="border-middle">
+            <img
+              src="./assets/icons/closered.png"
+              (click)="showModal(data.transactionDetailId)"
+            />
+          </div>
+        </td> -->
+        <td>
+          <div class="border-middle iconCol">
+            <div *ngIf="privileges.CORE_SHOW_TRANSFERS_DECLINE_BUTTON">
+              <img
+                src="./assets/icons/closered.png"
+                nz-popconfirm
+                nzPopconfirmTitle="Are you sure?"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="declineTrnx(data.transactionDetailId)"
+                (nzOnCancel)="cancel()"
+                nzCancelText="NO"
+                nzOkText="YES"
+              />
+            </div>
+            <div *ngIf="privileges.CORE_SHOW_TRANSFERS_ACCEPT_BUTTON">
+              <img src="./assets/icons/checkedred.png" (click)="excute(data)" />
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="border-middle border-center">
+            <div
+              *ngIf="data.pirorityLevel == 1"
+              class="priority_box level1"
+            ></div>
+            <div
+              *ngIf="data.pirorityLevel == 2"
+              class="priority_box level2"
+            ></div>
+            <div
+              *ngIf="data.pirorityLevel == 3"
+              class="priority_box level3"
+            ></div>
+            <div
+              *ngIf="data.pirorityLevel == 4"
+              class="priority_box level4"
+            ></div>
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">
+            <img
+              class="images"
+              src="./assets/icons/mail-icon.svg"
+              (click)="sendEmail(data)"
+            />
+          </div>
+        </td>
+        <td *ngIf="this.privileges.CORE_SHOW_TRANSFER_VIEW">
+          <div class="border-middle">
+            <img
+              class="images"
+              src="./assets/icons/icons8-eye-30.png"
+              (click)="getDetailById(data)"
+            />
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">
+            <img
+              class="images"
+              src="./assets/icons/Mask group.svg"
+              (click)="addNotes(data)"
+            />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="currentPageIndex"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      [nzTotal]="totalRecords"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+  <div class="confirm">
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="The first Modal"
+      (nzOnCancel)="handleCancel()"
+      nzClassName="confirmation"
+      [nzFooter]="null"
+    >
+      <ng-container *nzModalContent>
+        <div class="container">
+          <div><span class="message">Are You Sure?</span></div>
+          <div class="button-rows">
+            <div>
+              <button class="button button_no" (click)="handleCancel()">
+                No
+              </button>
+            </div>
+            <div>
+              <button class="button button_yes" (click)="handleOk()">
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </nz-modal>
+  </div>
+</div>

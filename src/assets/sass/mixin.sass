@@ -1,0 +1,160 @@
+@mixin fsw-roboto-n-500
+    font-family: Roboto
+    font-style: normal
+    font-weight: 500
+@mixin center-v-h
+    display: flex
+    justify-content: center
+    align-items: center
+@mixin center-v
+    display: flex
+    align-items: center
+@mixin center-h
+    display: flex
+    justify-content: center
+@mixin header-align
+    display: flex
+    align-items: center
+    justify-content: space-between
+@mixin d-flex-c
+    display: flex
+    flex-direction: column
+    align-items: center
+
+@mixin res-size($size,$property)
+    @media (min-width: $media_min1025)
+        #{$property}: calc($size/160)*7rem
+    @media (min-width: $media_min1900)
+        #{$property}: calc($size/16)*1rem
+
+@mixin res-size-im($size,$property)
+    @media (min-width: $media_min1025)
+        #{$property}: calc($size/160)*7rem $im
+    @media (min-width:$media_min1900)
+        #{$property}: calc($size/16)*1rem $im
+
+@mixin padding_margin($top,$right,$bottom,$left,$property)
+    @media (min-width: $media_min1025)
+        #{$property}: pad_mar($top,$media_min1025 ) pad_mar($right,$media_min1025 ) pad_mar($bottom,$media_min1025 ) pad_mar($left,$media_min1025 )
+
+    @media (min-width: $media_min1900)
+        #{$property}: pad_mar($top,$media_min1900 ) pad_mar($right,$media_min1900 ) pad_mar($bottom,$media_min1900 ) pad_mar($left,$media_min1900 )
+
+@mixin position($top,$right,$bottom,$left,$property)
+    @media (min-width: $media_min1025)
+        position: #{$property} pad_mar($top,$media_min1025 ) pad_mar($right,$media_min1025 ) pad_mar($bottom,$media_min1025 ) pad_mar($left,$media_min1025 )
+
+    @media (min-width: $media_min1900)
+        position: #{$property} pad_mar($top,$media_min1900 ) pad_mar($right,$media_min1900 ) pad_mar($bottom,$media_min1900 ) pad_mar($left,$media_min1900 )
+
+@function pad_mar($pm,$media)
+    @if $pm == auto
+        @return auto
+    @else if $pm == unset
+        @return unset
+    @else if type-of($pm) == number
+        @if $pm >= 0
+            @return rem_calc($pm,$media)
+    @else
+        @error "Unknown property #{$pm}."
+
+@function rem_calc($pixel,$media)
+    @if $media == $media_min1025
+        @return rem-medium($pixel)
+    @else if $media == $media_min1900
+        @return rem($pixel)
+
+@function rem-medium($pixel)
+    @return calc($pixel/160)*7rem
+
+@function rem($pixel)
+    @return calc($pixel/16)*1rem
+
+@mixin img-contain-center
+    object-fit: contain
+    object-position: center
+
+@mixin media_query_all($min320,$min481,$min641,$min961,$min1025,$min1900,$property)
+    @if $min320 != null
+        @include  media_dynamic($media_min320,$min320,$property)
+    @if $min481 != null
+        @include  media_dynamic($media_min481,$min481,$property)
+    @if $min641 != null
+        @include  media_dynamic($media_min641,$min641,$property)
+    @if $min961 != null
+        @include  media_dynamic($media_min961,$min961,$property)
+    @if $min1025 != null
+        @include  media_dynamic($media_min1025,$min1025,$property)
+    @if $min1900 != null
+        @include  media_dynamic($media_min1900,$min1900,$property)
+    @else
+
+@mixin media_query_all_im($min320,$min481,$min641,$min961,$min1025,$min1900,$property)
+    @if $min320 != null
+        @include  media_dynamic_im($media_min320,$min320,$property)
+    @if $min481 != null
+        @include  media_dynamic_im($media_min481,$min481,$property)
+    @if $min641 != null
+        @include  media_dynamic_im($media_min641,$min641,$property)
+    @if $min961 != null
+        @include  media_dynamic_im($media_min961,$min961,$property)
+    @if $min1025 != null
+        @include  media_dynamic_im($media_min1025,$min1025,$property)
+    @if $min1900 != null
+        @include  media_dynamic_im($media_min1900,$min1900,$property)
+    @else
+
+@mixin media_dynamic($media,$value,$property)
+    @if $media==$media_min1900
+        @media (min-width: $media_min1281)
+            @if type-of($value) != string
+                #{$property}: rem-medium($value)
+            @else
+                #{$property}: unquote($value)
+        @media (min-width: $media_min1900)
+            @if type-of($value) != string
+                #{$property}: rem($value)
+            @else
+                #{$property}: unquote($value)
+    @else
+        @media (min-width: $media)
+            @if type-of($value) != number
+                #{$property}: unquote($value)
+            @else if type-of($value) == string
+                #{$property}: unquote($value)
+            @else if($value==null)
+            @else
+                #{$property}: rem-medium($value)
+
+@mixin media_dynamic_im($media,$value,$property)
+    @if $media==$media_min1900
+        @media (min-width: $media_min1281)
+            @if type-of($value) != string
+                #{$property}: rem-medium($value) $im
+            @else
+                #{$property}: unquote($value) $im
+        @media (min-width: $media_min1900)
+            @if type-of($value) != string
+                #{$property}: rem($value) $im
+            @else
+                #{$property}: unquote($value) $im
+    @else
+        @media (min-width: $media)
+            @if type-of($value) != number
+                #{$property}: unquote($value) $im
+            @else if type-of($value) == string
+                #{$property}: unquote($value) $im
+            @else if($value==null)
+            @else
+                #{$property}: rem-medium($value) $im
+@mixin res-size($size,$property)
+    @media (min-width: $lg)
+        #{$property}: calc($size/160)*7rem
+    @media (min-width: $xxlg)
+        #{$property}: calc($size/16)*1rem
+
+@mixin res-size-im($size,$property)
+    @media (min-width: $lg)
+        #{$property}: calc($size/160)*7rem $im
+    @media (min-width:$xxlg)
+        #{$property}: calc($size/16)*1rem $im

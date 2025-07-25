@@ -1,0 +1,87 @@
+<div class="modal_content">
+  <div class="form-figure" nz-row [nzGutter]="20">
+    <div class="modal-content" nz-col nzLg="9">
+      <form [formGroup]="basicInformationForm">
+        <nz-form-item>
+          <nz-form-label
+            >Select Document Type
+            <span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              nzPlaceHolder="Document Type"
+              nzSuffixIcon="caret-down"
+              formControlName="document"
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of documentList"
+                [nzValue]="data.documentTypesId"
+                [nzLabel]="data.documentTypesName"
+              ></nz-option>
+            </nz-select>
+            <div nz-row class="img-upload-box">
+              <!-- <img
+                *ngIf="frontAvatarUrl"
+                [src]="frontAvatarUrl"
+                class="img-preview"
+              /> -->
+              <nz-upload
+                [(nzFileList)]="documentFileList"
+                [nzBeforeUpload]="beforeFrontUpload"
+                class="upload"
+                [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+                [nzAccept]="'image/png,image/jpeg,image/gif,image/bmp'"
+                [nzLimit]="1"
+                [nzShowUploadList]="true"
+              >
+                <button nz-button id="frontBtn" class="upload-btn">
+                  <p class="img-upload-para">Document X</p>
+                  <img src="./assets/icons/update.svg" />
+                  <p class="img-upload-para">
+                    Drag and Drop file here to upload
+                  </p>
+                </button>
+              </nz-upload>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+    <div class="mini_table modal_table" nz-col nzLg="15">
+      <nz-table
+        class="table-container"
+        [nzTemplateMode]="true"
+        #basicTable
+        [nzShowPagination]="false"
+      >
+        <thead class="body_tr">
+          <tr>
+            <th>
+              <div class="border-start"><span>DATE</span></div>
+            </th>
+            <th>
+              <div class="border-start"><span>DOCUMENT NAME</span></div>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="border border-start">
+          <tr *ngFor="let data of agentService.documentList">
+            <td>{{ data.lastModifiedDate | date : "yyyy-MM-dd" }}</td>
+            <td>{{ data.name }}</td>
+            <td>
+              <a
+                ><img
+                  class="images"
+                  src="./assets/icons/Close red.svg"
+                  (click)="removeFile(data)"
+              /></a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>

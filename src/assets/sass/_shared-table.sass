@@ -1,0 +1,75 @@
+// Shared table styles for consistent look across the system
+.table-container
+    margin-top: 20px
+    background: #fff
+    border-radius: 8px
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1)
+
+// Table header styles
+.heading_tr th
+    background-color: #fafafa
+    font-weight: 600
+
+.border-start-th,
+.border-middle-th
+    padding: 16px
+    text-transform: uppercase
+    font-size: 12px
+    color: #666
+
+// Table cell styles
+.border-middle
+    padding: 16px
+    font-size: 14px
+
+// Action buttons container
+.btn-section
+    display: flex
+    gap: 10px
+
+// Action button styles
+.action-button 
+    background: transparent
+    border: none
+    cursor: pointer
+    &:hover
+        opacity: 0.8
+    &.view
+        color: #1890ff
+    &.edit
+        color: #52c41a
+    &.delete
+        color: #ff4d4f
+
+// Status indicators
+.status
+    &-passed, &-active, &-completed
+        color: #52c41a
+        font-weight: 500
+    &-failed, &-inactive, &-cancelled
+        color: #ff4d4f
+        font-weight: 500
+    &-pending, &-inprogress, &-waiting
+        color: #faad14
+        font-weight: 500
+
+// Common header section
+.title-bar
+    margin-bottom: 20px
+    .add-button
+        display: flex
+        justify-content: end 
+    .button    
+        height: 42px
+        padding: 0px 10px
+
+// Ant Design overrides
+:host ::ng-deep
+    .ant-input 
+        border-radius: 5px
+    .ant-table-thead > tr > th
+        background: #fafafa
+    .ant-row
+        justify-content: space-between
+    .ant-table
+        background: transparent

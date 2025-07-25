@@ -1,0 +1,101 @@
+<div class="modal-content">
+  <!-- <form nz-form [nzLayout]="'vertical'"> -->
+  <div nz-row [nzGutter]="[16, 16]">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-control nzSpan="">
+          <nz-collapse (click)="view()" nzAccordion>
+            <nz-collapse-panel
+              *ngFor="let panel of panels"
+              [nzHeader]="panel.name"
+              [nzActive]="isActive"
+            >
+            </nz-collapse-panel>
+          </nz-collapse>
+
+          <div *ngIf="isActive === true" class="collapse_list">
+            <div *ngFor="let data of dualPopUpdata">
+              <nz-list nzBordered>
+                <!-- <nz-list-item *ngFor="let data of datas">
+                                    <span nz-typography>
+                                        <mark> {{ data.fullName }}</mark>
+                                    </span>
+                                    {{ data.email }}
+                                </nz-list-item> -->
+
+                <nz-list-item class="table">
+                  <div class="tr">
+                    <div class="td">Customer Full Name:</div>
+                    <div class="td">{{ data.customerFullName }}</div>
+                  </div>
+
+                  <div class="tr">
+                    <div class="td">Customer Email:</div>
+                    <div class="td">{{ data.customerEmail }}</div>
+                  </div>
+
+                  <div class="tr">
+                    <div class="td">Customer Place Of Birth:</div>
+                    <div class="td">{{ data.customerPlaceOfBirth }}</div>
+                  </div>
+
+                  <div class="tr">
+                    <div class="td">Customer Date Of Birth:</div>
+                    <div class="td">{{ data.customerDateOfBirth }}</div>
+                  </div>
+
+                  <div class="tr">
+                    <div class="td">Customer Mobile No:</div>
+                    <div class="td">{{ data.customerMobileNo }}</div>
+                  </div>
+
+                  <div class="tr">
+                    <div class="td">Customer City:</div>
+                    <div class="td">{{ data.customerCity }}</div>
+                  </div>
+
+                  <div class="tr">
+                    <div class="td">Customer Residential Address:</div>
+                    <div class="td">{{ data.customerResidentialAddress }}</div>
+                  </div>
+
+                  <div class="tr">
+                    <div class="td">Customer Telephone No:</div>
+                    <div class="td">{{ data.customerTelephoneNo }}</div>
+                  </div>
+                </nz-list-item>
+              </nz-list>
+
+              <div class="button-section">
+                <div>
+                  <button
+                    class="button"
+                    nz-button
+                    nzType="primary"
+                    (click)="download(data)"
+                    nzBlock
+                  >
+                    Download
+                  </button>
+                </div>
+
+                <div>
+                  <button
+                    class="button"
+                    nz-button
+                    nzType="primary"
+                    (click)="downloadAmlReport(data)"
+                    nzBlock
+                  >
+                    Download AML Report (Credit Safe)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <!-- </form> -->
+</div>

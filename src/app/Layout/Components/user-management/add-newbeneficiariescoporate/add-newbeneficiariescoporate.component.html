@@ -1,0 +1,149 @@
+<form class="form-body" [formGroup]="beceficiarycorporate">
+  <!------------------------------------------------------------------------------------------------->
+  <div class="custome-filter">
+    <div nz-row [nzGutter]="2">
+      <nz-form-item nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-label
+          ><span>Beneficiary Type:</span>
+          <sup
+            ><span
+              nz-icon
+              nzType="info-circle"
+              nzTheme="outline"
+              style="color: #f45300"
+              [nz-tooltip]="
+                !isCoporate
+                  ? 'For corporate beneficiary move the switch to right'
+                  : 'For personal beneficiary move the switch to left'
+              "
+            ></span
+          ></sup>
+        </nz-form-label>
+      </nz-form-item>
+
+      <div class="switch_row">
+        <div nz-col>
+          <p class="switch switch__personal" *ngIf="!isCoporate">Personal</p>
+          <p class="switch switch__personal" *ngIf="isCoporate">Personal</p>
+        </div>
+
+        <div nz-col>
+          <nz-switch nzSize="small" [ngModel]="isCoporate"></nz-switch>
+        </div>
+
+        <div nz-col>
+          <p class="switch switch__coporate" *ngIf="isCoporate">Corporate</p>
+          <p class="switch switch__coporate" *ngIf="!isCoporate">Corporate</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="10">
+    <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="16">
+      <nz-form-item>
+        <nz-form-label>
+          Company Name<span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <input
+            nz-input
+            type="text"
+            placeholder="Company Name"
+            class="modal-input"
+            formControlName="CompanyName"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="3" nzXs="7" nzSm="7" nzMd="24">
+      <nz-form-item>
+        <nz-form-label>code<span class="required-mark">*</span></nz-form-label>
+        <nz-form-control>
+          <nz-select
+            class="modal-dropdown"
+            bindLabel=""
+            nzPlaceHolder="code"
+            nzSuffixIcon="caret-down"
+            nzAllowClear
+            nzShowSearch
+            formControlName="code"
+          >
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="5" nzXs="9" nzSm="9" nzMd="4">
+      <nz-form-item>
+        <nz-form-label
+          >Contact Number<span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            type="text"
+            placeholder="Contact Number"
+            class="modal-input"
+            formControlName="ContactNumber"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="3" nzXs="7" nzSm="7" nzMd="24">
+      <nz-form-item>
+        <nz-form-label>code<span class="required-mark">*</span></nz-form-label>
+        <nz-form-control>
+          <nz-select
+            class="modal-dropdown"
+            bindLabel=""
+            nzPlaceHolder="+44"
+            nzSuffixIcon="caret-down"
+            nzAllowClear
+            nzShowSearch
+            formControlName="code1"
+          >
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="5" nzXs="9" nzSm="9" nzMd="4">
+      <nz-form-item>
+        <nz-form-label
+          >Mobile Number<span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            type="text"
+            placeholder="Mobile  Number"
+            class="modal-input"
+            formControlName="MobileNumber"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!------------------------------------------------------------------------------------------------------------------->
+  <div nz-row [nzGutter]="10">
+    <div nz-col nzLg="16" nzXs="24" nzSm="24" nzMd="16">
+      <nz-form-item>
+        <nz-form-label>
+          Address<span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            type="text"
+            placeholder="Address"
+            class="modal-input"
+            formControlName="Address"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>

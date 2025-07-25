@@ -1,0 +1,22 @@
+@import '../../../../../assets/sass/index'
+
+.button
+    display: flex
+    gap: 10px
+    margin-top: 20px
+
+:host ::ng-deep .ant-picker
+    width: 100%
+    @include media_query_all(35,null,null,null,35,50,"height")
+
+:host ::ng-deep .ant-modal-body
+    padding: 24px
+
+:host ::ng-deep .ant-modal-close
+    color: #FFF
+
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)
+
+:host ::ng-deep .anticon
+    color: #fff

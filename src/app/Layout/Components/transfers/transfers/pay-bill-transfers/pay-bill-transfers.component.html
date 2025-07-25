@@ -1,0 +1,57 @@
+<div class="tab_heading">Pay Bill Transfers</div>
+<nz-table #basicTable [nzData]="TransferDetails" nzShowPagination="false">
+  <thead>
+    <!-- <tr class="heading_tr">
+      <th><div class="border-start-th">DATE</div></th>
+      <th><div class="border-middle-th">REFERENCE NUMBER</div></th>
+      <th>
+        <div class="border-middle-th">SENDER NAME</div>
+      </th>
+      <th><div class="border-middle-th">SENDING AMOUNT</div></th>
+      <th><div class="border-middle-th">PAYING BY</div></th>
+    </tr> -->
+  </thead>
+  <tbody class="body_tr">
+    <!-- <tr *ngFor="let data of basicTable.data">
+      <td>
+        <div class="border-middle">
+          {{ data.transferDate | slice : 0 : 10 }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle">{{ data.paymentReference }}</div>
+      </td>
+      <td>
+        <div class="border-middle">
+          {{ data.customerFirstName }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle">
+          {{ data.sendingAmount }}
+        </div>
+      </td>
+
+      <td>
+        <div class="border-middle">
+          {{ data.paymentModeDto.paymentModeDesc }}
+        </div>
+      </td>
+    </tr> -->
+  </tbody>
+</nz-table>
+<div class="pagination-row">
+  <nz-pagination
+    class="pagination"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="currentPageIndex"
+    [nzTotal]="totalRecords"
+    nzShowQuickJumper
+    [nzShowTotal]="rangeTemplate"
+    (nzPageIndexChange)="pageIndexChange($event)"
+  >
+  </nz-pagination>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <span>{{ range[0] }} of {{ total }} items</span>
+  </ng-template>
+</div>

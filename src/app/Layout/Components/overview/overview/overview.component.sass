@@ -1,0 +1,24 @@
+@import '../../../../../assets/sass/index'
+
+.content
+    .title-bar
+        h1
+            color: #000
+            @include media_query_all(null,null,null,null,null,32,'font-size')
+            font-weight: 700
+
+    .box
+        display: flex
+        gap: 30px
+        @include media_query_all(30,null,null,null,null,30,'padding-top')
+        .info_box
+            @include media_query_all(135,null,null,null,null,135,'height')
+            @include media_query_all(336,null,null,null,null,336,'width')
+            @include media_query_all(30,null,null,null,null,30,'padding-top')
+            @include media_query_all(50,null,null,null,null,50,'padding-left')
+            @include media_query_all(30,null,null,null,null,30,'padding-bottom')
+            @include media_query_all(20,null,null,null,null,20,'padding-right')    
+:host ::ng-deep.content .box .info_box
+    padding-top: 2px !important
+.info_content
+  text-wrap: nowrap 

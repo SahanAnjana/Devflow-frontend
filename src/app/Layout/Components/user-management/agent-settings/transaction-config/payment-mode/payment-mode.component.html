@@ -1,0 +1,48 @@
+<div>
+  <div class="tab_heading">Payment Modes</div>
+
+  <nz-table
+    #paymentModeTable
+    [nzData]="tableData"
+    [nzPageSize]="10"
+    [nzShowPagination]="false"
+    class="modal_table"
+  >
+    <thead>
+      <tr>
+        <th>PAYMENT MODE DESCRIPTION</th>
+        <th>STATUS</th>
+      </tr>
+    </thead>
+    <tbody class="body_tr">
+      <tr *ngFor="let data of paymentModeTable.data">
+        <td>
+          {{ data.paymentModeDto.paymentModeDesc }}
+        </td>
+        <td>
+          <div>
+            <nz-switch
+              [ngModel]="data.paymentModeDto.isActive"
+              nzSize="small"
+              (click)="changeRoleStatus(data)"
+            ></nz-switch>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="pageNumber"
+      [nzTotal]="totalRecords"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<form class="form-figure" [formGroup]="sendEmailForm">
+  <div>
+    <nz-form-item>
+      <nz-form-label
+        >Email Address
+        <span class="required-mark">*</span>
+      </nz-form-label>
+      <nz-form-control>
+        <input
+          nz-input
+          formControlName="mail"
+          readonly
+          style="background: #f2f2f2"
+        />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div>
+    <nz-form-item>
+      <nz-form-label
+        >Subject
+        <span class="required-mark">*</span>
+      </nz-form-label>
+      <nz-form-control>
+        <nz-select
+          class="modal-dropdown"
+          nzSuffixIcon="caret-down"
+          type="text"
+          nzPlaceHolder="Enter Subject"
+          formControlName="subject"
+          nzShowSearch
+        >
+          <nz-option
+            *ngFor="let data of allSubjects"
+            [nzValue]="data.subject"
+            [nzLabel]="data.subject"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div>
+    <nz-form-item>
+      <nz-form-label
+        >Message
+        <span class="required-mark">*</span>
+      </nz-form-label>
+      <nz-form-control>
+        <angular-editor
+          formControlName="message"
+          placeholder="Enter message here..."
+          [config]="editorConfig"
+        ></angular-editor>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</form>
+
+<div class="btn-row">
+  <div>
+    <button class="btn btn__cancel" (click)="closemodal()">cancel</button>
+  </div>
+  <div>
+    <button class="btn btn__next" (click)="sendEmail()">Send</button>
+  </div>
+</div>

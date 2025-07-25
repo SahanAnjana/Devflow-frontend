@@ -1,0 +1,150 @@
+@import '../../../../../../../../assets/sass/index'
+
+.modal-content,
+.form-content
+    padding: 30px
+.table-content
+    padding: 0 30px
+
+::ng-deep .view-cus-trans .ant-input
+    @include media_query_all(35,null,null,null,35,50,"height")
+    @include media_query_all(12,null,null,null,12,16,"font-size")
+    width: 100%
+
+::ng-deep .view-cus-trans .ant-modal-content .ant-modal-close-x
+    // top: 10px
+    position: relative
+
+:host ::ng-deep .ant-select.ant-select-in-form-item:hover
+    border: 1px solid #C4C4C4 !important
+
+::ng-deep .view-cus-trans .ant-picker
+    @include media_query_all(35,null,null,null,35,50,"height")
+    width: 100%
+    background: #fff
+    .anticon
+        color: #a6a3a3
+.img-preview
+    max-height: 150px
+
+// ::ng-deep .view-cus-trans .ant-picker-input > input,
+// ::ng-deep .view-cus-trans .ant-select
+//     font-size: 16px
+
+::ng-deep .view-cus-trans .ant-form-item-label > label
+    font-size: 16px
+    color: #000
+    font-weight: 600
+
+.required-mark
+    color: #FF0D0D
+
+::ng-deep .view-cus-trans .dropdown.ant-select:not(.ant-select-customize-input) .ant-select-selector
+    @include media_query_all_im(45,null,null,null,30,45,"height")
+
+//---------btn section--------------//
+.btn
+    width: 100%
+    @include media_query_all_im(35,null,null,null,35,50,"height")
+    @include media_query_all(12,null,null,null,12,16,"font-size")
+    &__download
+        border-radius: 5px
+        background: #1AA3FF
+    &__cancel
+        width: 100% !important
+        @include media_query_all_im(35,null,null,null,35,50,"height")
+        @include media_query_all_im(12,null,null,null,12,16,"font-size")
+        font-weight: 600
+
+.date
+    background: #F2F2F2
+    border-radius: 3px
+    border: 0.5px solid rgba(0, 0, 0, 0.40)
+
+.dropdown
+    @include media_query_all_im(35,null,null,null,35,50,"height")
+    .anticon
+        color: #a6a3a3
+
+.img-upload-box
+    position: relative
+    width: 100%
+    // height: 150px
+    background: #E0E0E0
+    border-radius: 5px
+    border: 1px solid #BDBDBD
+    /* box-sizing: border-box
+    overflow: hidden
+    display: flex
+    align-items: center
+    justify-content: center
+:host ::ng-deep.ant-upload-span 
+    max-width: 400px
+.img-upload-box .upload-btn .img-upload-icon
+    color: #464646
+    font-size: 54px
+    display: block !important
+    margin-bottom: 8px
+    @include media_query_all('relative','unset',null,null,null,'unset','position')
+    @include media_query_all('unset',0,null,null,null,0,'left')
+    @include media_query_all('unset',0,null,null,null,0,'bottom')
+    @include media_query_all_im(0,8,null,null,null,8,'margin-bottom')
+.img-upload-box .upload-btn .img-upload-para
+    color: rgba(0, 0, 0, 0.50)
+    font-size: 12px
+    line-height: 19px
+    text-align: center
+    letter-spacing: 0.01em
+
+.img-upload-box-enable
+    background: white
+    border: 1px solid #C4C4C4
+
+.img-upload-box .upload-btn
+    border: none
+    margin: 0
+    padding: 0
+    background: none
+    @include media_query_all_im('unset',406,null,null,null,406,'width')
+    @include media_query_all_im(0,150,null,null,null,150,'height')
+
+.modal-img-preview
+    width: 100%
+    height: auto
+    margin-top: 24px
+    object-fit: cover
+
+.view-preview-icon
+    position: absolute
+    top: 10px
+    right: 12px
+    font-size: 20px
+    color: #828282
+    cursor: pointer
+
+.pagination-row
+    margin: 30px 0
+
+////table content
+.table-title-row
+    margin-bottom: 30px
+    .ant-col
+        font-size: 20px
+        color: #000
+        font-weight: 600
+
+.table-row
+    display: flex
+    align-items: center
+    // height: 68px
+    &.heading-row
+        font-size: 16px
+        color: #000
+        font-weight: 600
+        border-radius: 6px 0px 0px 6px
+        background: #FFF8F5
+    &.data-row
+        background: #fff
+        border-radius: 6px 0px 0px 6px
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)

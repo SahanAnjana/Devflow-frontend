@@ -1,0 +1,63 @@
+@import '../../../../../../assets/sass/index'
+
+::ng-deep .view-dual .ant-modal-body
+    padding: 24px
+:host ::ng-deep.ant-collapse-content>.ant-collapse-content-box
+    padding: 0px
+
+.collapse_list
+    margin-top: 42px
+
+:host ::ng-deep.ant-collapse>.ant-collapse-item:hover
+    border: 2px solid $primary-color
+
+:host ::ng-deep.ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header:hover
+    color: $primary-color
+
+:host ::ng-deep.ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header:focus
+    color: $primary-color
+
+.table
+    display: table
+    border-collapse: collapse
+    width: 100%
+.tr
+    display: table-row
+    border: 1px solid rgba(0, 0, 0, 0.40)
+
+    .td
+        display: table-cell
+        padding: 8px
+        border: 1px solid rgba(0, 0, 0, 0.40)
+
+.button-section
+    display: flex
+    gap: 10px
+    margin-top: 20px
+    margin-bottom: 20px
+
+.button
+    border-radius: 5px
+    background: #1AA3FF
+    color: #FFFFFF
+    font-size: 15px
+    line-height: 18px
+    letter-spacing: -0.111px
+
+:host ::ng-deep .view .ant-modal-header
+    height: 60px !important
+
+:host ::ng-deep .view .ant-modal-body
+    padding: 24px
+
+:host ::ng-deep .view .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow svg
+    color: #000
+
+:host ::ng-deep .view .ant-btn-primary
+    border-radius: 5px
+
+:host ::ng-deep .anticon svg
+    color: #000
+
+::ng-deep .view-dual .ant-modal-close
+    color: #fff

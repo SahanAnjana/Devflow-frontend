@@ -1,0 +1,109 @@
+<div class="content">
+  <div nz-col class="right-sec">
+    <div>
+      <a nz-button nzType="link" (click)="viewExistingSubAgent()">
+        <img src="./assets/icons/view_eye.svg" />
+        &nbsp;
+        <u>View Existing Sub Agent </u></a
+      >
+    </div>
+  </div>
+
+  <div class="table-container">
+    <nz-table
+      #basicTable
+      [nzData]="tableDatas"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th>
+            <div class="border-start-th">NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">AGENT NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">EMAIL</div>
+          </th>
+          <th>
+            <div class="border-middle-th">CONTACT NUMBER</div>
+          </th>
+          <th>
+            <div class="border-middle-th">ADDRESS</div>
+          </th>
+          <th>
+            <div class="border-middle-th">REGISTERED DATE</div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let data of basicTable.data">
+          <td>
+            <div class="border-middle">{{ data.name }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.agentName }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ data.email }}
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.contactNumber }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.address }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.registeredDate }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              <div class="border-middle text-color" (click)="sendEmail(data)">
+                Send Mail Again
+              </div>
+            </div>
+          </td>
+          <td>
+            <div
+              (click)="viewVerifyPendingSubAgentById(data)"
+              class="border-middle"
+            >
+              <img class="images" src="./assets/icons/icons8-eye-30.png" />
+            </div>
+          </td>
+
+          <td></td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="currentPageIndex"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      [nzTotal]="total_records"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

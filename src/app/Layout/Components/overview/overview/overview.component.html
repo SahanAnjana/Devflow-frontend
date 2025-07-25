@@ -1,0 +1,24 @@
+<div class="content">
+  <div class="title-bar">
+    <div class="comp_title">Dashboard</div>
+  </div>
+  <div class="box">
+    <div class="info_box">
+      <div class="info_title">Active Users</div>
+      <div class="info_content">
+        {{ usersCount?.count ? usersCount?.count : 0 }} Users
+      </div>
+    </div>
+    <div class="info_box">
+      <div class="info_title">Transactions</div>
+      <div class="info_content">
+        {{
+          transactionCountData?.recordCount
+            ? transactionCountData?.recordCount
+            : 0
+        }}
+        Transactions
+      </div>
+    </div>
+  </div>
+</div>

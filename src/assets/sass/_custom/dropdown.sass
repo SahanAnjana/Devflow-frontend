@@ -1,0 +1,106 @@
+
+@import '../variable'
+::ng-deep .modal-dropdown
+    .ant-select-selector
+        @include media_query_all_im(50,null,null,null,null,50,'height')
+        border-radius: 3px !important
+        align-items: center !important
+        border: 0.5px solid rgba(0, 0, 0, 0.40) !important
+        @include media_query_all_im(16,null,null,null,null,15,'font-size')
+.ant-picker-input>input
+    @include media_query_all(null,null,null,null,null,15,'font-size')
+
+.dropdown
+    display: flex
+    align-items: center
+    border-radius: 5px
+    height: 35px
+    border: 1px solid $input-border
+
+.dropdown.ant-select:not(.ant-select-customize-input) .ant-select-selector
+    border: none
+    border-radius: 5px
+    height: 52px
+    display: flex
+    align-items: center
+    padding: 10px
+    width: 100%
+.modal-dropdown.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector
+    box-shadow: none !important
+    border: 0.5px solid rgba(0, 0, 0, 0.4) !important
+    // border-bottom: 0.5px solid $primary-color !important
+
+.modal-input
+    @include media_query_all_im(50,null,null,null,null,50,'height')
+    border: 0.5px solid rgba(0, 0, 0, 0.40) !important
+    border-radius: 3 !important
+    box-shadow: none !important
+    @include media_query_all_im(16,null,null,null,null,16,'font-size')
+    &:focus
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector
+    display: flex
+    align-items: center
+    border-radius: 5px
+    // height: 35px
+    @include media_query_all_im(50,null,null,null,null,50,'height')
+    border: 0.5px solid rgba(0, 0, 0, 0.4) !important
+    transition: none
+    border-radius: 5px
+
+.get-started-figure .ant-select-single:not(.ant-select-customize-input) .ant-select-selector
+    // height: 35px
+    @include media_query_all_im(50,null,null,null,null,50,'height')
+    background: transparent
+    border-radius: 5px
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector
+    // height: 50px
+    @include media_query_all_im(50,null,null,null,null,50,'height')
+    border: 0.5px solid rgba(0, 0, 0, 0.4) !important
+    border-radius: 5px
+.get-started-figure .ant-select-selection-item
+    display: flex
+    align-items: center
+
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item
+    color: $input-text-color
+    font-size: 14px
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item
+    color: #000
+    font-size: 12px
+    font-family: $font-family
+    display: flex
+    align-items: center
+.ant-select-single .ant-select-selector .ant-select-selection-placeholder
+    // line-height: 50px
+    @include media_query_all_im(50,null,null,null,null,50,'line-height')
+// .ant-select.ant-select-show-arrow.ant-select-focused.ant-select-open .ant-select-arrow
+//     transform: rotate(180deg)
+
+.ant-dropdown-trigger
+    border-radius: 5px
+    border: 1px solid $input-border
+    // height: 52px
+    @include media_query_all_im(50,null,null,null,null,50,'height')
+    width: 304px
+
+.ant-dropdown-trigger .ant-dropdown-link
+    width: 305px
+    // height: 35px
+    @include media_query_all_im(50,null,null,null,null,50,'height')
+    
+
+.ant-select-single.ant-select-show-arrow .ant-select-selection-search
+    right: 25px
+    // position: absolute
+    top: 0
+    right: 11px
+    bottom: 0
+    left: 11px
+    display: flex
+    align-items: center
+    border-color: none
+    box-shadow: none
+.ant-select.ant-select-in-form-item
+    &:hover
+        border: none !important
+        box-shadow: none !important

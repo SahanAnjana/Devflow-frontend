@@ -1,0 +1,137 @@
+<div class="modal_content">
+  <div class="input-sec">
+    <form
+      nz-form
+      [formGroup]="subAgentForm"
+      [nzAutoTips]="autoTips"
+      class="form-figure"
+    >
+      <div nz-row class="row1" [nzGutter]="10">
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Sub Agent Name
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="subAgentName" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Agent Name <span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input nz-input formControlName="agentName" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Sub Agent Reference
+              <span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input nz-input formControlName="reference" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <!--------------------------------------------------------------------------------------------------------->
+      <div nz-row class="row1" [nzGutter]="10">
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Email
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="email" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Address <span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input nz-input formControlName="address" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Registered Date
+              <span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input nz-input formControlName="regDate" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <!--------------------------------------------------------------------------------------------------------->
+
+      <div nz-row class="row1" [nzGutter]="10">
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Primary Contact Number
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="primaryConNo" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Secondary Contact Number
+              <span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input nz-input formControlName="secondaryConNo" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Base Country <span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input nz-input formControlName="baseCountry" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row class="row1" [nzGutter]="10">
+        <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Base Currency
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="baseCurrency" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

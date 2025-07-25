@@ -1,0 +1,84 @@
+<div nz-row class="title-bar">
+  <div nz-col [nzSpan]="12">
+    <div class="comp_title">Role Management</div>
+  </div>
+</div>
+
+<div class="table-container">
+  <div nz-col nzSpan="12">
+    <div class="heading2">Role Details List</div>
+  </div>
+  <div>
+    <button class="btn transfer_button" (click)="addNewRole()">
+      Add New Role
+    </button>
+  </div>
+
+  <nz-table
+    #basicTable
+    [nzPageSize]="50"
+    [nzShowPagination]="false"
+    [nzData]="roleManagemnetDetails"
+  >
+    <thead>
+      <tr class="heading_tr">
+        <th>
+          <div class="border-start-th">ROLE NAME</div>
+        </th>
+        <th>
+          <div class="border-middle-th">ROLE DESCRIPTION</div>
+        </th>
+        <th>
+          <div class="border-middle-th">STATUS</div>
+        </th>
+        <th>
+          <div class="border-middle-th"></div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="body_tr">
+      <tr *ngFor="let data of basicTable.data">
+        <td>
+          <div class="border-middle">{{ data.roleName }}</div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data.roleDescription }}</div>
+        </td>
+        <td>
+          <div class="border-middle">
+            <nz-switch
+              [(ngModel)]="data.isActive"
+              nzSize="small"
+              (click)="changeRoleStatus(data)"
+            ></nz-switch>
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">
+            <img
+              class="images"
+              (click)="coreAdmin('view', data)"
+              src="./assets/icons/ic_baseline-settings.svg"
+            />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="pagination-row">
+  <nz-pagination
+    class="pagination"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="currentPageIndex"
+    [nzTotal]="totalRecords"
+    nzShowQuickJumper
+    [nzShowTotal]="rangeTemplate"
+    (nzPageIndexChange)="pageIndexChange($event)"
+  >
+  </nz-pagination>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <span>{{ range[0] }} of {{ total }} items</span>
+  </ng-template>
+</div>

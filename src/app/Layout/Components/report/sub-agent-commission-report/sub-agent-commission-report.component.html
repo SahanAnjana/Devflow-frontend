@@ -1,0 +1,221 @@
+<div>
+  <div nz-row [nzGutter]="12" class="filter-btn-bar">
+    <div nz-col nzSpan="1">
+      <span class="filter-txt">Filter by:</span>
+    </div>
+    <!-- --------------filter Agent Name-------------------
+---------------------------------------------------- -->
+    <div nz-col class="tab_button">
+      <ng-container>
+        <button
+          nz-button
+          nz-dropdown
+          class="dropdown"
+          [nzDropdownMenu]="menu9"
+          nzPlacement="bottomCenter"
+          [nzClickHide]="false"
+          nzTrigger="click"
+          [ngClass]="{ filterActive: filterByAgentExposableIdOn === true }"
+        >
+          Agent Name
+        </button>
+        <nz-dropdown-menu #menu9="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>
+              <nz-select
+                class="dropdown"
+                items="agentData"
+                nzSuffixIcon="caret-down"
+                bindLabel="agentName"
+                [(ngModel)]="agentExposableIdResult"
+                nzPlaceHolder="Select Agent"
+                nzShowSearch
+              ></nz-select>
+            </li>
+            <li nz-menu-item class="btn__section">
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="resetFilterByresetFilterByAgentExposableId()"
+              >
+                Reset
+              </button>
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="filterByAgentExposableId()"
+              >
+                Save
+              </button>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<nz-table
+  class="desktop_only"
+  #existingCustomersTable
+  [nzPageSize]="10"
+  [nzShowPagination]="false"
+  [nzScroll]="{ x: 'auto' }"
+>
+  <thead>
+    <tr class="heading_tr">
+      <th nzCustomFilter>
+        <div class="border-start-th">TRANSACTION DATE</div>
+      </th>
+      <th>
+        <div class="border-middle-th">SUB AGENT NAME</div>
+      </th>
+      <th nzCustomFilter>
+        <div class="border-middle-th">SENDER NAME</div>
+      </th>
+      <th nzCustomFilter>
+        <div class="border-middle-th">TRANSACTION REFERENCE NUMBER</div>
+      </th>
+      <th>
+        <div class="border-middle-th">SENDING AMOUNT</div>
+      </th>
+      <th nzCustomFilter>
+        <div class="border-middle-th">RECEIVED AMOUNT</div>
+      </th>
+      <th>
+        <div class="border-middle-th">AGENT FEE</div>
+      </th>
+      <th>
+        <div class="border-middle-th">SUB AGENT FEE</div>
+      </th>
+      <th>
+        <div class="border-middle-th">COMMISSION</div>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody class="body_tr">
+    <tr>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<div class="mobile_only">
+  <div class="table-card">
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>TRANSACTION DATE</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>SUB AGENT NAME</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>SENDER NAME</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>TRANSACTION REFERENCE NUMBER</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>SENDING AMOUNT</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>RECEIVED AMOUNT</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>AGENT FEE</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>SUB AGENT FEE</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>COMMISSION</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pagination-row">
+  <nz-pagination
+    class="pagination"
+    [nzPageSize]=""
+    [nzPageIndex]=""
+    [nzTotal]=""
+    nzShowQuickJumper
+    [nzShowTotal]="rangeTemplate"
+  >
+  </nz-pagination>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <span>{{ range[0] }} of {{ total }} items</span>
+  </ng-template>
+</div>
+
+-

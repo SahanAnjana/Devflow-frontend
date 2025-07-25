@@ -1,0 +1,127 @@
+<div nz-row class="title-bar">
+  <div nz-col [nzSpan]="8">
+    <input nz-input placeholder="Search" />
+  </div>
+
+  <div nz-col [nzSpan]="12" class="add-button">
+    <button class="btn button" (click)="addNewCommunication('create')">
+      Add New project
+    </button>
+  </div>
+</div>
+
+<div class="table-container">
+  <nz-table
+    #basicTable
+    [nzData]="allCommunications"
+    [nzPageSize]="50"
+    [nzShowPagination]="false"
+  >
+    <thead>
+      <tr class="heading_tr">
+        <th><div class="border-start-th">NAME</div></th>
+        <th><div class="border-start-th">DESCRIPTION</div></th>
+        <th><div class="border-middle-th">START DATE</div></th>
+        <th>
+          <div class="border-middle-th">END DATE</div>
+        </th>
+
+        <th><div class="border-middle-th"></div></th>
+      </tr>
+    </thead>
+
+    <tbody class="body_tr">
+      <tr *ngFor="let data of basicTable.data">
+        <td>
+          <div class="border-middle">{{ data?.name }}</div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data?.description }}</div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data?.created_at }}</div>
+        </td>
+        <td>
+          <div class="border-middle">
+            {{ data?.updated_at }}
+          </div>
+        </td>
+
+        <td>
+          <div class="border-middle btn-section">
+            <button
+              class="action-button view"
+              title="View"
+              (click)="viewCommunication(data)"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+            <button
+              class="action-button edit"
+              title="Edit"
+              (click)="editCommunication(data, 'edit')"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            </button>
+            <button
+              class="action-button delete"
+              title="Delete"
+              (click)="deleteCommunication(data)"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3,6 5,6 21,6" />
+                <path
+                  d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                />
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="pagination-row">
+  <nz-pagination
+    class="pagination"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="currentPageIndex"
+    (nzPageIndexChange)="pageIndexChange($event)"
+    [nzTotal]="totalRecord"
+    nzShowQuickJumper
+    [nzShowTotal]="rangeTemplate"
+  >
+  </nz-pagination>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <span>{{ range[0] }} of {{ total }} items</span>
+  </ng-template>
+</div>

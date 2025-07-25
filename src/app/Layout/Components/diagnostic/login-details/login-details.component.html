@@ -1,0 +1,130 @@
+<div class="heading2">Login details</div>
+<div class="content">
+  <div nz-row [nzGutter]="10" class="filter-section">
+    <div class="filter-row filter-row2">
+      <span class="filter-txt">Filter by:</span>
+      <div class="filter-inputs filter3">
+        <button
+          nz-dropdown
+          [nzDropdownMenu]="menu1"
+          nzPlacement="bottomCenter"
+          [nzClickHide]="false"
+          nzTrigger="click"
+          class="filter_btn"
+        >
+          User Name
+        </button>
+        <nz-dropdown-menu #menu1="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>
+              <div class="amount-select">
+                <input
+                  nz-input
+                  placeholder="Enter User Name"
+                  class="start-amount"
+                  [(ngModel)]="username"
+                />
+              </div>
+            </li>
+            <li nz-menu-item class="btn__section">
+              <button nz-button class="btn btn__high_orange" (click)="reset()">
+                Reset
+              </button>
+              <button
+                nz-button
+                class="btn btn__high_orange"
+                (click)="flterSection($event)"
+              >
+                Save
+              </button>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <nz-table
+      #basicTable
+      [nzData]="loginDetaisTable"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th>
+            <div class="border-start-th">USER NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">USER IP</div>
+          </th>
+          <th>
+            <div class="border-middle-th">LOGIN DATE</div>
+          </th>
+          <th>
+            <div class="border-middle-th">LOGIN TIME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">SUCCESS LOGIN</div>
+          </th>
+          <th>
+            <div class="border-middle-th">INVALID LOGIN</div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let data of basicTable.data">
+          <td>
+            <div class="border-middle">{{ data.username }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.userIp }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ data.loginDate }}
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ data.loginTime }}
+            </div>
+          </td>
+
+          <td>
+            <div class="border-middle" *ngIf="data">
+              <nz-switch
+                [nzDisabled]="true"
+                class="switch-middle ms-2"
+                [(ngModel)]="data.isSuccess"
+                (ngModelChange)="onSwitchChange($event)"
+              >
+              </nz-switch>
+            </div>
+          </td>
+
+          <td>
+            <div class="border-middle">{{ data.invalidLoginCount }}</div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="currentPageIndex"
+      [nzTotal]="totalRecords"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

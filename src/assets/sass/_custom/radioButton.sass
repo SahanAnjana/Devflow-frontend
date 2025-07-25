@@ -1,0 +1,16 @@
+@import  '../variable'
+
+.ant-radio-inner::after
+  background-color: $radio-button-color
+
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio-input:focus + .ant-radio-inner,
+.ant-radio-checked .ant-radio-inner,
+.ant-radio-inner:focus-visible::after
+  border-color: $gray-color
+  box-shadow: none
+
+.ant-radio-checked::after
+  animation: none
+  border-color: $gray-color

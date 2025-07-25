@@ -1,0 +1,39 @@
+@import '../../../../../../assets/sass/index'
+.btn-row
+    display: flex
+    gap: 20px
+
+::ng-deep .view-send-email .ant-modal-close
+    color: #fff
+
+// ::ng-deep .view-send-email .ant-form-item-control-input-content
+//     height: 52px  
+
+::ng-deep .view-send-email .ant-input
+    // height: 52px 
+    @include media_query_all_im(52,null,null,null,null,52,"height") 
+
+::ng-deep .view-send-email .dropdown.ant-select:not(.ant-select-customize-input) .ant-select-selector
+    height: 34px
+    &:hover
+        border: 0.5px solid #C4C4C4 !important 
+
+.dropdown    
+    height: 36px
+    &:hover
+        border: 0.5px solid #C4C4C4 !important
+
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)    
+
+:host ::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-placeholder 
+    display: block   
+
+
+.ancor_text
+    a
+        display: flex
+        justify-content: end
+        color: #f45300
+        padding-bottom: 20px
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')

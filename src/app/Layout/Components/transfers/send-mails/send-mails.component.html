@@ -1,0 +1,190 @@
+<div class="modal_content">
+  <form class="form-figure send_mail_form" [formGroup]="sendEmail">
+    <!-- <div nz-row [nzGutter]="10">
+        <div nz-col nzLg="24">
+          <nz-form-item>
+            <nz-form-label
+              >Agent Name
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                class="modal-dropdown"
+                bindLabel=""
+                nzPlaceHolder="Select Agent"
+                nzSuffixIcon="caret-down"
+                nzAllowClear
+                formControlName="selectAgent"
+              >
+                <nz-option nzValue="Agent 01" nzLabel="Agent 01"></nz-option>
+                <nz-option nzValue="Agent 02" nzLabel="Agent 02"></nz-option>
+                <nz-option nzValue="Agent 03" nzLabel="Agent 03"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div> -->
+
+    <!-- <div class="ancor_text" *ngIf="viewTable">
+        <a (click)="selectAll()">Unselect All</a>
+      </div>
+      <div class="ancor_text" *ngIf="!viewTable">
+        <a (click)="selectAll()">Select All</a>
+      </div> -->
+    <!-- <nz-table class="modal_table" *ngIf="viewTable">
+        <thead>
+          <tr nz-row>
+            <th nz-col nzLg="7">CUSTOMER NAME</th>
+            <th nz-col nzLg="7">AGENT NAME</th>
+            <th nz-col nzLg="7">EMAIL</th>
+            <th nz-col nzLg="3">PAYING</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr nz-row>
+            <td nz-col nzLg="7">Test Customer</td>
+            <td nz-col nzLg="7">Test Agent</td>
+            <td nz-col nzLg="7">Test Email</td>
+            <td nz-col nzLg="3">
+              <a><img class="images" src="./assets/icons/Close red.svg" /></a>
+            </td>
+          </tr>
+          <tr nz-row>
+            <td nz-col nzLg="7">Test Customer</td>
+            <td nz-col nzLg="7">Test Agent</td>
+            <td nz-col nzLg="7">Test Email</td>
+            <td nz-col nzLg="3">
+              <a><img class="images" src="./assets/icons/Close red.svg" /></a>
+            </td>
+          </tr>
+          <tr nz-row>
+            <td nz-col nzLg="7">Test Customer</td>
+            <td nz-col nzLg="7">Test Agent</td>
+            <td nz-col nzLg="7">Test Email</td>
+            <td nz-col nzLg="3">
+              <a><img class="images" src="./assets/icons/Close red.svg" /></a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table> -->
+    <div class="form-figure">
+      <!-- <div nz-row [nzGutter]="10" class="sec2"> -->
+      <!-- <div nz-col nzLg="12">
+            <nz-form-item>
+              <nz-form-label
+                >Agent Customers
+                <span class="required-mark">*</span>
+              </nz-form-label>
+              <nz-form-control>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                  <input
+                    nz-input
+                    type="text"
+                    placeholder="Search Sender"
+                    formControlName="agentCustomers"
+                  />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                  <span nz-icon nzType="search"></span>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div> -->
+      <!-- <div nz-col nzLg="6">
+            <nz-form-item>
+              <nz-form-label>Add New E-Mail</nz-form-label>
+              <nz-form-control>
+                <input
+                  nz-input
+                  type="text"
+                  placeholder="Name"
+                  class="modal-input"
+                  formControlName="addNewEmail"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div> -->
+      <!-- <div nz-col nzLg="6">
+            <button class="btn_blue">Add Customer</button>
+          </div> -->
+      <!-- </div> -->
+      <div nz-row [nzGutter]="10">
+        <div nz-col nzLg="24">
+          <nz-form-item>
+            <nz-form-label
+              >Email Address<span class="required-mark">*</span></nz-form-label
+            >
+
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Enter New Email Address"
+                class="modal-input"
+                formControlName="sentBy"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="10">
+        <div nz-col nzLg="24">
+          <nz-form-item>
+            <nz-form-label
+              >Subject <span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <!-- <input
+                  nz-input
+                  type="text"
+                  placeholder="Enter Email Subject"
+                  class="modal-input"
+                  formControlName="subject"
+                /> -->
+              <nz-select
+                class="modal-dropdown"
+                nzSuffixIcon="caret-down"
+                bindLabel=""
+                nzPlaceHolder="Subject"
+                nzShowSearch
+                nzSuffixIcon="caret-down"
+                formControlName="subject"
+                nzAllowClear
+              >
+                <nz-option
+                  *ngFor="let data of emailSubjectDetails"
+                  [nzValue]="data.subject"
+                  [nzLabel]="data.subject"
+                >
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div>
+        <nz-form-item>
+          <nz-form-label
+            >Message
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <angular-editor
+              placeholder="Enter message here..."
+              [config]="editorConfig"
+              formControlName="mailBody"
+            ></angular-editor>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="btn_row">
+      <div>
+        <button class="btn btn__next" (click)="close()">Cancel</button>
+      </div>
+      <div>
+        <button class="btn btn__cancel" (click)="SendMails()">Send</button>
+      </div>
+    </div>
+  </form>
+</div>

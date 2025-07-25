@@ -1,0 +1,134 @@
+<div class="form-container">
+  <form [formGroup]="resourcesForm">
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Name
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="name"
+              class="modal-input"
+              placeholder="name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >email <span class="required-mark">*</span></nz-form-label
+          >
+          <input
+            nz-input
+            formControlName="email"
+            class="modal-input"
+            placeholder="email"
+          />
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Phone Number
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="phone"
+              class="modal-input"
+              placeholder="phone"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Description <span class="required-mark">*</span></nz-form-label
+          >
+          <input
+            nz-input
+            formControlName="description"
+            class="modal-input"
+            placeholder="description"
+          />
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Cost Rate<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              type="number"
+              formControlName="cost_rate"
+              class="modal-input"
+              placeholder="cost rate"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Availability<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              type="number"
+              formControlName="availability"
+              class="modal-input"
+              placeholder="availability"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Type<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="type"
+              class="modal-input"
+              placeholder="type"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <button
+        nz-col
+        nzLg="6"
+        nzXs="6"
+        nzSm="6"
+        nzMd="6"
+        nz-button
+        class="btn btn__high_orange"
+        *ngIf="index !== 'view'"
+        (click)="index === 'edit' ? updateResources() : createNewresource()"
+      >
+        {{ index === "edit" ? "Update Resource" : "Add Resource" }}
+      </button>
+    </div>
+  </form>
+</div>

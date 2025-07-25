@@ -1,0 +1,184 @@
+<form class="form-figure" [formGroup]="basicInformationForm">
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Company Name
+          <span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="Enter Company Name"
+            formControlName="agentCompanyName"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Registration Number
+          <span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <input
+            nz-input
+            formControlName="agentRegNumber"
+            placeholder="Enter Registration Number"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Agent Name <span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <input
+            nz-input
+            formControlName="agentName"
+            placeholder="Enter Agent Name"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <!--------------------------------------------------------------------------------------------------------->
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Agent Reference
+          <span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            formControlName="agentRefNumber"
+            placeholder="Enter Agent Reference"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Email Address <span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <input
+            nz-input
+            formControlName="agentEmail"
+            placeholder="Enter Email Address"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Registered Address
+          <span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <input
+            nz-input
+            formControlName="agentAddress"
+            placeholder="Enter Registered Address"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!--------------------------------------------------------------------------------------------------------->
+
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Primary Contact Number
+          <span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            formControlName="agentPrimaryContactNo"
+            placeholder="Enter Primary Contact Number"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Secondary Contact Number
+          <span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <input
+            nz-input
+            formControlName="agentSecondaryContactNo"
+            placeholder="Enter Secondary Contact Number"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Base Country <span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <nz-select
+            class="modal-dropdown"
+            nzPlaceHolder="Select Country"
+            formControlName="agentBaseCountryId"
+            nzSuffixIcon="caret-down"
+            nzShowSearch
+          >
+            <nz-option
+              *ngFor="let data of countryList"
+              [nzValue]="data.countryId"
+              [nzLabel]="data.countryName"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Base Currency
+          <span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <nz-select
+            class="modal-dropdown"
+            nzPlaceHolder="Select Currency"
+            formControlName="agentBaseCurrencyId"
+            nzSuffixIcon="caret-down"
+            nzShowSearch
+          >
+            <nz-option
+              *ngFor="let data of currencyList"
+              [nzValue]="data.clientCurrencyId"
+              [nzLabel]="data.currencyCode + '-' + data.currencyName"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>

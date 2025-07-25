@@ -1,0 +1,52 @@
+@import '../../../../../../assets/sass/index.sass'
+
+::ng-deep .aml-update .ant-modal-content
+    // width: 530px
+    @include media_query_all_im(450,null,null,null,450,530,"width")
+
+::ng-deep .aml-update .ant-modal-header
+    border-radius: 6px 6px 0px 0px
+    background: #F45300
+
+::ng-deep .aml-update .ant-modal-title
+    color: #fff
+    font-weight: 600
+    font-size: 20px
+
+// ::ng-deep .aml-update .ant-modal-close
+//     color: #fff
+
+::ng-deep .aml-update .ant-modal-body
+    // padding: 40px
+    @include media_query_all(25,null,null,null,25,40,"padding")
+    @include media_query_all(12,null,null,null,12,16,"font-size")
+    // font-size: 16px
+
+::ng-deep .aml-update .ant-picker
+    width: 100%
+    // height: 50px
+    @include media_query_all(35,null,null,null,35,50,"height")
+    border-radius: 3px
+    border: 0.5px solid rgba(0, 0, 0, 0.40)
+    background: #FFF
+::ng-deep .aml-update .ant-picker-suffix
+    color: rgba(0, 0, 0, 0.50)
+.btn
+    &__cancel
+        width: 100% !important
+        // height: 50px !important
+        @include media_query_all_im(35,null,null,null,35,50,"height")
+    &__high_orange
+        width: 100% !important
+        // height: 50px !important
+        @include media_query_all_im(35,null,null,null,35,50,"height")
+        font-size: 11px
+:host ::ng-deep .anticon svg
+    color: #000
+ 
+
+::ng-deep .aml-update .ant-modal-close
+    color: #fff    
+
+.required-mark 
+    color: #FF0D0D

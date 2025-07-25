@@ -1,0 +1,38 @@
+<form>
+  <app-add-newbeneficiaries
+    *ngIf="step == 1"
+    (Gonext)="next()"
+  ></app-add-newbeneficiaries>
+  <app-add-newbeneficiariespersonal
+    (Gonext)="next()"
+    *ngIf="step == 2"
+  ></app-add-newbeneficiariespersonal>
+  <!-- <app-add-newbeneficiariescoporate
+    *ngIf="step == 3"
+  ></app-add-newbeneficiariescoporate> -->
+  <app-add-newbeneficiariessave
+    *ngIf="step == 3"
+  ></app-add-newbeneficiariessave>
+</form>
+
+<div class="btn_row">
+  <div *ngIf="step != 1">
+    <button class="btn btn__goback" (click)="prev()">Go Back</button>
+  </div>
+  <div *ngIf="step == 1">
+    <button class="btn btn__goback" (click)="backClose()">Go Back</button>
+  </div>
+
+  <div *ngIf="step == 1">
+    <button class="btn btn__next" (click)="blaaa()">Next</button>
+  </div>
+
+  <div *ngIf="step == 2">
+    <button class="btn btn__next" (click)="bla()">Next</button>
+  </div>
+
+  <div *ngIf="step == 3">
+    <button class="btn btn__next" (click)="close()">Save Beneficiary</button>
+  </div>
+</div>
+<!------------------------------------------------------------------------------------------------------------>

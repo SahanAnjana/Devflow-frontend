@@ -1,0 +1,37 @@
+@import '../../../../../../assets/sass/index'
+
+::ng-deep .view-cus-trans .ant-modal-body
+    padding: 0 !important
+
+:host ::ng-deep .ant-modal
+    width: 1012px
+
+::ng-deep .view-cus-trans .ant-tabs > .ant-tabs-nav
+    background: #F45300
+    padding: 15px 30px
+
+:host::ng-deep .ant-tabs-ink-bar
+    background: #F45300
+    border-bottom: 2px solid #FFF
+    // height: 3px
+
+::ng-deep .view-cus-trans .ant-modal-close
+    color: #fff
+
+::ng-deep .view-cus-trans .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn
+    color: #fff
+    // font-size: 20px
+    @include media_query_all_im(16,null,null,null,16,20,"font-size")
+    font-weight: 700
+
+::ng-deep .view-cus-trans .ant-tabs-tab-btn
+    color: #fff
+    @include media_query_all_im(16,null,null,null,16,20,"font-size")
+    font-weight: 700
+
+::ng-deep .view-cus-trans .ant-tabs-ink-bar
+    background: #fff
+    height: 3px
+
+:host ::ng-deep .ant-select.ant-select-in-form-item:hover
+    border: 1px solid #C4C4C4 !important

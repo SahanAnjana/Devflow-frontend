@@ -1,0 +1,85 @@
+<div class="content">
+  <div nz-col class="right-sec">
+    <div>
+      <a nz-button nzType="link" (click)="userManagement()">
+        <img src="./assets/icons/view_eye.svg" />
+        &nbsp;
+        <u>View Existing Affliate</u></a
+      >
+    </div>
+  </div>
+  <div class="table-container">
+    <nz-table
+      #basicTable
+      [nzData]="AllData"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th>
+            <div class="border-start-th">NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">AFFILIATE NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">EMAIL</div>
+          </th>
+          <th>
+            <div class="border-middle-th">CONTACT NUMBER</div>
+          </th>
+          <th>
+            <div class="border-middle-th">ADDRESS</div>
+          </th>
+          <th>
+            <div class="border-middle-th">REGISTERED DATE</div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let data of basicTable.data">
+          <td>
+            <div class="border-middle">{{ data.name }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.agentName }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ data.email }}
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.contactNumber }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.address }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ data.registeredDate }}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="1"
+      [nzTotal]="totalRecords"
+      [nzPageIndex]="currentPageIndex"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

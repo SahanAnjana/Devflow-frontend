@@ -1,0 +1,90 @@
+<div class="heading2">Customer Dual Registration</div>
+<div class="content">
+  <div class="table-container">
+    <nz-table
+      #basicTable
+      [nzData]="dualRegistrationData"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th>
+            <div class="border-start-th">DATE OF BIRTH</div>
+          </th>
+          <th>
+            <div class="border-middle-th">BIRTH OF PLACE</div>
+          </th>
+          <th>
+            <div class="border-middle-th">NO OF DUAL REGISTERED</div>
+          </th>
+          <th>
+            <div class="border-middle-th">SENDER NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">AGENT NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let data of basicTable.data">
+          <td>
+            <div class="border-middle">
+              {{ data.dateOfBirth | date : "yyyy-MM-dd" }}
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.placeOfBirth }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ data.noOfDualRegistered }}
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.senderName }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              <div class="border-middle">{{ data.agentName }}</div>
+            </div>
+          </td>
+
+          <td>
+            <div (click)="view(data)" class="border-middle">
+              <img class="images" src="./assets/icons/icons8-eye-30.png" />
+            </div>
+          </td>
+
+          <td>
+            <div class="border-middle" (click)="deleteDataRow(data.dualRegId)">
+              <img class="images" src="./assets/icons/cross-type1.svg" />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="currentPageIndex"
+      [nzTotal]="totalRecords"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

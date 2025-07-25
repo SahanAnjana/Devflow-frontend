@@ -1,0 +1,169 @@
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <div class="header-left">
+      <h1>HR Dashboard</h1>
+      <p class="subtitle">Overview and Key Metrics</p>
+    </div>
+    <div class="header-right">
+      <button nz-button nzType="primary">
+        <i nz-icon nzType="plus"></i>Add Employee
+      </button>
+    </div>
+  </div>
+
+  <!-- Quick Stats Cards -->
+  <div class="stats-container">
+    <nz-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-icon" style="background: rgba(24, 144, 255, 0.1)">
+          <i nz-icon nzType="team" style="color: #1890ff"></i>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Total Employees</p>
+          <h2 class="stat-value">147</h2>
+          <p class="stat-trend up">
+            <i nz-icon nzType="arrow-up"></i> 12% vs last month
+          </p>
+        </div>
+      </div>
+    </nz-card>
+
+    <nz-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-icon" style="background: rgba(82, 196, 26, 0.1)">
+          <i nz-icon nzType="user-add" style="color: #52c41a"></i>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">New Hires</p>
+          <h2 class="stat-value">24</h2>
+          <p class="stat-trend up">
+            <i nz-icon nzType="arrow-up"></i> 8% vs last month
+          </p>
+        </div>
+      </div>
+    </nz-card>
+
+    <nz-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-icon" style="background: rgba(250, 173, 20, 0.1)">
+          <i nz-icon nzType="dashboard" style="color: #faad14"></i>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Time to Hire</p>
+          <h2 class="stat-value">18 days</h2>
+          <p class="stat-trend down">
+            <i nz-icon nzType="arrow-down"></i> 5% vs last month
+          </p>
+        </div>
+      </div>
+    </nz-card>
+
+    <nz-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-icon" style="background: rgba(245, 34, 45, 0.1)">
+          <i nz-icon nzType="interaction" style="color: #f5222d"></i>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Turnover Rate</p>
+          <h2 class="stat-value">4.2%</h2>
+          <p class="stat-trend down">
+            <i nz-icon nzType="arrow-down"></i> 2% vs last month
+          </p>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Department Distribution -->
+    <div class="content-section">
+      <nz-card class="chart-card" [nzTitle]="'Department Distribution'">
+        <div class="chart-container">
+          <!-- Add department chart here -->
+          <canvas id="departmentChart"></canvas>
+        </div>
+      </nz-card>
+    </div>
+
+    <!-- Recent Activities and Employee List -->
+    <div class="content-section grid-2">
+      <!-- Recent Activities -->
+      <nz-card [nzTitle]="'Recent Activities'">
+        <nz-list
+          [nzDataSource]="recentActivities"
+          [nzRenderItem]="activityItem"
+        >
+          <ng-template #activityItem let-item>
+            <nz-list-item>
+              <div class="activity-item">
+                <nz-avatar
+                  [nzIcon]="item.icon"
+                  [ngStyle]="{ 'background-color': item.color }"
+                ></nz-avatar>
+                <div class="activity-details">
+                  <div class="activity-title">{{ item.title }}</div>
+                  <div class="activity-time">{{ item.time }}</div>
+                </div>
+              </div>
+            </nz-list-item>
+          </ng-template>
+        </nz-list>
+      </nz-card>
+
+      <!-- Upcoming Reviews -->
+      <nz-card [nzTitle]="'Upcoming Reviews'">
+        <nz-table
+          #reviewTable
+          [nzData]="upcomingReviews"
+          [nzShowPagination]="false"
+        >
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th>Department</th>
+              <th>Review Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let review of reviewTable.data">
+              <td>
+                <div class="employee-info">
+                  <nz-avatar [nzText]="review.employeeInitials"></nz-avatar>
+                  <span>{{ review.employeeName }}</span>
+                </div>
+              </td>
+              <td>{{ review.department }}</td>
+              <td>{{ review.date }}</td>
+              <td>
+                <!-- <nz-tag [nzColor]="review.statusColor">{{
+                  review.status
+                }}</nz-tag> -->
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </div>
+
+    <!-- Recruitment Pipeline -->
+    <div class="content-section">
+      <nz-card [nzTitle]="'Recruitment Pipeline'">
+        <nz-steps [nzCurrent]="1">
+          <nz-step nzTitle="Applications" [nzDescription]="'32 new'"></nz-step>
+          <nz-step
+            nzTitle="Screening"
+            [nzDescription]="'12 candidates'"
+          ></nz-step>
+          <nz-step
+            nzTitle="Interviews"
+            [nzDescription]="'8 scheduled'"
+          ></nz-step>
+          <nz-step nzTitle="Offers" [nzDescription]="'3 pending'"></nz-step>
+        </nz-steps>
+      </nz-card>
+    </div>
+  </div>
+</div>

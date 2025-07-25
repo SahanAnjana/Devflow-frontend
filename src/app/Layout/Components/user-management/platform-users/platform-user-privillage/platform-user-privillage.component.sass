@@ -1,0 +1,87 @@
+@import '../../../../../../assets/sass/index'
+
+// .ant-input:placeholder-shown
+//     border: none
+//     border-bottom: 1px solid #000000 !important
+//     border-radius: 0px !important
+.btn-row
+    display: flex
+    gap: 20px
+
+.row-align
+    display: flex
+    // flex-wrap: nowrap
+    font-size: 10px
+    padding-bottom: 30px
+    margin-right: 10px
+    // padding-right: 5px
+
+.ant-switch
+    // background-image: none
+    background-color: #F45300
+    // padding-left: 0
+
+    border-color: #F45300
+
+::ng-deep .view-modal-privillage .ant-modal-close
+    color: #fff    
+::ng-deep .view-modal-privillage .ant-select
+    width: 100%
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) 
+    // border: 0.3px solid rgba(0, 0, 0, 0.50) 
+
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)
+
+.dropdown
+    height:35px
+        
+:host ::ng-deep .ant-select:not(.ant-select-customize-input) .ant-select-selector
+    height:33px
+
+.modal-dropdown .ant-select-selector
+    border: none !important
+    border-radius: 5px
+
+:host ::ng-deep.ant-select:not(.ant-select-customize-input) .ant-select-selector
+    border: none
+
+:host ::ng-deep .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector 
+    height:35px  
+    // border-bottom: 1px solid#d9d9d9
+
+// ::ng-deep.ant-modal-header
+//     padding: 16px 24px
+//     color: rgba(0, 0, 0, 0.85)
+//     background: $primary-color
+//     border-bottom: 1px solid #f0f0f0
+//     border-radius: 6px 6px 0px 0px
+
+// ::ng-deep.ant-modal-content
+//     border-radius: 6px
+
+// .view-modal-agent
+//     @include media_query_all(null,null,null,null,null,1110,'max-width')
+//     width: auto !important
+
+//     .ant-form-item
+//         display: flex
+//         flex-direction: column
+
+//         .ant-form-item-label
+//             text-align: left !important
+
+// .required-mark
+//     color: #F71E35
+.contents
+    display: flex
+    flex-wrap: wrap
+    max-height:600px
+    flex-direction: column
+    column-gap: 20px
+    column-gap: 50px
+    overflow-x: scroll
+.cont
+    display: flex
+    justify-content: space-between
+    

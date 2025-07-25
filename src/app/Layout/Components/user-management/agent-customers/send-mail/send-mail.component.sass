@@ -1,0 +1,69 @@
+@import '../../../../../../assets/sass/index.sass'
+
+::ng-deep .send-mail .ant-modal-content
+    // width: 720px
+    // @include media_query_all(300,460,null,null,550,720,'width')  
+
+::ng-deep .send-mail .ant-modal-header
+    border-radius: 6px 6px 0px 0px
+    background: #F45300
+
+::ng-deep .send-mail .ant-modal-title
+    color: #fff
+    font-weight: 600
+    font-size: 20px
+
+::ng-deep .send-mail .ant-modal-close
+    color: #fff
+
+::ng-deep .send-mail .ant-modal-body
+    // padding: 40px
+    font-size: 16px
+    @include media_query_all(20,30,null,null,35,40,'padding')
+
+::ng-deep .send-mail .ant-picker
+    width: 100%
+    height: 50px
+    border-radius: 3px
+    border: 0.5px solid rgba(0, 0, 0, 0.40)
+    background: #FFF
+
+:host ::ng-deep .ant-select.ant-select-in-form-item:hover
+    border: 1px solid #C4C4C4 !important
+
+.required-mark
+    color: #FF0D0D
+
+.btn
+    &__cancel
+        width: 100% !important
+        // height: 50px !important
+        @include media_query_all_im(36,36,null,null,36,50,'height')
+        font-size: 14px !important
+    &__high_orange
+        width: 100% !important
+        // height: 50px !important
+        @include media_query_all_im(36,36,null,null,36,50,'height')
+    &__Add
+        width: 100% !important
+        // height: 50px !important
+        @include media_query_all_im(36,36,null,null,36,50,'height')
+::ng-deep .send-mail .dropdown.ant-select:not(.ant-select-customize-input) .ant-select-selector
+    height: 48px
+
+::ng-deep .send-mail .ant-input
+    // height: 50px
+    @include media_query_all(36,36,null,null,36,50,'height')
+
+.dropdown 
+    @include media_query_all(36,36,null,null,36,50,'height') 
+
+::ng-deep .send-mail .dropdown.ant-select:not(.ant-select-customize-input) .ant-select-selector
+    @include media_query_all(34,34,null,null,34,48,'height')      
+
+::ng-deep .send-mail .ant-form-item-label>label
+    color: #000
+    font-weight: 600   
+
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)     

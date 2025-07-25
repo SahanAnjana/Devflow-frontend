@@ -1,0 +1,852 @@
+<form
+  class="form-figure"
+  [formGroup]="maketransferForm"
+  *ngIf="!isbuttonClicked"
+>
+  <div nz-row [nzGutter]="10">
+    <div nz-col nzLg="6" nzXs="24" nzSm="24" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Country<span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <nz-select
+            class="modal-dropdown"
+            bindLabel=""
+            formControlName="country"
+            nzPlaceHolder="Select Country"
+            nzSuffixIcon="caret-down"
+            nzAllowClear
+            (ngModelChange)="getReference($event)"
+            nzShowSearch
+          >
+            <nz-option
+              [nzValue]="data"
+              [nzLabel]="data.countryName"
+              *ngFor="let data of countryData"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="12" nzXs="24" nzSm="24" nzMd="12">
+      <nz-form-item>
+        <nz-form-label>Beneficiary </nz-form-label>
+
+        <nz-select
+          nzAllowClear
+          nzShowSearch
+          nzSuffixIcon="search"
+          class="modal-dropdown"
+          placeholder="Search Beneficiary"
+          formControlName="searchBeneficiary"
+          (ngModelChange)="onChangeSender($event)"
+          nzShowSearch
+        >
+          <nz-option
+            *ngFor="let o of beneficiaryData"
+            [nzLabel]="o.beneficiaryFullName"
+            [nzValue]="o.agentBeneficiaryDetailsId"
+          ></nz-option>
+        </nz-select>
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="6" nzXs="24" nzSm="24" nzMd="12">
+      <nz-form-item>
+        <nz-form-label> </nz-form-label>
+        <nz-form-control>
+          <button
+            class="btn_blue"
+            *ngIf="isNewBeneficiary === true"
+            (click)="createBeneficiary()"
+            nz-button
+            nzType="primary"
+            nzBlock
+          >
+            Beneficiary not available? Create Beneficiary
+          </button>
+
+          <button
+            class="btn_blue"
+            *ngIf="isNewBeneficiary === false"
+            (click)="existingBeneficiary()"
+            nz-button
+            nzType="primary"
+            nzBlock
+          >
+            Search Existing Beneficiary
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div>
+    <div class="toggle-word">
+      <div *ngIf="mySwitchValue === false">Personal Beneficiary</div>
+      <div *ngIf="mySwitchValue === true">Corporate Beneficiary</div>
+      <div nz-col [nzLg]="4" class="table-col">
+        <nz-switch
+          [(ngModel)]="mySwitchValue"
+          class="switch-middle ms-2"
+          formControlName="buttonPersonalBeneficiary"
+          [nzDisabled]="isDisabled"
+          (ngModelChange)="onSwitchChange($event)"
+          nzSize="small"
+        >
+        </nz-switch>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="mySwitchValue === true">
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Company Name<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="first Name"
+              formControlName="companyName"
+              class="modal-input"
+              (keypress)="checkAlphabets($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="2" nzXs="5" nzSm="4" nzMd="4">
+        <nz-form-item>
+          <nz-form-label
+            >Code<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              formControlName="code"
+              bindLabel=""
+              nzPlaceHolder="Code"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of countryCodeData"
+                [nzValue]="data.countryCodeId"
+                [nzLabel]="data.phonePrefix"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="6" nzXs="6" nzSm="6" nzMd="4">
+        <nz-form-item>
+          <nz-form-label
+            >Telephone Number<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Telephone Number"
+              formControlName="telephoneNumber"
+              class="modal-input"
+              (change)="contactNumberValidation1()"
+              (keypress)="numberOnly($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="2" nzXs="5" nzSm="4" nzMd="4">
+        <nz-form-item>
+          <nz-form-label>Code</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              formControlName="code2"
+              bindLabel=""
+              nzPlaceHolder="Code"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of countryCodeData"
+                [nzValue]="data.countryCodeId"
+                [nzLabel]="data.phonePrefix"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="6" nzXs="6" nzSm="6" nzMd="4">
+        <nz-form-item>
+          <nz-form-label
+            >Mobile Number<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Mobile Number"
+              formControlName="mobileNumber"
+              class="modal-input"
+              (change)="contactNumberValidation1()"
+              (keypress)="numberOnly($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Residental Address<span class="required-mark"
+              >*</span
+            ></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Residental Address"
+              formControlName="residentalAddress"
+              class="modal-input"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </div>
+
+  <!------------------------------------------------------------------------------------------------->
+  <div *ngIf="mySwitchValue === false">
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >First Name <span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="First Name "
+              formControlName="firstName"
+              class="modal-input"
+              (keypress)="checkAlphabets($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Last Name<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Last Name"
+              formControlName="lastName"
+              class="modal-input"
+              (keypress)="checkAlphabets($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="2" nzXs="5" nzSm="4" nzMd="4">
+        <nz-form-item>
+          <nz-form-label
+            >Code<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              formControlName="code"
+              bindLabel=""
+              nzPlaceHolder="Code"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of countryCodeData"
+                [nzValue]="data.countryCodeId"
+                [nzLabel]="data.phonePrefix"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="6" nzXs="6" nzSm="6" nzMd="4">
+        <nz-form-item>
+          <nz-form-label
+            >Telephone Number<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Telephone Number"
+              formControlName="telephoneNumber"
+              class="modal-input"
+              (change)="contactNumberValidation1()"
+              (keypress)="numberOnly($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="2" nzXs="5" nzSm="4" nzMd="4">
+        <nz-form-item>
+          <nz-form-label
+            >Code<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              formControlName="code2"
+              bindLabel=""
+              nzPlaceHolder="Code"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of countryCodeData"
+                [nzValue]="data.countryCodeId"
+                [nzLabel]="data.phonePrefix"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="6" nzXs="6" nzSm="6" nzMd="4">
+        <nz-form-item>
+          <nz-form-label
+            >Mobile Number<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Mobile Number"
+              formControlName="mobileNumber"
+              class="modal-input"
+              (change)="contactNumberValidation1()"
+              (keypress)="numberOnly($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Residential Address<span class="required-mark"
+              >*</span
+            ></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Residential Address"
+              formControlName="residentalAddress"
+              class="modal-input"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Date of Birth <span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-date-picker
+              nzPlaceHolder="Select Date"
+              [nzShowToday]="false"
+              [nzFormat]="'dd-MM-yyyy'"
+              class="custom-date-picker"
+              id="dob"
+              formControlName="dob"
+              (ngModelChange)="validateDob()"
+              [nzDisabledDate]="disabledDate"
+            ></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------->
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Place of Birth<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Place of Birth"
+              formControlName="placeOfBirth"
+              class="modal-input"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Nationality<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              bindLabel=""
+              formControlName="nationality"
+              nzPlaceHolder="Select Nationality"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              nzShowSearch
+            >
+              <nz-option
+                [nzValue]="data.nationalityDetailsId"
+                [nzLabel]="data.nationality"
+                *ngFor="let data of nationalityData"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <!------------------------------------------------------------------------------------------------------------------->
+
+    <!-- <div nz-row [nzGutter]="10">
+      
+    </div> -->
+  </div>
+
+  <!------------------------------------------------------------------------------------------------->
+
+  <a nz-button nzType="link" *ngIf="isNewBank === false" (click)="CreateBank()"
+    >Create New Bank</a
+  >
+
+  <!------------------------------------------------------------------------------------------------->
+  <div *ngIf="isHide == true">
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12" *ngIf="isbankSl == 1">
+        <nz-form-item>
+          <nz-form-label
+            >Bank Name<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              bindLabel=""
+              formControlName="bankName"
+              nzPlaceHolder="Select Bank"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              nzShowSearch
+            >
+              <nz-option
+                [nzValue]="data"
+                [nzLabel]="data.bankname"
+                *ngFor="let data of bankList"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12" *ngIf="isbankSl != 1">
+        <nz-form-item>
+          <nz-form-label
+            >Bank Name<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Bank Name"
+              formControlName="bankName"
+              class="modal-input"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Account Number<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Account Number"
+              formControlName="accName"
+              class="modal-input"
+              (keypress)="numberOnly($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Branch Name<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Branch Name"
+              formControlName="branchName"
+              class="modal-input"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Support Currency<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              formControlName="supportCurrency"
+              nzPlaceHolder="Select Currency "
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of bankCurrencyList"
+                [nzValue]="data.clientCurrencyId"
+                [nzLabel]="data.currencyCode + '-' + data.currencyName"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div
+        nz-col
+        nzLg="8"
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        *ngIf="bankCodeInput == true && isbankSl != 1"
+      >
+        <nz-form-item>
+          <nz-form-label
+            >{{ receivingCountriesData.bankCodeLabel
+            }}<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Bank Code"
+              formControlName="bankCode"
+              class="modal-input"
+              (keypress)="numberOnly($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12" *ngIf="IfsccodeLable">
+        <nz-form-item>
+          <nz-form-label
+            >IFSC Code<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="IFSC Code"
+              formControlName="label4"
+              class="modal-input"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12" *ngIf="IbanCodeLable">
+        <nz-form-item>
+          <nz-form-label
+            >IBAN Code<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="IBAN Code"
+              formControlName="label5"
+              class="modal-input"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div
+        nz-col
+        nzLg="8"
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        *ngIf="BranchCodeLable"
+      >
+        <nz-form-item>
+          <nz-form-label
+            >Branch Code<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Branch Code"
+              formControlName="label6"
+              class="modal-input"
+              (keypress)="numberOnly($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div
+        nz-col
+        nzLg="8"
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        *ngIf="routingNumber == true"
+      >
+        <nz-form-item>
+          <nz-form-label
+            >Routing Number<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              formControlName="routingNumber"
+              class="modal-input"
+              placeholder="Routing Number"
+              (keypress)="numberOnly($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div
+        nz-col
+        nzLg="8"
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        *ngIf="swiftCodeInput == true"
+      >
+        <nz-form-item>
+          <nz-form-label
+            >Swift Code<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              formControlName="swiftCode"
+              class="modal-input"
+              placeholder="Swift Code"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </div>
+</form>
+<!------------------------------------------------------------------------------------------------------------------->
+
+<a nz-button nzType="link" *ngIf="isNewBank === true" (click)="existingBank()"
+  >Select Existing Bank</a
+>
+<nz-table
+  nzShowPagination="false"
+  *ngIf="beneficiaryBankData != null && newBank == false"
+>
+  <thead>
+    <tr class="heading_tr">
+      <th>
+        <div class="border-start-th">Bank Name</div>
+      </th>
+      <th>
+        <div class="border-middle-th">Account Number</div>
+      </th>
+      <th>
+        <div class="border-middle-th">Branch</div>
+      </th>
+      <th>
+        <div class="border-middle-th" *ngIf="bankCodeInput == true">
+          Bank Code
+        </div>
+      </th>
+      <th>
+        <div class="border-middle-th" *ngIf="IfsccodeLable == true">
+          Ifsc Code
+        </div>
+      </th>
+      <th>
+        <div class="border-middle-th" *ngIf="IbanCodeLable == true">
+          Iban Code
+        </div>
+      </th>
+      <th>
+        <div class="border-middle-th" *ngIf="BranchCodeLable == true">
+          Iban Code
+        </div>
+      </th>
+
+      <th>
+        <div class="border-middle-th" *ngIf="swiftCodeInput == true">
+          Swift Code
+        </div>
+      </th>
+      <th>
+        <div class="border-middle-th" *ngIf="routingNumber == true">
+          Routing Number
+        </div>
+      </th>
+      <th>
+        <div class="border-middle-th">Option</div>
+      </th>
+    </tr>
+  </thead>
+  <tbody class="body_tr" *ngFor="let data of beneficiaryBankData">
+    <tr>
+      <td>
+        <div class="border-middle">{{ data.bankName }}</div>
+      </td>
+      <td>
+        <div class="border-middle">{{ data.accountNo }}</div>
+      </td>
+      <td>
+        <div class="border-middle">{{ data.branchName }}</div>
+      </td>
+      <td>
+        <div class="border-middle" *ngIf="bankCodeInput == true">
+          {{ data.bankCode }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle" *ngIf="IfsccodeLable == true">
+          {{ data.label4 }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle" *ngIf="IbanCodeLable == true">
+          {{ data.label5 }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle" *ngIf="BranchCodeLable == true">
+          {{ data.label6 }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle" *ngIf="swiftCodeInput == true">
+          {{ data.swiftCode }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle" *ngIf="routingNumber == true">
+          {{ data.routingNumber }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle">
+          <nz-radio-group [(ngModel)]="selectedBank">
+            <label
+              [nzDisabled]="isCashPickup"
+              nz-radio
+              (click)="getBankAccountsById(data)"
+              [nzValue]="data.agentBeneficiaryBankAccountDetailsId"
+            ></label>
+          </nz-radio-group>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<!------------------------------------------------------------------------------------------------->
+<form
+  class="form-figure"
+  [formGroup]="maketransferForm"
+  *ngIf="!isbuttonClicked"
+>
+  <div nz-row [nzGutter]="10">
+    <div nz-col nzLg="8" nzXs="24" nzSm="24" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Reference<span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <nz-select
+            class="modal-dropdown"
+            bindLabel=""
+            formControlName="reference"
+            nzPlaceHolder="Select Reference"
+            nzSuffixIcon="caret-down"
+            nzAllowClear
+            nzShowSearch
+            (ngModelChange)="changeRef($event)"
+          >
+            <nz-option
+              [nzValue]="data"
+              [nzLabel]="data.referenceDescription"
+              *ngFor="let data of referenceData"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="24"
+      nzMd="12"
+      *ngIf="provideReason == true"
+    >
+      <nz-form-item>
+        <nz-form-label
+          >Reference<span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            type="text"
+            placeholder="Please Provide Reason"
+            formControlName="referenceOther"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>

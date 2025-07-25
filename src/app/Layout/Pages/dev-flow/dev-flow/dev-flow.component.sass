@@ -1,0 +1,260 @@
+// // :host
+// //   display: block
+// //   height: 100vh
+
+// .dashboard-container
+//   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)
+
+// ::ng-deep .ant-layout
+//   height: 100vh
+
+// ::ng-deep .ant-layout-content
+//   padding: 0px 24px !important 
+// .dashboard-container 
+//   height: 100%
+//   width: 100%
+
+// .dashboard-main
+//   flex: 1
+//   display: flex
+//   flex-direction: column
+
+// .dashboard-content
+//   flex: 1
+//   overflow: auto
+//   // padding: 2rem 0rem
+
+// .stats-grid
+//   display: grid
+//   grid-template-columns: repeat(1, minmax(0, 1fr))
+//   gap: 1.5rem
+//   margin-bottom: 2rem
+
+// .stat-card
+//   backdrop-filter: blur(10px)
+//   background: rgba(255, 255, 255, 0.1)
+//   border: 1px solid rgba(255, 255, 255, 0.2)
+//   border-radius: 0.75rem
+//   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)
+//   padding: 1.5rem
+//   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+  
+//   &:hover
+//     transform: translateY(-4px)
+//     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)
+
+// .stat-content
+//   display: flex
+//   align-items: center
+//   justify-content: space-between
+
+// .stat-info
+//   flex: 1
+
+// .stat-label
+//   color: #6b7280
+//   font-size: 0.875rem
+//   margin: 0 0 0.5rem 0
+
+// .stat-value
+//   font-size: 1.875rem
+//   color: #1f2937
+//   margin: 0.5rem 0
+//   font-weight: 600
+
+// .stat-change
+//   display: flex
+//   align-items: center
+//   gap: 0.25rem
+//   margin-top: 0.5rem
+
+// .change-icon
+//   font-size: 0.875rem
+  
+//   &.positive
+//     color: #10b981
+  
+//   &.negative
+//     color: #ef4444
+
+// .change-value
+//   font-size: 0.875rem
+  
+//   &.positive
+//     color: #10b981
+  
+//   &.negative
+//     color: #ef4444
+
+// .change-period
+//   color: #9ca3af
+//   font-size: 0.875rem
+
+// .stat-icon
+//   width: 4rem
+//   height: 4rem
+//   border-radius: 0.75rem
+//   display: flex
+//   align-items: center
+//   justify-content: center
+//   transition: transform 0.3s ease
+  
+//   &.primary-bg
+//     background: var(--gradient-primary)
+  
+//   &.secondary-bg
+//     background: var(--gradient-secondary)
+  
+//   &.success-bg
+//     background: var(--gradient-success)
+  
+//   &.warning-bg
+//     background: var(--gradient-warning)
+  
+//   &.accent-bg
+//     background: var(--gradient-accent)
+  
+//   &.info-bg
+//     background: var(--gradient-info)
+  
+//   &.gray-bg
+//     background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%)
+
+// .icon-emoji
+//   font-size: 1.5rem
+//   color: white
+
+// .section-card
+//   backdrop-filter: blur(10px)
+//   background: rgba(255, 255, 255, 0.1)
+//   border: 1px solid rgba(255, 255, 255, 0.2)
+//   border-radius: 0.75rem
+//   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)
+//   padding: 1.5rem
+//   transition: all 0.3s ease
+
+// .section-header
+//   display: flex
+//   align-items: center
+//   gap: 1rem
+//   margin-bottom: 1.5rem
+
+// .section-icon
+//   width: 3rem
+//   height: 3rem
+//   border-radius: 0.75rem
+//   display: flex
+//   align-items: center
+//   justify-content: center
+//   flex-shrink: 0
+//   transition: transform 0.3s ease
+
+// .section-emoji
+//   font-size: 1.25rem
+//   color: white
+
+// .section-title-group
+//   flex: 1
+
+// .section-title
+//   color: #1f2937
+//   font-size: 1.25rem
+//   font-weight: 600
+//   margin: 0 0 0.25rem 0
+
+// .section-description
+//   color: #6b7280
+//   font-size: 0.875rem
+//   margin: 0
+
+// .empty-state
+//   text-align: center
+//   padding: 3rem 0
+
+// .empty-state-icon
+//   width: 6rem
+//   height: 6rem
+//   margin: 0 auto 1rem
+//   border-radius: 50%
+//   display: flex
+//   align-items: center
+//   justify-content: center
+//   font-size: 2rem
+//   transition: transform 0.3s ease
+  
+//   &:hover
+//     transform: scale(1.1)
+
+// .empty-emoji
+//   font-size: 2rem
+//   color: white
+
+// .empty-text
+//   color: #6b7280
+//   font-size: 0.875rem
+//   margin: 0
+
+// .stat-card:hover .stat-icon
+//   transform: scale(1.1)
+
+// .section-card:hover .section-icon
+//   transform: scale(1.05)
+
+// @media (max-width: 767px)
+//   .stats-grid
+//     grid-template-columns: repeat(1, minmax(0, 1fr))
+  
+//   .dashboard-content
+//     padding: 1rem
+
+// @media (min-width: 768px)
+//   .stats-grid
+//     grid-template-columns: repeat(2, minmax(0, 1fr))
+
+// @media (min-width: 1024px)
+//   .stats-grid
+//     grid-template-columns: repeat(4, minmax(0, 1fr))
+
+// nz-layout 
+//   height: 100%
+
+
+// html, body 
+//   height: 100%
+//   margin: 0
+
+
+// :host 
+//   display: block
+//   height: 100%
+
+
+// .dashboard-container 
+//   height: 100%
+   
+
+@import '../../../../../assets/sass/index'
+
+:host ::ng-deep .ant-layout-header
+  position: fixed
+  top: 0
+  width: 100%
+  z-index: 10
+  padding: 0
+  background: none
+
+:host ::ng-deep .ant-space
+  background: #ffffff
+  display: flex
+  align-items: center
+  justify-content: space-between
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.28)   
+
+.ant-layout-content
+  background: #FFF8F5
+  overflow-y: auto
+  height: 100vh
+  @include media_query_all(140,null,null,null,null,140,'padding-top')
+  @include media_query_all(100,null,null,null,null,100,'padding-left')
+  @include media_query_all(null,null,null,null,null,30,'padding-right')
+  @include media_query_all(null,null,null,null,null,50,'padding-bottom')  

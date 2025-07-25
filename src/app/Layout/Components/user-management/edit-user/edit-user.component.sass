@@ -1,0 +1,53 @@
+
+@import '../../../../../assets/sass/index'
+
+.btn-row
+    display: flex
+    gap: 20px
+
+    @include media_query_all(100,null,null,null,null,350,'width')
+    @include media_query_all(40,null,null,null,null,50,'height')
+    padding: 10px 0
+:host ::ng-deep.ant-select-arrow .anticon>svg
+    color: black
+
+:host ::ng-deep.ant-form-item-label > label
+    @include media_query_all_im(null,null,null,null,null,16,"font-size")
+    font-weight: 600
+
+.button
+    display: flex
+    gap: 10px
+    margin-top: 15px
+.ant-switch.ant-switch-checked
+
+    background-color: #F45300
+    border-color: #F45300
+// :host ::ng-deep.ant-input
+//     border-radius: 0
+:host ::ng-deep.ant-form-item-label > label
+    width: 60px !important
+:host ::ng-deep.ant-switch
+
+    top: 5px
+
+.status
+    @include media_query_all_im(null,null,null,null,null,20,"font-size")
+    font-weight: 600
+// .ant-row
+//     .switc
+
+//         padding-bottom: 15px
+::ng-deep .view-modal-user .ant-modal-close
+    color: #fff
+
+.btn
+    &__cancel
+        @include media_query_all_im(35,null,null,null,35,50,"height")
+
+    &__next
+        @include media_query_all_im(35,null,null,null,35,50,"height")     
+
+
+::ng-deep .view-modal-user .modal_content 
+    padding: 0        

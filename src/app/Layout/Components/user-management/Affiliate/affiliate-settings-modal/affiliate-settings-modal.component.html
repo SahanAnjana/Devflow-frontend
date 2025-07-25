@@ -1,0 +1,258 @@
+<!-- <form class="form-figure"> -->
+<div nz-row class="row1" [nzGutter]="10">
+  <div
+    class="row-align"
+    nz-col
+    nzLg="8"
+    nzXs="24"
+    nzSm="12"
+    nzMd="12"
+    *ngFor="let data of privilages"
+  >
+    <div class="row" nz-col nzLg="20" nzXs="24" nzSm="12" nzMd="12">
+      <span class="label">{{ data.privilegeDto.privilegeDescription }}</span>
+    </div>
+    <div nz-col nzLg="4" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch
+        [(ngModel)]="data.userPrivilegeStatus"
+        nzSize="small"
+        (click)="updateStatus(data)"
+      ></nz-switch>
+    </div>
+  </div>
+</div>
+
+<!-- </form> -->
+<!--------------------------------------------------------------------------------------------------------->
+<!-- <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_RATE_EDIT_BUTTON</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_FIXED_TRANSFER_FEE</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_USER_MANAGEMENT_SUB<br />_AGENT_STATUS</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+  </div>
+
+  <--------------------------------------------------------------------------------------------->
+<!-- 
+  <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSFERS_NAV</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_ADD_USER</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSFER_FEE_EDIT</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+  </div> -->
+<!--------------------------------------------------------------------------------------------------------->
+<!-- <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSFER_LIMIT</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_RATE_ADD_NEW_CURRENCY</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_PERCENTAGE_TRANSFER_FEE</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+  </div> -->
+
+<!----------------------------------------------------------------------------------------------->
+
+<!-- <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_RATE_SETTINGS_NAV</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_ADD_RATE</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSFER_DELETE</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+  </div> -->
+<!--------------------------------------------------------------------------------------------------------->
+<!-- <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_PROMOTION</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_RATE_SETTINGS</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSFER_FEE_EDIT_BUTTON</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+  </div> -->
+<!--------------------------------------------------------------------------------------------------------->
+<!-- <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_USER_MANAGEMENT</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_USER_MANAGEMENT<br />_SUB_AGENT</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_MYTRANSACTION_EDIT<br />_TRANSFER_FEE</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+  </div> -->
+<!----------------------------------------------------------------------------------------------->
+
+<!-- <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSFER_FEE_NAV</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_REPORT</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_AFFILIATE_CONFIG</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+  </div> -->
+<!--------------------------------------------------------------------------------------------------------->
+<!-- <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_CUSTOMER_RATE_SETTINGS</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSFER_FEE_DELETE_BUTTON</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_USER_MANAGE_CUSTOMER</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+  </div>
+
+  <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_USER_MANAGE_AFFILIATE_USER</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_CONFIG_REPORT</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSACTION_AGENT</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+  </div>
+  <div nz-row class="row1" [nzGutter]="10">
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_AFFILIATE_TRANSACTION<br />_REPORT</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div>
+
+    <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSFER_FEE_ADD</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div> -->
+<!-- <div class="row-align" nz-col nzLg="7" nzXs="24" nzSm="12" nzMd="12">
+      <div>AGENT_SHOW_TRANSACTION_AGENT</div>
+    </div>
+    <div class="row-align" nz-col nzLg="1" nzXs="24" nzSm="12" nzMd="12">
+      <nz-switch nzSize="small"></nz-switch>
+    </div> -->
+<!-- </div> -->

@@ -1,0 +1,41 @@
+<div class="tab-header">
+  <nz-tabset
+    nzAddIcon="caret-down"
+    [nzSelectedIndex]="tabIndex"
+    (nzSelectedIndexChange)="change($event)"
+  >
+    <nz-tab nzTitle="Privilege Settings">
+      <app-agent-privillage-settings></app-agent-privillage-settings>
+    </nz-tab>
+    <nz-tab nzTitle="Agent Approved Currencies"
+      ><app-agent-approved-currencies></app-agent-approved-currencies
+    ></nz-tab>
+    <nz-tab
+      nzTitle="Rate Settings"
+      *ngIf="this.privileges.CORE_SHOW_RATE_SETTINGS_NAV"
+      ><app-rate-settings></app-rate-settings
+    ></nz-tab>
+    <nz-tab nzTitle="Credit Balance"
+      ><app-credit-balance></app-credit-balance
+    ></nz-tab>
+    <nz-tab nzTitle="Account Details"
+      ><app-account-details></app-account-details
+    ></nz-tab>
+    <nz-tab nzTitle="Transaction Config"
+      ><app-transaction-config></app-transaction-config
+    ></nz-tab>
+    <nz-tab nzTitle="Transfer Fee"
+      ><app-transfer-fee></app-transfer-fee
+    ></nz-tab>
+    <nz-tab nzTitle="Notification"
+      ><app-notification></app-notification
+    ></nz-tab>
+    <nz-tab nzTitle="Currency Amount Validation"
+      ><app-currency-amount-validation></app-currency-amount-validation
+    ></nz-tab>
+    <nz-tab nzTitle="Agent Approved Countries"
+      ><app-agent-approved-countries></app-agent-approved-countries
+    ></nz-tab>
+  </nz-tabset>
+  <img class="next" (click)="next()" src="./assets/icons/next.svg" />
+</div>

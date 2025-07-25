@@ -1,0 +1,329 @@
+<div>
+  <form class="form-figure input-sec" [formGroup]="addnewbeneficiary">
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >Agent
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              bindLabel=""
+              nzPlaceHolder="Select Agent"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              formControlName="Agent"
+              (ngModelChange)="
+                getChangeValue($event); getagentDetailsId($event)
+              "
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let option of allAgentDetails"
+                [nzValue]="option.agentDetailId"
+                [nzLabel]="option.agentName"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="13" nzMd="13">
+        <nz-form-item>
+          <nz-form-label>Agent Customers </nz-form-label>
+          <!-- <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input
+              type="text"
+              nz-input
+              placeholder="Search Sender"
+              class=""
+              formControlName="senderSearch"
+            />
+          </nz-input-group> -->
+          <nz-form-control>
+            <nz-select
+              nzShowSearch
+              nzPlaceHolder="Search Sender"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              class="modal-dropdown"
+              formControlName="senderSearch"
+              [nzShowArrow]="false"
+              (nzOnSearch)="searchrxjs($event)"
+              (change)="onChangeSender($event)"
+              (ngModelChange)="getAgentSenderDetails()"
+            >
+              <nz-option
+                *ngFor="let option of searchResult"
+                [nzValue]="option.agentSenderDetailsId"
+                [nzLabel]="option.nameEmail"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+          <ng-template #suffixIconSearch>
+            <span nz-icon nzType="search"></span>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="3" nzMd="3">
+        <nz-form-item>
+          <nz-form-label>Filter By </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Name"
+              class="modal-input"
+              formControlName="FilterBy"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >Sender First Name
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Sender First Name"
+              class="modal-input"
+              formControlName="SenderFirstName"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >Sender Last Name<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Sender Last Name"
+              class="modal-input"
+              formControlName="SenderLastName"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >Landline Number<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Landline Number"
+              class="modal-input"
+              formControlName="LandlineNumber"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >Mobile Number
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Mobile Number"
+              class="modal-input"
+              formControlName="MobileNumber"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >Email Address
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Email Address"
+              class="modal-input"
+              formControlName="Email"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >Residential Address
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="Residential Address"
+              class="modal-input"
+              formControlName="Address"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label>City </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="City "
+              class="modal-input"
+              formControlName="City"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label>State/Province </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="State/Province "
+              class="modal-input"
+              formControlName="StateProvince"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label>Country </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              bindLabel=""
+              nzPlaceHolder="Country"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              formControlName="Country"
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of countryDetails"
+                [nzValue]="data.agentCustomerSignupCountriesId"
+                [nzLabel]="data.countryName"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label>Nationality </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              bindLabel=""
+              nzPlaceHolder="Nationality"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              formControlName="Nationality"
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of nationalityDetails"
+                [nzValue]="data.nationalityDetailsId"
+                [nzLabel]="data.nationality"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >ID Type
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <!-- <nz-select
+              class="modal-dropdown"
+              bindLabel=""
+              nzPlaceHolder="ID Type"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              formControlName="IDType"
+            >
+              <nz-option
+                *ngFor="let data of idTypes"
+                [nzValue]="data.identityModeId"
+                [nzLabel]="data.identiyModeDesc"
+              ></nz-option>
+            </nz-select> -->
+            <input
+              nz-input
+              type="text"
+              placeholder="ID Type"
+              class="modal-input"
+              formControlName="IDType"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >ID Number
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="text"
+              placeholder="ID Number"
+              class="modal-input"
+              formControlName="IDNumber"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="10">
+      <div nz-col nzLg="8" nzMd="8">
+        <nz-form-item>
+          <nz-form-label
+            >ID Expiry Date<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-date-picker
+              formControlName=""
+              placeholder="ID Expiry Date"
+              formControlName="IDExpDate"
+            ></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,158 @@
+.form-container
+  padding: 24px 0px
+  max-height: 80vh
+  overflow-y: auto
+
+  &::-webkit-scrollbar
+    width: 6px
+    
+  .ant-form-item
+    margin-bottom: 16px
+
+    .ant-input
+      height: 40px
+      padding: 8px 12px
+      border-radius: 4px
+
+    textarea.ant-input
+      height: auto
+      min-height: 80px
+
+  .ant-select
+    width: 100%
+
+    .ant-select-selector
+      height: 40px
+      padding: 4px 12px
+      display: flex
+      align-items: center
+      border-radius: 4px
+      
+  .ant-form-item-label
+    padding-bottom: 4px
+    
+    label
+      font-size: 14px
+      font-weight: 500
+      color: #262626
+
+//   nz-form-label
+//     font-weight: 500    &::-webkit-scrollbar-thumb
+//         background-color: #d9d9d9
+//         border-radius: 3px
+
+.row1
+    margin-bottom: 16px
+
+:host ::ng-deep
+    .ant-form-item
+        margin-bottom: 0
+
+    .ant-form-item-label
+        padding-bottom: 4px
+        
+        label
+            font-size: 14px
+            color: #262626
+            height: 24px
+            font-weight: 500
+
+    .ant-input
+        height: 40px
+        border-radius: 4px
+        border-color: #d9d9d9
+        
+        &:focus, &:hover
+            border-color: #1890ff
+            box-shadow: none
+
+    textarea.ant-input
+        height: auto
+        min-height: 40px
+
+    .ant-select
+        width: 100%
+        
+        .ant-select-selector
+            height: 40px
+            border-radius: 4px
+            border-color: #d9d9d9
+            
+            &:hover
+                border-color: #1890ff
+
+        .ant-select-selection-item
+            line-height: 38px
+
+    .required-mark
+        color: #ff4d4f
+        margin-left: 2px
+
+.btn
+    &__high_orange
+        background: #ff6b00
+        color: #fff
+        border: none
+        
+        &:hover
+            background: darken(#ff6b00, 10%)
+            border: none
+            height: 40px
+            border-radius: 4px
+            border-color: #d9d9d9
+            
+            .ant-select-selection-item
+                line-height: 38px
+
+        &:not(.ant-select-disabled):hover .ant-select-selector
+            border-color: #1890ff
+
+    .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector
+        border-color: #1890ff
+        box-shadow: none
+
+    .ant-form-item-has-error
+        .ant-input, .ant-input:hover
+            border-color: #ff4d4f
+
+        .ant-form-item-explain-error
+            font-size: 12px
+
+.full-width
+    width: 100%
+
+.button-section
+    display: flex
+    justify-content: flex-end
+    gap: 12px
+    margin-top: 24px
+    margin-bottom: 0
+
+    button
+        min-width: 100px
+        height: 40px
+
+        &[nz-button]
+            border-radius: 4px
+            font-weight: 500
+
+        &[nzType="primary"]
+            background-color: #1890ff
+.step-group
+    display: flex
+    flex-direction: column
+    gap: 10px
+    margin-bottom: 10px
+
+.step-input
+    width: 90%
+    border: 0.5px solid rgba(0, 0, 0, 0.4) !important
+    border-radius: 4px !important
+    padding: 8px 12px
+.steps-textarea
+    width: 100%
+    border: 0.5px solid rgba(0, 0, 0, 0.4) !important
+    border-radius: 4px !important
+    padding: 8px 12px
+
+    

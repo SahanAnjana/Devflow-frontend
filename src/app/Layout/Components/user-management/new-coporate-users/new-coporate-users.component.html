@@ -1,0 +1,321 @@
+<div class="modal_content">
+  <div class="title-bar">
+    <div nz-col [nzSpan]="12">
+      <div class="comp_title">New Corporate Users</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div nz-row [nzGutter]="10" class="filter-section">
+      <div class="filter-row filter-row2">
+        <span class="filter-txt">Filter by:</span>
+
+        <div nz-col [nzSpan]="5">
+          <ng-container>
+            <button
+              nz-dropdown
+              class="filter_btn"
+              [nzDropdownMenu]="menu1"
+              nzPlacement="bottomCenter"
+              [nzClickHide]="false"
+              nzTrigger="click"
+            >
+              Name
+            </button>
+            <nz-dropdown-menu #menu1="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item>
+                  <div class="ref-select">
+                    <input nz-input placeholder="Name" [(ngModel)]="name" />
+                  </div>
+                </li>
+                <li nz-menu-item class="btn__section">
+                  <button
+                    nz-button
+                    class="btn btn__high_orange"
+                    (click)="reset()"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    nz-button
+                    class="btn btn__high_orange"
+                    (click)="getAllNewCorporateUser()"
+                  >
+                    Save
+                  </button>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </ng-container>
+        </div>
+
+        <div nz-col [nzSpan]="5">
+          <ng-container>
+            <button
+              nz-dropdown
+              class="filter_btn"
+              [nzDropdownMenu]="menu2"
+              nzPlacement="bottomCenter"
+              [nzClickHide]="false"
+              nzTrigger="click"
+            >
+              Email
+            </button>
+            <nz-dropdown-menu #menu2="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item>
+                  <div class="ref-select">
+                    <input nz-input placeholder="Email" [(ngModel)]="email" />
+                  </div>
+                </li>
+                <li nz-menu-item class="btn__section">
+                  <button
+                    nz-button
+                    class="btn btn__high_orange"
+                    (click)="reset()"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    nz-button
+                    class="btn btn__high_orange"
+                    (click)="getAllNewCorporateUser()"
+                  >
+                    Save
+                  </button>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </ng-container>
+        </div>
+
+        <div nz-col [nzSpan]="5">
+          <ng-container>
+            <button
+              nz-dropdown
+              class="filter_btn"
+              [nzDropdownMenu]="menu3"
+              nzPlacement="bottomCenter"
+              [nzClickHide]="false"
+              nzTrigger="click"
+            >
+              Contact Number
+            </button>
+            <nz-dropdown-menu #menu3="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item>
+                  <div class="ref-select">
+                    <input
+                      nz-input
+                      placeholder="Contact Number"
+                      [(ngModel)]="contactNumber"
+                    />
+                  </div>
+                </li>
+                <li nz-menu-item class="btn__section">
+                  <button
+                    nz-button
+                    class="btn btn__high_orange"
+                    (click)="reset()"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    nz-button
+                    class="btn btn__high_orange"
+                    (click)="getAllNewCorporateUser()"
+                  >
+                    Save
+                  </button>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </ng-container>
+        </div>
+
+        <div nz-col [nzSpan]="5">
+          <ng-container>
+            <button
+              nz-button
+              nz-dropdown
+              class="filter_btn"
+              [nzDropdownMenu]="menu4"
+              nzPlacement="bottomCenter"
+              [nzClickHide]="false"
+              nzTrigger="click"
+            >
+              Agent Name
+            </button>
+            <nz-dropdown-menu #menu4="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item>
+                  <input
+                    nz-input
+                    placeholder="Agent Name"
+                    [(ngModel)]="agentName"
+                  />
+                  <!-- <nz-select
+                    class="dropdown"
+                    items="clientNames"
+                    nzSuffixIcon="caret-down"
+                    bindLabel="clientName"
+                    nzPlaceHolder="Select Agent Name"
+                  ></nz-select> -->
+                </li>
+                <li nz-menu-item class="btn__section">
+                  <button
+                    nz-button
+                    class="btn btn__high_orange"
+                    (click)="reset()"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    nz-button
+                    class="btn btn__high_orange"
+                    (click)="getAllNewCorporateUser()"
+                  >
+                    Save
+                  </button>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </ng-container>
+        </div>
+      </div>
+      <div nz-col class="right-sec">
+        <div>
+          <a nz-button nzType="link" (click)="userManagement()">
+            <img src="./assets/icons/view_eye.svg" /> &nbsp;
+            <u>View Existing Corporate Users</u></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <nz-table
+        #basicTable
+        [nzData]="newCorporateUserDetails"
+        [nzPageSize]="50"
+        [nzShowPagination]="false"
+      >
+        <thead>
+          <tr class="heading_tr">
+            <th>
+              <div class="border-middle-th">NAME</div>
+            </th>
+            <th>
+              <div class="border-middle-th">AGENT NAME</div>
+            </th>
+            <th>
+              <div class="border-middle-th">EMAIL</div>
+            </th>
+            <th>
+              <div class="border-middle-th">CONTACT NUMBER</div>
+            </th>
+            <th>
+              <div class="border-middle-th">ADDRESS</div>
+            </th>
+            <th>
+              <div class="border-middle-th">AML CHECK DATE</div>
+            </th>
+
+            <th>
+              <div class="border-middle-th">REGISTERED FROM</div>
+            </th>
+            <th>
+              <div class="border-middle-th"></div>
+            </th>
+            <th>
+              <div class="border-middle-th"></div>
+            </th>
+            <th>
+              <div class="border-middle-th"></div>
+            </th>
+            <th>
+              <div class="border-middle-th"></div>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="body_tr">
+          <tr *ngFor="let data of basicTable.data">
+            <td>
+              <div class="border-middle">
+                {{ data.fullName }}
+              </div>
+            </td>
+            <td>
+              <div class="border-middle">{{ data.agentName }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ data.email }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ data.contactNumber }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ data.address }}</div>
+            </td>
+            <td>
+              <span *ngIf="data.amlCheckDate">{{ data.amlCheckDate }}</span>
+              <div
+                *ngIf="!data.amlCheckDate"
+                class="border-middle"
+                style="color: #f45300"
+                (click)="updateAml(data)"
+              >
+                Update AML
+              </div>
+            </td>
+
+            <td>
+              <div class="border-middle">{{ data.registeredFrom }}</div>
+            </td>
+
+            <td>
+              <div class="border-middle">
+                <img
+                  src="./assets/icons/eye.svg"
+                  (click)="viewcorporatecustomer('view', data)"
+                />
+              </div>
+            </td>
+            <td>
+              <div class="border-middle" (click)="sendEmail('view', data)">
+                <img src="./assets/icons/mail (1).svg" />
+              </div>
+            </td>
+            <td>
+              <div class="border-middle" (click)="declineStatus(data.email)">
+                <img src="./assets/icons/crose.svg" />
+              </div>
+            </td>
+            <td>
+              <div class="border-middle" (click)="accepet(data.email)">
+                <img src="./assets/icons/correct.svg" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div class="pagination-row">
+      <nz-pagination
+        class="pagination"
+        [nzPageSize]="pageSize"
+        [nzPageIndex]="currentPageIndex"
+        [nzTotal]="totalRecords"
+        nzShowQuickJumper
+        (nzPageIndexChange)="pageIndexChange($event)"
+        [nzShowTotal]="rangeTemplate"
+      >
+      </nz-pagination>
+      <ng-template #rangeTemplate let-range="range" let-total>
+        <span>{{ range[0] }} of {{ total }} items</span>
+      </ng-template>
+    </div>
+  </div>
+</div>

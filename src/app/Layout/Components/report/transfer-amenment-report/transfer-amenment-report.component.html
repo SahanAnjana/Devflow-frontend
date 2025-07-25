@@ -1,0 +1,169 @@
+<nz-table
+  class="desktop_only"
+  #existingCustomersTable
+  [nzPageSize]="10"
+  [nzShowPagination]="false"
+  [nzScroll]="{ x: 'auto' }"
+>
+  <thead>
+    <tr class="heading_tr">
+      <th nzCustomFilter>
+        <div class="border-start-th">CUSTOMER REFERENCE</div>
+      </th>
+      <th>
+        <div class="border-middle-th">AGENT NAME</div>
+      </th>
+      <th nzCustomFilter>
+        <div class="border-middle-th">TRANSFER REFERENCE</div>
+      </th>
+      <th nzCustomFilter>
+        <div class="border-middle-th">TRANSFER AMOUNT</div>
+      </th>
+      <th>
+        <div class="border-middle-th">SETTLEMENT AMOUNT</div>
+      </th>
+      <th nzCustomFilter>
+        <div class="border-middle-th">ADMIN FEE</div>
+      </th>
+      <th>
+        <div class="border-middle-th">AGENT FEE</div>
+      </th>
+      <!-- <th>
+        <div class="border-middle-th">AGENT FEE</div>
+      </th> -->
+      <th>
+        <div class="border-middle-th">PAYING BY</div>
+      </th>
+      <th>
+        <div class="border-middle-th">TRANSFER AS</div>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody class="body_tr">
+    <tr>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <!-- <td>
+        <div class="border-middle">2023-02-02</div>
+      </td> -->
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+      <td>
+        <div class="border-middle"></div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<div class="mobile_only">
+  <div class="table-card">
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>CUSTOMER REFERENCE</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>AGENT NAME </span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>TRANSFER REFERENCE</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>TRANSFER AMOUNT</span>
+      </div>
+      <div nz-col [nzLg]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span>SETTLEMENT AMOUNT</span>
+      </div>
+      <div nz-col [nzSpan]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzLg]="12" class="table-col">
+        <span>ADMIN FEE</span>
+      </div>
+      <div nz-col [nzLg]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzLg]="12" class="table-col">
+        <span>AGENT FEE</span>
+      </div>
+      <div nz-col [nzLg]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzLg]="12" class="table-col">
+        <span>PAYING BY</span>
+      </div>
+      <div nz-col [nzLg]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="12" class="table-row">
+      <div nz-col [nzLg]="12" class="table-col">
+        <span>TRANSFER AS</span>
+      </div>
+      <div nz-col [nzLg]="12" class="table-col">
+        <span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pagination-row">
+  <nz-pagination
+    class="pagination"
+    [nzPageSize]=""
+    [nzPageIndex]=""
+    [nzTotal]=""
+    nzShowQuickJumper
+    [nzShowTotal]="rangeTemplate"
+  >
+  </nz-pagination>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <span>{{ range[0] }} of {{ total }} items</span>
+  </ng-template>
+</div>

@@ -1,0 +1,73 @@
+@import '../../../../../../../assets/sass/index'
+
+.btn-row
+    display: flex
+    gap: 20px
+
+    @include media_query_all(100,null,null,null,null,350,'width')
+    @include media_query_all(40,null,null,null,null,50,'height')
+    padding: 10px
+:host ::ng-deep.ant-select-arrow .anticon>svg
+    color: rgba(0, 0, 0, 0.50)
+
+:host ::ng-deep.ant-form-item-label > label
+    @include media_query_all_im(null,null,null,null,null,16,"font-size")
+    font-weight: 600
+
+.button
+    display: flex
+    gap: 10px
+    margin-top: 15px
+.ant-switch.ant-switch-checked
+
+    background-color: #F45300
+    border-color: #F45300
+// :host ::ng-deep.ant-input
+//     border-radius: 0
+:host ::ng-deep.ant-form-item-label > label
+    width: 60px !important
+:host ::ng-deep.ant-switch
+
+    top: 5px
+
+.status
+    @include media_query_all_im(null,null,null,null,null,20,"font-size")
+    font-weight: 600
+// .ant-row
+//     .switc
+
+//         padding-bottom: 15px
+:host ::ng-deep .ant-modal-close
+    color: #fff   
+
+// :host ::ng-deep .ant-form-item-control-input-content
+//     height: 52px  
+
+:host ::ng-deep .ant-input
+    // height: 52px 
+    @include media_query_all_im(52,null,null,null,null,52,"height")       
+
+:host ::ng-deep .dropdown
+    height: 36px    
+
+:host ::ng-deep .ant-select:not(.ant-select-customize-input) .ant-select-selector 
+    height: 34px   
+
+:host ::ng-deep .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector 
+    height: 36px   
+
+:host ::ng-deep ant-select:not(.ant-select-disabled):hover
+    border-color: #40a9ff       
+
+:host ::ng-deep .dropdown
+    &:hover
+        border: 0.5px solid rgba(0, 0, 0, 0.50)    
+
+      
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button 
+    -webkit-appearance: none
+    margin: 0
+
+// .no-spinner 
+//     -moz-appearance: textfield

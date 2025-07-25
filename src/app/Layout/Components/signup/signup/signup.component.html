@@ -1,0 +1,497 @@
+<div class="steps-content">
+  <form nz-form [nzLayout]="'vertical'" [formGroup]="signupForm">
+    <div nz-row nzGutter="10">
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Contact Title<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              class="dropdown"
+              items="agents"
+              [nzDropdownMatchSelectWidth]="false"
+              nzShowSearch
+              nzAllowClear
+              nzSuffixIcon="caret-down"
+              bindLabel="agentName"
+              nzPlaceHolder="Select Contact Title"
+              formControlName="title"
+              id="agentName"
+            >
+              <nz-option
+                *ngFor="let data of titles"
+                [nzValue]="data.contactTitle"
+                [nzLabel]="data.contactTitle"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Agent Name<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <nz-select
+              class="dropdown"
+              items="agents"
+              nzShowSearch
+              [nzDropdownMatchSelectWidth]="false"
+              nzAllowClear
+              nzSuffixIcon="caret-down"
+              bindLabel="agentName"
+              nzPlaceHolder="Select Agent Name"
+              formControlName="agentName"
+              (ngModelChange)="changeAgent()"
+            >
+              <nz-option
+                *ngFor="let data of agents"
+                [nzValue]="data"
+                [nzLabel]="data.agentName"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >First Name<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              id="firstName"
+              type="text"
+              placeholder="First Name"
+              formControlName="firstName"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row nzGutter="10">
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Last Name<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              id="lastName"
+              type="text"
+              placeholder="Last Name"
+              formControlName="lastName"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="8">
+        <div nz-row nzGutter="5">
+          <div nz-col nzSpan="7">
+            <nz-form-item>
+              <nz-form-label
+                >Code<span class="required-mark">*</span></nz-form-label
+              >
+              <nz-form-control nzSpan="">
+                <nz-select
+                  class="dropdown"
+                  items="agents"
+                  [nzDropdownMatchSelectWidth]="false"
+                  nzShowSearch
+                  nzAllowClear
+                  nzSuffixIcon="caret-down"
+                  nzPlaceHolder="Code"
+                  formControlName="code"
+                >
+                  <nz-option
+                    *ngFor="let data of countryCodes"
+                    [nzValue]="data.countryCodeId"
+                    [nzLabel]="data.phonePrefix"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="17">
+            <nz-form-item>
+              <nz-form-label
+                >Contact Number<span class="required-mark"
+                  >*</span
+                ></nz-form-label
+              >
+              <nz-form-control nzSpan="">
+                <input
+                  nz-input
+                  id="contactNumber"
+                  type="text"
+                  formControlName="contactNumber"
+                  placeholder="Contact Number"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >User Name (Email)<span class="required-mark"
+              >*</span
+            ></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              id="userName"
+              type="text"
+              placeholder="User Name"
+              formControlName="userName"
+              (change)="isFieldValid('userName'); checkUsernameAvailability()"
+              [ngClass]="{ inputError: isAvailable === false }"
+              autocomplete="new-username"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="10">
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Password<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              nz-popover
+              nzContent="contentTemplate"
+              id="password"
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+              (change)="isFieldValid('password')"
+              autocomplete="new-password"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <ng-template #contentTemplate>
+          <div class="popover-template">
+            <p
+              class="text-error"
+              [ngClass]="
+                signupForm.controls['password'].hasError('required') ||
+                signupForm.controls['password'].hasError('minlength')
+                  ? 'text-error'
+                  : 'text-validated'
+              "
+            >
+              <i
+                nz-icon
+                nzType="close-circle"
+                nzTheme="fill"
+                class="close-icon"
+              ></i>
+              <i
+                nz-icon
+                nzType="check-circle"
+                nzTheme="fill"
+                class="check-icon"
+              ></i>
+              Must be atleast 8 characters
+            </p>
+            <p
+              class="text-error"
+              [ngClass]="
+                signupForm.controls['password'].hasError('required') ||
+                signupForm.controls['password'].hasError('hasNumber')
+                  ? 'text-error'
+                  : 'text-validated'
+              "
+            >
+              <i
+                nz-icon
+                nzType="close-circle"
+                nzTheme="fill"
+                class="close-icon"
+              ></i>
+              <i
+                nz-icon
+                nzType="check-circle"
+                nzTheme="fill"
+                class="check-icon"
+              ></i>
+              Must contain atleast 1 number
+            </p>
+            <p
+              class="text-error"
+              [ngClass]="
+                signupForm.controls['password'].hasError('required') ||
+                signupForm.controls['password'].hasError('hasCapitalCase')
+                  ? 'text-error'
+                  : 'text-validated'
+              "
+            >
+              <i
+                nz-icon
+                nzType="close-circle"
+                nzTheme="fill"
+                class="close-icon"
+              ></i>
+              <i
+                nz-icon
+                nzType="check-circle"
+                nzTheme="fill"
+                class="check-icon"
+              ></i>
+              Must contain atleast 1 uppercase letter
+            </p>
+            <p
+              class="text-error"
+              [ngClass]="
+                signupForm.controls['password'].hasError('required') ||
+                signupForm.controls['password'].hasError('hasSmallCase')
+                  ? 'text-error'
+                  : 'text-validated'
+              "
+            >
+              <i
+                nz-icon
+                nzType="close-circle"
+                nzTheme="fill"
+                class="close-icon"
+              ></i>
+              <i
+                nz-icon
+                nzType="check-circle"
+                nzTheme="fill"
+                class="check-icon"
+              ></i>
+              Must contain atleast 1 lowercase letter
+            </p>
+            <p
+              class="text-error"
+              [ngClass]="
+                signupForm.controls['password'].hasError('required') ||
+                signupForm.controls['password'].hasError('hasSpecialCharacters')
+                  ? 'text-error'
+                  : 'text-validated'
+              "
+            >
+              <i
+                nz-icon
+                nzType="close-circle"
+                nzTheme="fill"
+                class="close-icon"
+              ></i>
+              <i
+                nz-icon
+                nzType="check-circle"
+                nzTheme="fill"
+                class="check-icon"
+              ></i>
+              Must contain atleast 1 special character
+            </p>
+          </div>
+        </ng-template>
+      </div>
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Confirm Password<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              formControlName="confirmPassword"
+              (change)="checkPassword(); isFieldValid('confirmPassword')"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Address Line 01<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              id="addressLineOne"
+              type="text"
+              placeholder="Address Line 01"
+              formControlName="address"
+              (focusout)="isContainLetter()"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="10">
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >City<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              id="city"
+              type="text"
+              placeholder="City"
+              formControlName="city"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >State/Province<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              id="stateProvince"
+              type="text"
+              placeholder="State/Province"
+              formControlName="stateProvince"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Post Code<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              id="postCode"
+              type="text"
+              placeholder="Post Code"
+              formControlName="postCode"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="10">
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Country<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <nz-select
+              class="dropdown"
+              nzShowSearch
+              nzAllowClear
+              nzSuffixIcon="caret-down"
+              items="countries"
+              nzPlaceHolder="Select country"
+              formControlName="country"
+            >
+              <nz-option
+                *ngFor="let data of countries"
+                [nzValue]="data.countryId"
+                [nzLabel]="data.countryName"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Nationality<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <nz-select
+              class="dropdown"
+              nzShowSearch
+              nzAllowClear
+              nzSuffixIcon="caret-down"
+              items="nationalities"
+              nzPlaceHolder="Select nationality"
+              formControlName="nationality"
+            >
+              <nz-option
+                *ngFor="let data of nationalitiesList"
+                [nzValue]="data.nationalityDetailsId"
+                [nzLabel]="data.nationality"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Date of Birth<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <nz-date-picker
+              [nzShowToday]="false"
+              [nzFormat]="'dd-MM-yyyy'"
+              class="custom-date-picker"
+              id="dateOfBirth"
+              formControlName="dateOfBirth"
+              [nzDisabledDate]="disableFutureDates"
+              (ngModelChange)="validateDob()"
+            ></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="10">
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label
+            >Place of Birth<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control nzSpan="">
+            <input
+              nz-input
+              id="placeOfBirth"
+              type="text"
+              placeholder="Place of Birth"
+              formControlName="placeOfBirth"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="10" class="btn-row">
+      <div nz-col nzSpan="4">
+        <button nz-button class="btn btn__cancel" (click)="closeModal()">
+          Cancel
+        </button>
+      </div>
+      <div nz-col nzSpan="4">
+        <button
+          nz-button
+          class="btn btn__high_orange"
+          (click)="createAccount()"
+        >
+          Create Account
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

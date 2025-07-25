@@ -1,0 +1,145 @@
+<div class="modal_content">
+  <div class="form-figure" nz-row [nzGutter]="20">
+    <div class="modal-content" nz-col nzLg="9">
+      <nz-form-item>
+        <nz-form-control>
+          <div nz-row class="img-upload-box">
+            <nz-upload
+              [(nzFileList)]="fileList"
+              [nzBeforeUpload]="beforeUpload"
+              class="upload"
+              [nzLimit]="1"
+              [(nzFileList)]="fileList"
+              [nzBeforeUpload]="beforeUpload"
+            >
+              <button nz-button id="frontBtn" class="upload-btn">
+                <p class="img-upload-para">Document X</p>
+                <img src="./assets/icons/update.svg" />
+                <p class="img-upload-para">Drag and Drop file here to upload</p>
+              </button>
+            </nz-upload>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="btn_row">
+        <div>
+          <button class="btn btn__cancel" (click)="closeModat()">Cancel</button>
+        </div>
+        <div>
+          <button class="btn btn__next" (click)="uploadNewDocuments()">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mini_table modal_table" nz-col nzLg="15">
+      <nz-table
+        class="table-container"
+        #FileTable
+        [nzShowPagination]="false"
+        [nzData]="fileList"
+      >
+        <thead class="body_tr">
+          <tr nz-row>
+            <th nz-col nzLg="6">
+              <div>DATE</div>
+            </th>
+            <th nz-col nzLg="12">
+              <div>DOCUMENT NAME</div>
+            </th>
+            <th nz-col nzLg="6">
+              <div></div>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="border">
+          <tr nz-row *ngFor="let data of FileTable.data">
+            <td nz-col nzLg="6">
+              <div>{{ currentDate | date }}</div>
+            </td>
+            <td nz-col nzLg="12">
+              <div>{{ data.name }}</div>
+            </td>
+            <td nz-col nzLg="6">
+              <a
+                ><img
+                  class="images"
+                  src="./assets/icons/Close red.svg"
+                  (click)="removeFile(data)"
+              /></a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+
+  <div class="content">
+    <div nz-row class="table-title-row">
+      <div nz-col [nzSpan]="24">
+        <div class="table_heading">Uploaded Files</div>
+      </div>
+    </div>
+
+    <div class="desktop_only">
+      <nz-table
+        #basicTable
+        [nzPageSize]="50"
+        [nzShowPagination]="false"
+        [nzData]="allExistingDocumnts"
+      >
+        <thead>
+          <tr nz-row class="table-row heading-row">
+            <th nz-col nzLg="6" nzMd="6">
+              <div>UPLOADED DATE</div>
+            </th>
+            <th nz-col nzLg="6" nzMd="6">
+              <div>IMAGE NAME</div>
+            </th>
+            <th nz-col nzLg="6" nzMd="6">
+              <div>UPLOADED BY</div>
+            </th>
+            <!-- <th nz-col nzLg="6" nzMd="6">
+              <div>ID/FILE TYPE</div>
+            </th> -->
+          </tr>
+        </thead>
+
+        <tbody class="t_body">
+          <tr nz-row *ngFor="let data of basicTable.data">
+            <td nz-col nzLg="6" nzMd="6">
+              <div>{{ data.uploadedOn }}</div>
+            </td>
+            <td nz-col nzLg="6" nzMd="6">
+              <div>{{ data.documentName }}</div>
+            </td>
+            <td nz-col nzLg="6" nzMd="6">
+              <div>{{ data.uploadedBy }}</div>
+            </td>
+            <td nz-col nzLg="6" nzMd="6">
+              <div (click)="downloadFile(data.uploadedBy)">
+                <img src="./assets/icons/file_download.svg" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <!-- <div class="pagination-row">
+      <nz-pagination
+        class="pagination"
+        [nzPageSize]="pageSize"
+        [nzPageIndex]="currentIndex"
+        [nzTotal]="totalRecords"
+        nzShowQuickJumper
+        [nzShowTotal]="rangeTemplate"
+        (nzPageIndexChange)="pageIndexChange($event)"
+      >
+      </nz-pagination>
+      <ng-template #rangeTemplate let-range="range" let-total>
+        <span>{{ range[1 - 0] }} of {{ 0 }} items</span>
+      </ng-template>
+    </div> -->
+  </div>
+</div>

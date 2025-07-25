@@ -1,0 +1,97 @@
+<form [formGroup]="addCompamieForm">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Name</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your name!">
+          <input
+            nz-input
+            formControlName="name"
+            id="first_name"
+            placeholder="First Name"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Industry</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your industry!">
+          <input
+            nz-input
+            formControlName="industry"
+            placeholder="industry"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>address</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your address!">
+          <input
+            nz-input
+            formControlName="address"
+            id="address"
+            placeholder="address"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>website</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your website!">
+          <input
+            nz-input
+            formControlName="website"
+            id="website"
+            placeholder="website"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>revenue_range</nz-form-label>
+        <nz-form-control
+          class="range"
+          nzErrorTip="Please select the revenue_range!"
+          style="display: flex; gap: 10px"
+        >
+          <nz-input-number
+            formControlName="low_range"
+            style="width: 100%"
+            nzPlaceHolder="low range"
+            class="modal-input"
+          ></nz-input-number>
+          <nz-input-number
+            formControlName="high_range"
+            nzPlaceHolder="High range"
+            style="width: 100%"
+            class="modal-input"
+          ></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button nz-button class="btn" (click)="close()">Cancel</button>
+    <button
+      nz-button
+      class="btn"
+      (click)="index === 'edit' ? UpdateExistingComapnie() : saveNewComapnie()"
+    >
+      {{ index === "edit" ? "Update company" : "Add New Companie" }}
+    </button>
+  </div>
+</form>

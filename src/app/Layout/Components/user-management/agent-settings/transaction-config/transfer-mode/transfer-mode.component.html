@@ -1,0 +1,81 @@
+<div>
+  <div class="tab_heading">Transfer Modes</div>
+
+  <div nz-row class="input-sec">
+    <div nz-col nzMd="12">
+      <span> Receiving Currency </span>
+      <nz-form-control>
+        <nz-select
+          class="modal-dropdown"
+          nzPlaceHolder="Select Receiving Currency"
+          nzSuffixIcon="caret-down"
+          nzShowSearch
+          nzAllowClear
+          [(ngModel)]="currency"
+          (ngModelChange)="getAllTransferMode()"
+        >
+          <nz-option
+            *ngFor="let data of recievingCurrencyList"
+            [nzLabel]="data.currencyCode + '-' + data.currencyName"
+            [nzValue]="data.agentTransferApprovedReceivingCurrenciesId"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </div>
+  </div>
+
+  <nz-table
+    #transferModeTable
+    [nzData]="tableData"
+    [nzPageSize]="10"
+    [nzShowPagination]="true"
+    class="modal_table"
+  >
+    <thead>
+      <tr>
+        <th>TRANSFER MODE DESCRIPTION</th>
+        <th>SENDING CURRENCY</th>
+        <th>RECEIVING CURRENCY</th>
+        <th>STATUS</th>
+      </tr>
+    </thead>
+    <tbody class="body_tr">
+      <tr *ngFor="let data of transferModeTable.data">
+        <td>
+          {{ data.transactionModeDesc }}
+        </td>
+        <td>
+          {{ data.sendingCurrency }}
+        </td>
+        <td>
+          {{ data.receivingCurrency }}
+        </td>
+
+        <td>
+          <div>
+            <nz-switch
+              [(ngModel)]="data.isActive"
+              nzSize="small"
+              (click)="changeRoleStatus(data)"
+            ></nz-switch>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="pageNumber"
+      [nzTotal]="totalRecords"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+      (nzPageIndexChange)="pageIndexChange($event)"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

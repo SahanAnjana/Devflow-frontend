@@ -1,0 +1,220 @@
+<div class="content">
+  <div nz-row [nzGutter]="10" class="filter-section">
+    <div class="filter-row filter-row2">
+      <span class="filter-txt">Filter by:</span>
+
+      <div nz-col [nzSpan]="9">
+        <ng-container>
+          <button
+            nz-dropdown
+            class="filter_btn"
+            [nzDropdownMenu]="menu1"
+            nzPlacement="bottomCenter"
+            [nzClickHide]="false"
+            nzTrigger="click"
+          >
+            Email
+          </button>
+          <nz-dropdown-menu #menu1="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <div class="ref-select">
+                  <input nz-input placeholder="Email" [(ngModel)]="email" />
+                </div>
+              </li>
+              <li nz-menu-item class="btn__section">
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="resetSearch()"
+                >
+                  Reset
+                </button>
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="getAllTableDataForPlatformUser()"
+                >
+                  Save
+                </button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-container>
+      </div>
+
+      <div nz-col [nzSpan]="9">
+        <ng-container>
+          <button
+            nz-dropdown
+            class="filter_btn"
+            [nzDropdownMenu]="menu2"
+            nzPlacement="bottomCenter"
+            [nzClickHide]="false"
+            nzTrigger="click"
+          >
+            Name
+          </button>
+          <nz-dropdown-menu #menu2="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <div class="ref-select">
+                  <input
+                    nz-input
+                    placeholder="User Name"
+                    [(ngModel)]="username"
+                  />
+                </div>
+              </li>
+              <li nz-menu-item class="btn__section">
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="resetSearch()"
+                >
+                  Reset
+                </button>
+                <button
+                  nz-button
+                  class="btn btn__high_orange"
+                  (click)="getAllTableDataForPlatformUser()"
+                >
+                  Save
+                </button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-container>
+      </div>
+    </div>
+
+    <div nz-col class="right-sec">
+      <div>
+        <a nz-button nzType="link" [routerLink]="['view-new-platform-user']">
+          <img src="./assets/icons/view_eye.svg" />
+          &nbsp;
+          <u>View New Platform Users</u></a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <nz-table
+      #basicTable
+      [nzData]="allPlatFormusers"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th>
+            <div class="border-start-th">USER ID</div>
+          </th>
+          <th>
+            <div class="border-middle-th">NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">REGISTERED DATE</div>
+          </th>
+          <th>
+            <div class="border-middle-th">EMAIL</div>
+          </th>
+          <th>
+            <div class="border-middle-th">LAST LOGIN DATE</div>
+          </th>
+          <th>
+            <div class="border-middle-th">LAST LOGIN TIME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">STATUS</div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let data of basicTable.data">
+          <td>
+            <div class="border-middle">{{ data.userId }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.name }}</div>
+          </td>
+          <td>
+            <div class="border-middle">-</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.emailAddress }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.lastLoginDate }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.lastLoginTime }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              <div class="border-middle">
+                <nz-switch
+                  [(ngModel)]="data.isActive"
+                  nzSize="small"
+                  (ngModelChange)="changeStatus(data)"
+                ></nz-switch>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">
+              <img
+                class="images"
+                src="./assets/icons/icons8-eye-30.png"
+                (click)="viewuseredit(data)"
+              />
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">
+              <img
+                class="images"
+                src="./assets/icons/ic_baseline-settings.svg"
+                (click)="viewUserPrivillage(data)"
+              />
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">
+              <img
+                class="images"
+                src="./assets/icons/ic_baseline-lock-reset.svg"
+                (click)="unlockUser(data)"
+              />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="currentPageIndex"
+      [nzTotal]="totalRecords"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+      (nzPageIndexChange)="pageIndexChange($event)"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

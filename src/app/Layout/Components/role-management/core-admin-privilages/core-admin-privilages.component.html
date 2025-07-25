@@ -1,0 +1,368 @@
+<div class="modal_content">
+  <div class="head">Role Details List</div>
+
+  <div class="head" *ngIf="reportPrivilages">Report</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of reportPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <div class="head" *ngIf="accountPrivilages">ACCOUNT</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of accountPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!---------------------------------------------------------------------------------------------->
+  <div class="head" *ngIf="userManagePrivilages">USERMANAGE</div>
+
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of userManagePrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+  <!------------------------------------------------------------------------------------------------------>
+  <div class="head" *ngIf="transferPrivilages">TRANSFER</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of transferPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!------------------------------------------------------------------------------------------------------->
+  <div class="head" *ngIf="ratePrivilages">RATE</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of ratePrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!--------------------------------------------------------------------------------------------------->
+  <div class="head" *ngIf="currencyPrivilages">CURRENCY</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of currencyPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!---------------------------------------------------------------------------------------------------------->
+  <div class="head" *ngIf="agentPrivilages">AGENT</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of agentPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!------------------------------------------------------------------------------------------------------------------>
+  <div class="head" *ngIf="diagnosticPrivilages">DIAGNOSTIC</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of diagnosticPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!-------------------------------------------------------------------------------------------------------->
+  <div class="head" *ngIf="promotionPrivilages">PROMOTION</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of promotionPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!------------------------------------------------------------------------------------------------------->
+  <div class="head" *ngIf="pendingcashPrivilages">PENDING CASH</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of pendingcashPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <!-------------------------------------------------------------------------------------------------------->
+  <div class="head" *ngIf="transferLimitPrivilages">TRANSFERLIMIT</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of transferLimitPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="head" *ngIf="makeTransferPrivilages">MAKETRANSFER</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of makeTransferPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="head" *ngIf="roleManagePrivilages">ROLEMANAGE</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of roleManagePrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="head" *ngIf="communictionPrivilages">COMMUNICATION</div>
+  <div nz-row [nzGutter]="[20, 20]" class="privilage">
+    <div
+      nz-col
+      nzLg="8"
+      nzXs="24"
+      nzSm="12"
+      nzMd="12"
+      *ngFor="let privilege of communictionPrivilages"
+    >
+      <div nz-row>
+        <div nz-col nzLg="21" nzXs="24" nzSm="12" nzMd="12">
+          {{ privilege.privilegeCode }}
+        </div>
+        <div nz-col nzLg="3" nzXs="24" nzSm="12" nzMd="12">
+          <nz-switch
+            nzSize="small"
+            [(ngModel)]="privilege.isActive"
+            (click)="changeRolePrivilageStatus(privilege)"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

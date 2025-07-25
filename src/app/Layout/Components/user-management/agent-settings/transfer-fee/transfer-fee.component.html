@@ -1,0 +1,263 @@
+<div class="modal_content">
+  <div>
+    <form class="form-figure input-sec" [formGroup]="transferFeeform">
+      <div nz-row [nzGutter]="10">
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label>Agent Name </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Agent Name"
+                class="modal-input"
+                formControlName="agentName"
+                style="background: #f2f2f2"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="10">
+        <div nz-col nzLg="6" nzMd="6">
+          <nz-form-item>
+            <nz-form-label
+              >Sending Currency
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                class="modal-dropdown"
+                nzAllowClear
+                nzShowSearch
+                nzPlaceHolder="Select Sending Currency"
+                nzSuffixIcon="caret-down"
+                formControlName="sendingCurrency"
+                (ngModelChange)="getReceivingCurrencies($event)"
+              >
+                <nz-option
+                  *ngFor="let data of currencyList"
+                  [nzLabel]="data.currencyCode + ' ' + data.currencyName"
+                  [nzValue]="data.currencyCode"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="6" nzMd="6">
+          <nz-form-item>
+            <nz-form-label
+              >Receiving Currency
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzAllowClear
+                nzShowSearch
+                class="modal-dropdown"
+                nzPlaceHolder="Select Receiving Currency"
+                nzSuffixIcon="caret-down"
+                formControlName="receivingCurrency"
+              >
+                <nz-option
+                  *ngFor="let data of recievingCurrencyList"
+                  [nzLabel]="data.currencyCode + '-' + data.currencyName"
+                  [nzValue]="data.currencyCode"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="6" nzMd="6">
+          <nz-form-item>
+            <nz-form-label
+              >Transfer Mode
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzAllowClear
+                nzShowSearch
+                class="modal-dropdown"
+                nzPlaceHolder="Select Transfer Mode"
+                nzSuffixIcon="caret-down"
+                formControlName="transferMode"
+              >
+                <nz-option
+                  *ngFor="let data of transferModes"
+                  [nzLabel]="data.transactionModeDesc"
+                  [nzValue]="data.transactionModeDesc"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="6" nzMd="6">
+          <nz-form-item>
+            <nz-form-label
+              >Transfer Fee Type
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzAllowClear
+                nzShowSearch
+                class="modal-dropdown"
+                nzPlaceHolder="Select Transfer Fee Type"
+                nzSuffixIcon="caret-down"
+                formControlName="transferFeeType"
+              >
+                <nz-option nzValue="FIXED" nzLabel="FIXED"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="10">
+        <div nz-col nzLg="6" nzMd="6">
+          <nz-form-item>
+            <nz-form-label
+              >Payment Mode
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                class="modal-dropdown"
+                nzPlaceHolder="Select Payment Mode"
+                nzSuffixIcon="caret-down"
+                formControlName="paymentMode"
+                nzAllowClear
+                nzShowSearch
+              >
+                <nz-option
+                  *ngFor="let data of paymentModes"
+                  [nzLabel]="data?.paymentModeDto?.paymentModeDesc"
+                  [nzValue]="data.paymentModeDto.paymentModeDesc"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="6" nzMd="6">
+          <nz-form-item>
+            <nz-form-label
+              >Start Amount<span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                type="number"
+                placeholder="Start Amount"
+                class="modal-input"
+                formControlName="startAmount"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="6" nzMd="6">
+          <nz-form-item>
+            <nz-form-label
+              >End Amount<span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                type="number"
+                placeholder="End Amount"
+                class="modal-input"
+                formControlName="endAmount"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="6" nzMd="6">
+          <nz-form-item>
+            <nz-form-label
+              >Fee<span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                type="number"
+                placeholder="Fee"
+                class="modal-input"
+                formControlName="fee"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="btn_row">
+    <button class="btn btn__cancel" (click)="closeFee()">Cancel</button>
+    <button
+      class="btn btn__next"
+      type="submit"
+      value="submit"
+      (click)="onUpdate()"
+    >
+      Update
+    </button>
+  </div>
+  <div class="table_head">
+    <h2>Transfer Fee</h2>
+  </div>
+
+  <nz-table
+    #transactionFeeTable
+    [nzData]="tableData"
+    [nzShowPagination]="false"
+    class="modal_table"
+  >
+    <thead>
+      <tr>
+        <th>RECEIVING CURRENCY</th>
+        <th>TRANSFER MODE</th>
+        <th>PAYMENT MODE</th>
+        <th>FEE TYPE</th>
+        <th>START AMOUNT</th>
+        <th>END AMOUNT</th>
+        <th>FEE</th>
+        <th>SENDING CURRENCY</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of transactionFeeTable.data">
+        <th>{{ data.receivingCurrecny }}</th>
+        <th>{{ data.agentCurrencyTransactionMode }}</th>
+        <th>{{ data.paymentMode }}</th>
+        <th>{{ data.transferFeeType }}</th>
+        <th>{{ data.startAmount | number : "0.2-2" }}</th>
+        <th>{{ data.endAmount | number : "0.2-2" }}</th>
+        <th>{{ data?.fee }}</th>
+        <th>{{ data?.sendingCurrency }}</th>
+        <th>
+          <div>
+            <img
+              class="images"
+              src="./assets/icons/edit.svg"
+              (click)="edit(data)"
+            />
+          </div>
+        </th>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="pageNumber"
+      [nzTotal]="totalRecords"
+      nzShowQuickJumper
+      (nzPageIndexChange)="pageIndexChange($event)"
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

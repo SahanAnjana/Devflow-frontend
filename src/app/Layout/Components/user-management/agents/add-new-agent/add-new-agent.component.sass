@@ -1,0 +1,75 @@
+@import '../../../../../../assets/sass/index'
+
+::ng-deep .add-agent .ant-modal-body
+    padding: 0
+::ng-deep .add-agent .ant-modal
+    width:1012px !important
+
+// ::ng-deep .add-agent .ant-form-item
+//     gap:10px
+.step-content
+    padding: 30px
+
+::ng-deep .add-agent.ant-tabs>.ant-tabs-nav
+    // padding: 13px   
+    border-radius: 5px 5px 0px 0px
+    background: #F45300
+
+::ng-deep .add-agent.ant-tabs-tab
+    padding: 12px 72px
+
+.header-section
+    display: flex
+    align-items: center
+    padding-top: 13px
+    padding-bottom: 13px
+    padding-right: 50px
+    padding-left: 10px
+    background: #F45300
+
+::ng-deep .add-agent .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon
+    background: #fff
+    border-color: #fff
+    @include media_query_all(16,16,null,null,null,16,'font-size')
+
+::ng-deep .add-agent .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon .ant-steps-icon
+    color: #F45300
+    @include media_query_all(16,16,null,null,null,16,'font-size')
+::ng-deep .add-agent .ant-steps-item-wait .ant-steps-item-icon
+    color: #F45300
+    background-color: #F45300
+    color: #F45300
+    border-color: #fff
+    @include media_query_all(16,16,null,null,null,16,'font-size')
+
+::ng-deep .add-agent .ant-steps-item-wait .ant-steps-item-icon>.ant-steps-icon,
+::ng-deep .add-agent .ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon
+    color: #F45300
+    @include media_query_all(16,16,null,null,null,16,'font-size')
+
+::ng-deep .add-agent .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title,
+::ng-deep .add-agent .ant-steps-item-wait>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title
+    color: #fff
+    border-color: #fff
+    @include media_query_all(16,16,null,null,null,16,'font-size')
+
+::ng-deep .add-agent .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title
+    color: #fff
+    @include media_query_all(16,16,null,null,null,16,'font-size')
+
+::ng-deep .add-agent .ant-modal-close
+    color: #fff
+
+::ng-deep .add-agent .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after
+    background-color: #fff
+::ng-deep .add-agent .ant-steps-item-finish .ant-steps-item-icon
+    border-color: #fff
+
+.button
+    display: flex
+    gap: 10px
+
+.btn__cancel
+    background: transparent
+    border: 1px solid #F45300
+    color: #F45300

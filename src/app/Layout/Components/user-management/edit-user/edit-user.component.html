@@ -1,0 +1,173 @@
+<div class="modal_content">
+  <form [formGroup]="edituserform">
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>Company Name </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Company Name"
+              class="modal-input"
+              formControlName="CompanyName"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>Company Registration Number </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Company Registration Number"
+              class="modal-input"
+              formControlName="CompanyRegistrationNumber"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>Owner Name </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Owner Name"
+              class="modal-input"
+              formControlName="OwnerName"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>Contact Number</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Contact Number"
+              class="modal-input"
+              formControlName="ContactNumber"
+              (keypress)="numberOnly($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>Email Address</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Email Address"
+              class="modal-input"
+              formControlName="EmailAddress"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>Address </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Address"
+              class="modal-input"
+              formControlName="Address"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>Country </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              class="modal-dropdown"
+              bindLabel=""
+              nzPlaceHolder="Country"
+              nzSuffixIcon="caret-down"
+              nzAllowClear
+              formControlName="Country"
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of AllCountry"
+                [nzValue]="data.countryName"
+                [nzLabel]="data.referenceCountryCode + '-' + data.countryName"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>Reference </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Reference"
+              class="modal-input"
+              formControlName="Reference"
+              (keypress)="numberAndLetter_AB($event)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="10">
+      <div nz-col>
+        <nz-form-label
+          ><span class="status">Status</span>
+          <sup
+            ><span
+              nz-icon
+              nzTheme="outline"
+              style="color: #f45300"
+              [nz-tooltip]="
+                !isCoporate
+                  ? 'For corporate beneficiary move the switch to right'
+                  : 'For personal beneficiary move the switch to left'
+              "
+            ></span
+          ></sup>
+        </nz-form-label>
+      </div>
+
+      <div class="switch_row">
+        <!-- <div nz-col>
+        <p class="switch switch__personal" *ngIf="!isCoporate">Personal</p>
+        <p class="switch switch__personal" *ngIf="isCoporate">Personal</p>
+      </div> -->
+        <div nz-col class="switc">
+          <nz-switch
+            nzSize="small"
+            (ngModelChange)="change($event)"
+            formControlName="status"
+          ></nz-switch>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="btn-row">
+    <div>
+      <button class="btn btn__cancel" (click)="cancel()">Cancel</button>
+    </div>
+    <div>
+      <button class="btn btn__next" (click)="save()">Save User</button>
+    </div>
+  </div>
+</div>

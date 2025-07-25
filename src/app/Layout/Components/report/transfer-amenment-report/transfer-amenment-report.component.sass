@@ -1,0 +1,56 @@
+@import '../../../../../assets/sass/index'
+   
+.ant-layout-content
+    overflow-y: hidden
+.table-content
+    margin-top: 40px
+// .table-row
+//     height: 68px
+//     // margin-top: 10px 
+//     display: flex
+//     background: #fff
+// .heading-row
+//     margin: 0
+//     height: 68px
+//     background: #fff
+//     display: flex
+    // align-items: center
+    // padding-top: 10px
+    // padding-left: 20px
+    // padding-right: 10px
+    // padding-bottom: 10px
+// .data-row
+//     margin: 0
+//     height: 68px
+//     background: #fff 
+//     margin-top: 10px
+//     display: flex
+//     align-items: center
+//     // padding-top: 10px
+//     // padding-left: 20px
+//     // padding-right: 10px
+//     // padding-bottom: 10px
+// .table-col
+//     font-size: 16px
+//     color: #000
+//     font-weight: 600  
+
+.desktop_only
+    @include media_query_all_im(none,null,null,null,block,block,"display")
+.mobile_only
+    @include media_query_all_im(block,null,null,null,none,none,"display")
+
+.ant-row .table-row .heading-row
+    margin: 0    
+
+.table-row 
+    padding: 10px
+    margin-bottom: 10px
+    background: #fff 
+    
+.heading_tr
+    height:5.25rem 
+
+.pagination-row
+    justify-content: end   
+ 

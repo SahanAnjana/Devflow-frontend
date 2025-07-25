@@ -1,0 +1,81 @@
+@import '../../../../../assets/sass/index'
+
+:host::ng-deep.ant-input-affix-wrapper
+    justify-content: flex-end
+    border: 0.5px solid rgba(0, 0, 0, 0.4)
+    border-radius: 3px
+    @include media_query_all_im(null,null,null,null,null,50,'height')
+    // @include media_query_all_im(null,null,null,null,null,282,'width')
+    &:hover
+        border: 0.5px solid rgba(0, 0, 0, 0.4)
+:host::ng-deep.ant-table-tbody>tr.ant-table-placeholder
+    display: none !important
+
+.ancor_text
+    a
+        display: flex
+        justify-content: end
+        color: #f45300
+        padding-bottom: 20px
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+
+.btn_blue
+    @include media_query_all_im(null,null,null,null,null,40,'height')
+    @include media_query_all_im(null,null,null,null,null,162,'width')
+    @include media_query_all_im(null,null,null,null,null,16,'font-size')
+    font-weight: 600
+    background-color: #1aa3ff
+    border-radius: 5px
+    margin-top: 14px
+    border: none
+    color: #ffff
+
+.sec2
+    display: flex
+    align-items: center
+
+:host::ng-deep.ant-input-affix-wrapper-focused, .ant-input-affix-wrapper:focus
+    box-shadow: none !important
+
+:host ::ng-deep.ant-table-head
+    .ant-row
+        margin-left: 5px !important
+        margin-right: 5px !important
+.btn__next
+    @include media_query_all_im(null,null,null,null,null,50,'height')
+    @include media_query_all_im(null,null,null,null,null,200,'width')
+.btn__cancel
+    @include media_query_all_im(null,null,null,null,null,50,'height')
+    @include media_query_all_im(null,null,null,null,null,200,'width')
+.modal_content
+    padding: 0 !important
+::ng-deep .send_email .ant-modal-close
+    color: #ffff
+
+:host::ng-deep.ant-table-content
+    @include media_query_all_im(null,null,null,null,null,13,'font-size')
+:host::ng-deep.ant-table-thead > tr > th
+    @include media_query_all_im(null,null,null,null,null,14,'font-size')
+:host::ng-deep.ant-input
+    @include media_query_all_im(null,null,null,null,null,16,'font-size')
+// .send_mail_form
+//     padding-top: 0px !important
+
+::ng-deep .send_email .ant-modal-header
+    height: 3.5rem !important    
+
+::ng-deep .send_email .ant-table-thead > tr > th,
+::ng-deep .send_email .ant-table-tbody > tr > td
+    padding-top: 10px
+    padding-bottom: 10px
+    padding-left: 20px
+    display: flex
+    align-items: center
+
+.images
+    width: 15px
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)    
+
+:host ::ng-deep .send_email .ant-table-row 
+    height: 28px

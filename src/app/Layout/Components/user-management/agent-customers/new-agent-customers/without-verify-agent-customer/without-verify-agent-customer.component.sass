@@ -1,0 +1,106 @@
+@import '../../../../../../../assets/sass/index.sass'
+
+.desktop_only
+    @include media_query_all_im(none,null,null,null,block,block,"display")
+.mobile_only
+    @include media_query_all_im(block,null,null,null,none,none,"display")
+.filter-section
+    display: flex
+    justify-content: space-between
+    margin-left: 0 !important
+
+    padding: 17px
+:host ::ng-deep .ant-dropdown-trigger
+    width: 100%
+    border-radius: 5px
+    background: #FFF
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+    // height: 38px
+    @include media_query_all(28,null,null,null,28,38,'height')
+.content .filter-row
+    flex-wrap: nowrap !important
+    text-wrap: nowrap
+.filter-btn-bar
+    // margin: 40px 0
+    display: flex
+    align-items: center
+    justify-content: end
+.filter_btn
+
+    background: #ffff
+    @include media_query_all(null,null,null,null,null,38,'height')
+    border-radius: 5px
+    // border: 0.3px rgba(0, 0, 0, 0.5)
+    @include media_query_all(null,null,null,null,null,130,'width')
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
+    @include media_query_all_im(null,null,null,null,null,14,"font-size")
+    color: rgba(0,0,0,0.5)
+    padding-left: 5px
+.heading_tr
+    height: 5.25rem
+
+.right-sec
+    text-align: right
+    display: flex
+    align-items: center
+    justify-content: end
+    cursor: pointer
+    @include media_query_all(14,null,null,null,null,16,'font-size')
+
+:host::ng-deep .ant-dropdown-menu
+    border-radius: 6px
+    background: #F45300
+    @include media_query_all(245,null,null,null,null,350,'width')
+    @include media_query_all(null,null,null,null,null,15,'font-size')
+    // width: 350px
+    // padding: 20px
+    @include media_query_all(null,null,null,null,null,20,'padding-top')
+    @include media_query_all(null,null,null,null,null,20,'padding-right')
+    @include media_query_all(null,null,null,null,null,20,'padding-bottom')
+    @include media_query_all(null,null,null,null,null,20,'padding-left')  
+    .dropdown
+        background: #fff
+        width: 100% 
+        @include media_query_all(null,null,null,null,null,38,'height')
+        &.ant-select:not(.ant-select-customize-input) .ant-select-selector
+            @include media_query_all(null,null,null,null,null,38,'height')
+:host ::ng-deep .ant-dropdown-menu-item
+    padding: 0
+    border-radius: 6px
+    justify-content: space-between
+
+:host ::ng-deep .ant-dropdown-menu-item:hover
+    background: #F45300
+
+:host ::ng-deep .ant-btn
+    @include media_query_all(4,null,null,null,null,4,'padding-top')
+    @include media_query_all(0,null,null,null,0,15,'padding-right')
+    @include media_query_all(4,null,null,null,null,4,'padding-bottom')
+    @include media_query_all(5,null,null,null,5,15,'padding-left')
+
+.ref-select
+    width: 100%
+
+.pagination-row
+    margin-top: 30px
+
+:host ::ng-deep .ant-btn
+    @include media_query_all(9,null,null,null,9,14,'font-size')
+
+.table-row
+    padding: 10px
+    margin-bottom: 10px
+    background: #fff
+
+.tab_button
+    // width: 120px
+    height: 38px
+    @include media_query_all(130,null,null,140,null,140,'width')
+
+.ant-btn-link
+    color: $primary-color
+    gap: 10px
+    font-weight: bold
+    float: right
+    right: 0
+    @include media_query_all(null,null,null,null,null,16,'font-size')

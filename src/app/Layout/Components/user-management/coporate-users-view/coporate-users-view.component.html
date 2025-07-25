@@ -1,0 +1,16 @@
+<div class="modal-content">
+  <nz-tabset>
+    <nz-tab nzTitle="Basic Information">
+      <app-coporate-customer-basicinformation
+        [mode]="mode"
+        [incomingAgentUserCooperateId]="agentUserCooperateID"
+      ></app-coporate-customer-basicinformation>
+    </nz-tab>
+    <nz-tab nzTitle="Documentation">
+      <app-corporate-customerdocuments
+        [mode]="mode"
+        [coorporateId]="coorporateId"
+      ></app-corporate-customerdocuments>
+    </nz-tab>
+  </nz-tabset>
+</div>

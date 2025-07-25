@@ -1,0 +1,174 @@
+<div nz-row class="title-bar">
+  <div nz-col [nzSpan]="10">
+    <div class="comp_title">Promotion</div>
+  </div>
+</div>
+
+<div class="content">
+  <div nz-row [nzGutter]="5" class="filter-section">
+    <div class="filter-row filter-row2">
+      <span class="filter-txt">Filter by:</span>
+
+      <div nz-col [nzSpan]="9">
+        <ng-container>
+          <button
+            nz-dropdown
+            class="filter_btn"
+            [nzDropdownMenu]="menu1"
+            nzPlacement="bottomCenter"
+            [nzClickHide]="false"
+            nzTrigger="click"
+          >
+            Promotion Type
+          </button>
+          <nz-dropdown-menu #menu1="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <nz-select
+                  class="dropdown"
+                  items="clientNames"
+                  nzSuffixIcon="caret-down"
+                  bindLabel="clientName"
+                  nzShowSearch
+                  nzPlaceHolder="Select Promotion Type"
+                ></nz-select>
+              </li>
+              <li nz-menu-item class="btn__section">
+                <button nz-button class="btn btn__high_orange">Reset</button>
+                <button nz-button class="btn btn__high_orange">Save</button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-container>
+      </div>
+      <div nz-col [nzSpan]="9">
+        <ng-container>
+          <button
+            nz-dropdown
+            class="filter_btn"
+            [nzDropdownMenu]="menu7"
+            nzPlacement="bottomCenter"
+            [nzClickHide]="false"
+            nzTrigger="click"
+          >
+            Promotion Name
+          </button>
+          <nz-dropdown-menu #menu7="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <div class="ref-select">
+                  <input
+                    nz-input
+                    class="card_input"
+                    placeholder="Enter Promotion Name"
+                  />
+                </div>
+              </li>
+              <li nz-menu-item class="btn__section">
+                <button nz-button class="btn btn__high_orange">Reset</button>
+                <button nz-button class="btn btn__high_orange">Save</button>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-container>
+      </div>
+
+      <!-- <div nz-col nzSpan="12" class="right-sec">
+            <h3 [routerLink]="['new-platform-users']">
+              <img src="../../../../../../assets/icons/view-eye-red.svg" />View New
+              Platform Users
+            </h3>
+          </div> -->
+    </div>
+    <div class="tab_button" *ngIf="this.privileges.CORE_SHOW_ADD_PROMOTION">
+      <button nz-button class="btn btn_addnew" (click)="addnewpromotion()">
+        Add New Promotion
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <nz-table #basicTable [nzPageSize]="0" [nzShowPagination]="false">
+      <thead>
+        <tr class="heading_tr">
+          <th>
+            <div class="border-start-th">PROMOTION NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">PROMOTION TYPE</div>
+          </th>
+          <th>
+            <div class="border-middle-th">AGENT NAME</div>
+          </th>
+          <th>
+            <div class="border-middle-th">START DATE</div>
+          </th>
+          <th>
+            <div class="border-middle-th">END DATE</div>
+          </th>
+          <th>
+            <div class="border-middle-th">MIN TRANSFER AMOUNT</div>
+          </th>
+          <th>
+            <div class="border-middle-th">MAX TRANSFER AMOUNT</div>
+          </th>
+          <th *ngIf="this.privileges.CORE_SHOW_UPDATE_PROMOTION">
+            <div class="border-middle-th"></div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let data of basicTable.data">
+          <td>
+            <div class="border-middle">{{ data.PROMOTIONNAME }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.PROMOTIONTYPE }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ data.AGENTNAME }}
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.STARTDATE }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.ENDDATE }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.MINTRANSFERAMOUNT }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data.MAXTRANSFERAMOUNT }}</div>
+          </td>
+
+          <td *ngIf="this.privileges.CORE_SHOW_UPDATE_PROMOTION">
+            <div class="border-middle">
+              <img
+                class="images"
+                src="./assets/icons/icons8-eye-30.png"
+                (click)="updatepromotion()"
+              />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="1"
+      [nzPageIndex]="1"
+      [nzTotal]="0"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

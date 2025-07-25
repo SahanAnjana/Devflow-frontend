@@ -1,0 +1,19 @@
+<div class="sign-in">
+  <div class="form">
+    <div class="header">Plase check your email</div>
+    <div class="otp_mail_text">We’ve sent a code to {{ useremail }}</div>
+    <div class="time" [style.color]="color">{{ display }}</div>
+    <ng-otp-input
+      (onInputChange)="onOtpChange($event)"
+      [config]="{ length: 4 }"
+    ></ng-otp-input>
+    <div class="resend">
+      Didn’t get a code?
+      <span (click)="generateOTP()" class="txt_under">Click to resend.</span>
+    </div>
+    <div class="btn_section">
+      <button class="sign-in-btn cancel" (click)="cancel()">Cancel</button>
+      <button class="sign-in-btn" (click)="verify()">Submit</button>
+    </div>
+  </div>
+</div>

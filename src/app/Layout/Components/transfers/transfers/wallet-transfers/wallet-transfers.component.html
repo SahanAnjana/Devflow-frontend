@@ -1,0 +1,65 @@
+<div class="tab_heading">Wallet Transfer Details</div>
+<nz-table #basicTable nzShowPagination="false">
+  <thead>
+    <tr class="heading_tr">
+      <th><div class="border-start-th">DATE</div></th>
+      <th><div class="border-middle-th">REFERENCE NUMBER</div></th>
+      <th>
+        <div class="border-middle-th">SENDER NAME</div>
+      </th>
+      <th><div class="border-middle-th">WALLET NAME</div></th>
+      <th><div class="border-middle-th">SENDING AMOUNT</div></th>
+      <th><div class="border-middle-th">RECEIVING AMOUNT</div></th>
+      <th><div class="border-middle-th">PAYING BY</div></th>
+    </tr>
+  </thead>
+  <tbody class="body_tr">
+    <tr *ngFor="let data of basicTable.data">
+      <td>
+        <div class="border-middle">{{ data.date }}</div>
+      </td>
+      <td>
+        <div class="border-middle">{{ data.customerRef }}</div>
+      </td>
+      <td>
+        <div class="border-middle">
+          {{ data.senderName }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle">
+          {{ data.agentName }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle">
+          {{ data.sendAmount }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle">
+          {{ data.receivingCurrency }}
+        </div>
+      </td>
+      <td>
+        <div class="border-middle">
+          {{ data.payingBy }}
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<div class="pagination-row">
+  <nz-pagination
+    class="pagination"
+    [nzPageSize]="1"
+    [nzPageIndex]="1"
+    [nzTotal]=""
+    nzShowQuickJumper
+    [nzShowTotal]="rangeTemplate"
+  >
+  </nz-pagination>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <span>{{ range[0] }} of {{ total }} items</span>
+  </ng-template>
+</div>

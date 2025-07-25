@@ -1,0 +1,19 @@
+@import '../variable'
+
+
+.ant-picker
+    width: 100% !important
+    // height: 50px
+    @include media_query_all_im(50,null,null,null,null,50,'height')
+    padding:6px
+    border-radius: 5px
+    border: 0.5px solid rgba(0, 0, 0, 0.4) !important
+
+.ant-picker-focused
+.ant-picker-input>.input-focused, .ant-picker-input>input:focus
+    border: none !important
+    border-color: #ffff !important
+    box-shadow: none
+.ant-picker-focused
+    box-shadow: none
+  

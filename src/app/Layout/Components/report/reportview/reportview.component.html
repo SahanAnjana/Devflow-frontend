@@ -1,0 +1,62 @@
+<div>
+  <div nz-row class="model-header">
+    <div nz-col [nzSpan]="5">
+      <div *ngIf="step == 1" class="model-title">View Transfer</div>
+      <div *ngIf="step == 2" class="model-title">User Details</div>
+      <div *ngIf="step == 3" class="model-title">Benificiary Details</div>
+      <div *ngIf="step == 4" class="model-title">Transfer Invoice</div>
+    </div>
+    <div nz-col [nzSpan]="19">
+      <div nz-col class="steps-details">
+        <nz-steps [nzCurrent]="currentStepIndex">
+          <nz-step nzTitle="VIEW" [nzStatus]="currentStepStatus1"></nz-step>
+          <nz-step nzTitle="USER" [nzStatus]="currentStepStatus2"></nz-step>
+          <nz-step
+            nzTitle="BENEFICIARY"
+            [nzStatus]="currentStepStatus3"
+          ></nz-step>
+          <nz-step nzTitle="INVOICE" [nzStatus]="currentStepStatus4"></nz-step>
+        </nz-steps>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-content">
+    <app-report-view-transfer *ngIf="step === 1"></app-report-view-transfer>
+    <app-report-view-userdetails
+      *ngIf="step === 2"
+    ></app-report-view-userdetails>
+    <app-report-view-beneficiarydetails
+      *ngIf="step === 3"
+    ></app-report-view-beneficiarydetails>
+    <app-report-view-transferinvoice
+      *ngIf="step === 4"
+    ></app-report-view-transferinvoice>
+
+    <div *ngIf="isButtonEnable === true" class="button">
+      <div *ngIf="step == 1">
+        <button class="btn btn__cancel" (click)="close()">Cancel</button>
+      </div>
+
+      <div *ngIf="step !== 1 && step !== 4">
+        <button class="btn btn__goback" (click)="prev()">Go Back</button>
+      </div>
+      <div *ngIf="step == 3">
+        <button class="btn btn__goback" (click)="updatebeneficiary()">
+          Update Benificiary
+        </button>
+      </div>
+
+      <div *ngIf="step !== 4">
+        <button class="btn btn__next" (click)="next()">Next</button>
+      </div>
+      <!-- 
+      <div *ngIf="step == 3">
+        <button class="btn btn__review_confirmation" (click)="Confirmation()">
+          Review and Confirmation
+        </button>
+      </div> -->
+    </div>
+      
+  </div>
+</div>

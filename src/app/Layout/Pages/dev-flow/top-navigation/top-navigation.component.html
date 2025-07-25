@@ -1,0 +1,77 @@
+<div class="top-nav">
+  <!-- Left Section -->
+  <div class="nav-left">
+    <nz-breadcrumb
+      [nzSeparator]="iconTemplate"
+      *ngFor="let segment of segments; let i = index"
+    >
+      <nz-breadcrumb-item [routerLink]="getBreadcrumbLink(i)">{{
+        segments[i]
+      }}</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </div>
+
+  <!-- Right Section -->
+  <div class="nav-right">
+    <!-- Notifications -->
+    <button class="notification-button">
+      <span class="notification-icon">🔔</span>
+      <div class="notification-badge"></div>
+    </button>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-dropdown">
+      <button (click)="toggleDropdown()" class="profile-button">
+        <div class="profile-avatar">
+          {{ getInitials(this.currentUser.sub) }}
+        </div>
+        <div class="profile-info">
+          <p class="profile-email">{{ userEmail }}</p>
+          <p class="profile-role">{{ loggeduser }}</p>
+        </div>
+        <span class="dropdown-arrow"
+          ><img src="./assets/icons/dropdown.svg"
+        /></span>
+      </button>
+
+      <div *ngIf="isDropdownOpen" class="dropdown-menu">
+        <div class="dropdown-content">
+          <div class="dropdown-header">My Account</div>
+
+          <button (click)="onProfileClick()" class="dropdown-item">
+            <div class="dropdown-icon profile-icon">
+              <span>👤</span>
+            </div>
+            <div class="dropdown-text">
+              <p class="title">Profile</p>
+            </div>
+          </button>
+
+          <button (click)="onSettingsClick()" class="dropdown-item">
+            <div class="dropdown-icon settings-icon">
+              <span>⚙️</span>
+            </div>
+            <div class="dropdown-text">
+              <p class="title">Settings</p>
+            </div>
+          </button>
+
+          <button (click)="onLogout()" class="dropdown-item logout-item">
+            <div class="dropdown-icon logout-icon">
+              <span>🚪</span>
+            </div>
+            <div class="dropdown-text">
+              <p class="title">Logout</p>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #iconTemplate>
+  <span class="breadcrumb-separator">
+    <!-- Put your icon here, e.g. SVG or font icon -->
+    <img src="./assets/icons/right-arrow.png" />
+  </span>
+</ng-template>

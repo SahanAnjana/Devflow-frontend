@@ -1,0 +1,46 @@
+
+@import '../../../../../assets/sass/index'
+
+.form-body
+    .labels
+        ::host::ng-deep.ant-form-item-label>label
+            color: #f45300 !important
+.ant-btn.ant-btn-block
+    width: 100%
+    top: -3px
+.button
+    display: flex
+    gap: 10px
+    margin-top: 20px
+.required-mark
+    color: red
+
+.switch_row
+    display: flex
+    // margin-left: -387px
+    padding: 10px
+    column-gap: 24px
+
+:host .btn__next
+    width: 167px !important
+
+.custome-filter
+    display: flex
+    padding-top: 36px
+
+.switch
+    .switch__personal
+
+:host ::ng-deep .ant-picker
+    width: 100%
+    @include media_query_all(35,null,null,null,35,50,"height")
+::ng-deep .ant-modal-close
+    color: #fff
+::ng-deep .ant-modal-close:hover
+    color: #fff
+
+:host ::ng-deep .ant-form-item-label > label
+    color: #000
+    font-weight: 600
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)

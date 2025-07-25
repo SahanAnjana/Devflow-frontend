@@ -1,0 +1,231 @@
+<form [formGroup]="transferlimitforms">
+  <div>
+    <nz-form-item>
+      <nz-form-label
+        >Agent Name
+        <span class="required-mark">*</span>
+      </nz-form-label>
+      <nz-form-control>
+        <nz-select
+          formControlName="agentName"
+          class="modal-dropdown"
+          bindLabel=""
+          nzPlaceHolder="Select Agent Name "
+          nzSuffixIcon="caret-down"
+          nzAllowClear
+          nzShowSearch
+          (ngModelChange)="onChangeAgent($event)"
+        >
+          <nz-option
+            *ngFor="let data of allAgents"
+            [nzValue]="data"
+            [nzLabel]="data.agentName"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Agent Customer <span class="required-mark">*</span></nz-form-label
+        >
+        <!-- <nz-select
+          formControlName="duration"
+          class="modal-dropdown"
+          nzAllowClear
+          nzShowSearch
+          nzPlaceHolder="input search text"
+          [nzShowArrow]="true"
+          (nzOnSearch)="search($event)"
+        > -->
+        <nz-select
+          formControlName="filter"
+          class="modal-dropdown"
+          nzAllowClear="true"
+          nzShowSearch
+          nzPlaceHolder="input search text"
+          [nzShowArrow]="true"
+          (nzOnSearch)="searchrxjs($event)"
+          (change)="onChangeSender($event)"
+        >
+          <nz-option
+            *ngFor="let o of searchResult"
+            [nzLabel]="o.senderFirstName + ' ' + o.senderLastName"
+            [nzValue]="o"
+          ></nz-option>
+        </nz-select>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="5" nzXs="10" nzSm="5" nzMd="5">
+      <nz-form-item>
+        <nz-form-label
+          >Filter By<span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <nz-select
+            class="modal-dropdown"
+            nzSuffixIcon="caret-down"
+            [ngModel]="Name"
+            [nzPlaceHolder]="Name"
+            nzDisabled
+            nzShowSearch
+          >
+            <nz-option nzValue="name" nzLabel="Name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="7" nzXs="14" nzSm="7" nzMd="7">
+      <nz-form-item>
+        <nz-form-label> </nz-form-label>
+        <nz-form-control>
+          <button
+            nz-button
+            class="btn btn__save"
+            (click)="addNewCustomer()"
+            nzBlock
+          >
+            Add Customer
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="mini_table" *ngIf="visibileTable">
+    <nz-table
+      class="table-container"
+      #basicTable
+      [nzData]="agentSenderData"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+    >
+      <tbody class="body_tr">
+        <tr *ngFor="let data of agentSenderData">
+          <td>
+            <div class="border-start">{{ data.senderFirstName }}</div>
+          </td>
+          <td>
+            <a class="cancel-btn">
+              <img
+                src="./assets/icons/Close red.svg"
+                (click)="removeCustomer(data)"
+              />
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Agent Approved Sending Currencies
+          <span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <nz-select
+            nzSuffixIcon="caret-down"
+            nzAllowClear
+            class="modal-dropdown"
+            nzPlaceHolder="Approved Sending Currencies "
+            formControlName="agentApprovedSendingCurrencies"
+            nzShowSearch
+          >
+            <nz-option
+              *ngFor="let data of currenciestype"
+              [nzLabel]="data.currencyCode"
+              [nzValue]="data.agentTransferApprovedSendingCurrenciesId"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Duration <span class="required-mark">*</span></nz-form-label
+        >
+        <nz-form-control>
+          <nz-select
+            nzSuffixIcon="caret-down"
+            nzAllowClear
+            class="modal-dropdown"
+            nzPlaceHolder="Duration"
+            formControlName="duration"
+            nzShowSearch
+          >
+            <nz-option
+              *ngFor="let data of durations"
+              [nzLabel]="data.duration"
+              [nzValue]="data.limitDurationId"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row class="row1" [nzGutter]="10">
+    <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Maximum Transfer limit
+          <span class="required-mark">*</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            type="number"
+            class="modal-input"
+            min="0"
+            placeholder="Maximum Transfer Limit"
+            formControlName="maximumtransferlimit"
+            (keypress)="numberOnly($event)"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label
+          >Maximum Transfer Amount<span class="required-mark"
+            >*</span
+          ></nz-form-label
+        >
+        <nz-form-control>
+          <input
+            nz-input
+            type="number"
+            min="0"
+            placeholder="Maximum Transfer Amount"
+            class="modal-input"
+            formControlName="maximumtransferamount"
+            (keypress)="numberOnly($event)"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <button
+      nz-col
+      nzLg="12"
+      nzXs="12"
+      nzSm="12"
+      nzMd="12"
+      nz-button
+      class="btn btn__high_orange"
+      (click)="save()"
+    >
+      Save Transfer limit
+    </button>
+  </div>
+</form>

@@ -1,0 +1,72 @@
+<div class="tab-header">
+  <form [formGroup]="form">
+    <div nz-row>
+      <div nz-col nzLg="8">
+        <nz-form-control>
+          <nz-form-label>Base Country</nz-form-label>
+          <nz-form-item>
+            <nz-select
+              class="modal-dropdown"
+              nzPlaceHolder="Select Country"
+              formControlName="baseCountry"
+              nzSuffixIcon="caret-down"
+              nzShowSearch
+            >
+              <nz-option
+                *ngFor="let data of countryList"
+                [nzValue]="data.countryId"
+                [nzLabel]="data.countryName"
+              ></nz-option>
+            </nz-select>
+          </nz-form-item>
+        </nz-form-control>
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <nz-form-control>
+          <nz-form-label
+            >Sign up Countries<span class="required-mark"
+              >*</span
+            ></nz-form-label
+          >
+          <nz-form-item>
+            <nz-checkbox-wrapper
+              style="width: 100%"
+              (nzOnChange)="change($event)"
+            >
+              <div nz-row *ngIf="countryNewList == null">
+                <div nz-col nzSpan="8" *ngFor="let data of countryList2">
+                  <label nz-checkbox [nzValue]="data.countryId">{{
+                    data.countryName
+                  }}</label>
+                </div>
+              </div>
+              <div nz-row *ngIf="countryNewList != null">
+                <div nz-col nzSpan="8" *ngFor="let data of countryList2">
+                  <label
+                    nz-checkbox
+                    [nzValue]="data.countryId"
+                    [nzChecked]="isCountryChecked(data.countryId)"
+                    >{{ data.countryName }}</label
+                  >
+                </div>
+              </div>
+              <!-- <div nz-row *ngIf="countryNewList != null">
+                <div nz-col nzSpan="8" *ngFor="let data of countryNewList">
+                  <label
+                    nz-checkbox
+                    [nzChecked]="data.countryId"
+                    [nzValue]="data.countryId"
+                    >{{ data.countryName }}</label
+                  >
+                </div>
+              </div> -->
+            </nz-checkbox-wrapper>
+          </nz-form-item>
+        </nz-form-control>
+      </div>
+    </div>
+  </form>
+</div>

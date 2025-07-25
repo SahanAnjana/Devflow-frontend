@@ -1,0 +1,63 @@
+
+@import '../../../../../../assets/sass/index'
+
+.form-body
+    .labels
+        ::ng-deep.ant-form-item-label>label
+            color: #f45300 !important
+.ant-btn.ant-btn-block
+    width: 100%
+    top: -3px
+.button
+    display: flex
+    gap: 10px
+    margin-top: 20px
+
+.required-mark
+    color: red
+
+.coporate-personal-switch-row
+    margin-bottom: 22px
+
+// .benefi-lable
+//     margin-right: 48.5px
+//     .bene
+//         color: #828282
+//         font-weight: 600
+
+.personal,
+.corporate
+    margin-right: 42.5px
+    display: flex
+    align-items: center
+
+.Beneficiary-details
+    margin-bottom: 30px
+
+:host .btn__next
+    width: 167px !important
+
+.switch
+    .switch__personal
+
+:host .ant-picker
+    width: 100%
+    @include media_query_all(35,null,null,null,35,50,"height")
+.switch_row
+    display: flex
+    // margin-left: -387px
+    padding: 10px
+    column-gap: 24px
+
+.custome-filter
+    display: flex
+    padding-top: 36px    
+
+:host ::ng-deep .ant-modal-close 
+    color: #fff   
+
+:host ::ng-deep .ant-form-item-label > label
+    color: #000
+    font-weight: 600    
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)

@@ -1,0 +1,97 @@
+@import '../../../../../../assets/sass/index'
+// .page-heading
+//     @include media_query_all(20,23,null,null,null,32,'font-size')
+::ng-deep .view .ant-modal-body
+    padding: 0px
+    font-size: 14px
+    line-height: 1.5715
+    word-wrap: break-word
+
+.model-title
+    font-size: 15px
+    margin: 21px
+    font-weight: bold
+    color: #fff
+
+.model-header
+    background-color: $primary-color
+    height: 63px
+
+::ng-deep.ant-col-19
+    flex: 0 0 71.166667%
+    max-width: 70.166667%
+
+
+.steps-details
+    @include media_query_all(16,16,null,null,null,16,'font-size')
+    @include media_query_all(15,15,null,null,null,20,'padding')
+ 
+    @include media_query_all(vertical,15,null,null,null,10,'Direction')
+    align-items: flex-start
+    gap: 10px
+
+    margin-bottom: 10px
+:host::ng-deep .ant-steps-item-wait>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title
+    color: #fff
+    @include media_query_all(12,12,null,null,12,16,'font-size')
+    // font-size: 12px
+
+    // @include media_query_all(24,26,null,null,null,24,'font-size')
+:host::ng-deep.ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title
+    @include media_query_all(16,16,null,null,null,16,'font-size')
+
+// .ant-steps-item-title::after
+//     background-color: $primary-color
+
+.button
+    display: flex
+    gap: 10px
+
+// :host::ng-deep.ant-form-item-label>label
+//     font-weight: bold
+//     @include media_query_all(16,16,null,null,null,16,'font-size')
+
+:host::ng-deep.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after
+    background-color: #fff
+:host::ng-deep.ant-steps-item-wait>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after
+    background-color: #fff
+// :host::ng-deep.ant-select:not(.ant-select-customize-input) .ant-select-selector
+
+//     border: none
+.form-content
+    background-color: #fff
+    padding: 15px
+.ant-steps-item-wait > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title
+    @include media_query_all(16,16,null,null,16,16,'font-size')
+
+:host ::ng-deep.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon
+    background: #fff
+
+:host ::ng-deep.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon .ant-steps-icon
+    color: $primary-color
+:host ::ng-deep.ant-steps-item-process .ant-steps-item-icon
+    border-color: #fff
+:host ::ng-deep.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title
+    color: #fff
+:host ::ng-deep.ant-steps-item-wait .ant-steps-item-icon>.ant-steps-icon
+    color: #fff
+:host ::ng-deep.ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title
+    color: #fff
+:host ::ng-deep.ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after
+     background-color: #fff
+:host ::ng-deep.ant-steps-item-finish .ant-steps-item-icon
+    background-color: #fff
+    border-color: #fff
+:host ::ng-deep.ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon
+    color: $primary-color
+
+:host ::ng-deep.ant-steps-item-wait .ant-steps-item-icon
+    background-color: $primary-color
+
+:host ::ng-deep.ant-steps-item-wait .ant-steps-item-icon
+    border-color:#fff
+:host ::ng-deep.ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon
+    color: $primary-color
+
+:host ::ng-deep.anticon
+    color: white

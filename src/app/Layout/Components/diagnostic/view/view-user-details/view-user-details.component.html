@@ -1,0 +1,91 @@
+<form class="form-figure" [formGroup]="userDetailsGroupForm">
+  <div nz-row class="row1" [nzGutter]="20">
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label>First Name </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="First Name"
+            class="modal-input"
+            formControlName="firstName"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label>Last Name </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="Last Name"
+            class="modal-input"
+            formControlName="lastName"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label>Telephone(Landline) </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="Landline Number"
+            class="modal-input"
+            formControlName="TelephoneLand"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <!--------------------------------------------------------------------------------------------------------->
+  <div nz-row class="row1" [nzGutter]="20">
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label>Telephone(Mobile) </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="Mobile Number"
+            class="modal-input"
+            formControlName="TelephoneMobile"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label>Email Address</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="Email Address"
+            class="modal-input"
+            formControlName="email"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzLg="8" nzXs="24" nzSm="12" nzMd="12">
+      <nz-form-item>
+        <nz-form-label>Residential Address </nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="Residential Address"
+            class="modal-input"
+            formControlName="residentialAddress"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!--------------------------------------------------------------------------------------------------------->
+</form>

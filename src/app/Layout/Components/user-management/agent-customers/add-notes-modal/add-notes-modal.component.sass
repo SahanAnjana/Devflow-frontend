@@ -1,0 +1,76 @@
+@import '../../../../../../assets/sass/index'
+
+::ng-deep .agent-cus-trans .ant-modal-header
+    padding: 24px !important
+    background: #F45300
+
+::ng-deep .agent-cus-trans .ant-modal-body
+    padding: 30px !important
+
+::ng-deep .agent-cus-trans .ant-modal-title
+    font-size: 20px
+    color: #fff
+::ng-deep .agent-cus-trans .ant-modal-close
+    color: #fff
+
+::ng-deep .agent-cus-trans .dropdown.ant-select:not(.ant-select-customize-input) .ant-select-selector
+    height: 34px
+    padding: 8px
+    
+
+.dropdown    
+    // @include media_query_all(36,null,null,null,36,36,"height")
+    height: 36px
+
+::ng-deep .agent-cus-trans .ant-form-item-label > label
+    font-size: 16px !important
+    font-weight: 600
+
+::ng-deep .agent-cus-trans .ant-select
+    font-size: 12px
+
+.required-mark
+    color: #FF0D0D
+
+.dropdown .ant-select-arrow .anticon > svg
+    color: rgba(0, 0, 0, 0.50)
+
+:host .ant-form-vertical .ant-form-item
+    width: 100%
+
+::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-textarea
+    height: 207px
+
+::ng-deep .angular-editor-toolbar
+    background: #E0E0E0
+
+:host ::ng-deep .ant-select.ant-select-in-form-item:hover
+    border: 1px solid #C4C4C4 !important
+
+.btn
+    width: 100%
+    @include media_query_all_im(36,36,null,null,36,50,'height')
+    &__Add
+        background: #F45300
+        width: 100% !important
+        @include media_query_all_im(36,36,null,null,36,50,'height')
+    &__cancel
+        background: #FF0D0D
+        width: 100% !important
+        font-size: 14px !important
+        @include media_query_all_im(36,36,null,null,36,50,'height')
+
+.notes-figure
+    height: 30px
+    border-radius: 3px
+    border: 1px solid #C4C4C4
+    border-bottom: 1px solid #C4C4C4
+
+.pagination-row
+    margin: 30px 0
+:host ::ng-deep .anticon svg
+    color: rgba(0, 0, 0, 0.50)
+
+.all_notes
+    @include media_query_all(16,16,null,null,16,20,'font-size')
+    margin-top: 40px    

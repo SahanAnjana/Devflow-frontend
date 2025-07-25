@@ -1,0 +1,278 @@
+<div class="modal_content">
+  <div>
+    <form class="form-figure input-sec">
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="24" nzMd="24">
+          <nz-form-item>
+            <nz-form-label
+              >Agent Name
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                class="modal-dropdown"
+                bindLabel=""
+                nzPlaceHolder="Select Agent Name"
+                nzSuffixIcon="caret-down"
+                nzShowSearch
+                nzAllowClear
+              >
+                <nz-option nzLabel="Monex" nzValue="Monex"></nz-option>
+                <nz-option nzLabel="Spoton" nzValue="Spoton"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="20" class="para">
+        <div nz-col nzLg="24" nzMd="24">
+          <p>Select All</p>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Countries
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control> </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Currencies
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control> </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Promotion Name
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Promotion Name"
+                class="modal-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Payment Mode<span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <nz-select
+                class="modal-dropdown"
+                bindLabel=""
+                nzPlaceHolder="Select Payment Mode"
+                nzSuffixIcon="caret-down"
+                nzAllowClear
+                nzShowSearch
+              >
+                <nz-option nzValue="Online" nzLabel="Online"></nz-option>
+                <nz-option
+                  nzValue="Bank_Transfer"
+                  nzLabel="Bank_Transfer"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="6" nzMd="8">
+          <nz-form-item>
+            <nz-form-label
+              >Transfer Limit<span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Min"
+                class="modal-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzLg="6" nzMd="8">
+          <nz-form-item>
+            <nz-form-label><span class="required-mark"></span></nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Max"
+                class="modal-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="12" nzMd="8">
+          <nz-form-item>
+            <nz-form-label
+              >Promotion Type
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-select
+                class="modal-dropdown"
+                bindLabel=""
+                nzPlaceHolder="Select Promotion Type"
+                nzSuffixIcon="caret-down"
+                nzAllowClear
+                nzShowSearch
+              >
+                <nz-option
+                  nzValue="Payment Mode"
+                  nzLabel="Select Promotion Type"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="12" nzXs="24" nzSm="24" nzMd="14">
+          <nz-form-item>
+            <nz-form-label
+              >Start Date <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-date-picker></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="12" nzXs="24" nzSm="24" nzMd="24">
+          <nz-form-item>
+            <nz-form-label
+              >End Date<span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-date-picker></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Promo Code Usage
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Promo Code Usage"
+                class="modal-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Promo Code<span class="required-mark">*</span></nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Promo Code"
+                class="modal-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="20">
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >If fee transfer applicable
+              <span class="required-mark">*</span>
+            </nz-form-label>
+
+            <nz-radio-group
+              [(ngModel)]="radioValue"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="isTransferFeeFn()"
+              name="radioValue"
+            >
+              <label nz-radio nzValue="YES">Yes</label>
+              <label nz-radio nzValue="NO">No</label>
+            </nz-radio-group>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="12" nzMd="12" *ngIf="!switchValue">
+          <nz-form-item>
+            <nz-form-label
+              >No of Fee Transfer
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Promo Code"
+                class="modal-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="20" *ngIf="switchValue">
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Amount Type
+              <span class="required-mark">*</span>
+            </nz-form-label>
+            <nz-radio-group>
+              <label nz-radio nzValue="Fixed Amount">Fixed Amount</label>
+              <label nz-radio nzValue="Percentage">Percentage</label>
+            </nz-radio-group>
+          </nz-form-item>
+        </div>
+        <div nz-col nzLg="12" nzMd="12">
+          <nz-form-item>
+            <nz-form-label
+              >Fixed Amount / Percentage<span class="required-mark"
+                >*</span
+              ></nz-form-label
+            >
+            <nz-form-control>
+              <input
+                nz-input
+                type="text"
+                placeholder="Fixed Amount / Percentage"
+                class="modal-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <label nz-checkbox>Is applicable for all the users</label>
+      <br />
+      <label nz-checkbox>Is applicable for all the users</label>
+    </form>
+  </div>
+  <div class="btn_row">
+    <button nz-button class="btn btn_addnew">Save Promotion</button>
+  </div>
+</div>

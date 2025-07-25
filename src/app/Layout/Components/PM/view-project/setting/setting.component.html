@@ -1,0 +1,25 @@
+<div class="setting-container">
+  <div
+    class="row1 cont"
+    nz-row
+    [nzGutter]="50"
+    *ngFor="let row of groupedSettings"
+  >
+    <div
+      class="row-align"
+      nz-col
+      nzXs="24"
+      nzSm="12"
+      nzMd="8"
+      nzLg="8"
+      *ngFor="let data of row"
+    >
+      <div>{{ data.name }}</div>
+      <nz-switch
+        nzSize="small"
+        [(ngModel)]="data.isActive"
+        (ngModelChange)="onChange(data.name, $event)"
+      ></nz-switch>
+    </div>
+  </div>
+</div>
