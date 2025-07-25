@@ -15,6 +15,7 @@ export class BudgetsComponent implements OnInit {
   constructor(private budgetsService: BudgetsService) { }
 
   ngOnInit(): void {
+    console.log('BudgetsComponent (FINANCE) initialized');
     this.loadBudgets();
   }
 
@@ -22,14 +23,27 @@ export class BudgetsComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
-    this.budgetsService.getAllBudgets({ skip: 0, limit: 100, project_id: 'axx' }).subscribe({
-      next: (data: any) => {
-        this.budgets = data;
+    console.log('Loading budgets without project filter...');
+
+    // Remove the hardcoded project_id filter that was causing the empty results
+    this.budgetsService.getAllBudgets({ skip: 0, limit: 100 }).subscribe({
+      next: (response: any) => {
+        console.log('Budget API response:', response);
+
+        // Handle the API response structure properly
+        if (response && response.success && response.data) {
+          this.budgets = response.data;
+          console.log('Budgets loaded successfully:', this.budgets);
+        } else {
+          console.warn('No budgets found or invalid response structure:', response);
+          this.budgets = [];
+        }
         this.loading = false;
       },
       error: (err: any) => {
         console.error('Error loading budgets:', err);
         this.error = 'Failed to load budgets. Please try again later.';
+        this.budgets = [];
         this.loading = false;
       }
     });

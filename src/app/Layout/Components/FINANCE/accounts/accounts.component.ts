@@ -7,17 +7,37 @@ import { AccountsService } from 'src/app/_services/finance/accounts.service';
   styleUrls: ['./accounts.component.sass']
 })
 export class AccountsComponent implements OnInit {
-  accounts: any[] = [];
   loading = false;
   error: string | null = null;
+  accounts: any[] = [];
+  total = 0;
+  skip = 0;
+  limit = 100;
 
   constructor(private accountsService: AccountsService) { }
 
   ngOnInit(): void {
+    this.loadAccounts();
+  }
+
+  loadAccounts(): void {
     this.loading = true;
-    this.accountsService.getALlAccounts({ skip: 0, limit: 100, project_id: 'axx' }).subscribe({
-      next: (data: any) => {
-        this.accounts = data;
+    this.error = null;
+
+    const params: any = {
+      skip: this.skip,
+      limit: this.limit
+    };
+
+    this.accountsService.getALlAccounts(params).subscribe({
+      next: (response: any) => {
+        if (response && response.data) {
+          this.accounts = response.data;
+          this.total = response.pagination?.totalItems || this.accounts.length;
+        } else {
+          this.accounts = [];
+          this.total = 0;
+        }
         this.loading = false;
       },
       error: (err: any) => {

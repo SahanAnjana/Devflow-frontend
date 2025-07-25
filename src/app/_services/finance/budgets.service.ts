@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CommonsService } from '../commons.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError, map } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class BudgetsService {
         private http: HttpClient
     ) { }
 
-    createBudget(data: any) {
+    createBudget(data: any): Observable<any> {
         const url = environment.createnewBudgets;
         return this.http.post(url, data).pipe(
             catchError((error) => {
@@ -24,14 +24,14 @@ export class BudgetsService {
             })
         );
     }
-    getALlBudgets(data: any) {
+
+    getAllBudgets(data: { skip?: number; limit?: number; project_id?: string }): Observable<any> {
         const url = environment.getAllBudgets;
         let urlParams = new HttpParams();
-        data.skip ? (urlParams = urlParams.append('skip', data.skip)) : null;
-        data.limit ? (urlParams = urlParams.append('limit', data.limit)) : null;
-        data.project_id
-            ? (urlParams = urlParams.append('project_id', data.project_id))
-            : null;
+        if (data.skip) urlParams = urlParams.append('skip', data.skip.toString());
+        if (data.limit) urlParams = urlParams.append('limit', data.limit.toString());
+        if (data.project_id) urlParams = urlParams.append('project_id', data.project_id);
+
         return this.http.get(url, { params: urlParams }).pipe(
             catchError((error) => {
                 return this.commonService.catchError(error);
@@ -42,44 +42,4 @@ export class BudgetsService {
         );
     }
 
-    // Alias method for consistent naming
-    getAllBudgets(data: any) {
-        return this.getALlBudgets(data);
-    }
-
-    getBudgetDataById(id: any) {
-        const url = environment.getBudgetsDetailsById + id;
-        return this.http.get(url).pipe(
-            catchError((error) => {
-                return this.commonService.catchError(error);
-            }),
-            map((response: any) => {
-                return response;
-            })
-        );
-    }
-
-    updateBudgetData(id: any, data: any) {
-        const url = environment.updateBudgets + id;
-        return this.http.put(url, data).pipe(
-            catchError((error) => {
-                return this.commonService.catchError(error);
-            }),
-            map((response: any) => {
-                return response;
-            })
-        );
-    }
-
-    deleteBudget(id: any) {
-        const url = environment.deleteBudgets + id;
-        return this.http.delete(url).pipe(
-            catchError((error) => {
-                return this.commonService.catchError(error);
-            }),
-            map((response: any) => {
-                return response;
-            })
-        );
-    }
 }

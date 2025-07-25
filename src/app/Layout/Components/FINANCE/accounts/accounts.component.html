@@ -12,7 +12,7 @@
         <thead>
             <tr class="heading_tr">
                 <th>
-                    <div class="border-start-th">Name</div>
+                    <div class="border-start-th">account_number</div>
                 </th>
                 <th>
                     <div class="border-start-th">Description</div>
@@ -41,28 +41,22 @@
             <ng-container *ngIf="accounts && accounts.length; else noData">
                 <tr *ngFor="let account of accountTable.data">
                     <td>
+                        <div class="border-middle">{{ account.account_number }}</div>
+                    </td>
+                    <td>
                         <div class="border-middle">{{ account.name }}</div>
                     </td>
                     <td>
-                        <div class="border-middle">{{ account.description }}</div>
+                        <div class="border-middle">{{ account.currency }}</div>
                     </td>
                     <td>
-                        <div class="border-middle">{{ account.amount }}</div>
+                        <div class="border-middle">{{ account.balance }}</div>
                     </td>
                     <td>
-                        <div class="border-middle">{{ account.start_date | date:'short' }}</div>
+                        <div class="border-middle">{{ account.is_active }}</div>
                     </td>
                     <td>
-                        <div class="border-middle">{{ account.end_date | date:'short' }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ account.project_id }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ account.department_id }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ account.created_by }}</div>
+                        <div class="border-middle">{{ account.created_at }}</div>
                     </td>
                 </tr>
             </ng-container>

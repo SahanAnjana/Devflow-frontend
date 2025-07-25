@@ -10,6 +10,9 @@ export class InvoicesComponent implements OnInit {
   loading = false;
   error: string | null = null;
   invoices: any[] = [];
+  total = 0;
+  skip = 0;
+  limit = 100;
 
   constructor(private invoicesService: InvoicesService) { }
 
@@ -21,9 +24,21 @@ export class InvoicesComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
-    this.invoicesService.getAllInvoices({ skip: 0, limit: 100, project_id: 'axx' }).subscribe({
-      next: (data: any) => {
-        this.invoices = data;
+    const params: any = {
+      skip: this.skip,
+      limit: this.limit
+    };
+
+    this.invoicesService.getAllInvoices(params).subscribe({
+      next: (response: any) => {
+        if (response && response.data) {
+          this.invoices = response.data;
+          this.total = response.pagination?.totalItems || this.invoices.length;
+        }
+        else {
+          this.invoices = [];
+          this.total = 0;
+        }
         this.loading = false;
       },
       error: (err: any) => {

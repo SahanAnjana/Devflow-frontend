@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CommonsService } from '../commons.service';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError, map } from 'rxjs';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,47 +13,32 @@ export class ExpensesService {
         private http: HttpClient
     ) { }
 
-    createExpense(data: any) {
+    createExpense(data: any): Observable<any> {
         const url = environment.createnewExpenses;
-        return this.http.post(url, data).pipe(
+        return this.http.post<any>(url, data).pipe(
             catchError((error) => this.commonService.catchError(error)),
             map((response: any) => response)
         );
     }
 
-    getAllExpenses(data: any) {
+    getAllExpenses(data: { skip?: number; limit?: number; project_id?: string }): Observable<any> {
         const url = environment.getAllExpenses;
         let urlParams = new HttpParams();
-        data.skip ? (urlParams = urlParams.append('skip', data.skip)) : null;
-        data.limit ? (urlParams = urlParams.append('limit', data.limit)) : null;
-        data.project_id ? (urlParams = urlParams.append('project_id', data.project_id)) : null;
-        return this.http.get(url, { params: urlParams }).pipe(
-            catchError((error) => this.commonService.catchError(error)),
-            map((response: any) => response)
+
+        if (data.skip !== undefined) {
+            urlParams = urlParams.append('skip', data.skip.toString());
+        }
+        if (data.limit !== undefined) {
+            urlParams = urlParams.append('limit', data.limit.toString());
+        }
+        if (data.project_id) {
+            urlParams = urlParams.append('project_id', data.project_id);
+        }
+
+        return this.http.get<any>(url, { params: urlParams }).pipe(
+            catchError((error) => this.commonService.catchError(error))
         );
     }
 
-    getExpenseById(id: any) {
-        const url = environment.getAllExpenses + '/' + id;
-        return this.http.get(url).pipe(
-            catchError((error) => this.commonService.catchError(error)),
-            map((response: any) => response)
-        );
-    }
 
-    updateExpense(id: any, data: any) {
-        const url = environment.updateExpenses + id;
-        return this.http.put(url, data).pipe(
-            catchError((error) => this.commonService.catchError(error)),
-            map((response: any) => response)
-        );
-    }
-
-    deleteExpense(id: any) {
-        const url = environment.deleteExpenses + id;
-        return this.http.delete(url).pipe(
-            catchError((error) => this.commonService.catchError(error)),
-            map((response: any) => response)
-        );
-    }
 }
