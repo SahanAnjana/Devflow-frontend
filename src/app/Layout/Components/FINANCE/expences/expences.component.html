@@ -1,1 +1,76 @@
-<p>expences works!</p>
+<div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+        <input nz-input placeholder="Search" />
+    </div>
+    <div nz-col [nzSpan]="12" class="add-button">
+        <button class="btn button">Add New Expense</button>
+    </div>
+</div>
+
+<div class="table-container">
+    <nz-table #expenceTable [nzData]="expences" [nzPageSize]="50" [nzShowPagination]="false">
+        <thead>
+            <tr class="heading_tr">
+                <th>
+                    <div class="border-start-th">Name</div>
+                </th>
+                <th>
+                    <div class="border-start-th">Description</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Amount</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Start Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">End Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Project ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Department ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Created By</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="body_tr">
+            <ng-container *ngIf="expences && expences.length; else noData">
+                <tr *ngFor="let expence of expenceTable.data">
+                    <td>
+                        <div class="border-middle">{{ expence.name }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.description }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.amount }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.start_date | date:'short' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.end_date | date:'short' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.project_id }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.department_id }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.created_by }}</div>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noData>
+                <tr>
+                    <td colspan="8" style="text-align:center;">No expenses found.</td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </nz-table>
+</div>

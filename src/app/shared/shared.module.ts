@@ -41,6 +41,10 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 @NgModule({
   declarations: [],
@@ -89,6 +93,10 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
     AngularEditorModule,
     DragDropModule,
     NzBreadCrumbModule,
+    NzSpinModule,
+    NzAlertModule,
+    NzTagModule,
+    NzEmptyModule,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

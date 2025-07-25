@@ -1,1 +1,76 @@
-<p>invoices works!</p>
+<div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+        <input nz-input placeholder="Search" />
+    </div>
+    <div nz-col [nzSpan]="12" class="add-button">
+        <button class="btn button">Add New Invoice</button>
+    </div>
+</div>
+
+<div class="table-container">
+    <nz-table #invoiceTable [nzData]="invoices" [nzPageSize]="50" [nzShowPagination]="false">
+        <thead>
+            <tr class="heading_tr">
+                <th>
+                    <div class="border-start-th">Name</div>
+                </th>
+                <th>
+                    <div class="border-start-th">Description</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Amount</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Start Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">End Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Project ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Department ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Created By</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="body_tr">
+            <ng-container *ngIf="invoices && invoices.length; else noData">
+                <tr *ngFor="let invoice of invoiceTable.data">
+                    <td>
+                        <div class="border-middle">{{ invoice.name }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ invoice.description }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ invoice.amount }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ invoice.start_date | date:'short' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ invoice.end_date | date:'short' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ invoice.project_id }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ invoice.department_id }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ invoice.created_by }}</div>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noData>
+                <tr>
+                    <td colspan="8" style="text-align:center;">No invoices found.</td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </nz-table>
+</div>
