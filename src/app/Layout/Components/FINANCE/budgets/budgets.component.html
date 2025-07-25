@@ -1,0 +1,76 @@
+<div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+        <input nz-input placeholder="Search" />
+    </div>
+    <div nz-col [nzSpan]="12" class="add-button">
+        <button class="btn button">Add New Budget</button>
+    </div>
+</div>
+
+<div class="table-container">
+    <nz-table #budgetTable [nzData]="budgets" [nzPageSize]="50" [nzShowPagination]="false">
+        <thead>
+            <tr class="heading_tr">
+                <th>
+                    <div class="border-start-th">Name</div>
+                </th>
+                <th>
+                    <div class="border-start-th">Description</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Amount</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Start Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">End Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Project ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Department ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Created By</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="body_tr">
+            <ng-container *ngIf="budgets && budgets.length; else noData">
+                <tr *ngFor="let budget of budgetTable.data">
+                    <td>
+                        <div class="border-middle">{{ budget.name }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ budget.description }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ budget.amount }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ budget.start_date | date:'short' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ budget.end_date | date:'short' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ budget.project_id }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ budget.department_id }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ budget.created_by }}</div>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noData>
+                <tr>
+                    <td colspan="8" style="text-align:center;">No budgets found.</td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </nz-table>
+</div>

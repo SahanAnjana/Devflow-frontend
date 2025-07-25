@@ -45,33 +45,5 @@ export class BudgetsComponent implements OnInit {
     }
   }
 
-  onSearch(): void {
-    // Implement search functionality if needed
-    // You can filter the budgets array or make a new API call with search parameters
-  }
 
-  onAddBudget(): void {
-    // Implement add budget functionality
-    // This should open a modal or navigate to a form
-  }
-
-  onEditBudget(budget: any): void {
-    // Implement edit functionality
-    // This should open a modal or navigate to a form with the budget data
-  }
-
-  onDeleteBudget(budgetId: string): void {
-    if (confirm('Are you sure you want to delete this budget?')) {
-      this.budgetsService.deleteBudget(budgetId).subscribe({
-        next: () => {
-          // Remove the deleted budget from the list
-          this.budgets = this.budgets.filter(b => b.id !== budgetId);
-        },
-        error: (err: any) => {
-          console.error('Error deleting budget:', err);
-          this.error = 'Failed to delete budget. Please try again.';
-        }
-      });
-    }
-  }
 }
