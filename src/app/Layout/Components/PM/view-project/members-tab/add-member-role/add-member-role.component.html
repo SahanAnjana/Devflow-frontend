@@ -1,0 +1,65 @@
+<div class="form-container">
+  <form [formGroup]="memberroleForm">
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >User
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              formControlName="user"
+              nzShowSearch
+              nzPlaceHolder="user"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+            >
+              <nz-option nzLabel="Planning" nzValue="planning"
+                >Pending</nz-option
+              >
+              <nz-option nzLabel="Active" nzValue="active">Pending</nz-option>
+              <nz-option nzLabel="Pending" nzValue="Pending">Pending</nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Role <span class="required-mark">*</span></nz-form-label
+          >
+          <nz-select
+            formControlName="role"
+            nzShowSearch
+            nzPlaceHolder="role"
+            nzSuffixIcon="caret-down"
+            nzAllowClear="true"
+          >
+            <nz-option nzLabel="Member" nzValue="member">Member</nz-option>
+            <nz-option nzLabel="Owner" nzValue="owner">Owner</nz-option>
+            <nz-option nzLabel="Maintainer" nzValue="maintainer"
+              >Maintainer</nz-option
+            >
+          </nz-select>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <button
+        nz-col
+        nzLg="6"
+        nzXs="6"
+        nzSm="6"
+        nzMd="6"
+        nz-button
+        class="btn btn__high_orange"
+        (click)="
+          index === 'create' ? createNewmemberRole() : updatememberRole()
+        "
+      >
+        {{ index === "create" ? "Add member role" : "Update" }}
+      </button>
+    </div>
+  </form>
+</div>

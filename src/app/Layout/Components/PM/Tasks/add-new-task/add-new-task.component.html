@@ -1,0 +1,182 @@
+<div class="form-container">
+  <form [formGroup]="taskForm">
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Project
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              nzShowSearch
+              nzPlaceHolder="project"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+              formControlName="project"
+              (ngModelChange)="getProjectId($event)"
+            >
+              <nz-option
+                *ngFor="let project of allprojects"
+                [nzValue]="project.id"
+                [nzLabel]="project.name"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Assignee <span class="required-mark">*</span></nz-form-label
+          >
+          <nz-select
+            nzShowSearch
+            nzPlaceHolder="assignee"
+            nzSuffixIcon="caret-down"
+            nzAllowClear="true"
+            formControlName="assignee"
+          >
+            <!-- <nz-option
+              *ngFor="let Assignee of AllMembers"
+              [nzValue]="Assignee.id"
+              [nzLabel]="Assignee.name"
+            ></nz-option> -->
+          </nz-select>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Task Title
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="taskTitle"
+              class="modal-input"
+              placeholder="Task Title"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Task Description
+            <span class="required-mark">*</span></nz-form-label
+          >
+          <input
+            nz-input
+            formControlName="taskDescription"
+            class="modal-input"
+            placeholder="Description"
+          />
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Status
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              nzShowSearch
+              nzPlaceHolder="Status"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+              formControlName="status"
+            >
+              <nz-option nzLabel="To Do" nzValue="todo">To Do</nz-option>
+              <nz-option nzLabel="In Progress" nzValue="inprogress"
+                >In Progress</nz-option
+              >
+              <nz-option nzLabel="Review" nzValue="review">Review</nz-option>
+              <nz-option nzLabel="Done" nzValue="done">Done</nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Priority <span class="required-mark">*</span></nz-form-label
+          >
+          <nz-select
+            nzShowSearch
+            nzPlaceHolder="priority"
+            nzSuffixIcon="caret-down"
+            nzAllowClear="true"
+            formControlName="priority"
+          >
+            <nz-option nzLabel="Low" nzValue="low">To Do</nz-option>
+            <nz-option nzLabel="Medium" nzValue="medium">Medium</nz-option>
+            <nz-option nzLabel="High" nzValue="high">High</nz-option>
+          </nz-select>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Start Date<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-date-picker formControlName="startDate"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >End Date<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-date-picker formControlName="endDate"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Estimated Time<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              type="number"
+              nz-input
+              formControlName="estimatedTime"
+              class="modal-input"
+              placeholder="estimatedTime"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <button
+        nz-col
+        nzLg="6"
+        nzXs="6"
+        nzSm="6"
+        nzMd="6"
+        nz-button
+        class="btn btn__high_orange"
+        (click)="index === 'edit' ? UpdateTaskDetails() : createNewproject()"
+      >
+        {{ index === "edit" ? "Update Task" : "Create  New Task" }}
+      </button>
+    </div>
+  </form>
+</div>

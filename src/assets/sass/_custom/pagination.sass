@@ -1,0 +1,87 @@
+@import '../variable'
+.ant-pagination
+    @include media_query_all_im(13,null,null,null,null,13,"font-size")
+.pagination
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    margin-top: 0.7px
+    .anticon svg
+        color: #F45300
+
+.ant-pagination.mini .anticon
+    color: !important
+    font-size: 8px
+
+.ant-pagination-item-active
+    background: $secondary-color
+    border-radius: 5px
+    border-color: none
+    border: none
+
+.ant-pagination-item-active a
+    color: $primary-color
+    font-size: 0.5831875rem
+    position: relative
+
+.ant-pagination.mini
+.ant-pagination-item:not(.ant-pagination-item-active)
+    border-color: $primary-color
+    border-radius: 5px
+
+.ant-pagination.mini .ant-pagination-item
+    margin-right: 0.21875rem
+    margin-left: 0.21875rem
+    height: 0.9625rem
+.ant-pagination ul
+    display: flex
+    align-items: center
+.ant-pagination-prev
+    border: none
+
+.ant-pagination-prev .ant-pagination-item-link
+    border: none
+    background: transparent
+    color: #828282
+
+.ant-pagination-disabled
+.ant-pagination-item-link
+    border: none
+    background: transparent
+
+.ant-pagination-next .ant-pagination-item-link
+    border: none
+    background: transparent
+    color: #828282
+
+.ant-pagination-options-quick-jumper input
+    background: transparent
+    border-color: #F45300
+    height: 25px
+
+.ant-pagination-item a
+    color: #828282
+
+.ant-pagination-item:hover a
+    color: #828282
+
+.ant-pagination-item-active
+    border: none
+
+.ant-pagination-item-active a
+    color: #ffffff
+    @include media_query_all_im(13,null,null,null,null,13,"font-size")
+    font-weight: 400
+    position: relative
+    background: #F45300
+    border-radius: 4px
+
+.ant-pagination-item-active:hover a
+    color: #ffffff
+
+.ant-pagination-item
+    border: none
+    background-color: transparent
+
+.ant-pagination ul
+    color: rgba(0, 0, 0, 0.50)

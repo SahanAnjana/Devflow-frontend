@@ -1,0 +1,55 @@
+<div class="login-main">
+  <div class="form">
+    <div class="right-side"></div>
+    <form
+      class="login-form"
+      nz-form
+      [nzAutoTips]="autoTips"
+      [formGroup]="loginForm"
+      (ngSubmit)="verify()"
+    >
+      <div class="center-logo">
+        <h2>Sign In to Devflow</h2>
+        <!-- <img src="" class="img" alt="no"> -->
+      </div>
+
+      <div class="input-feild">
+        <nz-form-item>
+          <nz-form-label>Email Address</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="email"
+              placeholder="Email Address"
+              class="modal-input"
+              formControlName="userName"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label>Password</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              type="password"
+              placeholder="Password"
+              class="modal-input"
+              formControlName="password"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <button type="submit" class="btn_login btn">Sign In</button>
+      <div class="checkbox">
+        <div class="remember-me">
+          <input type="checkbox" /> <span>Remember me</span>
+        </div>
+        <a class="forget-password-link" (click)="forgotPassword()">
+          Forgot password?
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+@import '../../../../../../assets/sass/index'
+
+.add-button
+    display: flex
+    justify-content: end 
+.button    
+    height: 42px
+    // padding: 0px 10px
+
+:host ::ng-deep.ant-layout    
+  width: max-content
+.filter-row
+  display: flex
+  gap: 10px
+:host ::ng-deep .ant-input 
+    border-radius: 5px   
+.btn-section
+    display: flex
+    gap: 10px
+.action-button 
+    background: transparent
+    border: none   
+
+:host ::ng-deep .ant-row
+    justify-content: space-between
+.kanban-board
+  display: flex
+  gap: 2rem
+  padding: 2rem 0
+  background: #f3f4f6
+  min-height: 60vh
+  // width: max-content
+
+.kanban-column
+  background: #fff
+  border-radius: 1rem
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07)
+  padding: 1rem
+  min-width: 260px
+  flex: 1 1 0
+  display: flex
+  flex-direction: column
+  max-height: 70vh
+  overflow-y: auto
+
+.kanban-column-header
+  font-size: 1.1rem
+  font-weight: 600
+  color: #374151
+  margin-bottom: 1rem
+  letter-spacing: 0.5px
+
+.kanban-task-card
+  display: flex
+  justify-content: space-between
+  background: #f9fafb
+  border-radius: 0.5rem
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04)
+  padding: 1rem
+  margin-bottom: 1rem
+  font-size: 1rem
+  color: #1f2937
+  cursor: grab
+  transition: box-shadow 0.2s, background 0.2s
+  border: 1px solid #e5e7eb
+  &:hover
+    background: #f3f4f6
+    box-shadow: 0 4px 12px rgba(59,130,246,0.08)
+
+.cdk-drag-preview
+  box-shadow: 0 8px 24px rgba(59,130,246,0.18)
+  border: 2px solid #6366f1
+  background: #e0e7ff
+  color: #3730a3
+
+.cdk-drag-placeholder
+  opacity: 0.3
+  border: 2px dashed #6366f1
+  min-height: 3rem
+
+.cdk-drop-list-dragging .kanban-task-card:not(.cdk-drag-placeholder)
+  opacity: 0.6
+
+@media (max-width: 900px)
+  .kanban-board
+    flex-direction: column
+    gap: 1rem
+  .kanban-column
+    min-width: 0
+    width: 100%
+
+.table-row
+    display: flex
+    justify-content: end 
+    background: #f3f4f6
+    padding: 10px
+.table-col 
+    display: flex
+    justify-content: end   
+    
+     
+.btn
+    width: 200px
+    height: 40px    
+.taskbtn
+    display: flex
+    align-items: center
+    height: 25px
+    width: 65px
+    justify-content: center
+    border-radius: 5px
+.button
+  display: flex
+  justify-content: space-between
+.taskbtns
+    display: flex  
+    flex-direction: column
+    gap: 5px
+
+.taskbtn_assignee    
+:host ::ng-deep .anticon svg    
+  color: #000000
+
+:host ::ng-deep .ant-select-arrow
+  top:50%  
+
+:host ::ng-deep .ant-select  
+  width: 200px  
+.buttontask .ant-dropdown-trigger 
+  width: auto
+  height: 35px 
+.buttontask .ant-select 
+  width: 100% 
+
+::ng-deep .buttontask .ant-select-single .ant-select-selector .ant-select-selection-placeholder
+  line-height: 35px !important
+::ng-deep .buttontask .ant-select-single:not(.ant-select-customize-input) .ant-select-selector
+  height: 35px !important

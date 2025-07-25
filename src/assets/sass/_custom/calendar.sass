@@ -1,0 +1,80 @@
+@import '../variable'
+@import '../mixin'
+
+.calendar
+    border-radius: 20px
+    background: var(--styloo-white, #FFF)
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+    border: none
+    @include media_query_all_im(300,null,null,null,null,"100%","width")
+    @include media_query_all_im(300,null,null,null,null,300,"height")
+    @include media_query_all_im(10,null,null,null,null,10,"padding-top")
+    @include media_query_all_im(10,null,null,null,null,10,"padding-left")
+    @include media_query_all_im(10,null,null,null,null,10,"padding-right")
+    @include media_query_all_im(30,null,null,null,null,30,"padding-bottom")
+    a
+        color: $secondary-color
+.fc .fc-button-primary
+    background: transparent
+    color: #000
+    border: none
+    &:hover
+        background: transparent
+        color: #000
+        border: none
+    &:focus
+        box-shadow: none
+.fc .fc-button-primary:not(:disabled):active
+    background: transparent
+    color: #000
+    border: none
+.fc .fc-button-primary:not(:disabled):active:focus
+    box-shadow: none
+.fc-col-header
+    .fc-theme-standard th
+        border: none
+.fc-theme-standard .fc-scrollgrid
+    border: none
+.fc-theme-standard th
+    // background: #F2F2F2
+    border: none
+.fc .fc-daygrid-day-frame
+    display: flex
+    justify-content: center
+    align-items: center
+//     background: #F2F2F2
+//     &:first-child
+//         background: #474642 !important
+td.fc-day.fc-day-sun
+    background: #474642 !important
+    a
+        color: #fff
+
+.fc .fc-daygrid-day-number
+    a
+        color: #fff
+.fc .fc-scrollgrid-section-body table
+    border-top: 1px solid #000
+.fc .fc-toolbar-title
+    @include media_query_all_im(18,null,null,null,null,18,"font-size")
+    color: #000
+    font-variant-numeric: lining-nums tabular-nums
+    font-style: normal
+    font-weight: 700
+.fc .fc-view-harness
+    // @include media_query_all_im(280,null,null,null,null,280,"width")
+    // @include media_query_all_im(240,null,null,null,null,240,"height")
+.fc table
+    @include media_query_all_im(12,null,null,null,null,12,"font-size")
+    font-style: normal
+    font-weight: 400
+.fc-highlight
+    background: $primary-color !important
+    a
+        color: #000
+td.fc-day.fc-day-mon, td.fc-day.fc-day-tue, td.fc-day.fc-day-wed, td.fc-day.fc-day-thu,td.fc-day.fc-day-fri,td.fc-day.fc-day-sat
+    background: #F2F2F2 !important
+    a
+        color: #000
+.fc .fc-toolbar.fc-header-toolbar
+    @include media_query_all_im(4,null,null,null,null,4,"margin-bottom")

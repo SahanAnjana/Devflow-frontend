@@ -1,0 +1,73 @@
+<div nz-row class="title-bar">
+  <div nz-col [nzSpan]="8"></div>
+
+  <div nz-col [nzSpan]="12" class="add-button">
+    <button class="btn button" (click)="addNewJobPost('create')">
+      Add New Job Post
+    </button>
+  </div>
+</div>
+<div class="colleps-icon">
+  <nz-collapse nzAccordion *ngFor="let panel of panels; let i = index">
+    <nz-collapse-panel [nzHeader]="panel.title">
+      <div>
+        <ol>
+          <li>
+            <div class="job" nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="6"><span class="title">Title</span></div>
+              <div nz-col [nzSpan]="1"><span class="title">:</span></div>
+              <div nz-col [nzSpan]="17">
+                <span class="description">{{ panel.title }}</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="job" nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="6">
+                <span class="title">Description</span>
+              </div>
+              <div nz-col [nzSpan]="1"><span class="title">:</span></div>
+              <div nz-col [nzSpan]="17">
+                <span class="description">{{ panel.description }}</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="job" nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="6">
+                <span class="title">Requirements</span>
+              </div>
+              <div nz-col [nzSpan]="1"><span class="title">:</span></div>
+              <div nz-col [nzSpan]="17">
+                <span class="description">{{ panel.requirements }}</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="job" nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="6">
+                <span class="title">Satary Range</span>
+              </div>
+              <div nz-col [nzSpan]="1"><span class="title">:</span></div>
+              <div nz-col [nzSpan]="17">
+                <span class="description"
+                  >{{ panel.salary_range_min }} -
+                  {{ panel.salary_range_max }}</span
+                >
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="job" nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="6"><span class="title">Location</span></div>
+              <div nz-col [nzSpan]="1"><span class="title">:</span></div>
+              <div nz-col [nzSpan]="17">
+                <span class="description">{{ panel.location }}</span>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>

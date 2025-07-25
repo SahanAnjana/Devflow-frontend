@@ -1,0 +1,96 @@
+<form [formGroup]="addPositionForm">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'name'">Title</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the title!">
+          <input
+            nz-input
+            formControlName="title"
+            id="name"
+            placeholder="title"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'manager_id'">Description</nz-form-label>
+        <nz-form-control nzErrorTip="Please input description!">
+          <input
+            nz-input
+            formControlName="description"
+            id="name"
+            placeholder="description"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">Minimum salary</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the description!">
+          <input
+            nz-input
+            type="number"
+            formControlName="minsalary"
+            id="name"
+            placeholder="min salary"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">Maximum salary</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the description!">
+          <input
+            nz-input
+            type="number"
+            formControlName="mixsalary"
+            id="name"
+            placeholder="max salary"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24" *ngIf="showFields">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">Created date</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the description!">
+          <nz-date-picker
+            formControlName="created_at"
+            class="modal-input"
+            nzDisabled
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">Update date</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the description!">
+          <nz-date-picker
+            formControlName="updated_at"
+            class="modal-input"
+            nzDisabled
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="12" class="btn-row">
+      <button nz-button class="btn" (click)="saveNewPosition()">Save</button>
+      <button nz-button class="btn" (click)="close()">Cancel</button>
+    </div>
+  </div>
+</form>

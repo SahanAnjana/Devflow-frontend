@@ -1,0 +1,114 @@
+<div nz-row class="title-bar">
+  <div nz-col [nzSpan]="8">
+    <input nz-input placeholder="Search" />
+  </div>
+
+  <div nz-col [nzSpan]="12" class="add-button">
+    <button class="btn button" (click)="addNewContacts('create')">
+      Add New Contact
+    </button>
+  </div>
+</div>
+
+<div class="table-container">
+  <nz-table
+    #basicTable
+    [nzData]="allContacts"
+    [nzPageSize]="50"
+    [nzShowPagination]="false"
+  >
+    <thead>
+      <tr class="heading_tr">
+        <th><div class="border-start-th">FIRST NAME</div></th>
+        <th><div class="border-middle-th">LAST NAME</div></th>
+        <th>
+          <div class="border-middle-th">EMAIL</div>
+        </th>
+        <th><div class="border-start-th">PHONE</div></th>
+        <th><div class="border-middle-th">COMPANY</div></th>
+
+        <th><div class="border-middle-th"></div></th>
+      </tr>
+    </thead>
+
+    <tbody class="body_tr">
+      <tr *ngFor="let data of basicTable.data">
+        <td>
+          <div class="border-middle">{{ data?.first_name }}</div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data?.last_name }}</div>
+        </td>
+        <td>
+          <div class="border-middle">
+            {{ data?.email }}
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data?.phone }}</div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data?.company }}</div>
+        </td>
+
+        <td>
+          <div class="border-middle btn-section">
+            <button
+              class="action-button edit"
+              title="Edit"
+              (click)="editContacts(data, 'edit')"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            </button>
+            <button
+              class="action-button delete"
+              title="Delete"
+              (click)="deleteContacts(data)"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3,6 5,6 21,6" />
+                <path
+                  d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                />
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="pagination-row">
+  <nz-pagination
+    class="pagination"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="currentPageIndex"
+    (nzPageIndexChange)="pageIndexChange($event)"
+    [nzTotal]="totalRecord"
+    nzShowQuickJumper
+    [nzShowTotal]="rangeTemplate"
+  >
+  </nz-pagination>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <span>{{ range[0] }} of {{ total }} items</span>
+  </ng-template>
+</div>

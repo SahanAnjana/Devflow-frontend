@@ -1,0 +1,140 @@
+<div nz-row [nzGutter]="24" class="title-bar">
+  <div nz-col [nzSpan]="18" class="right">
+    <div nz-col [nzSpan]="5">
+      <button (click)="showMyPerformance()" class="my-performance">
+        My proformnace
+      </button>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-select
+        nzPlaceHolder="Select Employee"
+        (ngModelChange)="getEmployee($event)"
+        [(ngModel)]="employeeById"
+        nzAllowClear="true"
+        nzShowSearch
+      >
+        <nz-option
+          *ngFor="let data of Employees"
+          [nzValue]="data.id"
+          [nzLabel]="data.first_name + ' ' + data.last_name"
+        >
+        </nz-option>
+      </nz-select>
+    </div>
+  </div>
+
+  <div nz-col [nzSpan]="12" style="display: flex; justify-content: right">
+    <div nz-col [nzSpan]="6" class="add-button">
+      <button class="btn button" (click)="addPerformance('create')">
+        Add New Performance
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="table-container">
+  <nz-table
+    #basicTable
+    [nzData]="allperformance"
+    [nzPageSize]="50"
+    [nzShowPagination]="false"
+  >
+    <thead>
+      <tr class="heading_tr">
+        <th><div class="border-start-th">REVIEW PERIOD</div></th>
+        <th><div class="border-start-th">RATING</div></th>
+        <th><div class="border-middle-th">COMMENTS</div></th>
+        <th>
+          <div class="border-middle-th">REVIEW DATE</div>
+        </th>
+        <th><div class="border-start-th">CREATED DATE</div></th>
+        <th><div class="border-middle-th">UPDATED DATE</div></th>
+
+        <th><div class="border-middle-th"></div></th>
+      </tr>
+    </thead>
+
+    <tbody class="body_tr">
+      <tr *ngFor="let data of basicTable.data">
+        <td>
+          <div class="border-middle">{{ data?.review_period }}</div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data?.rating }}</div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data?.comments }}</div>
+        </td>
+        <td>
+          <div class="border-middle">
+            {{ data?.review_date }}
+          </div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data?.created_at }}</div>
+        </td>
+        <td>
+          <div class="border-middle">{{ data?.updated_at }}</div>
+        </td>
+
+        <td>
+          <div class="border-middle btn-section">
+            <button
+              class="action-button edit"
+              title="Edit"
+              (click)="editPerformance(data, 'edit')"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            </button>
+            <button
+              class="action-button delete"
+              title="Delete"
+              (click)="deletePerformance(data.id)"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3,6 5,6 21,6" />
+                <path
+                  d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                />
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="pagination-row">
+  <nz-pagination
+    class="pagination"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="currentPageIndex"
+    (nzPageIndexChange)="pageIndexChange($event)"
+    [nzTotal]="totalRecord"
+    nzShowQuickJumper
+    [nzShowTotal]="rangeTemplate"
+  >
+  </nz-pagination>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <span>{{ range[0] }} of {{ total }} items</span>
+  </ng-template>
+</div>

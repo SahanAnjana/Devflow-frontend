@@ -1,0 +1,187 @@
+<![CDATA[<div class="form-container">
+  <form [formGroup]="testCaseForm" (ngSubmit)="submitForm()">
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Name
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="name"
+              class="modal-input"
+              placeholder="Enter test case name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Type
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              formControlName="type"
+              nzShowSearch
+              nzPlaceHolder="Select type"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+            >
+              <nz-option *ngFor="let type of testCaseTypes" [nzValue]="type" [nzLabel]="type">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Priority
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              formControlName="priority"
+              nzShowSearch
+              nzPlaceHolder="Select priority"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+            >
+              <nz-option *ngFor="let priority of priorities" [nzValue]="priority" [nzLabel]="priority">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Assigned To
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="assignedTo"
+              class="modal-input"
+              placeholder="Enter assignee name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="24" nzXs="24" nzSm="24" nzMd="24">
+        <nz-form-item>
+          <nz-form-label>
+            Description
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <textarea
+              rows="4"
+              nz-input
+              formControlName="description"
+              class="modal-input"
+              placeholder="Enter test case description"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="24" nzXs="24" nzSm="24" nzMd="24">
+        <nz-form-item>
+          <nz-form-label>
+            Preconditions
+          </nz-form-label>
+          <nz-form-control>
+            <textarea
+              rows="3"
+              nz-input
+              formControlName="preconditions"
+              class="modal-input"
+              placeholder="Enter preconditions (if any)"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="24" nzXs="24" nzSm="24" nzMd="24">
+        <nz-form-item>
+          <nz-form-label>
+            Test Steps
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <textarea
+              rows="4"
+              nz-input
+              formControlName="steps"
+              class="modal-input"
+              placeholder="Enter test steps"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="24" nzXs="24" nzSm="24" nzMd="24">
+        <nz-form-item>
+          <nz-form-label>
+            Expected Results
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <textarea
+              rows="4"
+              nz-input
+              formControlName="expectedResults"
+              class="modal-input"
+              placeholder="Enter expected results"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <button
+        nz-col
+        nzLg="6"
+        nzXs="6"
+        nzSm="6"
+        nzMd="6"
+        nz-button
+        class="btn btn__high_orange"
+        type="submit"
+      >
+        {{ isEdit ? "Update" : "Create" }}
+      </button>
+      <button
+        nz-col
+        nzLg="6"
+        nzXs="6"
+        nzSm="6"
+        nzMd="6"
+        nz-button
+        (click)="cancel()"
+        style="margin-left: 10px;"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>]]>

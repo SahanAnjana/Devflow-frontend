@@ -1,0 +1,15 @@
+http://140.245.213.62:8000/docs
+http://140.245.213.62:8001/docs
+http://140.245.213.62:8002/docs
+http://140.245.213.62:8003/docs
+http://140.245.213.62:8004/docs
+http://140.245.213.62:8006/docs
+
+
+//weda nethi API
+/tasks/{task_id}/status
+/tasks/{task_id}/assignee
+http://140.245.213.62:8003/qa/issues/085a6746-a08c-49e3-8d52-d98851c40185  500 get
+http://140.245.213.62:8003/qa/issues/085a6746-a08c-49e3-8d52-d98851c40185  500 delete
+http://140.245.213.62:8001/performances/32ae508a-aa11-4b1f-b022-aad9222c4298  500 issue
+http://140.245.213.62:8001/job-postings/  500 issue

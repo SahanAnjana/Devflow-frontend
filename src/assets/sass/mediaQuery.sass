@@ -1,0 +1,48 @@
+@use "./variable"
+
+@mixin xs
+  @media (max-width: #{$xsm})
+    @content
+@mixin sm
+  @media (max-width: #{$sm})
+    @content
+@mixin md-min
+  @media (min-width: #{$md})
+    @content
+@mixin md-max
+  @media (max-width: #{$md})
+    @content
+@mixin lg
+  @media (min-width: #{$lg})
+    @content
+@mixin xlg
+  @media (min-width: #{$xlg})
+    @content
+@mixin xxlg
+  @media (min-width: #{$xxlg})
+    @content
+@mixin ipad_air
+  @media (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait)
+    @content
+
+@mixin media_min320
+  @media screen and (min-width: #{ $media_min320})
+    @content
+@mixin media_min481
+  @media screen and (min-width: #{$media_min481})
+    @content
+@mixin media_min641
+  @media screen and (min-width: #{$media_min641})
+    @content
+@mixin media_min961
+  @media screen and (min-width: #{$media_min961})
+    @content
+@mixin media_min1025
+  @media screen and (min-width: #{$media_min1025})
+    @content
+@mixin media_min1281
+  @media screen and (min-width: #{$media_min1281})
+    @content
+@mixin media_min1900
+  @media screen and (min-width: #{$media_min1900})
+    @content
