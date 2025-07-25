@@ -23,7 +23,6 @@ import { environment } from 'src/environments/environment';
 import { TokenserviceService } from '../_services/tokenservice.service';
 import { AuthserviceService } from '../_services/authservice.service';
 import { DashboardService } from '../_services/dashboard.service';
-import { RolemanagementService } from '../_services/rolemanagement.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -41,8 +40,7 @@ export class JwtInterceptor implements HttpInterceptor {
     private router: Router,
     private dataService: DataService,
     private authService: AuthserviceService,
-    private dashboardService: DashboardService,
-    private roleManagemnetService: RolemanagementService
+    private dashboardService: DashboardService
   ) {}
 
   privileges: any = {
@@ -171,85 +169,6 @@ export class JwtInterceptor implements HttpInterceptor {
         }
       },
     });
-  }
-
-  getAdminPrivilages(roleid: any) {
-    const data: any = {};
-    data['roleId'] = roleid;
-    data['isLogin'] = true;
-    this.roleManagemnetService
-      .getPrivilagesByuser(data)
-
-      .subscribe({
-        next: (res) => {
-          if (res['responseDto']) {
-            this.privilegeCodes = res['responseDto'];
-            this.dataService.privilageCodes = res['responseDto'];
-            this.tokenService.savePrivileges(res['responseDto']);
-            console.log(this.privilegeCodes);
-            this.privilegeCodes.forEach((data: any) => {
-              if (data.privilegeCode == 'CORE_SHOW_REPORTS_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_REPORTS_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_USER_MANAGEMENT_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_USER_MANAGEMENT_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_TRANSFERS_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_TRANSFERS_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_RATE_SETTINGS_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_RATE_SETTINGS_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_DIAGNOSTIC_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_DIAGNOSTIC_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_PROMOTION_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_PROMOTION_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_PENDING_CASH_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_PENDING_CASH_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_TRANSFER_LIMIT_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_TRANSFER_LIMIT_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_MAKE_TRANSFER_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_MAKE_TRANSFER_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_ROLE_MANAGEMENT_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_ROLE_MANAGEMENT_NAV = true)
-                  : false;
-              }
-              if (data.privilegeCode == 'CORE_SHOW_COMMUNICATION_NAV') {
-                data.isActive == true
-                  ? (this.privileges.CORE_SHOW_COMMUNICATION_NAV = true)
-                  : false;
-              }
-            });
-          } else {
-            console.log('privilages not working');
-            this.privilagesList = '';
-          }
-        },
-      });
   }
 
   getUserDetailsByme() {

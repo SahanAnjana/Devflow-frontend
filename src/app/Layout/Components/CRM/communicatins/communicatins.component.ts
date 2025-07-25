@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AddNewCommunicationComponent } from './add-new-communication/add-new-communication.component';
-import { CommunicationService } from 'src/app/_services/communication.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CommunicationsService } from 'src/app/_services/crm/communications.service';
 import { DataService } from 'src/app/_services/shared-data/data.service';

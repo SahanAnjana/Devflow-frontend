@@ -11,7 +11,6 @@ import { MyValidators } from 'src/app/validators/custom-validators';
 import { ForgetComponent } from '../forgot-password/forgot-password.component';
 import { DataService } from 'src/app/_services/shared-data/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DashboardComponent } from '../dashboard/dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { AuthserviceService } from 'src/app/_services/authservice.service';
@@ -20,7 +19,6 @@ import { CommonsService } from 'src/app/_services/commons.service';
 import { TokenserviceService } from 'src/app/_services/tokenservice.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { CustomValidators } from 'src/app/_helpers/custom-validators';
-import { TFACodeComponent } from '../tfa-code/tfa-code.component';
 
 @Component({
   selector: 'app-login',
@@ -136,8 +134,6 @@ export class LoginComponent {
               color: '#ffffff',
             },
           });
-
-          this.otpOpen();
         } else if (res['errorDescription']) {
           this.notification.create('error', 'Error', res['errorDescription'], {
             nzStyle: { background: '#cc2d2d', color: '#fff' },
@@ -192,16 +188,6 @@ export class LoginComponent {
       this.userDetails = res;
       this.dataService.userDetails = this.userDetails;
       console.log('this.userDetails', this.userDetails);
-    });
-  }
-
-  otpOpen() {
-    this.modalService.create({
-      // nzTitle: 'Forgot your Password?',
-      nzContent: TFACodeComponent,
-      nzClosable: false,
-      nzFooter: null,
-      nzWidth: 390,
     });
   }
 
