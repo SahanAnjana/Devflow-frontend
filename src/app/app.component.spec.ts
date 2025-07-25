@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'bankoyo-moneytransfer-admin-ui'`, () => {
+  it(`should have as title 'devflow-ui'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('bankoyo-moneytransfer-admin-ui');
+    expect(app.title).toEqual('devflow-ui');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('bankoyo-moneytransfer-admin-ui app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('devflow-ui app is running!');
   });
 });

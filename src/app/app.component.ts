@@ -8,12 +8,12 @@ import { TokenserviceService } from './_services/tokenservice.service';
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent {
-  title = 'bankoyo-moneytransfer-admin-ui';
+  title = 'devflow-ui';
 
   constructor(
     public dataService: DataService,
     private tokenService: TokenserviceService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const savedPermissions = this.tokenService.getPrivileges();
