@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpensesService } from 'src/app/_services/finance/expenses.service';
+import { DataService } from 'src/app/_services/shared-data/data.service';
 
 @Component({
   selector: 'app-expences',
   templateUrl: './expences.component.html',
-  styleUrls: ['./expences.component.sass']
+  styleUrls: ['./expences.component.sass'],
 })
 export class ExpencesComponent implements OnInit {
   loading = false;
@@ -14,7 +15,10 @@ export class ExpencesComponent implements OnInit {
   skip = 0;
   limit = 100;
 
-  constructor(private expensesService: ExpensesService) { }
+  constructor(
+    private expensesService: ExpensesService,
+    public dataService: DataService
+  ) {}
 
   ngOnInit(): void {
     this.loadExpenses();
@@ -26,7 +30,7 @@ export class ExpencesComponent implements OnInit {
 
     const params: any = {
       skip: this.skip,
-      limit: this.limit
+      limit: this.limit,
     };
 
     this.expensesService.getAllExpenses(params).subscribe({
@@ -45,7 +49,7 @@ export class ExpencesComponent implements OnInit {
         console.error('Error loading expenses:', err);
         this.error = 'Failed to load expenses. Please try again later.';
         this.loading = false;
-      }
+      },
     });
   }
 

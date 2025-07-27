@@ -18,7 +18,7 @@ export class ResourcesComponent {
   currentPageIndex = 1;
 
   constructor(
-    private dataService: DataService,
+    public dataService: DataService,
     private resourcesService: ResourcesService,
     private modalService: NzModalService
   ) {}

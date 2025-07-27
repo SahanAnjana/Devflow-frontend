@@ -23,7 +23,7 @@ export class PerformanceComponent {
   employeeById: any;
 
   constructor(
-    private dataService: DataService,
+    public dataService: DataService,
     private performanceService: PerformanceService,
     private modalService: NzModalService,
     private employeesService: EmployeesService

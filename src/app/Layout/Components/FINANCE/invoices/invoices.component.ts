@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoicesService } from 'src/app/_services/finance/invoices.service';
+import { DataService } from 'src/app/_services/shared-data/data.service';
 
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.sass']
+  styleUrls: ['./invoices.component.sass'],
 })
 export class InvoicesComponent implements OnInit {
   loading = false;
@@ -14,7 +15,10 @@ export class InvoicesComponent implements OnInit {
   skip = 0;
   limit = 100;
 
-  constructor(private invoicesService: InvoicesService) { }
+  constructor(
+    private invoicesService: InvoicesService,
+    public dataService: DataService
+  ) {}
 
   ngOnInit(): void {
     this.loadInvoices();
@@ -26,7 +30,7 @@ export class InvoicesComponent implements OnInit {
 
     const params: any = {
       skip: this.skip,
-      limit: this.limit
+      limit: this.limit,
     };
 
     this.invoicesService.getAllInvoices(params).subscribe({
@@ -34,8 +38,7 @@ export class InvoicesComponent implements OnInit {
         if (response && response.data) {
           this.invoices = response.data;
           this.total = response.pagination?.totalItems || this.invoices.length;
-        }
-        else {
+        } else {
           this.invoices = [];
           this.total = 0;
         }
@@ -45,7 +48,7 @@ export class InvoicesComponent implements OnInit {
         console.error('Error loading invoices:', err);
         this.error = 'Failed to load invoices. Please try again later.';
         this.loading = false;
-      }
+      },
     });
   }
 }

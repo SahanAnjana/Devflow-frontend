@@ -22,7 +22,7 @@ export class IssuesComponent {
   projectId: any;
 
   constructor(
-    private dataService: DataService,
+    public dataService: DataService,
     private issuesService: IssuesService,
     private modalService: NzModalService,
     private projectsService: ProjectsService

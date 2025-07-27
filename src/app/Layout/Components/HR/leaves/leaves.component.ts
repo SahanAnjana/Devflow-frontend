@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { LaevesService } from 'src/app/_services/hr-services/laeves.service';
 import { AddNewLeaveComponent } from './add-new-leave/add-new-leave.component';
+import { DataService } from 'src/app/_services/shared-data/data.service';
 
 @Component({
   selector: 'app-leaves',
@@ -17,7 +18,8 @@ export class LeavesComponent {
   currentPageIndex = 1;
   constructor(
     private leaveService: LaevesService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    public dataService: DataService
   ) {}
 
   ngOnInit() {

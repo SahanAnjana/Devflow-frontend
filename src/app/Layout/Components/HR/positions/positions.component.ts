@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { PositionsService } from 'src/app/_services/hr-services/positions.service';
 import { AddNewPositionComponent } from './add-new-position/add-new-position.component';
+import { DataService } from 'src/app/_services/shared-data/data.service';
 
 @Component({
   selector: 'app-positions',
@@ -17,7 +18,8 @@ export class PositionsComponent {
   currentPageIndex = 1;
   constructor(
     private positionService: PositionsService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    public dataService: DataService
   ) {}
 
   ngOnInit() {

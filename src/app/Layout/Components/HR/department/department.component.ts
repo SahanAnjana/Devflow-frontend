@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DepartmentService } from 'src/app/_services/hr-services/department.service';
 import { AddNewDepartmentComponent } from './add-new-department/add-new-department.component';
+import { DataService } from 'src/app/_services/shared-data/data.service';
 // import { ViewDepartmentComponent } from './add-new-department/view-department/view-department.component';
 
 @Component({
@@ -18,7 +19,8 @@ export class DepartmentComponent {
 
   constructor(
     private departmentService: DepartmentService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    public dataService: DataService
   ) {}
 
   ngOnInit() {

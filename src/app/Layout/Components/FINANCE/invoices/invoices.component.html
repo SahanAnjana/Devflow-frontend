@@ -1,76 +1,137 @@
-<div nz-row class="title-bar">
+<div *ngIf="dataService.hasPermission('invoices:read')">
+  <div nz-row class="title-bar">
     <div nz-col [nzSpan]="8">
-        <input nz-input placeholder="Search" />
+      <input nz-input placeholder="Search" />
     </div>
     <div nz-col [nzSpan]="12" class="add-button">
-        <button class="btn button">Add New Invoice</button>
+      <button
+        class="btn button"
+        *ngIf="dataService.hasPermission('invoices:create')"
+      >
+        Add New Invoice
+      </button>
     </div>
-</div>
+  </div>
 
-<div class="table-container">
-    <nz-table #invoiceTable [nzData]="invoices" [nzPageSize]="50" [nzShowPagination]="false">
-        <thead>
-            <tr class="heading_tr">
-                <th>
-                    <div class="border-start-th">Name</div>
-                </th>
-                <th>
-                    <div class="border-start-th">Description</div>
-                </th>
-                <th>
-                    <div class="border-middle-th">Amount</div>
-                </th>
-                <th>
-                    <div class="border-middle-th">Start Date</div>
-                </th>
-                <th>
-                    <div class="border-middle-th">End Date</div>
-                </th>
-                <th>
-                    <div class="border-middle-th">Project ID</div>
-                </th>
-                <th>
-                    <div class="border-middle-th">Department ID</div>
-                </th>
-                <th>
-                    <div class="border-middle-th">Created By</div>
-                </th>
-            </tr>
-        </thead>
-        <tbody class="body_tr">
-            <ng-container *ngIf="invoices && invoices.length; else noData">
-                <tr *ngFor="let invoice of invoiceTable.data">
-                    <td>
-                        <div class="border-middle">{{ invoice.name }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ invoice.description }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ invoice.amount }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ invoice.start_date | date:'short' }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ invoice.end_date | date:'short' }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ invoice.project_id }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ invoice.department_id }}</div>
-                    </td>
-                    <td>
-                        <div class="border-middle">{{ invoice.created_by }}</div>
-                    </td>
-                </tr>
-            </ng-container>
-            <ng-template #noData>
-                <tr>
-                    <td colspan="8" style="text-align:center;">No invoices found.</td>
-                </tr>
-            </ng-template>
-        </tbody>
+  <div class="table-container">
+    <nz-table
+      #invoiceTable
+      [nzData]="invoices"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th>
+            <div class="border-start-th">Name</div>
+          </th>
+          <th>
+            <div class="border-start-th">Description</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Amount</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Start Date</div>
+          </th>
+          <th>
+            <div class="border-middle-th">End Date</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Project ID</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Department ID</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Created By</div>
+          </th>
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="body_tr">
+        <ng-container *ngIf="invoices && invoices.length; else noData">
+          <tr *ngFor="let invoice of invoiceTable.data">
+            <td>
+              <div class="border-middle">{{ invoice.name }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ invoice.description }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ invoice.amount }}</div>
+            </td>
+            <td>
+              <div class="border-middle">
+                {{ invoice.start_date | date : "short" }}
+              </div>
+            </td>
+            <td>
+              <div class="border-middle">
+                {{ invoice.end_date | date : "short" }}
+              </div>
+            </td>
+            <td>
+              <div class="border-middle">{{ invoice.project_id }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ invoice.department_id }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ invoice.created_by }}</div>
+            </td>
+            <td>
+              <div class="border-middle btn-section">
+                <button
+                  class="action-button edit"
+                  title="Edit"
+                  *ngIf="dataService.hasPermission('invoices:update')"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                    />
+                    <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                  </svg>
+                </button>
+                <button
+                  class="action-button delete"
+                  title="Delete"
+                  *ngIf="dataService.hasPermission('invoices:delete')"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="3,6 5,6 21,6" />
+                    <path
+                      d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #noData>
+          <tr>
+            <td colspan="8" style="text-align: center">No invoices found.</td>
+          </tr>
+        </ng-template>
+      </tbody>
     </nz-table>
+  </div>
 </div>

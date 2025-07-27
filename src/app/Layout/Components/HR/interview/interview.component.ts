@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { InterviewService } from 'src/app/_services/hr-services/interview.service';
+import { DataService } from 'src/app/_services/shared-data/data.service';
 
 @Component({
   selector: 'app-interview',
@@ -13,7 +14,10 @@ export class InterviewComponent {
   totalRecord: any = 100;
   currentPageIndex = 1;
 
-  constructor(private interviewService: InterviewService) {}
+  constructor(
+    private interviewService: InterviewService,
+    public dataService: DataService
+  ) {}
 
   ngOnInit() {
     this.getAllInterviews();

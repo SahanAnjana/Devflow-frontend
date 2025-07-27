@@ -1,95 +1,104 @@
-<div nz-row [nzGutter]="24" class="title-bar">
-  <div nz-col [nzSpan]="18" class="right">
-    <div nz-col [nzSpan]="4">
-      <nz-select
-        nzPlaceHolder="Select Application"
-        nzAllowClear="true"
-        nzShowSearch
-        nzSuffixIcon="caret-down"
-      >
-        <nz-option> </nz-option>
-      </nz-select>
+<div *ngIf="dataService.hasPermission('interviews:read')">
+  <div nz-row [nzGutter]="24" class="title-bar">
+    <div nz-col [nzSpan]="18" class="right">
+      <div nz-col [nzSpan]="4">
+        <nz-select
+          nzPlaceHolder="Select Application"
+          nzAllowClear="true"
+          nzShowSearch
+          nzSuffixIcon="caret-down"
+        >
+          <nz-option> </nz-option>
+        </nz-select>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <nz-select
+          nzPlaceHolder="Select Interview"
+          nzAllowClear="true"
+          nzShowSearch
+          nzSuffixIcon="caret-down"
+        >
+          <nz-option> </nz-option>
+        </nz-select>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <nz-date-picker></nz-date-picker>
+      </div>
+      <div nz-col [nzSpan]="4">
+        <nz-date-picker></nz-date-picker>
+      </div>
     </div>
-    <div nz-col [nzSpan]="4">
-      <nz-select
-        nzPlaceHolder="Select Interview"
-        nzAllowClear="true"
-        nzShowSearch
-        nzSuffixIcon="caret-down"
-      >
-        <nz-option> </nz-option>
-      </nz-select>
-    </div>
-    <div nz-col [nzSpan]="4">
-      <nz-date-picker></nz-date-picker>
-    </div>
-    <div nz-col [nzSpan]="4">
-      <nz-date-picker></nz-date-picker>
+
+    <div nz-col [nzSpan]="6" style="display: flex; justify-content: right">
+      <div nz-col [nzSpan]="6" class="add-button">
+        <button
+          class="btn button"
+          *ngIf="dataService.hasPermission('interviews:create')"
+        >
+          Add New Interview
+        </button>
+      </div>
     </div>
   </div>
 
-  <div nz-col [nzSpan]="6" style="display: flex; justify-content: right">
-    <div nz-col [nzSpan]="6" class="add-button">
-      <button class="btn button">Add New Performance</button>
-    </div>
-  </div>
-</div>
-
-<div
-  nz-row
-  [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }"
-  class="stats-container"
->
   <div
-    nz-col
-    [nzSpan]="6"
-    class="stat-card"
-    *ngFor="let data of allInterviewData"
+    nz-row
+    [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }"
+    class="stats-container"
   >
-    <div class="stat-content">
-      <div class="stat-info">
-        <div class="title">
-          <p class="stat-label">{{ data.interview_type }}</p>
-          <img
-            src="./assets/icons/eye.svg"
-            (click)="editInterViews(data, 'edit')"
-          />
-        </div>
-
-        <div class="stat-value">{{ data.scheduled_at }}</div>
-        <div class="stat-change">
-          <div class="change">
-            <span class="change-icon positive">{{
-              data.duration_minutes
-            }}</span>
-
-            <span class="change-period">{{ data.location }}</span>
+    <div
+      nz-col
+      [nzSpan]="6"
+      class="stat-card"
+      *ngFor="let data of allInterviewData"
+    >
+      <div class="stat-content">
+        <div class="stat-info">
+          <div class="title">
+            <p class="stat-label">{{ data.interview_type }}</p>
+            <img
+              src="./assets/icons/eye.svg"
+              (click)="editInterViews(data, 'edit')"
+              *ngIf="dataService.hasPermission('interviews:update')"
+            />
           </div>
-          <span class="icon-emoji">{{ data.status }}</span>
-        </div>
-        <div class="delete_icon">
-          <img
-            src="./assets/icons/delete_icon_red.svg"
-            (click)="editInterViews(data, 'edit')"
-          />
+
+          <div class="stat-value">{{ data.scheduled_at }}</div>
+          <div class="stat-change">
+            <div class="change">
+              <span class="change-icon positive">{{
+                data.duration_minutes
+              }}</span>
+
+              <span class="change-period">{{ data.location }}</span>
+            </div>
+            <span class="icon-emoji">{{ data.status }}</span>
+          </div>
+          <div class="delete_icon">
+            <img
+              src="./assets/icons/delete_icon_red.svg"
+              (click)="deleteInterview(data)"
+              *ngIf="dataService.hasPermission('interviews:delete')"
+            />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="pagination-row">
-  <nz-pagination
-    class="pagination"
-    [nzPageSize]="pageSize"
-    [nzPageIndex]="currentPageIndex"
-    (nzPageIndexChange)="pageIndexChange($event)"
-    [nzTotal]="totalRecord"
-    nzShowQuickJumper
-    [nzShowTotal]="rangeTemplate"
-  >
-  </nz-pagination>
-  <ng-template #rangeTemplate let-range="range" let-total>
-    <span>{{ range[0] }} of {{ total }} items</span>
-  </ng-template>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="currentPageIndex"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      [nzTotal]="totalRecord"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
 </div>
