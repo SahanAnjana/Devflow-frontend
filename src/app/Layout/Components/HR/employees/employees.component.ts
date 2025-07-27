@@ -29,7 +29,7 @@ export class EmployeesComponent {
   currentPageIndex = 1;
 
   constructor(
-    private dataService: DataService,
+    public dataService: DataService,
     private employeesService: EmployeesService,
     private modalService: NzModalService
   ) {}
