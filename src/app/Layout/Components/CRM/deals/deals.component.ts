@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DealsService } from 'src/app/_services/crm/deals.service';
 import { AddNewDealComponent } from './add-new-deal/add-new-deal.component';
+import { DataService } from 'src/app/_services/shared-data/data.service';
 
 @Component({
   selector: 'app-deals',
@@ -16,7 +17,8 @@ export class DealsComponent {
   currentPageIndex = 1;
   constructor(
     private DealsService: DealsService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    public dataService: DataService
   ) {}
 
   ngOnInit() {

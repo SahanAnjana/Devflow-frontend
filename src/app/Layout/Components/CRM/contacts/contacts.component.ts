@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ContactsService } from 'src/app/_services/crm/contacts.service';
 import { AddNewContactsComponent } from './add-new-contacts/add-new-contacts.component';
+import { DataService } from 'src/app/_services/shared-data/data.service';
 
 @Component({
   selector: 'app-contacts',
@@ -16,7 +17,8 @@ export class ContactsComponent {
   currentPageIndex = 1;
   constructor(
     private contactService: ContactsService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    public dataService: DataService
   ) {}
 
   ngOnInit() {
