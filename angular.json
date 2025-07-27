@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "bankoyo-moneytransfer-admin-ui": {
+    "devflow-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/bankoyo-moneytransfer-admin-ui",
+            "outputPath": "dist/devflow-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -32,7 +32,7 @@
                 "glob": "**/*",
                 "input": "./node_modules/@kolkov/angular-editor/assets/",
                 "output": "./assets/fonts/"
-                }
+              }
             ],
             "styles": [
               "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "bankoyo-moneytransfer-admin-ui:build:production"
+              "browserTarget": "devflow-ui:build:production"
             },
             "development": {
-              "browserTarget": "bankoyo-moneytransfer-admin-ui:build:development"
+              "browserTarget": "devflow-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bankoyo-moneytransfer-admin-ui:build"
+            "browserTarget": "devflow-ui:build"
           }
         },
         "test": {
@@ -112,4 +112,3 @@
     "analytics": false
   }
 }
-

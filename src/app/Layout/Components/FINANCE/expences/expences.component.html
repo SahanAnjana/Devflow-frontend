@@ -1,1 +1,100 @@
-<p>expences works!</p>
+<div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+        <input nz-input placeholder="Search" />
+    </div>
+    <div nz-col [nzSpan]="12" class="add-button">
+        <button class="btn button">Add New Expense</button>
+        <button class="btn button" (click)="refreshExpenses()" [disabled]="loading" style="margin-left: 10px;">
+            {{ loading ? 'Loading...' : 'Refresh' }}
+        </button>
+    </div>
+</div>
+
+<div *ngIf="error" class="error-message">
+    <nz-alert nzType="error" [nzMessage]="error" nzShowIcon></nz-alert>
+</div>
+
+<div class="table-container" [class.loading]="loading">
+    <nz-table #expenceTable [nzData]="expences" [nzPageSize]="50" [nzShowPagination]="false" [nzLoading]="loading">
+        <thead>
+            <tr class="heading_tr">
+                <th>
+                    <div class="border-start-th">Description</div>
+                </th>
+                <th>
+                    <div class="border-start-th">Amount</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Category</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Expense Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Employee ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Project ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Department ID</div>
+                </th>
+                <th>
+                    <!-- <div class="border-middle-th">Status</div> -->
+                </th>
+                <th>
+                    <div class="border-middle-th">Receipt</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="body_tr">
+            <ng-container *ngIf="expences && expences.length; else noData">
+                <tr *ngFor="let expence of expenceTable.data">
+                    <td>
+                        <div class="border-middle">{{ expence.description }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.amount | currency:expence.currency:'symbol':'1.2-2' }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.category }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.expense_date | date:'short' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.employee_id }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.project_id || 'N/A' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ expence.department_id }}</div>
+                    </td>
+                    <!-- <td>
+                        <div class="border-middle">
+                            <nz-tag [nzColor]="getStatusColor(expence.status)">{{ expence.status }}</nz-tag>
+                        </div>
+                    </td> -->
+                    <td>
+                        <div class="border-middle">
+                            <a *ngIf="expence.receipt_url" [href]="expence.receipt_url" target="_blank"
+                                class="receipt-link">
+                                View Receipt
+                            </a>
+                            <span *ngIf="!expence.receipt_url" class="no-receipt">No Receipt</span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noData>
+                <tr>
+                    <td colspan="9" style="text-align:center;">
+                        {{ loading ? 'Loading expenses...' : 'No expenses found.' }}
+                    </td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </nz-table>
+</div>

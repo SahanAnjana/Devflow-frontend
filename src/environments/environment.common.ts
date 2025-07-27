@@ -614,5 +614,31 @@ export const commonEnvironment = {
 
   //finance API------------------------
 
-  //
+  //budgets
+  getAllBudgets: BASE_URL + '8002/budgets/',
+  createnewBudgets: BASE_URL + '8002/budgets/',
+  getBudgetsDetailsById: BASE_URL + '8002/budgets/',
+  updateBudgets: BASE_URL + '8002/budgets/',
+  deleteBudgets: BASE_URL + '8002/budgets/',
+
+  //accounts
+  getAllAccounts: BASE_URL + '8002/accounts/',
+  createnewAccounts: BASE_URL + '8002/accounts/',
+  getAccountsDetailsById: BASE_URL + '8002/accounts/',
+  updateAccounts: BASE_URL + '8002/accounts/',
+  deleteAccounts: BASE_URL + '8002/accounts/',
+
+  //invoices
+  getAllInvoices: BASE_URL + '8002/invoices/',
+  createnewInvoices: BASE_URL + '8002/invoices/',
+  getInvoicesDetailsById: BASE_URL + '8002/invoices/',
+  updateInvoices: BASE_URL + '8002/invoices/',
+  deleteInvoices: BASE_URL + '8002/invoices/',
+
+  //expenses
+  getAllExpenses: BASE_URL + '8002/expenses/',
+  createnewExpenses: BASE_URL + '8002/expenses/',
+  getExpensesDetailsById: BASE_URL + '8002/expenses/',
+  updateExpenses: BASE_URL + '8002/expenses/',
+  deleteExpenses: BASE_URL + '8002/expenses/',
 };

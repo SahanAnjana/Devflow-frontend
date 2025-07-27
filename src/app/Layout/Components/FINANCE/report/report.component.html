@@ -1,1 +1,76 @@
-<p>report works!</p>
+<div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+        <input nz-input placeholder="Search" />
+    </div>
+    <div nz-col [nzSpan]="12" class="add-button">
+        <button class="btn button">Add New Report</button>
+    </div>
+</div>
+
+<div class="table-container">
+    <nz-table #reportTable [nzData]="reports" [nzPageSize]="50" [nzShowPagination]="false">
+        <thead>
+            <tr class="heading_tr">
+                <th>
+                    <div class="border-start-th">Name</div>
+                </th>
+                <th>
+                    <div class="border-start-th">Description</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Amount</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Start Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">End Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Project ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Department ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Created By</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="body_tr">
+            <ng-container *ngIf="reports && reports.length; else noData">
+                <tr *ngFor="let report of reportTable.data">
+                    <td>
+                        <div class="border-middle">{{ report.name }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ report.description }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ report.amount }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ report.start_date | date:'short' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ report.end_date | date:'short' }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ report.project_id }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ report.department_id }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ report.created_by }}</div>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noData>
+                <tr>
+                    <td colspan="8" style="text-align:center;">No reports found.</td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </nz-table>
+</div>

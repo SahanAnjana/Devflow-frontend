@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { FinanceRoutingModule } from './finance-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FinanceDashboardComponent } from './finance-dashboard/finance-dashboard.component';
@@ -18,6 +19,11 @@ import { ReportComponent } from './report/report.component';
     InvoicesComponent,
     ReportComponent
   ],
-  imports: [CommonModule, FinanceRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    FinanceRoutingModule,
+    SharedModule
+  ],
 })
-export class FinanceModule {}
+export class FinanceModule { }

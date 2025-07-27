@@ -1,1 +1,70 @@
-<p>accounts works!</p>
+<div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+        <input nz-input placeholder="Search" />
+    </div>
+    <div nz-col [nzSpan]="12" class="add-button">
+        <button class="btn button">Add New Account</button>
+    </div>
+</div>
+
+<div class="table-container">
+    <nz-table #accountTable [nzData]="accounts" [nzPageSize]="50" [nzShowPagination]="false">
+        <thead>
+            <tr class="heading_tr">
+                <th>
+                    <div class="border-start-th">account_number</div>
+                </th>
+                <th>
+                    <div class="border-start-th">Description</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Amount</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Start Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">End Date</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Project ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Department ID</div>
+                </th>
+                <th>
+                    <div class="border-middle-th">Created By</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="body_tr">
+            <ng-container *ngIf="accounts && accounts.length; else noData">
+                <tr *ngFor="let account of accountTable.data">
+                    <td>
+                        <div class="border-middle">{{ account.account_number }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ account.name }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ account.currency }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ account.balance }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ account.is_active }}</div>
+                    </td>
+                    <td>
+                        <div class="border-middle">{{ account.created_at }}</div>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noData>
+                <tr>
+                    <td colspan="8" style="text-align:center;">No accounts found.</td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </nz-table>
+</div>
