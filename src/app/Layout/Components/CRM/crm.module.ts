@@ -17,6 +17,7 @@ import { AddNewContactsComponent } from './contacts/add-new-contacts/add-new-con
 import { AddNewContractsComponent } from './contracts/add-new-contracts/add-new-contracts.component';
 import { AddNewDealComponent } from './deals/add-new-deal/add-new-deal.component';
 import { AddNewPerposalsComponent } from './perposals/add-new-perposals/add-new-perposals.component';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AddNewPerposalsComponent } from './perposals/add-new-perposals/add-new-
     AddNewContactsComponent,
     AddNewContractsComponent,
     AddNewDealComponent,
-    AddNewPerposalsComponent
+    AddNewPerposalsComponent,
+    ReportsComponent
   ],
   imports: [CommonModule, CrmRoutingModule, SharedModule],
 })

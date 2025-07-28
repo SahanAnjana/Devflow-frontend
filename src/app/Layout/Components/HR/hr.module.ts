@@ -26,6 +26,7 @@ import { JobPostingComponent } from './job-posting/job-posting.component';
 import { JobApplicatonsComponent } from './job-applicatons/job-applicatons.component';
 import { AddNewJobpostComponent } from './job-posting/add-new-jobpost/add-new-jobpost.component';
 import { InterviewComponent } from './interview/interview.component';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { InterviewComponent } from './interview/interview.component';
     JobApplicatonsComponent,
     AddNewJobpostComponent,
     InterviewComponent,
+    ReportsComponent,
   ],
   imports: [
     CommonModule,

@@ -81,6 +81,11 @@ export class DevFlowComponent {
             label: 'Job Application',
             icon: 'jobapplication',
           },
+          {
+            id: 'reports',
+            label: 'Reports',
+            icon: 'reports',
+          },
         ];
         break;
       case 'finance':
@@ -188,6 +193,9 @@ export class DevFlowComponent {
           break;
         case 'jobapplication':
           this.router.navigate(['/hr/jobapplication']);
+          break;
+        case 'reports':
+          this.router.navigate(['/hr/reports']);
           break;
       }
     } else if (this.urlLink === 'crm') {

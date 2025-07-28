@@ -17,13 +17,8 @@ import { ReportComponent } from './report/report.component';
     BudgetsComponent,
     ExpencesComponent,
     InvoicesComponent,
-    ReportComponent
+    ReportComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    FinanceRoutingModule,
-    SharedModule
-  ],
+  imports: [CommonModule, FormsModule, FinanceRoutingModule, SharedModule],
 })
-export class FinanceModule { }
+export class FinanceModule {}

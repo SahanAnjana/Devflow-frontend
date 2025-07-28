@@ -21,6 +21,7 @@ import { TopNavigationComponent } from './Layout/Pages/dev-flow/top-navigation/t
 import { DevDashboardModule } from './Layout/Components/dev-dashboard/dev-dashboard.module';
 import { ProjectsModule } from './Layout/Components/PM/projects.module';
 import { HrModule } from './Layout/Components/HR/hr.module';
+import { FinanceModule } from './Layout/Components/FINANCE/finance.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { HrModule } from './Layout/Components/HR/hr.module';
     DevDashboardModule,
     ProjectsModule,
     HrModule,
+    FinanceModule,
   ],
   exports: [DecimalFormatDirective],
   providers: [

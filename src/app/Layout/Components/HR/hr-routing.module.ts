@@ -9,6 +9,7 @@ import { PerformanceComponent } from './performance/performance.component';
 import { JobPostingComponent } from './job-posting/job-posting.component';
 import { JobApplicatonsComponent } from './job-applicatons/job-applicatons.component';
 import { InterviewComponent } from './interview/interview.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'jobposting', component: JobPostingComponent },
       { path: 'jobapplication', component: JobApplicatonsComponent },
       { path: 'interview', component: InterviewComponent },
+      { path: 'reports', component: ReportsComponent },
     ],
   },
 ];

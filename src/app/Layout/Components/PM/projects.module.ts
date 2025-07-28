@@ -18,6 +18,7 @@ import { AddNewIssuesComponent } from './Issues/add-new-issues/add-new-issues.co
 import { TestCasesComponent } from './TestCases/test-cases.component';
 import { AddNewTestCaseComponent } from './TestCases/add-new-test-case/add-new-test-case.component';
 import { TimelineComponent } from './Timeline/timeline.component';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TimelineComponent } from './Timeline/timeline.component';
     AddNewIssuesComponent,
     TestCasesComponent,
     AddNewTestCaseComponent,
+    ReportsComponent,
   ],
   imports: [CommonModule, ProjectsRoutingModule, SharedModule],
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DownloadReportsService } from 'src/app/_services/download-reports.service';
@@ -6,11 +6,11 @@ import { ReportService } from 'src/app/_services/finance/report.service';
 import { DataService } from 'src/app/_services/shared-data/data.service';
 
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.sass'],
+  selector: 'app-reports',
+  templateUrl: './reports.component.html',
+  styleUrls: ['./reports.component.sass'],
 })
-export class ReportComponent {
+export class ReportsComponent {
   allReportSummary: any;
 
   pageNumber: any = 1;
