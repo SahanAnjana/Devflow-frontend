@@ -1,0 +1,143 @@
+<div *ngIf="dataService.hasPermission('employees:read')">
+  <div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+      <nz-select
+        nzAllowClear="true"
+        nzShowSearch="true"
+        nzPlaceHolder="Choose a role"
+        (ngModelChange)="onUserSelect($event)"
+        [(ngModel)]="selectedRoleName"
+        class="user-select"
+      >
+        <nz-option
+          *ngFor="let role of Allroles"
+          [nzValue]="role.name"
+          [nzLabel]="role.name"
+        ></nz-option>
+      </nz-select>
+    </div>
+
+    <div nz-col [nzSpan]="12" class="add-button">
+      <button
+        class="btn button"
+        (click)="savePermissions()"
+        *ngIf="selectedRoleName"
+      >
+        Save Permissions
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container" *ngIf="selectedRoleName">
+    <nz-table
+      #basicTable
+      [nzData]="getPermissionsTableData()"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th><div class="border-start-th">MODULE</div></th>
+          <th><div class="border-middle-th">PERMISSION</div></th>
+          <th><div class="border-middle-th">DESCRIPTION</div></th>
+          <th><div class="border-middle-th">STATUS</div></th>
+          <th><div class="border-middle-th">ENABLED</div></th>
+          <th><div class="border-middle-th"></div></th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let item of basicTable.data">
+          <td>
+            <div class="border-middle">{{ formatModuleName(item.module) }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ formatActionName(item.action) }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ getPermissionDescription(item.action) }}
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">
+              <nz-tag [nzColor]="item.enabled ? 'green' : 'red'">
+                {{ item.enabled ? "Active" : "Inactive" }}
+              </nz-tag>
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">
+              <nz-switch
+                [(ngModel)]="item.enabled"
+                (ngModelChange)="onPermissionToggle(item)"
+                [nzSize]="'small'"
+              ></nz-switch>
+            </div>
+          </td>
+          <td>
+            <div class="border-middle btn-section">
+              <button
+                class="action-button view"
+                title="View Permission Details"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </button>
+              <button
+                *ngIf="isFirstPermissionOfModule(item)"
+                class="action-button edit"
+                title="Toggle All {{
+                  formatModuleName(item.module)
+                }} Permissions"
+                (click)="safeToggleModule(item.module)"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  />
+                  <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                </svg>
+              </button>
+              <button
+                class="action-button delete"
+                title="Reset Permission"
+                (click)="resetSinglePermission(item)"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="3,6 5,6 21,6" />
+                  <path
+                    d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

@@ -47,7 +47,10 @@ export class DevFlowComponent {
   setSidebarItems(section: string) {
     switch (section) {
       case 'devflow':
-        this.sidebarItems = [];
+        this.sidebarItems = [
+          { id: '', label: 'Dashboard', icon: 'home' },
+          { id: 'permissions', label: 'permissions', icon: 'permissions' },
+        ];
         break;
       case 'projects':
         this.sidebarItems = [
@@ -134,7 +137,16 @@ export class DevFlowComponent {
 
   onSectionChange(section: string) {
     this.activeSection = section;
-    if (this.urlLink === 'projects') {
+    if (this.urlLink === 'devflow') {
+      switch (section) {
+        case '':
+          this.router.navigate(['/devflow']);
+          break;
+        case 'permissions':
+          this.router.navigate(['/devflow/permissions']);
+          break;
+      }
+    } else if (this.urlLink === 'projects') {
       switch (section) {
         case 'dashboard':
           this.router.navigate(['/projects']);

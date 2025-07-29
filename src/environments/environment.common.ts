@@ -19,7 +19,8 @@ export const commonEnvironment = {
   getUsers: BASE_URL + '8000/auth/users',
   getUserdetailsMe: BASE_URL + '8000/auth/users/me',
   //privilages
-  getPrivileges: BASE_URL + '8000/auth/roles/permissions',
+  getRoles: BASE_URL + '8000/auth/roles/',
+  getPrivileges: BASE_URL + '8000/auth/roles/permissions/',
   getUserDetails: BASE_URL + '8000/auth/users/me',
 
   //projects
@@ -124,11 +125,11 @@ export const commonEnvironment = {
   deleteInterview: BASE_URL + '8001/interviews/',
 
   //reports
-  getFinancialSummary: BASE_URL + '8001/reports/summary',
-  getProfitLossReport: BASE_URL + '8001/reports/profit-loss',
-  getRevenueReport: BASE_URL + '8001/reports/revenue',
-  getExpensesReport: BASE_URL + '8001/reports/expenses',
-  getProjectFinanceReport: BASE_URL + '8001/reports/project/',
+  getFinancialSummary: BASE_URL + '8002/reports/summary',
+  getProfitLossReport: BASE_URL + '8002/reports/profit-loss',
+  getRevenueReport: BASE_URL + '8002/reports/revenue',
+  getExpensesReport: BASE_URL + '8002/reports/expenses',
+  getProjectFinanceReport: BASE_URL + '8002/reports/project/',
 
   //download API
   downloadReports: BASE_URL + '8006/api/files/download/{file_path}',

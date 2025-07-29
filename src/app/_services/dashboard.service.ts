@@ -21,6 +21,17 @@ export class DashboardService {
       })
     );
   }
+  getAllRoles() {
+    const url = environment.getRoles;
+    return this.http.get(url).pipe(
+      catchError((err) => {
+        return this.common.catchError(err);
+      }),
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
   getPrivilagesRole(data: string) {
     let urlParams = new HttpParams();
     urlParams = urlParams.append('role_name', data);

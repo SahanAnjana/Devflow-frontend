@@ -11,15 +11,15 @@ import { DataService } from 'src/app/_services/shared-data/data.service';
   styleUrls: ['./report.component.sass'],
 })
 export class ReportComponent {
-  allReportSummary: any;
+  allReportSummary: any[] = []; // Initialize as empty array
 
   pageNumber: any = 1;
   pageSize: any = 10;
   totalRecord: any;
   currentPageIndex = 1;
 
-  fromDate: any;
-  toDate: any;
+  fromDate: any = new Date(new Date().getFullYear(), new Date().getMonth(), 1); // First day of current month
+  toDate: any = new Date(); // Today's date
   selectedReport: any = 1;
   filepath: any;
 
@@ -64,53 +64,140 @@ export class ReportComponent {
     this.getFinancialSummary();
   }
 
+  // Format date to YYYY-MM-DD format for API
+  formatDate(date: Date): string {
+    if (!date) return '';
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   getFinancialSummary() {
     const data: any = [];
-    data['from_date'] = this.fromDate;
-    data['to_date'] = this.toDate;
+    data['from_date'] = this.formatDate(this.fromDate);
+    data['to_date'] = this.formatDate(this.toDate);
     this.reportService.getFinancialSummary(data).subscribe((res) => {
-      this.allReportSummary = res;
-      this.filepath = res.file_path;
+      console.log('API Response:', res);
+
+      // Handle different response formats
+      if (res && res['data']) {
+        // If data is an array, use it directly
+        if (Array.isArray(res['data'])) {
+          this.allReportSummary = res['data'];
+        } else {
+          // If data is an object, wrap it in an array for the table
+          this.allReportSummary = [res['data']];
+        }
+      } else if (res) {
+        // If the response itself is the data, wrap it in an array
+        this.allReportSummary = [res];
+      } else {
+        // Fallback to empty array
+        this.allReportSummary = [];
+      }
+
+      console.log('Processed Financial Summary:', this.allReportSummary);
+      this.filepath = res?.file_path || '';
     });
   }
 
   getProfitandLossReport() {
     const data: any = [];
-    data['from_date'] = this.fromDate;
-    data['to_date'] = this.toDate;
+    data['from_date'] = this.formatDate(this.fromDate);
+    data['to_date'] = this.formatDate(this.toDate);
     this.reportService.getProfitLossReport(data).subscribe((res) => {
-      this.allReportSummary = res;
-      this.filepath = res.file_path;
+      console.log('Profit & Loss API Response:', res);
+
+      // Handle different response formats
+      if (res && res['data']) {
+        if (Array.isArray(res['data'])) {
+          this.allReportSummary = res['data'];
+        } else {
+          this.allReportSummary = [res['data']];
+        }
+      } else if (res) {
+        this.allReportSummary = [res];
+      } else {
+        this.allReportSummary = [];
+      }
+
+      this.filepath = res?.file_path || '';
     });
   }
 
   getRevenueReport() {
     const data: any = [];
-    data['from_date'] = this.fromDate;
-    data['to_date'] = this.toDate;
+    data['from_date'] = this.formatDate(this.fromDate);
+    data['to_date'] = this.formatDate(this.toDate);
     this.reportService.getRevenueReport(data).subscribe((res) => {
-      this.allReportSummary = res;
-      this.filepath = res.file_path;
+      console.log('Revenue API Response:', res);
+
+      // Handle different response formats
+      if (res && res['data']) {
+        if (Array.isArray(res['data'])) {
+          this.allReportSummary = res['data'];
+        } else {
+          this.allReportSummary = [res['data']];
+        }
+      } else if (res) {
+        this.allReportSummary = [res];
+      } else {
+        this.allReportSummary = [];
+      }
+
+      this.filepath = res?.file_path || '';
     });
   }
+
   getExpensiveReport() {
     const data: any = [];
-    data['from_date'] = this.fromDate;
-    data['to_date'] = this.toDate;
+    data['from_date'] = this.formatDate(this.fromDate);
+    data['to_date'] = this.formatDate(this.toDate);
     this.reportService.getExpnsiveReport(data).subscribe((res) => {
-      this.allReportSummary = res;
-      this.filepath = res.file_path;
+      console.log('Expenses API Response:', res);
+
+      // Handle different response formats
+      if (res && res['data']) {
+        if (Array.isArray(res['data'])) {
+          this.allReportSummary = res['data'];
+        } else {
+          this.allReportSummary = [res['data']];
+        }
+      } else if (res) {
+        this.allReportSummary = [res];
+      } else {
+        this.allReportSummary = [];
+      }
+
+      this.filepath = res?.file_path || '';
     });
   }
+
   getProjectFinanceReport() {
     const data: any = [];
-    data['from_date'] = this.fromDate;
-    data['to_date'] = this.toDate;
+    data['from_date'] = this.formatDate(this.fromDate);
+    data['to_date'] = this.formatDate(this.toDate);
     this.reportService.getProjectFInanceReport(data).subscribe((res) => {
-      this.allReportSummary = res;
-      this.filepath = res.file_path;
+      console.log('Project Finance API Response:', res);
+
+      // Handle different response formats
+      if (res && res['data']) {
+        if (Array.isArray(res['data'])) {
+          this.allReportSummary = res['data'];
+        } else {
+          this.allReportSummary = [res['data']];
+        }
+      } else if (res) {
+        this.allReportSummary = [res];
+      } else {
+        this.allReportSummary = [];
+      }
+
+      this.filepath = res?.file_path || '';
     });
   }
+  // }
 
   onReportChange(event: any) {
     console.log('Selected Report:', event);

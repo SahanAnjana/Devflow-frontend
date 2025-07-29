@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DevDashboardComponent } from './dev-dashboard.component';
+import { PermissionsComponent } from './permissions/permissions.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DevDashboardComponent,
+    pathMatch: 'full',
+    redirectTo: '',
+  },
+  {
+    path: '',
     children: [
-      {
-        path: '',
-        component: DevDashboardComponent, // This will show the dashboard main view
-      },
-      // Add more child routes here if needed, e.g.:
-      // { path: 'workflow', component: WorkflowComponent },
-      // { path: 'project', component: ProjectComponent },
+      { path: '', component: DevDashboardComponent },
+      { path: 'permissions', component: PermissionsComponent },
     ],
   },
 ];
