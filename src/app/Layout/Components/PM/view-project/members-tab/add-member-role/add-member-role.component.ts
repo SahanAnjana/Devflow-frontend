@@ -43,6 +43,8 @@ export class AddMemberRoleComponent {
         role: this.data.role,
       });
     }
+
+    console.log('id', this.data.id);
   }
 
   get user() {
@@ -73,6 +75,7 @@ export class AddMemberRoleComponent {
               { nzStyle: { background: '#00A03E', color: '#fff' } }
             );
             this.eventTrigger.onReloadServiceData('addSuccess');
+            this.modalService.closeAll();
           } else {
             this.notificationService.create(
               'error',

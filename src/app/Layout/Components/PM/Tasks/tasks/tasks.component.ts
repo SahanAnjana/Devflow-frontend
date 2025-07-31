@@ -61,6 +61,16 @@ export class TasksComponent {
     this.getAllprojectTasks();
   }
 
+  getStatusClass(status: string): string {
+    const statusClasses: { [key: string]: string } = {
+      to_do: 'status-todo',
+      in_progress: 'status-progress',
+      in_review: 'status-review',
+      done: 'status-done',
+    };
+    return statusClasses[status] || 'status-default';
+  }
+
   drop(event: CdkDragDrop<any[]>) {
     const droppedTask = event.previousContainer.data[event.previousIndex];
     console.log('Dropped Task:', droppedTask);

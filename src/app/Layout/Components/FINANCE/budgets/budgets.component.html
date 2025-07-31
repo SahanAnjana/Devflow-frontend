@@ -7,6 +7,7 @@
       <button
         class="btn button"
         *ngIf="dataService.hasPermission('budgets:create')"
+        (click)="addNewBudget()"
       >
         Add New Budget
       </button>
@@ -37,12 +38,7 @@
           <th>
             <div class="border-middle-th">End Date</div>
           </th>
-          <th>
-            <div class="border-middle-th">Project ID</div>
-          </th>
-          <th>
-            <div class="border-middle-th">Department ID</div>
-          </th>
+
           <th>
             <div class="border-middle-th">Created By</div>
           </th>
@@ -73,12 +69,7 @@
                 {{ budget.end_date | date : "short" }}
               </div>
             </td>
-            <td>
-              <div class="border-middle">{{ budget.project_id }}</div>
-            </td>
-            <td>
-              <div class="border-middle">{{ budget.department_id }}</div>
-            </td>
+
             <td>
               <div class="border-middle">{{ budget.created_by }}</div>
             </td>
@@ -107,6 +98,7 @@
                   class="action-button delete"
                   title="Delete"
                   *ngIf="dataService.hasPermission('budgets:delete')"
+                  (click)="deleteBudget(budget)"
                 >
                   <svg
                     width="16"

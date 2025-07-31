@@ -7,6 +7,7 @@
       <button
         class="btn button"
         *ngIf="dataService.hasPermission('expenses:create')"
+        (click)="addNewExpense()"
       >
         Add New Expense
       </button>
@@ -56,12 +57,7 @@
           <th>
             <div class="border-middle-th">Department ID</div>
           </th>
-          <th>
-            <!-- <div class="border-middle-th">Status</div> -->
-          </th>
-          <th>
-            <div class="border-middle-th">Receipt</div>
-          </th>
+
           <th>
             <div class="border-middle-th"></div>
           </th>
@@ -98,26 +94,7 @@
             <td>
               <div class="border-middle">{{ expence.department_id }}</div>
             </td>
-            <!-- <td>
-                        <div class="border-middle">
-                            <nz-tag [nzColor]="getStatusColor(expence.status)">{{ expence.status }}</nz-tag>
-                        </div>
-                    </td> -->
-            <td>
-              <div class="border-middle">
-                <a
-                  *ngIf="expence.receipt_url"
-                  [href]="expence.receipt_url"
-                  target="_blank"
-                  class="receipt-link"
-                >
-                  View Receipt
-                </a>
-                <span *ngIf="!expence.receipt_url" class="no-receipt"
-                  >No Receipt</span
-                >
-              </div>
-            </td>
+
             <td>
               <div class="border-middle btn-section">
                 <button
@@ -143,6 +120,7 @@
                   class="action-button delete"
                   title="Delete"
                   *ngIf="dataService.hasPermission('expenses:delete')"
+                  (click)="deleteExpense(expence)"
                 >
                   <svg
                     width="16"

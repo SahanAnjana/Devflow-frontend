@@ -1,0 +1,206 @@
+<div class="form-container">
+  <form [formGroup]="viewProjectForm">
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Description
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="description"
+              class="modal-input"
+              placeholder="Expense Description"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Amount <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-input-number
+              formControlName="amount"
+              class="modal-input"
+              [nzMin]="0.01"
+              [nzStep]="0.01"
+              nzPlaceHolder="0.00"
+              style="width: 100%"
+            ></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Category<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              formControlName="category"
+              nzShowSearch
+              nzPlaceHolder="Select Category"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+            >
+              <nz-option nzLabel="Travel" nzValue="travel">Travel</nz-option>
+              <nz-option nzLabel="Office Supplies" nzValue="office_supplies"
+                >Office Supplies</nz-option
+              >
+              <nz-option nzLabel="Meals" nzValue="meals">Meals</nz-option>
+              <nz-option nzLabel="Transportation" nzValue="transportation"
+                >Transportation</nz-option
+              >
+              <nz-option nzLabel="Software" nzValue="software"
+                >Software</nz-option
+              >
+              <nz-option nzLabel="Training" nzValue="training"
+                >Training</nz-option
+              >
+              <nz-option nzLabel="Marketing" nzValue="marketing"
+                >Marketing</nz-option
+              >
+              <nz-option nzLabel="Other" nzValue="other">Other</nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Currency<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-select
+              formControlName="currency"
+              nzPlaceHolder="Select Currency"
+              nzSuffixIcon="caret-down"
+            >
+              <nz-option nzLabel="USD - US Dollar" nzValue="USD">USD</nz-option>
+              <nz-option nzLabel="EUR - Euro" nzValue="EUR">EUR</nz-option>
+              <nz-option nzLabel="GBP - British Pound" nzValue="GBP"
+                >GBP</nz-option
+              >
+              <nz-option nzLabel="LKR - Sri Lankan Rupee" nzValue="LKR"
+                >LKR</nz-option
+              >
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Expense Date<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <nz-date-picker
+              formControlName="expense_date"
+              nzPlaceHolder="Select Date"
+              style="width: 100%"
+            ></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Employee ID<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="employee_id"
+              class="modal-input"
+              placeholder="Employee ID"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Department ID<span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="department_id"
+              class="modal-input"
+              placeholder="Department ID"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label> Project ID </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="project_id"
+              class="modal-input"
+              placeholder="Project ID (Optional)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="24" nzXs="24" nzSm="24" nzMd="24">
+        <nz-form-item>
+          <nz-form-label> Receipt URL </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="receipt_url"
+              class="modal-input"
+              placeholder="Receipt URL (Optional)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row class="button-row">
+      <div nz-col nzLg="6" nzXs="12" nzSm="8" nzMd="6">
+        <button
+          nz-button
+          class="btn btn__cancel"
+          type="button"
+          (click)="onCancel()"
+        >
+          Cancel
+        </button>
+      </div>
+      <div nz-col nzLg="6" nzXs="12" nzSm="8" nzMd="6">
+        <button
+          nz-button
+          class="btn btn__high_orange"
+          [nzLoading]="loading"
+          [disabled]="!viewProjectForm.valid"
+          (click)="createNewproject()"
+        >
+          Add Expense
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

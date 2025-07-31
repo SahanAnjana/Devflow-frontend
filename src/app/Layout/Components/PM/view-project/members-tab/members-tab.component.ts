@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProjectsService } from 'src/app/_services/pm-services/projects.service';
 import { DataService } from 'src/app/_services/shared-data/data.service';
 import { AddMemberRoleComponent } from './add-member-role/add-member-role.component';
@@ -14,7 +14,7 @@ import { EventtriggerService } from 'src/app/_services/eventtrigger.service';
 })
 export class MembersTabComponent {
   memberData: any = [];
-
+  @Input() data: any;
   pageNumber: any = 1;
   pageSize: any = 10;
   totalRecord: any;
@@ -60,6 +60,7 @@ export class MembersTabComponent {
       nzWidth: 800,
       nzClassName: 'add-role',
     });
+    modal.componentInstance!.data = this.data;
     modal.afterClose.subscribe((res: any) => {
       this.getAllmemersData();
     });

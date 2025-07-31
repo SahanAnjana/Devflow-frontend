@@ -22,6 +22,8 @@
           nzPlaceHolder="From date"
           [(ngModel)]="fromDate"
           formControlName="fromDate"
+          [nzDisabledDate]="disabledFromDate"
+          (ngModelChange)="onFromDateChange($event)"
         ></nz-date-picker>
       </div>
       <div nz-col [nzSpan]="4">
@@ -29,10 +31,14 @@
           nzPlaceHolder="To date"
           [(ngModel)]="toDate"
           formControlName="toDate"
+          [nzDisabledDate]="disabledToDate"
+          (ngModelChange)="onToDateChange($event)"
         ></nz-date-picker>
       </div>
       <div class="download-btn" nz-col [nzSpan]="10">
-        <button class="btn" (click)="downloadReport()">Download report</button>
+        <button class="btn download-btn" (click)="downloadReport()">
+          Download report
+        </button>
       </div>
     </div>
   </form>

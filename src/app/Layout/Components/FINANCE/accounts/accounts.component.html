@@ -7,6 +7,7 @@
       <button
         class="btn button"
         *ngIf="dataService.hasPermission('accounts:create')"
+        (click)="addNewAccount()"
       >
         Add New Account
       </button>
@@ -26,25 +27,21 @@
             <div class="border-start-th">account_number</div>
           </th>
           <th>
-            <div class="border-start-th">Description</div>
+            <div class="border-start-th">Name</div>
           </th>
           <th>
-            <div class="border-middle-th">Amount</div>
+            <div class="border-start-th">Currency</div>
           </th>
           <th>
-            <div class="border-middle-th">Start Date</div>
+            <div class="border-middle-th">Balance</div>
           </th>
+
           <th>
-            <div class="border-middle-th">End Date</div>
+            <div class="border-middle-th">Account Type</div>
           </th>
+
           <th>
-            <div class="border-middle-th">Project ID</div>
-          </th>
-          <th>
-            <div class="border-middle-th">Department ID</div>
-          </th>
-          <th>
-            <div class="border-middle-th">Created By</div>
+            <div class="border-middle-th">Status</div>
           </th>
           <th><div class="border-middle-th"></div></th>
         </tr>
@@ -65,11 +62,17 @@
               <div class="border-middle">{{ account.balance }}</div>
             </td>
             <td>
-              <div class="border-middle">{{ account.is_active }}</div>
+              <div class="border-middle">{{ account.account_type }}</div>
             </td>
             <td>
-              <div class="border-middle">{{ account.created_at }}</div>
+              <div class="border-middle">
+                <nz-switch
+                  [ngModel]="account.is_active"
+                  nzDisabled="true"
+                ></nz-switch>
+              </div>
             </td>
+
             <td>
               <div class="border-middle btn-section">
                 <button
@@ -95,6 +98,7 @@
                   class="action-button delete"
                   title="Delete"
                   *ngIf="dataService.hasPermission('accounts:delete')"
+                  (click)="deleteAccount(account)"
                 >
                   <svg
                     width="16"

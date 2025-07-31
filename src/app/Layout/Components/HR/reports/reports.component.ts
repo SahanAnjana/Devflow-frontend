@@ -47,6 +47,42 @@ export class ReportsComponent {
       label: 'Project Finance Report',
     },
   ];
+
+  // Date validation methods
+  disabledFromDate = (current: Date): boolean => {
+    // Disable future dates from today and dates after the selected toDate
+    if (!this.toDate) {
+      return current && current > new Date();
+    }
+    return current && (current > this.toDate || current > new Date());
+  };
+
+  disabledToDate = (current: Date): boolean => {
+    // Disable dates before the selected fromDate and future dates
+    if (!this.fromDate) {
+      return current && current > new Date();
+    }
+    return current && (current < this.fromDate || current > new Date());
+  };
+
+  onFromDateChange(date: Date): void {
+    this.fromDate = date;
+    // Clear toDate if it's before the new fromDate
+    if (this.toDate && this.toDate < this.fromDate) {
+      this.toDate = null;
+      this.reportForm.patchValue({ toDate: null });
+    }
+  }
+
+  onToDateChange(date: Date): void {
+    this.toDate = date;
+    // Clear fromDate if it's after the new toDate
+    if (this.fromDate && this.fromDate > this.toDate) {
+      this.fromDate = null;
+      this.reportForm.patchValue({ fromDate: null });
+    }
+  }
+
   constructor(
     private reportService: ReportService,
     private modalService: NzModalService,

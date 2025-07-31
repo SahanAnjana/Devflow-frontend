@@ -49,7 +49,9 @@ export class DevFlowComponent {
       case 'devflow':
         this.sidebarItems = [
           { id: '', label: 'Dashboard', icon: 'home' },
-          { id: 'permissions', label: 'permissions', icon: 'permissions' },
+          { id: 'permissions', label: 'Permissions', icon: 'permissions' },
+          { id: 'profile', label: 'Profile', icon: 'profile' },
+          { id: 'settings', label: 'Settings', icon: 'settings' },
         ];
         break;
       case 'projects':
@@ -144,6 +146,12 @@ export class DevFlowComponent {
           break;
         case 'permissions':
           this.router.navigate(['/devflow/permissions']);
+          break;
+        case 'profile':
+          this.router.navigate(['/devflow/profile']);
+          break;
+        case 'settings':
+          this.router.navigate(['/devflow/settings']);
           break;
       }
     } else if (this.urlLink === 'projects') {
@@ -295,10 +303,12 @@ export class DevFlowComponent {
 
   onProfileClick() {
     console.log('Profile clicked');
+    this.router.navigate(['/devflow/profile']);
   }
 
   onSettingsClick() {
-    this.activeSection = 'settings';
+    console.log('Settings clicked');
+    this.router.navigate(['/devflow/settings']);
   }
 
   private handleTableAction(action: string, row: any) {

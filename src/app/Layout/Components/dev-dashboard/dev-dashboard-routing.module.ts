@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DevDashboardComponent } from './dev-dashboard.component';
 import { PermissionsComponent } from './permissions/permissions.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,8 @@ const routes: Routes = [
     children: [
       { path: '', component: DevDashboardComponent },
       { path: 'permissions', component: PermissionsComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'settings', component: SettingsComponent },
     ],
   },
 ];

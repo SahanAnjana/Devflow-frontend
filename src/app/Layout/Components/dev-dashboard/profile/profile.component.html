@@ -1,0 +1,417 @@
+<div class="profile-container">
+  <!-- Header Section -->
+  <div class="profile-header">
+    <div class="header-content">
+      <h2 class="page-title">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        User Profile
+      </h2>
+      <p class="page-description">
+        Manage your personal information and account settings
+      </p>
+    </div>
+  </div>
+
+  <!-- Profile Content -->
+  <div class="profile-content">
+    <!-- Profile Summary Card -->
+    <div class="profile-summary-card">
+      <div class="avatar-section">
+        <div class="avatar-container">
+          <div class="avatar-wrapper">
+            <img *ngIf="avatarUrl" [src]="avatarUrl" alt="Profile Avatar" class="user-avatar"/>
+            <div *ngIf="!avatarUrl" class="avatar-placeholder">
+              {{ getUserInitials() }}
+            </div>
+            <div class="avatar-overlay">
+              <nz-upload
+                nzName="avatar"
+                nzListType="picture-card"
+                [nzShowUploadList]="false"
+                [nzBeforeUpload]="beforeUpload"
+                (nzChange)="handleChange($event)"
+                class="avatar-uploader">
+                <div class="upload-trigger">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                  </svg>
+                </div>
+              </nz-upload>
+            </div>
+          </div>
+        </div>
+        <div class="user-info">
+          <h3 class="user-name">{{ profileForm.get('firstName')?.value }} {{ profileForm.get('lastName')?.value }}</h3>
+          <p class="user-email">{{ profileForm.get('email')?.value }}</p>
+          <nz-tag [nzColor]="'blue'">{{ profileForm.get('position')?.value || 'Team Member' }}</nz-tag>
+        </div>
+      </div>
+      
+      <div class="quick-actions">
+        <button nz-button nzType="default" (click)="exportProfile()" class="action-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7,10 12,15 17,10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Export Profile
+        </button>
+        <button nz-button nzType="default" (click)="resetProfile()" class="action-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+            <path d="M8 16H3v5"/>
+          </svg>
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="profile-tabs">
+      <nz-tabset [(nzSelectedIndex)]="activeTab" nzType="card" class="profile-tabset">
+        <nz-tab nzTitle="Profile Information">
+          <div class="tab-content">
+            <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()" class="profile-form">
+              <div class="form-section">
+                <h4 class="section-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                  Personal Information
+                </h4>
+                
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">First Name *</label>
+                    <nz-form-control>
+                      <input 
+                        nz-input 
+                        formControlName="firstName" 
+                        placeholder="Enter your first name"
+                        class="form-input"
+                      />
+                      <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched" class="error-message">
+                        <span *ngIf="profileForm.get('firstName')?.errors?.['required']">First name is required</span>
+                        <span *ngIf="profileForm.get('firstName')?.errors?.['minlength']">First name must be at least 2 characters</span>
+                      </div>
+                    </nz-form-control>
+                  </div>
+
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">Last Name *</label>
+                    <nz-form-control>
+                      <input 
+                        nz-input 
+                        formControlName="lastName" 
+                        placeholder="Enter your last name"
+                        class="form-input"
+                      />
+                      <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched" class="error-message">
+                        <span *ngIf="profileForm.get('lastName')?.errors?.['required']">Last name is required</span>
+                        <span *ngIf="profileForm.get('lastName')?.errors?.['minlength']">Last name must be at least 2 characters</span>
+                      </div>
+                    </nz-form-control>
+                  </div>
+
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">Email *</label>
+                    <nz-form-control>
+                      <input 
+                        nz-input 
+                        formControlName="email" 
+                        placeholder="your.email@company.com"
+                        class="form-input"
+                        readonly
+                      />
+                    </nz-form-control>
+                  </div>
+
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">Phone</label>
+                    <nz-form-control>
+                      <input 
+                        nz-input 
+                        formControlName="phone" 
+                        placeholder="+1 (555) 123-4567"
+                        class="form-input"
+                      />
+                      <div *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched" class="error-message">
+                        <span *ngIf="profileForm.get('phone')?.errors?.['pattern']">Please enter a valid phone number</span>
+                      </div>
+                    </nz-form-control>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4 class="section-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                  </svg>
+                  Work Information
+                </h4>
+                
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">Department</label>
+                    <nz-form-control>
+                      <nz-select formControlName="department" nzPlaceHolder="Select department" class="form-select">
+                        <nz-option nzValue="engineering" nzLabel="Engineering"></nz-option>
+                        <nz-option nzValue="marketing" nzLabel="Marketing"></nz-option>
+                        <nz-option nzValue="sales" nzLabel="Sales"></nz-option>
+                        <nz-option nzValue="hr" nzLabel="Human Resources"></nz-option>
+                        <nz-option nzValue="finance" nzLabel="Finance"></nz-option>
+                        <nz-option nzValue="operations" nzLabel="Operations"></nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                  </div>
+
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">Position</label>
+                    <nz-form-control>
+                      <input 
+                        nz-input 
+                        formControlName="position" 
+                        placeholder="e.g. Senior Developer"
+                        class="form-input"
+                      />
+                    </nz-form-control>
+                  </div>
+
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">Location</label>
+                    <nz-form-control>
+                      <input 
+                        nz-input 
+                        formControlName="location" 
+                        placeholder="e.g. New York, NY"
+                        class="form-input"
+                      />
+                    </nz-form-control>
+                  </div>
+
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">Timezone</label>
+                    <nz-form-control>
+                      <nz-select formControlName="timezone" nzPlaceHolder="Select timezone" class="form-select">
+                        <nz-option nzValue="UTC" nzLabel="UTC (Coordinated Universal Time)"></nz-option>
+                        <nz-option nzValue="EST" nzLabel="EST (Eastern Standard Time)"></nz-option>
+                        <nz-option nzValue="PST" nzLabel="PST (Pacific Standard Time)"></nz-option>
+                        <nz-option nzValue="CST" nzLabel="CST (Central Standard Time)"></nz-option>
+                        <nz-option nzValue="MST" nzLabel="MST (Mountain Standard Time)"></nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4 class="section-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14,2 14,8 20,8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10,9 9,9 8,9"/>
+                  </svg>
+                  About
+                </h4>
+                
+                <div class="form-group full-width">
+                  <label nz-form-label class="form-label">Bio</label>
+                  <nz-form-control>
+                    <textarea 
+                      nz-input 
+                      formControlName="bio" 
+                      placeholder="Tell us about yourself..."
+                      rows="4"
+                      class="form-textarea"
+                    ></textarea>
+                    <div class="character-count">
+                      {{ profileForm.get('bio')?.value?.length || 0 }}/500 characters
+                    </div>
+                    <div *ngIf="profileForm.get('bio')?.invalid && profileForm.get('bio')?.touched" class="error-message">
+                      <span *ngIf="profileForm.get('bio')?.errors?.['maxlength']">Bio cannot exceed 500 characters</span>
+                    </div>
+                  </nz-form-control>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button 
+                  nz-button 
+                  nzType="primary" 
+                  type="submit"
+                  [nzLoading]="loading"
+                  [disabled]="profileForm.invalid || loading"
+                  class="submit-btn"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                    <polyline points="17,21 17,13 7,13 7,21"/>
+                    <polyline points="7,3 7,8 15,8"/>
+                  </svg>
+                  {{ loading ? 'Saving...' : 'Save Changes' }}
+                </button>
+                <button 
+                  nz-button 
+                  nzType="default" 
+                  type="button"
+                  (click)="resetProfile()"
+                  [disabled]="loading"
+                  class="reset-btn"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </nz-tab>
+
+        <nz-tab nzTitle="Change Password">
+          <div class="tab-content">
+            <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()" class="password-form">
+              <div class="form-section">
+                <h4 class="section-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                  Security Settings
+                </h4>
+                
+                <div class="password-grid">
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">Current Password *</label>
+                    <nz-form-control>
+                      <nz-input-group [nzSuffix]="suffixTemplate">
+                        <input 
+                          [type]="passwordVisible ? 'text' : 'password'"
+                          nz-input 
+                          formControlName="currentPassword" 
+                          placeholder="Enter current password"
+                          class="form-input"
+                        />
+                      </nz-input-group>
+                      <ng-template #suffixTemplate>
+                        <i 
+                          nz-icon 
+                          [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" 
+                          (click)="passwordVisible = !passwordVisible"
+                          class="password-toggle"
+                        ></i>
+                      </ng-template>
+                      <div *ngIf="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched" class="error-message">
+                        <span *ngIf="passwordForm.get('currentPassword')?.errors?.['required']">Current password is required</span>
+                      </div>
+                    </nz-form-control>
+                  </div>
+
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">New Password *</label>
+                    <nz-form-control>
+                      <nz-input-group [nzSuffix]="suffixTemplate2">
+                        <input 
+                          [type]="newPasswordVisible ? 'text' : 'password'"
+                          nz-input 
+                          formControlName="newPassword" 
+                          placeholder="Enter new password"
+                          class="form-input"
+                        />
+                      </nz-input-group>
+                      <ng-template #suffixTemplate2>
+                        <i 
+                          nz-icon 
+                          [nzType]="newPasswordVisible ? 'eye-invisible' : 'eye'" 
+                          (click)="newPasswordVisible = !newPasswordVisible"
+                          class="password-toggle"
+                        ></i>
+                      </ng-template>
+                      <div *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched" class="error-message">
+                        <span *ngIf="passwordForm.get('newPassword')?.errors?.['required']">New password is required</span>
+                        <span *ngIf="passwordForm.get('newPassword')?.errors?.['minlength']">Password must be at least 8 characters</span>
+                      </div>
+                    </nz-form-control>
+                  </div>
+
+                  <div class="form-group">
+                    <label nz-form-label class="form-label">Confirm New Password *</label>
+                    <nz-form-control>
+                      <nz-input-group [nzSuffix]="suffixTemplate3">
+                        <input 
+                          [type]="confirmPasswordVisible ? 'text' : 'password'"
+                          nz-input 
+                          formControlName="confirmPassword" 
+                          placeholder="Confirm new password"
+                          class="form-input"
+                        />
+                      </nz-input-group>
+                      <ng-template #suffixTemplate3>
+                        <i 
+                          nz-icon 
+                          [nzType]="confirmPasswordVisible ? 'eye-invisible' : 'eye'" 
+                          (click)="confirmPasswordVisible = !confirmPasswordVisible"
+                          class="password-toggle"
+                        ></i>
+                      </ng-template>
+                      <div *ngIf="passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched" class="error-message">
+                        <span *ngIf="passwordForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+                        <span *ngIf="passwordForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+                      </div>
+                    </nz-form-control>
+                  </div>
+                </div>
+
+                <div class="password-requirements">
+                  <h5>Password Requirements:</h5>
+                  <ul>
+                    <li>At least 8 characters long</li>
+                    <li>Contains both uppercase and lowercase letters</li>
+                    <li>Contains at least one number</li>
+                    <li>Contains at least one special character</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button 
+                  nz-button 
+                  nzType="primary" 
+                  type="submit"
+                  [nzLoading]="loading"
+                  [disabled]="passwordForm.invalid || loading"
+                  class="submit-btn"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                  {{ loading ? 'Updating...' : 'Update Password' }}
+                </button>
+                <button 
+                  nz-button 
+                  nzType="default" 
+                  type="button"
+                  (click)="passwordForm.reset()"
+                  [disabled]="loading"
+                  class="reset-btn"
+                >
+                  Clear
+                </button>
+              </div>
+            </form>
+          </div>
+        </nz-tab>
+      </nz-tabset>
+    </div>
+  </div>
+</div>

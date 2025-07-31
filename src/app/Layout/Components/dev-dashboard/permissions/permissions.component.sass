@@ -1,264 +1,405 @@
 @import '../../../../../assets/sass/index'
 
+// Main Container
 .permissions-container
-  padding: 24px
-  background: #f5f5f5
   min-height: 100vh
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)
+  padding: 0
 
-// Header styles consistent with other components
+// Header Section
 .permissions-header
-  margin-bottom: 24px
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  padding: 32px
+  margin: 0
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2)
   
-  h2
-    color: #1f2937
-    font-size: 28px
-    font-weight: 600
-    margin-bottom: 8px
-    
-  p
-    color: #6b7280
-    font-size: 16px
-    margin-bottom: 0
-
-// User selection section following title-bar pattern
-.title-bar
-  justify-content: start
-  gap: 20px
-  margin-bottom: 24px
-  background: white
-  padding: 24px
-  border-radius: 8px
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
+.header-content
+  max-width: 1400px
+  margin: 0 auto
   
-  .form-label
-    display: block
-    margin-bottom: 8px
-    font-weight: 600
-    color: #374151
-    font-size: 16px
-    
-  .user-select
-    width: 100%
-    
-  .selected-user-info
-    background: #f8fafc
-    padding: 16px
-    border-radius: 6px
-    border-left: 4px solid #3b82f6
-    
-    h4
-      margin-bottom: 12px
-      color: #1f2937
-      font-size: 16px
-      font-weight: 600
-      
-    p
-      margin-bottom: 4px
-      color: #4b5563
-      font-size: 14px
-      
-      strong
-        color: #1f2937
-        
-  .add-button
-    display: flex
-    justify-content: end
-    align-items: flex-end
-    
-  .button, .btn
-    height: 42px
-    padding: 0px 10px
-    font-weight: 500
-
-.loading-container
-  display: flex
-  justify-content: center
-  align-items: center
-  min-height: 300px
-  background: white
-  border-radius: 8px
-  
-  .loading-text
-    margin-top: 16px
-    color: #6b7280
-    font-size: 16px
-
-// Permissions section with table styling
-.permissions-section
-  // Remove the permissions-summary section since we're using table headers
-
-// Table container following standard pattern
-.table-container
-  margin-top: 20px
-  background: #fff
-  border-radius: 8px
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1)
-
-// Standard table header styles
-.heading_tr
-  background: transparent
-  min-height: 68px
-
-.border-start-th,
-.border-middle-th
-  padding: 16px
-  text-transform: uppercase
-  font-size: 12px
-  color: #666
-  font-weight: 600
-
-// Table cell styles
-.border-middle
-  padding: 16px
-  font-size: 14px
-  font-weight: 400
-
-// Action buttons following standard pattern
-.btn-section
-  display: flex
-  gap: 10px
-
-.action-button
-  background: transparent
-  border: none
-  cursor: pointer
-  
-  &:hover
-    opacity: 0.8
-    
-  &.edit
-    color: #52c41a
-    
-  &.delete
-    color: #ff4d4f
-
-// Permission switch styles
-.permission-switch
+.page-title
+  color: white
+  font-size: 28px
+  font-weight: 700
+  margin: 0 0 8px 0
   display: flex
   align-items: center
-  gap: 8px
+  gap: 12px
+  
+  svg
+    color: rgba(255, 255, 255, 0.9)
+    
+.page-description
+  color: rgba(255, 255, 255, 0.8)
+  font-size: 16px
+  margin: 0
+  line-height: 1.5
 
-.permission-info
+// Controls Section
+.controls-section
+  background: white
+  padding: 24px 32px
+  border-bottom: 1px solid #e2e8f0
   display: flex
-  flex-direction: column
+  justify-content: space-between
+  align-items: center
+  gap: 24px
+  
+.role-selector-container
+  display: flex
+  align-items: center
+  gap: 12px
   flex: 1
   
-  .permission-action
-    font-weight: 500
-    color: #1f2937
-    font-size: 14px
+.selector-label
+  font-weight: 600
+  color: #374151
+  font-size: 16px
+  white-space: nowrap
+  
+.role-select
+  min-width: 300px
+  
+  :host ::ng-deep .ant-select-selector
+    height: 40px !important
+    border-radius: 8px !important
+    border: 2px solid #e2e8f0 !important
+    transition: all 0.3s ease !important
     
-  .permission-key
-    font-size: 12px
-    color: #6b7280
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace
-    margin-top: 2px
+    &:hover
+      border-color: #c7d2fe !important
+      
+    &:focus, &.ant-select-focused
+      border-color: #6366f1 !important
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important
 
-// Table-specific permission styles
+.action-buttons
+  display: flex
+  align-items: center
+  gap: 16px
+  
+.permissions-summary
+  background: #f8fafc
+  padding: 8px 16px
+  border-radius: 8px
+  border: 1px solid #e2e8f0
+  
+.summary-text
+  font-size: 14px
+  font-weight: 500
+  color: #475569
+  
+.save-btn
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%) !important
+  border: none !important
+  border-radius: 8px !important
+  height: 40px !important
+  padding: 0 20px !important
+  font-weight: 600 !important
+  display: flex !important
+  align-items: center !important
+  gap: 8px !important
+  color: white !important
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important
+  transition: all 0.3s ease !important
+  
+  &:hover:not(:disabled)
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important
+    transform: translateY(-2px) !important
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important
+    
+  &:disabled
+    opacity: 0.6 !important
+    transform: none !important
+
+// Table Section
+.permissions-table-container
+  background: white
+  margin: 0 32px 32px 32px
+  border-radius: 12px
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06)
+  overflow: hidden
+  
+.table-header
+  padding: 20px 24px
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)
+  border-bottom: 1px solid #e2e8f0
+  display: flex
+  justify-content: space-between
+  align-items: center
+  
+.table-title
+  font-size: 18px
+  font-weight: 600
+  color: #1e293b
+  margin: 0
+  
+.table-actions
+  display: flex
+  gap: 8px
+  
+.table-wrapper
+  position: relative
+  
+  &.loading
+    opacity: 0.7
+    pointer-events: none
+
+// Table Styling
 .permissions-table
-  .permission-module
-    font-weight: 600
-    color: #1f2937
-
-  .permission-count-small
-    font-size: 12px
-    color: #6b7280
-    font-weight: normal
-
-  .permission-toggle-section
+  :host ::ng-deep .ant-table
+    background: transparent
+    
+  :host ::ng-deep .ant-table-thead > tr > th
+    background: #f8fafc !important
+    border-bottom: 2px solid #e2e8f0 !important
+    padding: 16px 20px !important
+    font-weight: 600 !important
+    color: #374151 !important
+    
+  :host ::ng-deep .ant-table-tbody > tr > td
+    padding: 16px 20px !important
+    border-bottom: 1px solid #f1f5f9 !important
+    vertical-align: middle !important
+    
+  :host ::ng-deep .ant-table-tbody > tr
+    transition: all 0.2s ease !important
+    
+    &:hover
+      background: #f8fafc !important
+      
+.table-header-row
+  .header-content
     display: flex
     align-items: center
     gap: 8px
+    font-weight: 600
+    color: #374151
+    
+    svg
+      opacity: 0.7
 
-.no-user-selected
-  background: white
-  padding: 60px 24px
-  border-radius: 8px
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
-  text-align: center
-
-// Summary section
-.permissions-summary-section
-  margin-top: 24px
+// Table Columns
+.module-col
+  width: 15%
+  min-width: 120px
   
-  .summary-card
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
-    
-    .summary-content
-      .summary-stats
-        display: flex
-        justify-content: space-around
-        
-        .stat-item
-          text-align: center
-          
-          .stat-number
-            display: block
-            font-size: 32px
-            font-weight: 700
-            color: #3b82f6
-            line-height: 1
-            
-          .stat-label
-            display: block
-            font-size: 14px
-            color: #6b7280
-            margin-top: 4px
-            font-weight: 500
+.permission-col
+  width: 20%
+  min-width: 150px
+  
+.description-col
+  width: 30%
+  min-width: 200px
+  
+.status-col
+  width: 12%
+  min-width: 100px
+  
+.toggle-col
+  width: 13%
+  min-width: 100px
+  text-align: center
+  
+.actions-col
+  width: 10%
+  min-width: 120px
 
-// Override default ant design styles
-:host ::ng-deep
-  .ant-input
-    border-radius: 5px
+// Table Rows
+.permission-row
+  &.permission-enabled
+    background: rgba(16, 185, 129, 0.02) !important
     
-  .ant-select
-    width: 100% !important
+    &:hover
+      background: rgba(16, 185, 129, 0.05) !important
+      
+  &.permission-disabled
+    background: rgba(239, 68, 68, 0.02) !important
     
-  .ant-row
-    justify-content: space-between
-    
-  .ant-table
-    background: transparent
-    
-  .ant-table-thead > tr > th
-    background: #fafafa
-    
-  .ant-table-tbody > tr > td
-    border-bottom: 0
-    padding-bottom: 10px
-    font-weight: 400
-    background: #fff
+    &:hover
+      background: rgba(239, 68, 68, 0.05) !important
 
-// Responsive design
-@media (max-width: 768px)
-  .permissions-container
-    padding: 16px
+// Cell Content
+.cell-content
+  display: flex
+  align-items: center
+  gap: 8px
+  
+.module-badge
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)
+  color: white
+  padding: 4px 12px
+  border-radius: 6px
+  font-size: 12px
+  font-weight: 600
+  text-transform: uppercase
+  letter-spacing: 0.5px
+  
+  &[data-module="finance"]
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%)
     
-  .user-selection-section
-    padding: 16px
+  &[data-module="hr"]
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)
     
-  .summary-stats
+  &[data-module="projects"]
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)
+    
+  &[data-module="crm"]
+    background: linear-gradient(135deg, #ef4444 0%, #f87171 100%)
+
+.permission-name
+  font-weight: 600
+  color: #1e293b
+  
+.permission-key
+  font-size: 11px
+  color: #64748b
+  background: #f1f5f9
+  padding: 2px 6px
+  border-radius: 4px
+  display: block
+  margin-top: 2px
+
+.status-tag
+  display: flex !important
+  align-items: center !important
+  gap: 4px !important
+  
+  svg
+    width: 12px !important
+    height: 12px !important
+
+.permission-switch
+  :host ::ng-deep .ant-switch
+    background: #cbd5e1 !important
+    
+    &.ant-switch-checked
+      background: #10b981 !important
+      
+    &:hover:not(.ant-switch-disabled)
+      background: #94a3b8 !important
+      
+    &.ant-switch-checked:hover:not(.ant-switch-disabled)
+      background: #059669 !important
+
+// Action Buttons
+.action-buttons
+  display: flex
+  gap: 4px
+  
+.action-btn
+  width: 28px !important
+  height: 28px !important
+  border-radius: 6px !important
+  border: none !important
+  display: flex !important
+  align-items: center !important
+  justify-content: center !important
+  transition: all 0.2s ease !important
+  
+  &.view-btn:hover
+    background: #dbeafe !important
+    color: #1d4ed8 !important
+    
+  &.module-btn:hover
+    background: #fef3c7 !important
+    color: #d97706 !important
+    
+  &.reset-btn:hover
+    background: #fee2e2 !important
+    color: #dc2626 !important
+    
+  svg
+    width: 14px !important
+    height: 14px !important
+
+// Empty State
+.empty-state
+  display: flex
+  justify-content: center
+  align-items: center
+  min-height: 400px
+  margin: 32px
+  
+.empty-content
+  text-align: center
+  color: #64748b
+  
+  svg
+    margin-bottom: 16px
+    opacity: 0.5
+    
+  h3
+    font-size: 18px
+    font-weight: 600
+    color: #374151
+    margin: 0 0 8px 0
+    
+  p
+    margin: 0
+    font-size: 14px
+    line-height: 1.5
+
+// Loading States
+:host ::ng-deep .ant-spin-nested-loading > div > .ant-spin
+  max-height: none !important
+  
+:host ::ng-deep .ant-spin-container
+  transition: opacity 0.3s ease !important
+
+// Responsive Design
+@media (max-width: 1200px)
+  .controls-section
     flex-direction: column
-    gap: 20px
+    align-items: stretch
+    gap: 16px
+    
+  .role-selector-container
+    justify-content: flex-start
+    
+  .action-buttons
+    justify-content: flex-end
 
-// Dark theme support
-@media (prefers-color-scheme: dark)
-  .permissions-container
-    background: #111827
-    
+@media (max-width: 768px)
   .permissions-header
-    h2
-      color: #f9fafb
-      
-    p
-      color: #d1d5db
-      
-  .selected-user-info
-    background: #1f2937
-    border-left-color: #60a5fa
+    padding: 20px 16px
     
-    h4, p strong
-      color: #f9fafb
-      
-    p
-      color: #d1d5db
+  .page-title
+    font-size: 22px
+    
+  .controls-section
+    padding: 16px 20px
+    
+  .permissions-table-container
+    margin: 0 16px 16px 16px
+    
+  .table-header
+    padding: 16px 20px
+    
+  .table-title
+    font-size: 16px
+    
+  .role-select
+    min-width: 200px
+    
+  // Hide some table columns on mobile
+  .description-col, .actions-col
+    display: none
+    
+  .module-col, .permission-col, .status-col, .toggle-col
+    width: 25%
+
+// Animations
+@keyframes slideInUp
+  from
+    opacity: 0
+    transform: translateY(20px)
+  to
+    opacity: 1
+    transform: translateY(0)
+
+.permissions-table-container
+  animation: slideInUp 0.3s ease-out
+
+.permission-row
+  animation: slideInUp 0.2s ease-out

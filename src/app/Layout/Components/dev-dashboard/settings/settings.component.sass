@@ -1,0 +1,502 @@
+@import '../../../../../assets/sass/index'
+
+// Main Container
+.settings-container
+  min-height: 100vh
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)
+  padding: 0
+
+// Header Section
+.settings-header
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  padding: 32px
+  margin: 0
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2)
+  
+.header-content
+  max-width: 1400px
+  margin: 0 auto
+  
+.page-title
+  color: white
+  font-size: 28px
+  font-weight: 700
+  margin: 0 0 8px 0
+  display: flex
+  align-items: center
+  gap: 12px
+  
+  svg
+    color: rgba(255, 255, 255, 0.9)
+    
+.page-description
+  color: rgba(255, 255, 255, 0.8)
+  font-size: 16px
+  margin: 0
+  line-height: 1.5
+
+// Settings Content
+.settings-content
+  max-width: 1400px
+  margin: 0 auto
+  padding: 32px
+
+// Overview Cards
+.overview-cards
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+  gap: 24px
+  margin-bottom: 32px
+
+.overview-card
+  background: white
+  border-radius: 12px
+  padding: 24px
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05)
+  display: flex
+  align-items: center
+  gap: 16px
+  transition: all 0.3s ease
+  
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1)
+
+.card-icon
+  width: 48px
+  height: 48px
+  border-radius: 12px
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-shrink: 0
+
+.notifications-card .card-icon
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)
+  color: white
+
+.security-card .card-icon
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%)
+  color: white
+
+.theme-card .card-icon
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)
+  color: white
+
+.card-content
+  flex: 1
+  
+  h4
+    font-size: 16px
+    font-weight: 600
+    color: #1e293b
+    margin: 0 0 4px 0
+    
+  p
+    font-size: 14px
+    color: #64748b
+    margin: 0
+
+// Settings Actions
+.settings-actions
+  display: flex
+  gap: 16px
+  margin-bottom: 32px
+  padding: 24px
+  background: white
+  border-radius: 12px
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05)
+
+.action-btn
+  display: flex !important
+  align-items: center !important
+  gap: 8px !important
+  border-radius: 8px !important
+  height: 40px !important
+  padding: 0 16px !important
+  border: 1px solid #e2e8f0 !important
+  background: white !important
+  color: #64748b !important
+  font-weight: 500 !important
+  transition: all 0.3s ease !important
+  cursor: pointer
+  
+  &:hover
+    border-color: #c7d2fe !important
+    color: #6366f1 !important
+    background: #f8fafc !important
+
+.import-btn
+  position: relative
+  border: 1px solid #e2e8f0
+  background: white
+  color: #64748b
+  font-weight: 500
+  transition: all 0.3s ease
+  
+  &:hover
+    border-color: #c7d2fe
+    color: #6366f1
+    background: #f8fafc
+
+// Settings Tabs
+.settings-tabs
+  background: white
+  border-radius: 16px
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06)
+  overflow: hidden
+
+.settings-tabset
+  :host ::ng-deep .ant-tabs-nav
+    background: #f8fafc
+    margin: 0
+    padding: 0 32px
+    
+  :host ::ng-deep .ant-tabs-tab
+    background: transparent !important
+    border: none !important
+    padding: 16px 24px !important
+    margin: 0 8px 0 0 !important
+    border-radius: 0 !important
+    color: #64748b !important
+    font-weight: 500 !important
+    transition: all 0.3s ease !important
+    
+    &:hover
+      color: #6366f1 !important
+      
+    &.ant-tabs-tab-active
+      background: white !important
+      color: #6366f1 !important
+      position: relative
+      
+      &::after
+        content: ''
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        height: 3px
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)
+        border-radius: 2px 2px 0 0
+
+  :host ::ng-deep .ant-tabs-content-holder
+    background: white
+    
+  :host ::ng-deep .ant-tabs-content
+    padding: 0
+
+.tab-content
+  padding: 32px
+
+// Form Styling
+.settings-form
+  max-width: 800px
+
+.form-section
+  margin-bottom: 32px
+  
+  &:last-child
+    margin-bottom: 24px
+
+.section-title
+  display: flex
+  align-items: center
+  gap: 8px
+  font-size: 18px
+  font-weight: 600
+  color: #1e293b
+  margin: 0 0 8px 0
+
+  svg
+    color: #6366f1
+
+.section-description
+  color: #64748b
+  font-size: 14px
+  margin: 0 0 24px 0
+  line-height: 1.5
+
+// Notification Options
+.notification-options
+  display: flex
+  flex-direction: column
+  gap: 20px
+
+.notification-item
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 20px
+  background: #f8fafc
+  border-radius: 12px
+  border: 1px solid #e2e8f0
+  transition: all 0.3s ease
+  
+  &:hover
+    background: #f1f5f9
+    border-color: #c7d2fe
+
+.notification-info
+  flex: 1
+  
+  h5
+    font-size: 16px
+    font-weight: 600
+    color: #1e293b
+    margin: 0 0 4px 0
+    
+  p
+    font-size: 14px
+    color: #64748b
+    margin: 0
+    line-height: 1.4
+
+// Security Options
+.security-options
+  display: flex
+  flex-direction: column
+  gap: 20px
+  margin-bottom: 24px
+
+.security-item
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 20px
+  background: #f8fafc
+  border-radius: 12px
+  border: 1px solid #e2e8f0
+  transition: all 0.3s ease
+  
+  &:hover
+    background: #f1f5f9
+    border-color: #c7d2fe
+
+.security-info
+  flex: 1
+  
+  h5
+    font-size: 16px
+    font-weight: 600
+    color: #1e293b
+    margin: 0 0 4px 0
+    
+  p
+    font-size: 14px
+    color: #64748b
+    margin: 0
+    line-height: 1.4
+
+.security-actions
+  display: flex
+  align-items: center
+  gap: 12px
+
+.security-input
+  display: flex
+  align-items: center
+  gap: 8px
+
+.input-suffix
+  font-size: 14px
+  color: #64748b
+
+.setup-btn
+  height: 32px !important
+  padding: 0 12px !important
+  font-size: 12px !important
+
+.security-score
+  background: #f8fafc
+  border: 1px solid #e2e8f0
+  border-radius: 12px
+  padding: 20px
+  
+  h5
+    font-size: 16px
+    font-weight: 600
+    color: #1e293b
+    margin: 0 0 12px 0
+
+// Preference Options
+.preference-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
+  gap: 20px
+  margin-bottom: 24px
+
+.preference-item
+  display: flex
+  flex-direction: column
+  gap: 8px
+
+.preference-label
+  font-weight: 600
+  color: #374151
+  font-size: 14px
+
+.preference-select
+  :host ::ng-deep .ant-select-selector
+    border-radius: 8px !important
+    border: 2px solid #e2e8f0 !important
+    padding: 8px 12px !important
+    height: auto !important
+    min-height: 44px !important
+    transition: all 0.3s ease !important
+    
+    &:hover
+      border-color: #c7d2fe !important
+      
+    &:focus, &.ant-select-focused
+      border-color: #6366f1 !important
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important
+
+.preference-switches
+  padding-top: 20px
+  border-top: 1px solid #f1f5f9
+
+.preference-switch
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 20px
+  background: #f8fafc
+  border-radius: 12px
+  border: 1px solid #e2e8f0
+  transition: all 0.3s ease
+  
+  &:hover
+    background: #f1f5f9
+    border-color: #c7d2fe
+
+.switch-info
+  flex: 1
+  
+  h5
+    font-size: 16px
+    font-weight: 600
+    color: #1e293b
+    margin: 0 0 4px 0
+    
+  p
+    font-size: 14px
+    color: #64748b
+    margin: 0
+    line-height: 1.4
+
+// Form Actions
+.form-actions
+  display: flex
+  gap: 16px
+  padding-top: 24px
+  border-top: 1px solid #f1f5f9
+
+.submit-btn
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important
+  border: none !important
+  border-radius: 8px !important
+  height: 44px !important
+  padding: 0 24px !important
+  font-weight: 600 !important
+  display: flex !important
+  align-items: center !important
+  gap: 8px !important
+  color: white !important
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important
+  transition: all 0.3s ease !important
+  
+  &:hover:not(:disabled)
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important
+    transform: translateY(-2px) !important
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important
+    
+  &:disabled
+    opacity: 0.6 !important
+    transform: none !important
+
+// Switch Styling
+:host ::ng-deep .ant-switch
+  background: #cbd5e1 !important
+  
+  &.ant-switch-checked
+    background: #10b981 !important
+    
+  &:hover:not(.ant-switch-disabled)
+    background: #94a3b8 !important
+    
+  &.ant-switch-checked:hover:not(.ant-switch-disabled)
+    background: #059669 !important
+
+// Progress Bar Styling
+:host ::ng-deep .ant-progress-bg
+  border-radius: 4px !important
+
+// Input Number Styling
+:host ::ng-deep .ant-input-number
+  border-radius: 8px !important
+  border: 2px solid #e2e8f0 !important
+  
+  &:hover
+    border-color: #c7d2fe !important
+    
+  &:focus, &.ant-input-number-focused
+    border-color: #6366f1 !important
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important
+
+// Responsive Design
+@media (max-width: 1200px)
+  .settings-content
+    padding: 24px 16px
+
+  .overview-cards
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
+
+@media (max-width: 768px)
+  .settings-header
+    padding: 20px 16px
+    
+  .page-title
+    font-size: 22px
+    
+  .tab-content
+    padding: 24px 20px
+    
+  .settings-actions
+    flex-direction: column
+    gap: 12px
+    
+  .preference-grid
+    grid-template-columns: 1fr
+    gap: 16px
+    
+  .notification-item, .security-item, .preference-switch
+    flex-direction: column
+    align-items: flex-start
+    gap: 12px
+    
+    .notification-info, .security-info, .switch-info
+      margin-bottom: 0
+
+  .overview-cards
+    grid-template-columns: 1fr
+
+  .overview-card
+    flex-direction: column
+    text-align: center
+    gap: 12px
+
+// Animations
+@keyframes slideInUp
+  from
+    opacity: 0
+    transform: translateY(20px)
+  to
+    opacity: 1
+    transform: translateY(0)
+
+.overview-cards, .settings-tabs, .settings-actions
+  animation: slideInUp 0.3s ease-out
+
+.form-section
+  animation: slideInUp 0.2s ease-out

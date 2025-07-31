@@ -7,23 +7,29 @@
       <button
         class="btn button"
         *ngIf="dataService.hasPermission('invoices:create')"
+        (click)="addNewInvoice()"
       >
         Add New Invoice
       </button>
     </div>
   </div>
 
-  <div class="table-container">
+  <div *ngIf="error" class="error-message">
+    <nz-alert nzType="error" [nzMessage]="error" nzShowIcon></nz-alert>
+  </div>
+
+  <div class="table-container" [class.loading]="loading">
     <nz-table
       #invoiceTable
       [nzData]="invoices"
       [nzPageSize]="50"
       [nzShowPagination]="false"
+      [nzLoading]="loading"
     >
       <thead>
         <tr class="heading_tr">
           <th>
-            <div class="border-start-th">Name</div>
+            <div class="border-start-th">Invoice number</div>
           </th>
           <th>
             <div class="border-start-th">Description</div>
@@ -37,15 +43,7 @@
           <th>
             <div class="border-middle-th">End Date</div>
           </th>
-          <th>
-            <div class="border-middle-th">Project ID</div>
-          </th>
-          <th>
-            <div class="border-middle-th">Department ID</div>
-          </th>
-          <th>
-            <div class="border-middle-th">Created By</div>
-          </th>
+
           <th>
             <div class="border-middle-th"></div>
           </th>
@@ -55,7 +53,7 @@
         <ng-container *ngIf="invoices && invoices.length; else noData">
           <tr *ngFor="let invoice of invoiceTable.data">
             <td>
-              <div class="border-middle">{{ invoice.name }}</div>
+              <div class="border-middle">{{ invoice.invoice_number }}</div>
             </td>
             <td>
               <div class="border-middle">{{ invoice.description }}</div>
@@ -65,23 +63,15 @@
             </td>
             <td>
               <div class="border-middle">
-                {{ invoice.start_date | date : "short" }}
+                {{ invoice.created_at | date : "short" }}
               </div>
             </td>
             <td>
               <div class="border-middle">
-                {{ invoice.end_date | date : "short" }}
+                {{ invoice.updated_at | date : "short" }}
               </div>
             </td>
-            <td>
-              <div class="border-middle">{{ invoice.project_id }}</div>
-            </td>
-            <td>
-              <div class="border-middle">{{ invoice.department_id }}</div>
-            </td>
-            <td>
-              <div class="border-middle">{{ invoice.created_by }}</div>
-            </td>
+
             <td>
               <div class="border-middle btn-section">
                 <button
@@ -107,6 +97,7 @@
                   class="action-button delete"
                   title="Delete"
                   *ngIf="dataService.hasPermission('invoices:delete')"
+                  (click)="deleteInvoice(invoice)"
                 >
                   <svg
                     width="16"
@@ -128,7 +119,9 @@
         </ng-container>
         <ng-template #noData>
           <tr>
-            <td colspan="8" style="text-align: center">No invoices found.</td>
+            <td colspan="9" style="text-align: center">
+              {{ loading ? "Loading invoices..." : "No invoices found." }}
+            </td>
           </tr>
         </ng-template>
       </tbody>

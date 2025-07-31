@@ -156,12 +156,12 @@ export class PermissionsComponent implements OnInit {
     this.loading = true;
     console.log('Loading permissions for role:', roleName);
 
+    // Reset all permissions first
+    this.resetPermissions();
+
     this.userPermissionsService.getUserPermissions(roleName).subscribe({
       next: (response: any) => {
         console.log('API Response:', response);
-
-        // Reset all permissions first
-        this.rolePermissions = {};
 
         // Handle the response format where permissions is an array
         if (
@@ -179,6 +179,9 @@ export class PermissionsComponent implements OnInit {
             this.rolePermissions[permission] = true;
             console.log(`Setting permission ${permission} to true`);
           });
+
+          // Update the DataService permissions for immediate use
+          this.updateDataServicePermissions(response.permissions);
         } else {
           console.log('No permissions found in response or wrong format');
         }
@@ -186,6 +189,13 @@ export class PermissionsComponent implements OnInit {
         console.log('Processed Role Permissions Object:', this.rolePermissions);
         this.updatePermissionsState();
         this.loading = false;
+
+        this.notification.success(
+          'Permissions Loaded',
+          `Loaded ${
+            Object.keys(this.rolePermissions).length
+          } permissions for ${roleName}`
+        );
       },
       error: (error) => {
         console.error('Error loading role permissions:', error);
@@ -193,6 +203,11 @@ export class PermissionsComponent implements OnInit {
         this.rolePermissions = {};
         this.updatePermissionsState();
         this.loading = false;
+
+        this.notification.error(
+          'Error',
+          'Failed to load role permissions. Please try again.'
+        );
       },
     });
   }
@@ -290,6 +305,26 @@ export class PermissionsComponent implements OnInit {
     console.log('Updated all permissions state:', this.allPermissions);
   }
 
+  // Update DataService permissions for immediate application access
+  updateDataServicePermissions(permissions: string[]) {
+    // Reset all permissions in data service to false
+    Object.keys(this.dataService.permisions).forEach((key) => {
+      this.dataService.permisions[key] = false;
+    });
+
+    // Set only the active permissions to true
+    permissions.forEach((permission) => {
+      if (this.dataService.permisions.hasOwnProperty(permission)) {
+        this.dataService.permisions[permission] = true;
+      }
+    });
+
+    console.log(
+      'Updated DataService permissions:',
+      this.dataService.permisions
+    );
+  }
+
   // Reset all permissions to false
   resetPermissions() {
     console.log('Resetting all permissions to disabled state');
@@ -308,11 +343,28 @@ export class PermissionsComponent implements OnInit {
   onPermissionToggle(permission: Permission) {
     if (!this.selectedRoleName) {
       this.notification.warning('Warning', 'Please select a role first');
+      // Revert the switch state if no role is selected
+      permission.enabled = !permission.enabled;
       return;
     }
 
-    permission.enabled = !permission.enabled;
+    console.log(
+      `Permission ${permission.key} toggled to: ${permission.enabled}`
+    );
+
+    // Update the rolePermissions object with the new state
     this.rolePermissions[permission.key] = permission.enabled;
+
+    // Show immediate feedback
+    const status = permission.enabled ? 'enabled' : 'disabled';
+    this.notification.info(
+      'Permission Updated',
+      `${this.formatActionName(
+        permission.action
+      )} permission for ${this.formatModuleName(
+        permission.module
+      )} has been ${status}. Don't forget to save changes.`
+    );
   }
 
   // Toggle all permissions for a module
@@ -363,15 +415,24 @@ export class PermissionsComponent implements OnInit {
       })
       .subscribe({
         next: (response: any) => {
+          // Update DataService permissions immediately
+          this.updateDataServicePermissions(enabledPermissions);
+
           this.notification.success(
             'Success',
-            'Role permissions updated successfully'
+            `Role permissions updated successfully for ${this.selectedRoleName}. ${enabledPermissions.length} permissions are now active.`
           );
           this.saving = false;
+
+          // Reload permissions to ensure consistency
+          this.loadRolePermissions(this.selectedRoleName);
         },
         error: (error) => {
           console.error('Error saving permissions:', error);
-          this.notification.error('Error', 'Failed to update role permissions');
+          this.notification.error(
+            'Error',
+            'Failed to update role permissions. Please check your connection and try again.'
+          );
           this.saving = false;
         },
       });
