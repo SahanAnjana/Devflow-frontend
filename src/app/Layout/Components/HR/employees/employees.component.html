@@ -57,6 +57,23 @@
           <td>
             <div class="border-middle btn-section">
               <button
+                class="action-button profile"
+                title="View Profile"
+                (click)="viewProfile(data)"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </button>
+              <button
                 class="action-button view"
                 title="View"
                 (click)="viewEmployee(data)"

@@ -25,7 +25,6 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { WarningOutline } from '@ant-design/icons-angular/icons';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
@@ -48,7 +47,53 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, NzIconModule.forRoot([WarningOutline])],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NzLayoutModule,
+    NzGridModule,
+    NzFormModule,
+    NzInputModule,
+    NzInputNumberModule,
+    NzCardModule,
+    NzButtonModule,
+    NzCheckboxModule,
+    NzDividerModule,
+    NzToolTipModule,
+    NzSelectModule,
+    NzDatePickerModule,
+    NzDropDownModule,
+    NzModalModule,
+    NzNotificationModule,
+    NzMenuModule,
+    NzStatisticModule,
+    NzMessageModule,
+    NzPaginationModule,
+    NzRadioModule,
+    NzListModule,
+    NzTableModule,
+    NzPopconfirmModule,
+    NzIconModule,
+    NzTabsModule,
+    NzSwitchModule,
+    NzBadgeModule,
+    NzAvatarModule,
+    NzProgressModule,
+    NzCalendarModule,
+    NzStepsModule,
+    NzPageHeaderModule,
+    NzCollapseModule,
+    NzUploadModule,
+    NzSpaceModule,
+    AngularEditorModule,
+    DragDropModule,
+    NzBreadCrumbModule,
+    NzSpinModule,
+    NzAlertModule,
+    NzTagModule,
+    NzEmptyModule,
+  ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
@@ -99,4 +144,4 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
     NzEmptyModule,
   ],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -1,33 +1,337 @@
-.main
-    padding: 30px 
-    background: #fff
+.dashboard-container
+  padding: 2rem
+  background: #f8fafc
+  min-height: 100vh
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif
+
+// Header Section
+.dashboard-header
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  margin-bottom: 2rem
+  padding-bottom: 1.5rem
+  border-bottom: 1px solid #e2e8f0
+
+.welcome-section
+  .welcome-title
+    font-size: 2rem
+    font-weight: 700
+    color: #1e293b
+    margin: 0 0 0.5rem 0
+    line-height: 1.2
+  
+  .welcome-subtitle
+    font-size: 1rem
+    color: #64748b
+    margin: 0
+    font-weight: 400
+
+.new-project-btn
+  display: flex
+  align-items: center
+  gap: 0.5rem
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)
+  color: white
+  border: none
+  padding: 0.75rem 1.5rem
+  border-radius: 0.5rem
+  font-weight: 600
+  cursor: pointer
+  transition: all 0.3s ease
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.25)
+  
+  &:hover
+    transform: translateY(-1px)
+    box-shadow: 0 6px 12px -1px rgba(59, 130, 246, 0.35)
+  
+  .btn-icon
+    font-size: 1.25rem
+    font-weight: 700
+
+// Main Grid Layout
+.dashboard-grid
+  display: grid
+  grid-template-columns: 2fr 1fr
+  gap: 2rem
+  margin-bottom: 2rem
+
+.section-title
+  font-size: 1.25rem
+  font-weight: 600
+  color: #374151
+  margin: 0 0 1.5rem 0
+
+// KPI Section
+.kpi-section
+  .kpi-grid
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    gap: 1.5rem
+
+.kpi-card
+  background: white
+  border-radius: 0.75rem
+  padding: 1.5rem
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+  border: 1px solid #f1f5f9
+  transition: all 0.3s ease
+  
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+
+.kpi-header
+  display: flex
+  align-items: center
+  gap: 1rem
+  margin-bottom: 1rem
+
+.kpi-icon
+  width: 3rem
+  height: 3rem
+  border-radius: 0.5rem
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 1.5rem
+  flex-shrink: 0
+  
+  &.total-projects
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)
+  
+  &.open-issues
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)
+  
+  &.revenue
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%)
+  
+  &.utilization
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)
+
+.kpi-details
+  display: flex
+  flex-direction: column
+  
+  .kpi-label
+    font-size: 0.875rem
+    color: #6b7280
+    font-weight: 500
+    margin-bottom: 0.25rem
+  
+  .kpi-value
+    font-size: 2rem
+    font-weight: 700
+    color: #111827
+    line-height: 1
+
+.loading-spinner
+  display: flex
+  align-items: center
+  height: 2rem
+
+.spinner
+  width: 1.5rem
+  height: 1.5rem
+  border: 2px solid #f3f4f6
+  border-top: 2px solid #3b82f6
+  border-radius: 50%
+  animation: spin 1s linear infinite
+
+.error-state
+  font-size: 0.875rem
+  color: #dc2626
+  font-weight: 500
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
+
+.kpi-trend
+  display: flex
+  align-items: center
+  gap: 0.5rem
+  font-size: 0.875rem
+  font-weight: 500
+  
+  &.positive
+    color: #059669
+  
+  &.negative
+    color: #dc2626
+  
+  .trend-icon
+    font-size: 1rem
+
+// Quick Access Section
+.quick-access-section
+  .quick-access-grid
     display: flex
     flex-direction: column
-    gap: 30px
-    height: 89vh
+    gap: 1rem
 
+.quick-access-card
+  background: white
+  border-radius: 0.75rem
+  padding: 1.5rem
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+  border: 1px solid #f1f5f9
+  cursor: pointer
+  transition: all 0.3s ease
+  display: flex
+  align-items: center
+  gap: 1rem
+  
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+    border-color: #e2e8f0
 
-.main-content 
-    display: flex
-    gap: 100px 
+.quick-icon
+  width: 3rem
+  height: 3rem
+  border-radius: 0.5rem
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 1.5rem
+  flex-shrink: 0
+  
+  &.projects
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)
+  
+  &.crm
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)
+  
+  &.finance
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%)
+  
+  &.hr
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)
 
-.left
-    display: flex
+.quick-content
+  .quick-title
+    font-size: 1.125rem
+    font-weight: 600
+    color: #111827
+    margin: 0 0 0.25rem 0
+  
+  .quick-description
+    font-size: 0.875rem
+    color: #6b7280
+    margin: 0
+    font-weight: 400
+
+// Charts Section
+.charts-section
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 2rem
+
+.chart-container
+  background: white
+  border-radius: 0.75rem
+  padding: 1.5rem
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+  border: 1px solid #f1f5f9
+
+.chart-title
+  font-size: 1.125rem
+  font-weight: 600
+  color: #374151
+  margin: 0 0 1.5rem 0
+
+.chart-placeholder
+  position: relative
+  height: 200px
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)
+  border-radius: 0.5rem
+  overflow: hidden
+
+.chart-line
+  position: absolute
+  bottom: 20%
+  left: 10%
+  right: 10%
+  height: 2px
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%)
+  border-radius: 1px
+  
+  &::before
+    content: ''
+    position: absolute
+    top: -20px
+    left: 0
+    right: 0
+    height: 40px
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%)
+    border-radius: 20px 20px 0 0
+
+.chart-data
+  position: absolute
+  bottom: 18%
+  left: 10%
+  right: 10%
+
+.chart-point
+  position: absolute
+  width: 8px
+  height: 8px
+  background: #3b82f6
+  border-radius: 50%
+  border: 2px solid white
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+  transform: translateX(-50%)
+
+.project-status
+  display: flex
+  flex-direction: column
+  gap: 1rem
+
+.status-item
+  display: flex
+  align-items: center
+  gap: 0.75rem
+  font-size: 0.875rem
+  color: #374151
+
+.status-dot
+  width: 12px
+  height: 12px
+  border-radius: 50%
+  
+  &.completed
+    background: #10b981
+  
+  &.in-progress
+    background: #3b82f6
+  
+  &.pending
+    background: #f59e0b
+
+// Responsive Design
+@media (max-width: 1024px)
+  .dashboard-grid
+    grid-template-columns: 1fr
+  
+  .charts-section
+    grid-template-columns: 1fr
+
+@media (max-width: 768px)
+  .dashboard-container
+    padding: 1rem
+  
+  .dashboard-header
     flex-direction: column
-    gap: 30px 
-.btn-row  
-    display: flex
-    gap: 30px  
-.btn
-    padding: 10px    
-
-:host ::ng-deep .card .ant-card-body
-    display: flex
-    gap: 40px
-    padding: 20px 0px !important
-
-.quick
-    background: #5f77a3
-
-.quick:hover
-    background: #173266        
+    gap: 1rem
+    align-items: stretch
+  
+  .kpi-grid
+    grid-template-columns: 1fr
+  
+  .quick-access-card
+    flex-direction: column
+    text-align: center
+    gap: 1rem

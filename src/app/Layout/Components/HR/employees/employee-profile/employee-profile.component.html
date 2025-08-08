@@ -1,0 +1,101 @@
+<div class="employee-profile-container">
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="profile-avatar-section">
+      <div class="profile-avatar">
+        {{ getInitials(data?.first_name, data?.last_name) }}
+      </div>
+      <div class="profile-basic-info">
+        <h2 class="employee-name">
+          {{ data?.first_name }} {{ data?.last_name }}
+        </h2>
+        <p class="employee-position">{{ data?.position?.name || "N/A" }}</p>
+        <p class="employee-department">{{ data?.department?.name || "N/A" }}</p>
+      </div>
+    </div>
+    <div class="profile-status">
+      <span
+        class="status-badge"
+        [ngClass]="'status-' + (data?.status || 'active').toLowerCase()"
+      >
+        {{ data?.status || "Active" }}
+      </span>
+    </div>
+  </div>
+
+  <nz-divider></nz-divider>
+
+  <!-- Profile Details -->
+  <div class="profile-details">
+    <div class="details-section">
+      <h3 class="section-title">Contact Information</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Email:</span>
+          <span class="info-value">{{ data?.email || "N/A" }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Phone:</span>
+          <span class="info-value">{{ data?.phone || "N/A" }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Address:</span>
+          <span class="info-value">{{ data?.address || "N/A" }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <h3 class="section-title">Employment Details</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Employee ID:</span>
+          <span class="info-value">{{ data?.id || "N/A" }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Hire Date:</span>
+          <span class="info-value">{{ formatDate(data?.hire_date) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Salary:</span>
+          <span class="info-value salary">{{
+            formatSalary(data?.salary)
+          }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Manager:</span>
+          <span class="info-value">{{ data?.manager?.name || "N/A" }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-section" *ngIf="data?.emergency_contact">
+      <h3 class="section-title">Emergency Contact</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Contact Name:</span>
+          <span class="info-value">{{
+            data?.emergency_contact?.name || "N/A"
+          }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Relationship:</span>
+          <span class="info-value">{{
+            data?.emergency_contact?.relationship || "N/A"
+          }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Phone:</span>
+          <span class="info-value">{{
+            data?.emergency_contact?.phone || "N/A"
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="profile-actions">
+    <button nz-button nzType="default" (click)="closeModal()">Close</button>
+  </div>
+</div>

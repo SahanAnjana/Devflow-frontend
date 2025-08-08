@@ -4,6 +4,7 @@ import { EmployeesService } from 'src/app/_services/hr-services/employees.servic
 import { DataService } from 'src/app/_services/shared-data/data.service';
 import { AddNewEmployeeComponent } from './add-new-employee/add-new-employee.component';
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
+import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 
 interface Employee {
   // id: number;
@@ -73,6 +74,17 @@ export class EmployeesComponent {
       nzFooter: null,
       nzWidth: 800,
       nzClassName: 'view-employee',
+    });
+    modal.componentInstance!.data = data;
+  }
+
+  viewProfile(data: any) {
+    const modal = this.modalService.create({
+      nzTitle: 'Employee Profile',
+      nzContent: EmployeeProfileComponent,
+      nzFooter: null,
+      nzWidth: 600,
+      nzClassName: 'employee-profile-modal',
     });
     modal.componentInstance!.data = data;
   }

@@ -7,13 +7,15 @@ import { Router } from '@angular/router';
 import { PermissionsComponent } from './permissions/permissions.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 @NgModule({
   declarations: [
-    DevDashboardComponent, 
+    DevDashboardComponent,
     PermissionsComponent,
     ProfileComponent,
-    SettingsComponent
+    SettingsComponent,
+    UserManagementComponent,
   ],
   imports: [CommonModule, DevDashboardRoutingModule, SharedModule],
 })

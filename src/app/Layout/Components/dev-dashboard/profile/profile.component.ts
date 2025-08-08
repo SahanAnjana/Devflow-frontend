@@ -9,7 +9,7 @@ import { CommonsService } from 'src/app/_services/commons.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.sass']
+  styleUrls: ['./profile.component.sass'],
 })
 export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
@@ -18,12 +18,12 @@ export class ProfileComponent implements OnInit {
   avatarUrl?: string;
   currentUser: any = {};
   activeTab = 0;
-  
+
   // Password visibility toggles
   passwordVisible = false;
   newPasswordVisible = false;
   confirmPasswordVisible = false;
-  
+
   constructor(
     private fb: FormBuilder,
     private message: NzMessageService,
@@ -41,41 +41,49 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
-      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
+      email: [
+        { value: '', disabled: true },
+        [Validators.required, Validators.email],
+      ],
       phone: ['', [Validators.pattern(/^\+?[\d\s-()]+$/)]],
       department: [''],
       position: [''],
       bio: ['', [Validators.maxLength(500)]],
       location: [''],
-      timezone: ['UTC']
+      timezone: ['UTC'],
     });
 
-    this.passwordForm = this.fb.group({
-      currentPassword: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator });
+    this.passwordForm = this.fb.group(
+      {
+        currentPassword: ['', [Validators.required]],
+        newPassword: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validators: this.passwordMatchValidator }
+    );
   }
 
   passwordMatchValidator(form: FormGroup) {
     const newPassword = form.get('newPassword');
     const confirmPassword = form.get('confirmPassword');
-    
+
     if (newPassword?.value !== confirmPassword?.value) {
       confirmPassword?.setErrors({ passwordMismatch: true });
       return { passwordMismatch: true };
     }
-    
+
     confirmPassword?.setErrors(null);
     return null;
   }
 
   loadUserProfile(): void {
     this.loading = true;
-    
+
     // Get user info from token using CommonService
-    this.currentUser = this.commonService.parseJwt(this.tokenService.getToken());
-    
+    this.currentUser = this.commonService.parseJwt(
+      this.tokenService.getToken()
+    );
+
     // Populate form with user data
     if (this.currentUser) {
       this.profileForm.patchValue({
@@ -87,26 +95,26 @@ export class ProfileComponent implements OnInit {
         position: this.currentUser.position || '',
         bio: this.currentUser.bio || '',
         location: this.currentUser.location || '',
-        timezone: this.currentUser.timezone || 'UTC'
+        timezone: this.currentUser.timezone || 'UTC',
       });
-      
+
       this.avatarUrl = this.currentUser.avatar || undefined;
     }
-    
+
     this.loading = false;
   }
 
   onProfileSubmit(): void {
     if (this.profileForm.valid) {
       this.loading = true;
-      
+
       const formData = this.profileForm.getRawValue();
-      
+
       // Simulate API call
       setTimeout(() => {
         this.message.success('Profile updated successfully!');
         this.loading = false;
-        
+
         // Update local storage or data service if needed
         this.message.success('Profile updated successfully!');
       }, 1000);
@@ -119,9 +127,9 @@ export class ProfileComponent implements OnInit {
   onPasswordSubmit(): void {
     if (this.passwordForm.valid) {
       this.loading = true;
-      
+
       const passwordData = this.passwordForm.value;
-      
+
       // Simulate API call
       setTimeout(() => {
         this.message.success('Password changed successfully!');
@@ -135,10 +143,10 @@ export class ProfileComponent implements OnInit {
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {
-    Object.keys(formGroup.controls).forEach(key => {
+    Object.keys(formGroup.controls).forEach((key) => {
       const control = formGroup.get(key);
       control?.markAsTouched();
-      
+
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
       }
@@ -203,19 +211,22 @@ export class ProfileComponent implements OnInit {
     const profileData = {
       ...this.profileForm.getRawValue(),
       exportDate: new Date().toISOString(),
-      userId: this.currentUser.sub
+      userId: this.currentUser.sub,
     };
-    
+
     const dataStr = JSON.stringify(profileData, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    
-    const exportFileDefaultName = `profile-${this.currentUser.sub}-${new Date().toISOString().split('T')[0]}.json`;
-    
+    const dataUri =
+      'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+    const exportFileDefaultName = `profile-${this.currentUser.sub}-${
+      new Date().toISOString().split('T')[0]
+    }.json`;
+
     const linkElement = document.createElement('a');
     linkElement.setAttribute('href', dataUri);
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
-    
+
     this.message.success('Profile data exported successfully!');
   }
 }

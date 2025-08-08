@@ -17,6 +17,9 @@ export const commonEnvironment = {
   authenticate: BASE_URL + '8000/auth/login',
   refresh: BASE_URL + '8000/auth/refresh-token',
   getUsers: BASE_URL + '8000/auth/users',
+  getUserDetailsById: BASE_URL + '8000/auth/users/', // + user_id
+  updateUser: BASE_URL + '8000/auth/users/', // + user_id
+  deleteUser: BASE_URL + '8000/auth/users/',
   getUserdetailsMe: BASE_URL + '8000/auth/users/me',
   //privilages
   getRoles: BASE_URL + '8000/auth/roles/',

@@ -1,0 +1,279 @@
+@import '../../../../../assets/sass/index'
+
+// Debug and Error Banners
+.debug-banner,
+.error-banner
+  margin-bottom: 16px
+
+// Title Bar Styling
+.title-bar
+  margin-bottom: 20px
+
+.add-button 
+  display: flex
+  justify-content: flex-end
+  gap: 10px
+
+.button 
+  height: 42px
+  padding: 0px 15px
+  border-radius: 5px
+
+.refresh-btn
+  background-color: #f0f0f0 !important
+  color: #666 !important
+  margin-right: 10px
+
+.search-input
+  border-radius: 5px
+
+// Loading Container
+.loading-container
+  display: flex
+  justify-content: center
+  align-items: center
+  min-height: 300px
+
+  .loading-content
+    width: 100px
+    height: 100px
+
+// Table Container
+.table-container
+  background: white
+  border-radius: 8px
+  overflow: hidden
+  width: 100%
+  overflow-x: auto
+
+// Content Styling
+.username
+  font-family: 'Courier New', monospace
+  background: #f5f5f5
+  padding: 2px 6px
+  border-radius: 4px
+  font-size: 12px
+
+.email
+  color: #1890ff
+  font-size: 13px
+
+// Role Badge Styling
+.role-badge
+  padding: 4px 8px
+  border-radius: 12px
+  font-size: 11px
+  font-weight: 500
+  text-transform: uppercase
+  
+  &.role-admin
+    background: #ff4d4f
+    color: white
+
+  &.role-manager
+    background: #722ed1
+    color: white
+
+  &.role-developer
+    background: #1890ff
+    color: white
+
+  &.role-designer
+    background: #52c41a
+    color: white
+
+  &.role-analyst
+    background: #faad14
+    color: white
+
+  &.role-qa-engineer
+    background: #13c2c2
+    color: white
+
+  &.role-sales-rep
+    background: #eb2f96
+    color: white
+
+  &.role-accountant
+    background: #f5222d
+    color: white
+
+// Status Badge Styling
+.status-badge
+  padding: 4px 8px
+  border-radius: 12px
+  font-size: 11px
+  font-weight: 500
+  color: white
+  text-transform: uppercase
+
+  &.status-active
+    background-color: #52c41a !important
+
+  &.status-inactive
+    background-color: #d9d9d9 !important
+    color: #666 !important
+
+  &.status-pending
+    background-color: #faad14 !important
+
+// Date Styling
+.last-login
+  font-size: 12px
+  color: #8c8c8c
+
+// Action Buttons Section
+.btn-section 
+  display: flex
+  gap: 8px
+  min-width: 160px
+  justify-content: flex-start
+
+.action-button 
+  background: transparent
+  border: none
+  padding: 6px
+  border-radius: 4px
+  cursor: pointer
+  transition: all 0.2s ease
+  display: flex
+  align-items: center
+  justify-content: center
+
+  &:hover
+    transform: scale(1.1)
+
+  &.view
+    color: #1890ff
+    &:hover
+      background: #f0f8ff
+
+  &.edit
+    color: #52c41a
+    &:hover
+      background: #f6ffed
+
+  &.delete
+    color: #ff4d4f
+    &:hover
+      background: #fff2f0
+
+  &.activate
+    color: #52c41a
+    &:hover
+      background: #f6ffed
+
+  &.deactivate
+    color: #faad14
+    &:hover
+      background: #fffbe6
+
+  svg
+    width: 16px
+    height: 16px
+
+// Empty State
+.empty-state
+  padding: 40px
+  text-align: center
+
+// No Permission State
+.no-permission
+  display: flex
+  justify-content: center
+  align-items: center
+  min-height: 400px
+
+// Ant Design Overrides
+:host ::ng-deep
+  .ant-input 
+    border-radius: 5px
+
+  .ant-row 
+    justify-content: space-between
+
+  .ant-table-thead > tr > th
+    background: #fafafa
+    font-weight: 600
+    color: #262626
+
+  .ant-table-tbody > tr > td
+    border-bottom: 1px solid #f0f0f0
+
+  .ant-table-tbody > tr:hover > td
+    background: #f5f5f5
+
+  // Custom table borders following existing pattern
+  .border-start-th,
+  .border-middle-th
+    padding: 12px 16px
+    text-align: left
+    font-size: 12px
+    font-weight: 600
+    text-transform: uppercase
+    letter-spacing: 0.5px
+    min-width: 120px
+    white-space: nowrap
+
+  .border-middle
+    padding: 12px 16px
+    vertical-align: middle
+    min-width: 120px
+
+  // Specific column widths
+  .ant-table-thead > tr > th:nth-child(1),
+  .ant-table-tbody > tr > td:nth-child(1)
+    min-width: 100px
+
+  .ant-table-thead > tr > th:nth-child(2),
+  .ant-table-tbody > tr > td:nth-child(2)
+    min-width: 100px
+
+  .ant-table-thead > tr > th:nth-child(3),
+  .ant-table-tbody > tr > td:nth-child(3)
+    min-width: 120px
+
+  .ant-table-thead > tr > th:nth-child(4),
+  .ant-table-tbody > tr > td:nth-child(4)
+    min-width: 200px
+
+  .ant-table-thead > tr > th:nth-child(5),
+  .ant-table-tbody > tr > td:nth-child(5)
+    min-width: 100px
+
+  .ant-table-thead > tr > th:nth-child(6),
+  .ant-table-tbody > tr > td:nth-child(6)
+    min-width: 120px
+
+  .ant-table-thead > tr > th:nth-child(7),
+  .ant-table-tbody > tr > td:nth-child(7)
+    min-width: 80px
+
+  .ant-table-thead > tr > th:nth-child(8),
+  .ant-table-tbody > tr > td:nth-child(8)
+    min-width: 120px
+
+  .ant-table-thead > tr > th:nth-child(9),
+  .ant-table-tbody > tr > td:nth-child(9)
+    min-width: 120px
+
+  .ant-table-thead > tr > th:nth-child(10),
+  .ant-table-tbody > tr > td:nth-child(10)
+    min-width: 180px
+
+// Responsive Design
+@media (max-width: 1200px)
+  .title-bar
+    .ant-col
+      margin-bottom: 10px
+
+  .add-button
+    justify-content: flex-start
+
+@media (max-width: 768px)
+  .btn-section
+    flex-direction: column
+    gap: 4px
+
+  .action-button
+    padding: 4px

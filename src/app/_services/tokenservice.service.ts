@@ -10,20 +10,29 @@ export class TokenserviceService {
 
   saveToken(token: string) {
     localStorage.setItem(TOKEN_KEY, token);
+    window.sessionStorage.setItem(TOKEN_KEY, token);
   }
   public getRefreshToken(): string | null {
-    return localStorage.getItem(REFRESHTOKEN_KEY);
+    return (
+      sessionStorage.getItem(REFRESHTOKEN_KEY) ||
+      localStorage.getItem(REFRESHTOKEN_KEY)
+    );
   }
   clearToken() {
-    localStorage.clear();
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(REFRESHTOKEN_KEY);
+    localStorage.removeItem(PRIVILEGES_KEY);
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(REFRESHTOKEN_KEY);
+    localStorage.removeItem('isToken');
   }
 
   saveRefreshToken(token: string): void {
-    localStorage.removeItem(REFRESHTOKEN_KEY);
+    sessionStorage.setItem(REFRESHTOKEN_KEY, token);
     localStorage.setItem(REFRESHTOKEN_KEY, token);
   }
   getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY);
+    return sessionStorage.getItem(TOKEN_KEY);
   }
 
   savePrivileges(privileges: any) {

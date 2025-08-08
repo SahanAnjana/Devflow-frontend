@@ -1,109 +1,265 @@
-.dashboard-container
-  padding: 24px
+.crm-dashboard-container
+  padding: 20px
+  background: #f5f7fa
+  min-height: 100vh
 
 .dashboard-header
+  margin-bottom: 24px
+
+.dashboard-title
+  font-size: 28px
+  font-weight: 700
+  color: #1a1a1a
+  margin: 0
+
+.crm-kpi-section
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
+  gap: 24px
+  margin-bottom: 32px
+
+.kpi-card
+  background: white
+  border-radius: 16px
+  padding: 24px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
+  transition: all 0.3s ease
+  position: relative
+  min-height: 160px
+
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    height: 4px
+
+  &.total-activities::before
+    background: linear-gradient(135deg, #52c41a, #73d13d)
+
+  &.total-communications::before
+    background: linear-gradient(135deg, #fadb14, #ffd666)
+
+  &.total-companies::before
+    background: linear-gradient(135deg, #1890ff, #40a9ff)
+
+  &.total-contacts::before
+    background: linear-gradient(135deg, #722ed1, #9254de)
+
+  &.total-deals::before
+    background: linear-gradient(135deg, #eb2f96, #f759ab)
+
+  &:hover
+    transform: translateY(-4px)
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12)
+
+.kpi-icon
+  width: 48px
+  height: 48px
+  border-radius: 12px
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-bottom: 16px
+  font-size: 24px
+  color: white
+
+  &.activities-icon
+    background: linear-gradient(135deg, #52c41a, #73d13d)
+
+  &.communications-icon
+    background: linear-gradient(135deg, #fadb14, #ffd666)
+
+  &.companies-icon
+    background: linear-gradient(135deg, #1890ff, #40a9ff)
+
+  &.contacts-icon
+    background: linear-gradient(135deg, #722ed1, #9254de)
+
+  &.deals-icon
+    background: linear-gradient(135deg, #eb2f96, #f759ab)
+
+.kpi-content
+  flex: 1
+
+.kpi-label
+  font-size: 13px
+  color: #8c8c8c
+  margin: 0 0 8px 0
+  text-transform: uppercase
+  font-weight: 500
+
+.kpi-value
+  font-size: 32px
+  font-weight: 700
+  color: #1a1a1a
+  margin: 0 0 8px 0
+
+.kpi-trend
+  font-size: 12px
+  margin: 0 0 12px 0
+  font-weight: 500
+  color: #8c8c8c
+
+.view-link
+  color: #1890ff
+  font-size: 13px
+  text-decoration: none
+  font-weight: 500
+  cursor: pointer
+
+  &:hover
+    color: #40a9ff
+
+.content-section
+  display: grid
+  grid-template-columns: 2fr 1fr
+  gap: 32px
+
+.statistics-section
+  background: white
+  border-radius: 16px
+  padding: 24px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
+  margin-bottom: 24px
+
+.section-title
+  font-size: 20px
+  font-weight: 600
+  color: #1a1a1a
+  margin: 0 0 20px 0
+
+.stats-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))
+  gap: 16px
+
+.stat-item
+  text-align: center
+  padding: 16px
+  background: #fafafa
+  border-radius: 8px
+
+.stat-value
+  font-size: 24px
+  font-weight: 700
+  color: #1a1a1a
+  margin: 0 0 4px 0
+
+.stat-label
+  font-size: 12px
+  color: #8c8c8c
+  margin: 0
+
+.company-stats-section
+  background: white
+  border-radius: 16px
+  padding: 24px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
+
+.company-stats-list
+  list-style: none
+  padding: 0
+  margin: 0
+
+.company-stat-item
   display: flex
   justify-content: space-between
   align-items: center
-  margin-bottom: 24px
+  padding: 12px 0
+  border-bottom: 1px solid #f0f0f0
 
-  .header-left
-    h1
-      margin: 0
-      font-size: 24px
-      font-weight: 500
+  &:last-child
+    border-bottom: none
 
-    .subtitle
-      margin: 4px 0 0
-      color: rgba(0, 0, 0, 0.45)
+.company-name
+  font-size: 14px
+  font-weight: 600
+  color: #1a1a1a
 
-.stats-container
-  display: grid
-  grid-template-columns: repeat(4, 1fr)
+.company-metrics
+  display: flex
   gap: 16px
-  margin-bottom: 24px
 
-  .stat-card
-    height: 100%
+.company-metric
+  text-align: center
 
-    .stat-content
-      display: flex
-      align-items: flex-start
-      gap: 16px
+.metric-value
+  font-size: 16px
+  font-weight: 600
+  color: #1890ff
 
-      .stat-icon
-        width: 48px
-        height: 48px
-        border-radius: 8px
-        display: flex
-        align-items: center
-        justify-content: center
-        font-size: 24px
+.metric-label
+  font-size: 11px
+  color: #8c8c8c
 
-      .stat-info
-        flex: 1
+.quick-actions-section
+  background: white
+  border-radius: 16px
+  padding: 24px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
 
-        .stat-label
-          margin: 0
-          color: rgba(0, 0, 0, 0.45)
-          font-size: 14px
-
-        .stat-value
-          margin: 8px 0
-          font-size: 24px
-          font-weight: 500
-
-        .stat-trend
-          margin: 0
-          font-size: 12px
-          display: flex
-          align-items: center
-          gap: 4px
-
-          &.up
-            color: #52c41a
-
-          &.down
-            color: #f5222d
-
-.main-content
-  display: flex
-  flex-direction: column
-  gap: 24px
-
-  .content-section
-    &.grid-2
-      display: grid
-      grid-template-columns: repeat(2, 1fr)
-      gap: 16px
-
-.chart-card
-  height: 100%
-  
-  .chart-container
-    height: 300px
-
-.activity-item
-  display: flex
-  align-items: center
+.quick-actions-grid
+  display: grid
   gap: 12px
 
-  .activity-details
-    .activity-title
-      font-weight: 500
-
-    .activity-time
-      font-size: 12px
-      color: rgba(0, 0, 0, 0.45)
-
-.employee-info
+.quick-action-btn
   display: flex
   align-items: center
-  gap: 8px
+  padding: 12px 16px
+  background: #fafafa
+  border: 1px solid #e6e6e6
+  border-radius: 8px
+  text-decoration: none
+  color: #1a1a1a
+  transition: all 0.2s ease
+  cursor: pointer
 
-:host ::ng-deep
-  .ant-card
-    height: 100%
+  &:hover
+    background: #f0f5ff
+    border-color: #1890ff
+    color: #1890ff
 
-  .ant-steps
-    padding: 24px 0
+.quick-action-icon
+  width: 20px
+  height: 20px
+  margin-right: 8px
+  color: #1890ff
+
+.quick-action-text
+  font-size: 14px
+  font-weight: 500
+
+.loading-spinner
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: 20px
+
+@media (max-width: 768px)
+  .crm-dashboard-container
+    padding: 16px
+
+  .crm-kpi-section
+    grid-template-columns: 1fr
+    gap: 16px
+
+  .content-section
+    grid-template-columns: 1fr
+    gap: 24px
+
+@media (max-width: 480px)
+  .crm-dashboard-container
+    padding: 12px
+
+  .kpi-card
+    padding: 16px
+    min-height: 120px
+
+  .dashboard-title
+    font-size: 24px

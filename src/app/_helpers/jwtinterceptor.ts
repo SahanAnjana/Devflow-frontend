@@ -31,6 +31,8 @@ export class JwtInterceptor implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
     null
   );
+  private refreshAttempts = 0;
+  private maxRefreshAttempts = 3;
 
   currentUser: any;
 
@@ -79,20 +81,19 @@ export class JwtInterceptor implements HttpInterceptor {
         if (
           error instanceof HttpErrorResponse &&
           error.status === 401 &&
-          !authReq.url.includes(environment.authenticate)
+          !authReq.url.includes(environment.authenticate) &&
+          !authReq.url.includes(environment.refresh)
         ) {
-          console.log('401 un authorized');
-          const token = this.tokenService.getRefreshToken();
-          console.log('rfresh token', this.tokenService.getRefreshToken());
-          console.log('rfresh token', token);
-          if (token) {
-            // this.getUserDetailsByme();
-            this.getUserDEtails();
+          console.log('401 unauthorized - attempting token refresh');
+          const refreshToken = this.tokenService.getRefreshToken();
+
+          if (refreshToken && refreshToken.trim() !== '') {
+            console.log('Refresh token available, attempting refresh');
             return this.handle401Error(authReq, next);
           } else {
-            localStorage.clear();
-            this.router.navigate(['/login']);
-            window.location.reload();
+            console.log('No refresh token available, redirecting to login');
+            this.handleLogout();
+            return throwError(() => error);
           }
         }
         return throwError(() => error);
@@ -108,39 +109,91 @@ export class JwtInterceptor implements HttpInterceptor {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
-      const token = this.tokenService.getRefreshToken();
+      // Check refresh attempts to prevent infinite loops
+      if (this.refreshAttempts >= this.maxRefreshAttempts) {
+        console.log('Max refresh attempts reached, logging out');
+        this.refreshAttempts = 0;
+        this.isRefreshing = false;
+        this.handleLogout();
+        return throwError(() => new Error('Max refresh attempts exceeded'));
+      }
+
+      this.refreshAttempts++;
+      const refreshToken = this.tokenService.getRefreshToken();
       const formdata: any = {
-        refresh_token: token,
+        refresh_token: refreshToken,
       };
 
-      if (token)
+      console.log(
+        `Attempting to refresh token (attempt ${this.refreshAttempts}/${this.maxRefreshAttempts}):`,
+        refreshToken
+      );
+
+      if (refreshToken && refreshToken.trim() !== '') {
         return this.authService.refreshToken(formdata).pipe(
-          switchMap((token: any) => {
+          switchMap((tokenResponse: any) => {
+            console.log('Token refresh successful:', tokenResponse);
             this.isRefreshing = false;
-            this.tokenService.saveToken(token['access_token']);
-            this.tokenService.saveRefreshToken(token['refresh_token']);
-            localStorage.setItem('isToken', 'true');
-            this.refreshTokenSubject.next(token['access_token']);
-            this.getUserDEtails();
-            this.getUserDetailsByme();
-            return next.handle(
-              this.addTokenHeader(request, token['access_token'])
-            );
+            this.refreshAttempts = 0; // Reset attempts on success
+
+            // Save new tokens
+            if (tokenResponse['access_token']) {
+              this.tokenService.saveToken(tokenResponse['access_token']);
+              localStorage.setItem('isToken', 'true');
+              this.refreshTokenSubject.next(tokenResponse['access_token']);
+
+              // Update refresh token if provided
+              if (tokenResponse['refresh_token']) {
+                this.tokenService.saveRefreshToken(
+                  tokenResponse['refresh_token']
+                );
+              }
+
+              // Get updated user details
+              this.getUserDEtails();
+              this.getUserDetailsByme();
+
+              // Retry the original request with new token
+              return next.handle(
+                this.addTokenHeader(request, tokenResponse['access_token'])
+              );
+            } else {
+              console.error('No access token in refresh response');
+              this.handleLogout();
+              return throwError(() => new Error('Invalid token response'));
+            }
           }),
           catchError((err) => {
+            console.error('Token refresh failed:', err);
             this.isRefreshing = false;
 
-            // this.tokenService.signOut();
-            this.handleLogout();
-            return throwError(() => new Error(err));
+            // If refresh failed, don't immediately logout - might be temporary network issue
+            if (this.refreshAttempts >= this.maxRefreshAttempts) {
+              this.refreshAttempts = 0;
+              this.handleLogout();
+            }
+
+            return throwError(() => new Error('Token refresh failed'));
           })
         );
+      } else {
+        console.log('No valid refresh token, logging out');
+        this.isRefreshing = false;
+        this.refreshAttempts = 0;
+        this.handleLogout();
+        return throwError(() => new Error('No refresh token available'));
+      }
+    } else {
+      // If already refreshing, wait for the refresh to complete
+      return this.refreshTokenSubject.pipe(
+        filter((token) => token !== null),
+        take(1),
+        switchMap((token) => {
+          console.log('Using refreshed token for queued request');
+          return next.handle(this.addTokenHeader(request, token));
+        })
+      );
     }
-    return this.refreshTokenSubject.pipe(
-      filter((token) => token !== null),
-      take(1),
-      switchMap((token) => next.handle(this.addTokenHeader(request, token)))
-    );
   }
 
   getUserDEtails() {
@@ -192,8 +245,17 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private handleLogout() {
+    console.log('Handling logout - clearing storage and redirecting');
     this.clearStorage();
-    this.router.navigate(['/login']); // Redirect to the login page
+
+    // Reset refresh state
+    this.isRefreshing = false;
+    this.refreshTokenSubject.next(null);
+
+    // Only navigate to login if not already there
+    if (!this.router.url.includes('/login')) {
+      this.router.navigate(['/login']);
+    }
   }
 
   private clearStorage() {

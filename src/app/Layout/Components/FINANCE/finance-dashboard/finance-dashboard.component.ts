@@ -1,458 +1,403 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ReportService } from 'src/app/_services/finance/report.service';
+import { BudgetsService } from 'src/app/_services/finance/budgets.service';
+import { InvoicesService } from 'src/app/_services/finance/invoices.service';
+import { ExpensesService } from 'src/app/_services/finance/expenses.service';
+import { AccountsService } from 'src/app/_services/finance/accounts.service';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 // Register Chart.js components
 Chart.register(...registerables);
+
+interface FinanceDashboardData {
+  total_invoices_count: number;
+  total_expenses_count: number;
+  total_budgets_count: number;
+  total_transactions_count: number;
+  total_accounts_count: number;
+}
+
+interface FinancialActivity {
+  title: string;
+  description: string;
+  amount: number;
+  type: 'income' | 'expense' | 'neutral';
+  date: string;
+}
+
+interface TrendData {
+  percentage: number;
+  type: 'up' | 'down' | 'neutral';
+  period: string;
+}
 
 @Component({
   selector: 'app-finance-dashboard',
   templateUrl: './finance-dashboard.component.html',
   styleUrls: ['./finance-dashboard.component.sass'],
 })
-export class FinanceDashboardComponent {
-  fromDate: any = new Date(new Date().getFullYear(), new Date().getMonth(), 1); // First day of current month
-  toDate: any = new Date(); // Today's date
-  selectedReport: any = 1;
-  filepath: any;
+export class FinanceDashboardComponent implements OnInit, OnDestroy {
+  // Debug mode flag
+  debugMode = true;
 
-  allReportSummary: any[] = []; // Initialize as empty array
+  // Loading states
+  isLoading = false;
+  loadingRevenue = false;
+  loadingInvoices = false;
+  loadingExpenses = false;
+  loadingFunds = false;
+  loadingActivities = false;
+  error: string | null = null;
 
-  // Separated financial data arrays
-  financialLabels: string[] = [];
-  financialValues: number[] = [];
+  // Component lifecycle
+  private componentDestroyed = false;
 
-  recentActivities = [
+  // API Data
+  private apiUrl = 'http://140.245.213.62:8002/dashboard/';
+  dashboardData: FinanceDashboardData | null = null;
+
+  // Computed properties for dynamic data binding
+  get totalInvoices(): number {
+    return this.dashboardData?.total_invoices_count ?? 0;
+  }
+
+  get totalExpenses(): number {
+    return this.dashboardData?.total_expenses_count ?? 0;
+  }
+
+  get totalBudgets(): number {
+    return this.dashboardData?.total_budgets_count ?? 0;
+  }
+
+  get totalTransactions(): number {
+    return this.dashboardData?.total_transactions_count ?? 0;
+  }
+
+  get totalAccounts(): number {
+    return this.dashboardData?.total_accounts_count ?? 0;
+  }
+
+  // KPI Data
+  totalRevenue = 498000.0;
+  outstandingInvoices = 251077.37;
+  recentExpenseAmount = 0.0;
+  availableFunds = 89750.25;
+
+  // Trend Data
+  revenueTrend: TrendData = { percentage: 18.2, type: 'up', period: 'MoM' };
+  invoicesTrend: TrendData = { percentage: 15.0, type: 'up', period: 'WoW' };
+  expensesTrend: TrendData = { percentage: 3.1, type: 'down', period: 'MoM' };
+  fundsTrend: TrendData = {
+    percentage: 15.0,
+    type: 'up',
+    period: 'Last 30 Days',
+  };
+
+  // Marketing Budget
+  marketingBudget = {
+    spent: 7800,
+    total: 10000,
+    percentage: 78,
+  };
+
+  progressColor = '#1890ff';
+
+  // Recent Financial Activities
+  recentFinancialActivities: FinancialActivity[] = [
     {
-      icon: 'user-add',
-      color: '#52c41a',
-      title: 'New employee John Doe joined',
-      time: '2 hours ago',
+      title: 'Invoice Paid',
+      description: 'Payment received for Project Alpha',
+      amount: 1500.0,
+      type: 'income',
+      date: '2024-07-28',
     },
     {
-      icon: 'solution',
-      color: '#1890ff',
-      title: 'Performance review completed',
-      time: '4 hours ago',
+      title: 'Expense Added',
+      description: 'Software Subscription Renewal',
+      amount: 120.0,
+      type: 'expense',
+      date: '2024-07-27',
     },
     {
-      icon: 'schedule',
-      color: '#faad14',
-      title: 'Leave request from Jane Smith',
-      time: '6 hours ago',
+      title: 'Invoice Sent',
+      description: 'Invoice #UF2024-005 to Acme Corp',
+      amount: 800.0,
+      type: 'neutral',
+      date: '2024-07-26',
     },
     {
-      icon: 'team',
-      color: '#722ed1',
-      title: 'Team meeting scheduled',
-      time: '1 day ago',
+      title: 'Budget Alert',
+      description: 'Marketing budget 85% utilized',
+      amount: 0,
+      type: 'neutral',
+      date: '2024-07-25',
+    },
+    {
+      title: 'Payment Recorded',
+      description: 'Vendor payment for Office Supplies',
+      amount: 50.0,
+      type: 'expense',
+      date: '2024-07-24',
+    },
+    {
+      title: 'Invoice Paid',
+      description: 'Payment received for Consulting Services',
+      amount: 2500.0,
+      type: 'income',
+      date: '2024-07-23',
     },
   ];
 
-  // Upcoming reviews data
-  upcomingReviews = [
-    {
-      employeeName: 'John Doe',
-      employeeInitials: 'JD',
-      department: 'Engineering',
-      date: '2025-07-25',
-      status: 'Scheduled',
-      statusColor: 'blue',
-    },
-    {
-      employeeName: 'Jane Smith',
-      employeeInitials: 'JS',
-      department: 'Marketing',
-      date: '2025-07-28',
-      status: 'Pending',
-      statusColor: 'orange',
-    },
-    {
-      employeeName: 'Mike Johnson',
-      employeeInitials: 'MJ',
-      department: 'Sales',
-      date: '2025-07-30',
-      status: 'Confirmed',
-      statusColor: 'green',
-    },
-  ];
+  upcomingReviews: any;
+  recentActivities: any;
 
-  constructor(private reportService: ReportService) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private reportService: ReportService,
+    private budgetsService: BudgetsService,
+    private invoicesService: InvoicesService,
+    private expensesService: ExpensesService,
+    private accountsService: AccountsService
+  ) {
+    if (this.debugMode) console.log('🔧 Finance Dashboard constructor called');
+  }
 
   ngOnInit(): void {
-    // Load financial data when component initializes
-    this.getFinancialSummary();
-  }
+    if (this.debugMode) console.log('🔧 Finance Dashboard ngOnInit called');
 
-  ngAfterViewInit(): void {
-    this.createDepartmentChart();
-    // Note: Financial chart will be created after data is loaded in getFinancialSummary()
-  }
+    try {
+      this.initializeDefaults();
 
-  createDepartmentChart(): void {
-    const ctx = document.getElementById('departmentChart') as HTMLCanvasElement;
-    const departmentChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: this.financialLabels,
-        datasets: [
-          {
-            data: this.financialValues,
-            backgroundColor: [
-              '#1890ff',
-              '#52c41a',
-              '#faad14',
-              '#722ed1',
-              '#f5222d',
-            ],
-            borderWidth: 0,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'right',
-          },
-          title: {
-            display: true,
-            text: 'Employee Distribution by Department',
-          },
-        },
-      },
-    });
-  }
-  formatDate(date: Date): string {
-    if (!date) return '';
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-
-  getFinancialSummary() {
-    const data: any = [];
-    data['from_date'] = this.formatDate(this.fromDate);
-    data['to_date'] = this.formatDate(this.toDate);
-    this.reportService.getFinancialSummary(data).subscribe((res) => {
-      console.log('API Response:', res);
-
-      // Handle different response formats
-      if (res && res['data']) {
-        // If data is an array, use it directly
-        if (Array.isArray(res['data'])) {
-          this.allReportSummary = res['data'];
-        } else {
-          // If data is an object, wrap it in an array for the table
-          this.allReportSummary = [res['data']];
-
-          // Extract financial data and separate into labels and values
-          this.extractFinancialData(res['data']);
-        }
-      } else if (res) {
-        // If the response itself is the data, wrap it in an array
-        this.allReportSummary = [res];
-        this.extractFinancialData(res);
+      if (!this.debugMode) {
+        this.fetchDashboardData();
+        this.loadFinanceDataOptimized();
       } else {
-        // Fallback to empty array
-        this.allReportSummary = [];
+        console.log('🔧 Debug mode: Loading mock finance data');
+        this.loadMockFinanceData();
       }
+    } catch (error) {
+      console.error('❌ Error in Finance ngOnInit:', error);
+      this.error = 'Error initializing Finance Dashboard';
+    }
+  }
 
-      console.log('Processed Financial Summary:', this.allReportSummary);
-      this.filepath = res?.file_path || '';
+  ngOnDestroy(): void {
+    if (this.debugMode) console.log('🔧 Finance Dashboard ngOnDestroy called');
+    this.componentDestroyed = true;
+  }
+
+  private initializeDefaults(): void {
+    if (this.debugMode) console.log('🔧 Initializing finance defaults');
+
+    // Set safe default values
+    this.dashboardData = {
+      total_invoices_count: 0,
+      total_expenses_count: 0,
+      total_budgets_count: 0,
+      total_transactions_count: 0,
+      total_accounts_count: 0,
+    };
+  }
+
+  private loadMockFinanceData(): void {
+    if (this.debugMode) console.log('🔧 Loading mock finance data');
+
+    this.dashboardData = {
+      total_invoices_count: 17,
+      total_expenses_count: 24,
+      total_budgets_count: 5,
+      total_transactions_count: 51,
+      total_accounts_count: 4,
+    };
+
+    // Set additional mock data
+    this.totalRevenue = 498000.0;
+    this.outstandingInvoices = 251077.37;
+    this.recentExpenseAmount = 50000.0;
+    this.availableFunds = 89750.25;
+
+    console.log('✅ Mock finance data loaded');
+  }
+
+  fetchDashboardData(): void {
+    if (this.debugMode) console.log('🔧 Fetching Finance dashboard data...');
+
+    this.isLoading = true;
+    this.error = null;
+
+    this.http.get<FinanceDashboardData>(this.apiUrl).subscribe({
+      next: (data) => {
+        if (this.debugMode) console.log('✅ Finance Data received:', data);
+        this.dashboardData = data;
+        this.isLoading = false;
+
+        // Load additional data after dashboard data is received
+        if (!this.componentDestroyed) {
+          this.loadFinanceDataOptimized();
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('❌ Finance API Error:', error);
+        this.isLoading = false;
+        this.error = `Finance API Error: ${error.status} - ${error.message}`;
+
+        // Load mock data as fallback
+        this.loadMockFinanceData();
+      },
     });
   }
 
-  // Extract and separate financial data into labels and values arrays
-  extractFinancialData(data: any) {
-    // Get raw arrays (exactly as you requested)
-    const rawArrays = this.getRawFinancialArrays(data);
+  // OPTIMIZED: Removed all setTimeout calls and use parallel loading with forkJoin
+  private loadFinanceDataOptimized(): void {
+    if (this.debugMode) console.log('🔧 Loading finance data (optimized)...');
 
-    // Define which fields to extract (excluding date fields)
-    const financialFields = [
-      'total_income',
-      'total_expenses',
-      'net_profit',
-      'pending_invoices',
-      'overdue_invoices',
-    ];
+    this.isLoading = true;
 
-    // Extract labels (property names) - formatted for display
-    this.financialLabels = financialFields.map((field) => {
-      // Convert snake_case to Title Case for better display
-      return field.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+    // Load all data in parallel instead of sequential setTimeout calls
+    const budgets$ = this.budgetsService
+      .getAllBudgets({ skip: 0, limit: 5 })
+      .pipe(
+        catchError((error) => {
+          console.error('❌ Error loading budgets:', error);
+          return of({ data: [] });
+        })
+      );
+
+    const invoices$ = this.invoicesService
+      .getAllInvoices({ skip: 0, limit: 10 })
+      .pipe(
+        catchError((error) => {
+          console.error('❌ Error loading invoices:', error);
+          return of({ data: [] });
+        })
+      );
+
+    const expenses$ = this.expensesService
+      .getAllExpenses({ skip: 0, limit: 10 })
+      .pipe(
+        catchError((error) => {
+          console.error('❌ Error loading expenses:', error);
+          return of({ data: [] });
+        })
+      );
+
+    // Use forkJoin to load all data simultaneously (MUCH FASTER than sequential setTimeout)
+    forkJoin({
+      budgets: budgets$,
+      invoices: invoices$,
+      expenses: expenses$,
+    }).subscribe({
+      next: (results) => {
+        if (this.componentDestroyed) return;
+
+        try {
+          this.processFinanceData(results);
+          console.log('✅ All finance data loaded successfully');
+        } catch (error) {
+          console.error('❌ Error processing finance data:', error);
+        }
+
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('❌ Error loading finance data:', error);
+        this.isLoading = false;
+      },
     });
-
-    // Extract values
-    this.financialValues = financialFields.map((field) => data[field] || 0);
-
-    console.log('Formatted Labels:', this.financialLabels);
-    console.log('Formatted Values:', this.financialValues);
-
-    // Create different charts using the separated arrays
-    this.createFinancialChart(this.financialLabels, this.financialValues);
-
-    // Optionally create additional chart types
-    // this.createFinancialDoughnutChart(this.financialLabels, this.financialValues);
-    // this.createFinancialLineChart(this.financialLabels, this.financialValues);
-
-    return {
-      labels: this.financialLabels,
-      values: this.financialValues,
-      rawLabels: rawArrays.labels,
-      rawValues: rawArrays.values,
-    };
   }
 
-  // Get raw financial data arrays (snake_case labels and raw values)
-  getRawFinancialArrays(data: any) {
-    const financialFields = [
-      'total_income',
-      'total_expenses',
-      'net_profit',
-      'pending_invoices',
-      'overdue_invoices',
-    ];
-
-    // Raw labels array (exactly as requested)
-    const rawLabels = financialFields;
-
-    // Raw values array (exactly as requested)
-    const rawValues = financialFields.map((field) => data[field] || 0);
-
-    console.log('Raw Labels Array:', rawLabels);
-    console.log('Raw Values Array:', rawValues);
-
-    return {
-      labels: rawLabels, // ['total_income', 'total_expenses', 'net_profit', 'pending_invoices', 'overdue_invoices']
-      values: rawValues, // [0.0, 0.0, 0.0, 539521.5512695312, 0.0]
-    };
-  }
-
-  // Create a chart with the financial data
-  createFinancialChart(labels: string[], values: number[]) {
-    const ctx = document.getElementById('financialChart') as HTMLCanvasElement;
-
-    if (ctx) {
-      // Destroy existing chart if it exists
-      if (Chart.getChart(ctx)) {
-        Chart.getChart(ctx)?.destroy();
-      }
-
-      const financialChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: 'Amount ($)',
-              data: values,
-              backgroundColor: [
-                '#52c41a', // Total Income - Green
-                '#f5222d', // Total Expenses - Red
-                '#1890ff', // Net Profit - Blue
-                '#faad14', // Pending Invoices - Orange
-                '#722ed1', // Overdue Invoices - Purple
-              ],
-              borderColor: [
-                '#52c41a',
-                '#f5222d',
-                '#1890ff',
-                '#faad14',
-                '#722ed1',
-              ],
-              borderWidth: 2,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Financial Summary',
-              font: {
-                size: 16,
-                weight: 'bold',
-              },
-            },
-            legend: {
-              display: false,
-            },
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: function (value) {
-                  return '$' + Number(value).toLocaleString();
-                },
-              },
-            },
-          },
-        },
-      });
-
-      console.log('Financial chart created with data:', {
-        labels: labels,
-        values: values,
-      });
-    } else {
-      console.warn('financialChart canvas element not found');
+  private processFinanceData(results: any): void {
+    // Process budgets (revenue)
+    if (results.budgets?.data?.length > 0) {
+      this.totalRevenue = results.budgets.data.reduce(
+        (sum: number, budget: any) => sum + (budget.amount || 0),
+        0
+      );
+      if (this.debugMode)
+        console.log('✅ Revenue calculated:', this.totalRevenue);
     }
-  }
 
-  // Create a doughnut chart using the financial arrays
-  createFinancialDoughnutChart(labels: string[], values: number[]) {
-    const ctx = document.getElementById(
-      'financialDoughnutChart'
-    ) as HTMLCanvasElement;
-
-    if (ctx) {
-      // Destroy existing chart if it exists
-      if (Chart.getChart(ctx)) {
-        Chart.getChart(ctx)?.destroy();
-      }
-
-      const doughnutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              data: values,
-              backgroundColor: [
-                '#52c41a', // Total Income - Green
-                '#f5222d', // Total Expenses - Red
-                '#1890ff', // Net Profit - Blue
-                '#faad14', // Pending Invoices - Orange
-                '#722ed1', // Overdue Invoices - Purple
-              ],
-              borderWidth: 2,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'right',
-            },
-            title: {
-              display: true,
-              text: 'Financial Distribution',
-              font: {
-                size: 16,
-                weight: 'bold',
-              },
-            },
-          },
-        },
-      });
+    // Process invoices (outstanding)
+    if (results.invoices?.data?.length > 0) {
+      this.outstandingInvoices = results.invoices.data
+        .filter((invoice: any) => invoice.status !== 'paid')
+        .reduce((sum: number, invoice: any) => sum + (invoice.amount || 0), 0);
+      if (this.debugMode)
+        console.log(
+          '✅ Outstanding invoices calculated:',
+          this.outstandingInvoices
+        );
     }
-  }
 
-  // Create a line chart for trends (if you have time-series data)
-  createFinancialLineChart(labels: string[], values: number[]) {
-    const ctx = document.getElementById(
-      'financialLineChart'
-    ) as HTMLCanvasElement;
+    // Process expenses (recent)
+    if (results.expenses?.data?.length > 0) {
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-    if (ctx) {
-      // Destroy existing chart if it exists
-      if (Chart.getChart(ctx)) {
-        Chart.getChart(ctx)?.destroy();
-      }
-
-      const lineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: 'Financial Metrics',
-              data: values,
-              borderColor: '#1890ff',
-              backgroundColor: 'rgba(24, 144, 255, 0.1)',
-              borderWidth: 3,
-              fill: true,
-              tension: 0.4,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Financial Trends',
-              font: {
-                size: 16,
-                weight: 'bold',
-              },
-            },
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: function (value) {
-                  return '$' + Number(value).toLocaleString();
-                },
-              },
-            },
-          },
-        },
-      });
+      this.recentExpenseAmount = results.expenses.data
+        .filter((expense: any) => new Date(expense.date) >= thirtyDaysAgo)
+        .reduce((sum: number, expense: any) => sum + (expense.amount || 0), 0);
+      if (this.debugMode)
+        console.log('✅ Recent expenses calculated:', this.recentExpenseAmount);
     }
+
+    // Calculate available funds
+    this.availableFunds = this.totalRevenue - this.recentExpenseAmount;
+    if (this.debugMode)
+      console.log('✅ Available funds calculated:', this.availableFunds);
   }
 
-  // Utility method to get specific financial metric
-  getFinancialMetric(metricName: string): number {
-    const index = this.financialLabels.findIndex((label) =>
-      label.toLowerCase().includes(metricName.toLowerCase())
-    );
-    return index !== -1 ? this.financialValues[index] : 0;
+  // REMOVED: All the old loadXXXData methods with setTimeout
+
+  // Navigation methods
+  navigateToReports(): void {
+    this.router.navigate(['/finance/reports']);
   }
 
-  // Utility method to get the highest value metric
-  getHighestMetric(): { label: string; value: number } {
-    if (this.financialValues.length === 0) return { label: '', value: 0 };
-
-    const maxValue = Math.max(...this.financialValues);
-    const maxIndex = this.financialValues.indexOf(maxValue);
-
-    return {
-      label: this.financialLabels[maxIndex],
-      value: maxValue,
-    };
+  navigateToInvoices(): void {
+    this.router.navigate(['/finance/invoices']);
   }
 
-  // Utility method to filter out zero values for cleaner charts
-  getFilteredArrays(): { labels: string[]; values: number[] } {
-    const filtered = this.financialLabels
-      .map((label, index) => ({ label, value: this.financialValues[index] }))
-      .filter((item) => item.value !== 0);
-
-    return {
-      labels: filtered.map((item) => item.label),
-      values: filtered.map((item) => item.value),
-    };
+  navigateToExpenses(): void {
+    this.router.navigate(['/finance/expenses']);
   }
 
-  // Method to refresh charts with current data
-  refreshCharts() {
-    if (this.financialLabels.length > 0 && this.financialValues.length > 0) {
-      // Get filtered data (removing zero values)
-      const filtered = this.getFilteredArrays();
+  navigateToAccounts(): void {
+    this.router.navigate(['/finance/accounts']);
+  }
 
-      // Recreate charts with filtered data for better visualization
-      this.createFinancialChart(filtered.labels, filtered.values);
-    }
+  navigateToBudgets(): void {
+    this.router.navigate(['/finance/budgets']);
+  }
+
+  navigateToTransactions(): void {
+    this.router.navigate(['/finance/transactions']);
+  }
+
+  // Activity methods
+  viewAllActivities(): void {
+    this.router.navigate(['/finance/activities']);
+  }
+
+  // Quick Action methods
+  addNewExpense(): void {
+    this.router.navigate(['/finance/expenses/new']);
+  }
+
+  createNewInvoice(): void {
+    this.router.navigate(['/finance/invoices/new']);
+  }
+
+  recordPayment(): void {
+    this.router.navigate(['/finance/payments/new']);
+  }
+
+  generateReport(): void {
+    this.router.navigate(['/finance/reports/generate']);
   }
 }

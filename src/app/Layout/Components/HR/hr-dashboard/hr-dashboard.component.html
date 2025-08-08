@@ -1,173 +1,207 @@
-<div class="dashboard-container">
+<div class="hr-dashboard-container">
   <!-- Header Section -->
   <div class="dashboard-header">
     <div class="header-left">
-      <h1>HR Dashboard</h1>
-      <p class="subtitle">Overview and Key Metrics</p>
-    </div>
-    <div class="header-right">
-      <button nz-button nzType="primary">
-        <!-- <i nz-icon nzType="plus"></i>Add Employee -->
-      </button>
+      <h1 class="dashboard-title">HR Overview</h1>
     </div>
   </div>
 
-  <!-- Quick Stats Cards -->
-  <div class="stats-container">
-    <nz-card class="stat-card">
-      <div class="stat-content">
-        <div class="stat-icon" style="background: rgba(24, 144, 255, 0.1)">
-          <!-- <i nz-icon nzType="team" style="color: #1890ff"></i> -->
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">Total Employees</p>
-          <h2 class="stat-value">147</h2>
-          <p class="stat-trend up">
-            <!-- <i nz-icon nzType="arrow-up"></i>  -->
-            12% vs last month
-          </p>
-        </div>
+  <!-- HR KPI Cards -->
+  <div class="hr-kpi-section">
+    <div class="kpi-card total-employees">
+      <div class="kpi-icon employees-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Employees</p>
+        <h2 class="kpi-value">
+          {{ totalEmployees }}
+        </h2>
+        <p class="kpi-trend neutral">
+          Across {{ totalDepartments }} departments
+        </p>
+        <a class="view-link">View Details</a>
       </div>
-    </nz-card>
+    </div>
 
-    <nz-card class="stat-card">
-      <div class="stat-content">
-        <div class="stat-icon" style="background: rgba(82, 196, 26, 0.1)">
-          <!-- <i nz-icon nzType="user-add" style="color: #52c41a"></i> -->
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">New Hires</p>
-          <h2 class="stat-value">24</h2>
-          <p class="stat-trend up">
-            <!-- <i nz-icon nzType="arrow-up"></i>  -->
-            8% vs last month
-          </p>
-        </div>
+    <div class="kpi-card today-leaves">
+      <div class="kpi-icon leaves-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Today's Leaves</p>
+        <h2 class="kpi-value">
+          {{ todayLeaves }}
+        </h2>
+        <p class="kpi-trend neutral">Employees on leave</p>
+        <a class="view-link">View Details</a>
       </div>
-    </nz-card>
+    </div>
 
-    <nz-card class="stat-card">
-      <div class="stat-content">
-        <div class="stat-icon" style="background: rgba(250, 173, 20, 0.1)">
-          <!-- <i nz-icon nzType="dashboard" style="color: #faad14"></i> -->
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">Time to Hire</p>
-          <h2 class="stat-value">18 days</h2>
-          <p class="stat-trend down">
-            <!-- <i nz-icon nzType="arrow-down"></i>  -->
-            5% vs last month
-          </p>
-        </div>
+    <div class="kpi-card today-interviews">
+      <div class="kpi-icon interviews-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Today's Interviews</p>
+        <h2 class="kpi-value">
+          {{ todayInterviews }}
+        </h2>
+        <p class="kpi-trend neutral">Scheduled interviews</p>
+        <a class="view-link">View Details</a>
       </div>
-    </nz-card>
+    </div>
 
-    <nz-card class="stat-card">
-      <div class="stat-content">
-        <div class="stat-icon" style="background: rgba(245, 34, 45, 0.1)">
-          <!-- <i nz-icon nzType="interaction" style="color: #f5222d"></i> -->
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">Turnover Rate</p>
-          <h2 class="stat-value">4.2%</h2>
-          <p class="stat-trend down">
-            <!-- <i nz-icon nzType="arrow-down"></i>  -->
-            2% vs last month
-          </p>
-        </div>
+    <div class="kpi-card job-postings">
+      <div class="kpi-icon postings-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Active Job Postings</p>
+        <h2 class="kpi-value">
+          {{ currentJobPostings }}
+        </h2>
+        <p class="kpi-trend neutral">Open positions</p>
+        <a class="view-link">View Details</a>
       </div>
-    </nz-card>
+    </div>
+
+    <div class="kpi-card today-onboarding">
+      <div class="kpi-icon onboarding-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Today's Onboarding</p>
+        <h2 class="kpi-value">
+          {{ todayOnboarding }}
+        </h2>
+        <p class="kpi-trend neutral">New employees</p>
+        <a class="view-link">View Details</a>
+      </div>
+    </div>
   </div>
 
-  <!-- Main Content Area -->
-  <div class="main-content">
-    <!-- Department Distribution -->
-    <div class="content-section">
-      <nz-card class="chart-card" [nzTitle]="'Department Distribution'">
-        <div class="chart-container">
-          <!-- Add department chart here -->
-          <canvas id="departmentChart"></canvas>
+  <!-- Main Content Section -->
+  <div class="hr-main-content">
+    <!-- Recent HR Activity -->
+    <div class="activity-section">
+      <div class="section-header">
+        <h3>Recent HR Activity</h3>
+        <a class="view-all-link">View All</a>
+      </div>
+
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-info">
+            <h4 class="activity-title">New Employee Onboarded</h4>
+            <p class="activity-description">
+              Sarah Johnson - Software Developer
+            </p>
+          </div>
+          <div class="activity-details">
+            <div class="activity-amount income">Onboarded</div>
+            <div class="activity-date">2 hours ago</div>
+          </div>
         </div>
-      </nz-card>
+
+        <div class="activity-item">
+          <div class="activity-info">
+            <h4 class="activity-title">Performance Review Completed</h4>
+            <p class="activity-description">Michael Chen - Product Manager</p>
+          </div>
+          <div class="activity-details">
+            <div class="activity-amount income">Completed</div>
+            <div class="activity-date">5 hours ago</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-info">
+            <h4 class="activity-title">Leave Request Approved</h4>
+            <p class="activity-description">
+              Emma Davis - Marketing Specialist
+            </p>
+          </div>
+          <div class="activity-details">
+            <div class="activity-amount neutral">Approved</div>
+            <div class="activity-date">1 day ago</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Recent Activities and Employee List -->
-    <div class="content-section grid-2">
-      <!-- Recent Activities -->
-      <nz-card [nzTitle]="'Recent Activities'">
-        <nz-list
-          [nzDataSource]="recentActivities"
-          [nzRenderItem]="activityItem"
-        >
-          <ng-template #activityItem let-item>
-            <nz-list-item>
-              <div class="activity-item">
-                <nz-avatar
-                  [nzIcon]="item.icon"
-                  [ngStyle]="{ 'background-color': item.color }"
-                ></nz-avatar>
-                <div class="activity-details">
-                  <div class="activity-title">{{ item.title }}</div>
-                  <div class="activity-time">{{ item.time }}</div>
-                </div>
-              </div>
-            </nz-list-item>
-          </ng-template>
-        </nz-list>
-      </nz-card>
+    <!-- Quick Actions -->
+    <div class="quick-actions-section">
+      <div class="section-header">
+        <h3>Quick Actions</h3>
+      </div>
 
-      <!-- Upcoming Reviews -->
-      <nz-card [nzTitle]="'Upcoming Reviews'">
-        <nz-table
-          #reviewTable
-          [nzData]="upcomingReviews"
-          [nzShowPagination]="false"
-        >
-          <thead>
-            <tr>
-              <th>Employee</th>
-              <th>Department</th>
-              <th>Review Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let review of reviewTable.data">
-              <td>
-                <div class="employee-info">
-                  <nz-avatar [nzText]="review.employeeInitials"></nz-avatar>
-                  <span>{{ review.employeeName }}</span>
-                </div>
-              </td>
-              <td>{{ review.department }}</td>
-              <td>{{ review.date }}</td>
-              <td>
-                <!-- <nz-tag [nzColor]="review.statusColor">{{
-                  review.status
-                }}</nz-tag> -->
-              </td>
-            </tr>
-          </tbody>
-        </nz-table>
-      </nz-card>
-    </div>
+      <div class="action-buttons">
+        <button class="action-btn">
+          <span class="action-text">Add Employee</span>
+        </button>
 
-    <!-- Recruitment Pipeline -->
-    <div class="content-section">
-      <nz-card [nzTitle]="'Recruitment Pipeline'">
-        <nz-steps [nzCurrent]="1">
-          <nz-step nzTitle="Applications" [nzDescription]="'32 new'"></nz-step>
-          <nz-step
-            nzTitle="Screening"
-            [nzDescription]="'12 candidates'"
-          ></nz-step>
-          <nz-step
-            nzTitle="Interviews"
-            [nzDescription]="'8 scheduled'"
-          ></nz-step>
-          <nz-step nzTitle="Offers" [nzDescription]="'3 pending'"></nz-step>
-        </nz-steps>
-      </nz-card>
+        <button class="action-btn">
+          <span class="action-text">Schedule Interview</span>
+        </button>
+
+        <button class="action-btn">
+          <span class="action-text">Generate Report</span>
+        </button>
+
+        <button class="action-btn">
+          <span class="action-text">Send Announcement</span>
+        </button>
+      </div>
+
+      <!-- Department Overview -->
+      <div class="budget-section">
+        <div class="budget-header">
+          <h4>Department Distribution</h4>
+          <button
+            (click)="fetchDashboardData()"
+            [disabled]=""
+            class="refresh-btn"
+          >
+            Refresh
+          </button>
+        </div>
+        <div class="budget-content">
+          <div class="chart-container" style="margin-bottom: 20px">
+            <canvas id="departmentChart" width="300" height="200"></canvas>
+          </div>
+          <div
+            class="budget-stats"
+            *ngIf="departmentData && departmentData.length > 0"
+          >
+            <div
+              class="budget-spent"
+              *ngFor="let dept of departmentData.slice(0, 2)"
+            >
+              <span class="budget-label">{{ dept.name }}:</span>
+              <span class="budget-amount">{{ dept.count }}</span>
+            </div>
+          </div>
+          <div
+            class="budget-progress"
+            *ngIf="
+              departmentData && departmentData.length > 0 && departmentData[0]
+            "
+          >
+            <nz-progress
+              [nzPercent]="
+                (departmentData[0].count / totalEmployees) * 100 || 0
+              "
+              nzStatus="active"
+              nzStrokeColor="#52c41a"
+            ></nz-progress>
+            <span class="budget-percentage">
+              {{ departmentData[0].name || "Top Department" }}:
+              {{
+                ((departmentData[0].count / totalEmployees) * 100 || 0).toFixed(
+                  1
+                )
+              }}% of total staff
+            </span>
+          </div>
+          <div
+            class="empty-state"
+            *ngIf="!departmentData || departmentData.length === 0"
+          >
+            <p>Loading department data...</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

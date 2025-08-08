@@ -2,7 +2,7 @@
 
 .add-button 
   display: flex
-  justify-content: end
+  justify-content: flex-end
 
 
 .button 
@@ -20,6 +20,37 @@
 .action-button 
   background: transparent
   border: none
+  cursor: pointer
+  padding: 8px
+  border-radius: 4px
+  transition: all 0.2s ease
+
+  &:hover
+    background-color: #f0f0f0
+
+  &.profile
+    color: #1890ff
+    &:hover
+      background-color: #e6f7ff
+      color: #096dd9
+
+  &.view
+    color: #52c41a
+    &:hover
+      background-color: #f6ffed
+      color: #389e0d
+
+  &.edit
+    color: #fa8c16
+    &:hover
+      background-color: #fff7e6
+      color: #d46b08
+
+  &.delete
+    color: #ff4d4f
+    &:hover
+      background-color: #fff2f0
+      color: #cf1322
 
 
 :host ::ng-deep .ant-row 

@@ -1,6 +1,6 @@
 <div class="top-nav">
   <!-- Left Section -->
-  <div class="nav-left">
+  <!-- <div class="nav-left">
     <nz-breadcrumb
       [nzSeparator]="iconTemplate"
       *ngFor="let segment of segments; let i = index"
@@ -9,6 +9,21 @@
         segments[i]
       }}</nz-breadcrumb-item>
     </nz-breadcrumb>
+  </div> -->
+
+  <!-- Center Section - Module Navigation Tabs -->
+  <div class="nav-center">
+    <div class="module-tabs">
+      <button
+        *ngFor="let module of moduleNavigation"
+        [class.active]="module.active"
+        (click)="onModuleClick(module)"
+        class="module-tab"
+      >
+        <div class="module-icon">{{ module.icon }}</div>
+        <span class="module-name">{{ module.name }}</span>
+      </button>
+    </div>
   </div>
 
   <!-- Right Section -->

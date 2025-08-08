@@ -48,10 +48,15 @@ export class DevFlowComponent {
     switch (section) {
       case 'devflow':
         this.sidebarItems = [
-          { id: '', label: 'Dashboard', icon: 'home' },
-          { id: 'permissions', label: 'Permissions', icon: 'permissions' },
-          { id: 'profile', label: 'Profile', icon: 'profile' },
-          { id: 'settings', label: 'Settings', icon: 'settings' },
+          // { id: '', label: 'Dashboard', icon: 'home' },
+          { id: 'permissions', label: 'Role Management', icon: 'permissions' },
+          {
+            id: 'user-management',
+            label: 'User Management',
+            icon: 'user-management',
+          },
+          // { id: 'profile', label: 'Profile', icon: 'profile' },
+          // { id: 'settings', label: 'Settings', icon: 'settings' },
         ];
         break;
       case 'projects':
@@ -147,12 +152,15 @@ export class DevFlowComponent {
         case 'permissions':
           this.router.navigate(['/devflow/permissions']);
           break;
-        case 'profile':
-          this.router.navigate(['/devflow/profile']);
+        case 'user-management':
+          this.router.navigate(['/devflow/user-management']);
           break;
-        case 'settings':
-          this.router.navigate(['/devflow/settings']);
-          break;
+        // case 'profile':
+        //   this.router.navigate(['/devflow/profile']);
+        //   break;
+        // case 'settings':
+        //   this.router.navigate(['/devflow/settings']);
+        //   break;
       }
     } else if (this.urlLink === 'projects') {
       switch (section) {
@@ -299,6 +307,28 @@ export class DevFlowComponent {
 
   onLogout() {
     this.logout.emit();
+  }
+
+  onModuleChange(moduleName: string) {
+    console.log('Module changed to:', moduleName);
+
+    // Navigate to the selected module
+    switch (moduleName.toLowerCase()) {
+      case 'hr':
+        this.router.navigate(['/hr']);
+        break;
+      case 'finance':
+        this.router.navigate(['/finance']);
+        break;
+      case 'project':
+        this.router.navigate(['/projects']);
+        break;
+      case 'crm':
+        this.router.navigate(['/crm']);
+        break;
+      default:
+        console.warn('Unknown module:', moduleName);
+    }
   }
 
   onProfileClick() {

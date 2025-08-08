@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DepartmentService } from 'src/app/_services/hr-services/department.service';
 import { AddNewDepartmentComponent } from './add-new-department/add-new-department.component';
+import { DepartmentProfileComponent } from './department-profile/department-profile.component';
 import { DataService } from 'src/app/_services/shared-data/data.service';
 // import { ViewDepartmentComponent } from './add-new-department/view-department/view-department.component';
 
@@ -56,6 +57,17 @@ export class DepartmentComponent {
       nzFooter: null,
       nzWidth: 800,
       nzClassName: 'view-department',
+    });
+    modal.componentInstance!.data = data;
+  }
+
+  viewDepartmentProfile(data: any) {
+    const modal = this.modalService.create({
+      nzTitle: 'Department Profile',
+      nzContent: DepartmentProfileComponent,
+      nzFooter: null,
+      nzWidth: 700,
+      nzClassName: 'department-profile-modal',
     });
     modal.componentInstance!.data = data;
   }

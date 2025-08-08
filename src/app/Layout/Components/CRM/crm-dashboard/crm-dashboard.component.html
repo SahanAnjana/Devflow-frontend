@@ -1,169 +1,306 @@
-<div class="dashboard-container">
+<div class="crm-dashboard-container">
   <!-- Header Section -->
   <div class="dashboard-header">
     <div class="header-left">
-      <h1>HR Dashboard</h1>
-      <p class="subtitle">Overview and Key Metrics</p>
+      <h1 class="dashboard-title">CRM Overview</h1>
     </div>
     <div class="header-right">
-      <button nz-button nzType="primary">
-        <i nz-icon nzType="plus"></i>Add Employee
+      <button nz-button nzType="primary" (click)="fetchDashboardData()">
+        Refresh
       </button>
     </div>
   </div>
 
-  <!-- Quick Stats Cards -->
-  <div class="stats-container">
-    <nz-card class="stat-card">
-      <div class="stat-content">
-        <div class="stat-icon" style="background: rgba(24, 144, 255, 0.1)">
-          <i nz-icon nzType="team" style="color: #1890ff"></i>
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">Total Employees</p>
-          <h2 class="stat-value">147</h2>
-          <p class="stat-trend up">
-            <i nz-icon nzType="arrow-up"></i> 12% vs last month
-          </p>
-        </div>
+  <!-- CRM KPI Cards -->
+  <div class="crm-kpi-section">
+    <div class="kpi-card pending-activities">
+      <div class="kpi-icon activities-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Pending Activities</p>
+        <h2 class="kpi-value">
+          {{ totalPendingActivities }}
+        </h2>
+        <p class="kpi-trend warning">Requires attention</p>
+        <a class="view-link" (click)="navigateToActivities()">View Details</a>
       </div>
-    </nz-card>
+    </div>
 
-    <nz-card class="stat-card">
-      <div class="stat-content">
-        <div class="stat-icon" style="background: rgba(82, 196, 26, 0.1)">
-          <i nz-icon nzType="user-add" style="color: #52c41a"></i>
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">New Hires</p>
-          <h2 class="stat-value">24</h2>
-          <p class="stat-trend up">
-            <i nz-icon nzType="arrow-up"></i> 8% vs last month
-          </p>
-        </div>
+    <div class="kpi-card total-communications">
+      <div class="kpi-icon communications-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Communications</p>
+        <h2 class="kpi-value">
+          {{ totalCommunications }}
+        </h2>
+        <p class="kpi-trend neutral">All communications</p>
+        <a class="view-link" (click)="navigateToCommunications()"
+          >View Details</a
+        >
       </div>
-    </nz-card>
+    </div>
 
-    <nz-card class="stat-card">
-      <div class="stat-content">
-        <div class="stat-icon" style="background: rgba(250, 173, 20, 0.1)">
-          <i nz-icon nzType="dashboard" style="color: #faad14"></i>
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">Time to Hire</p>
-          <h2 class="stat-value">18 days</h2>
-          <p class="stat-trend down">
-            <i nz-icon nzType="arrow-down"></i> 5% vs last month
-          </p>
-        </div>
+    <div class="kpi-card total-companies">
+      <div class="kpi-icon companies-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Companies</p>
+        <h2 class="kpi-value">
+          {{ totalCompanies }}
+        </h2>
+        <p class="kpi-trend neutral">Active companies</p>
+        <a class="view-link" (click)="navigateToCompanies()">View Details</a>
       </div>
-    </nz-card>
+    </div>
 
-    <nz-card class="stat-card">
-      <div class="stat-content">
-        <div class="stat-icon" style="background: rgba(245, 34, 45, 0.1)">
-          <i nz-icon nzType="interaction" style="color: #f5222d"></i>
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">Turnover Rate</p>
-          <h2 class="stat-value">4.2%</h2>
-          <p class="stat-trend down">
-            <i nz-icon nzType="arrow-down"></i> 2% vs last month
-          </p>
-        </div>
+    <div class="kpi-card total-contacts">
+      <div class="kpi-icon contacts-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Contacts</p>
+        <h2 class="kpi-value">
+          {{ totalContacts }}
+        </h2>
+        <p class="kpi-trend neutral">All contacts</p>
+        <a class="view-link" (click)="navigateToContacts()">View Details</a>
       </div>
-    </nz-card>
+    </div>
+
+    <div class="kpi-card total-contracts">
+      <div class="kpi-icon contracts-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Contracts</p>
+        <h2 class="kpi-value">
+          {{ totalContracts }}
+        </h2>
+        <p class="kpi-trend neutral">All contracts</p>
+        <a class="view-link" (click)="navigateToContracts()">View Details</a>
+      </div>
+    </div>
+
+    <div class="kpi-card total-proposals">
+      <div class="kpi-icon proposals-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Proposals</p>
+        <h2 class="kpi-value">
+          {{ totalProposals }}
+        </h2>
+        <p class="kpi-trend neutral">All proposals</p>
+        <a class="view-link" (click)="navigateToProposals()">View Details</a>
+      </div>
+    </div>
+
+    <div class="kpi-card total-deals">
+      <div class="kpi-icon deals-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Deals</p>
+        <h2 class="kpi-value">
+          {{ totalDeals }}
+        </h2>
+        <p class="kpi-trend neutral">All deals</p>
+        <a class="view-link" (click)="navigateToDeals()">View Details</a>
+      </div>
+    </div>
   </div>
 
-  <!-- Main Content Area -->
-  <div class="main-content">
-    <!-- Department Distribution -->
-    <div class="content-section">
-      <nz-card class="chart-card" [nzTitle]="'Department Distribution'">
-        <div class="chart-container">
-          <!-- Add department chart here -->
-          <canvas id="departmentChart"></canvas>
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div class="chart-card activity-chart">
+      <div class="chart-header">
+        <h3>Activity Status</h3>
+      </div>
+      <div class="chart-content">
+        <canvas id="activityChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card communication-chart">
+      <div class="chart-header">
+        <h3>Communication Direction</h3>
+      </div>
+      <div class="chart-content">
+        <canvas id="communicationChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card contract-chart">
+      <div class="chart-header">
+        <h3>Contract Status</h3>
+      </div>
+      <div class="chart-content">
+        <canvas id="contractChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Details Section -->
+  <div class="details-section">
+    <!-- Activity Details -->
+    <div class="detail-card activity-details">
+      <div class="detail-header">
+        <h3>Activity Breakdown</h3>
+      </div>
+      <div class="detail-content" *ngIf="dashboardData">
+        <div class="stat-row">
+          <span class="stat-label">By Status:</span>
         </div>
-      </nz-card>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_status_activity.pending
+            }}</span>
+            <span class="stat-name">Pending</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_status_activity.completed
+            }}</span>
+            <span class="stat-name">Completed</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_status_activity.cancelled
+            }}</span>
+            <span class="stat-name">Cancelled</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">By Type:</span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_activity.call
+            }}</span>
+            <span class="stat-name">Calls</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_activity.email
+            }}</span>
+            <span class="stat-name">Emails</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_activity.meeting
+            }}</span>
+            <span class="stat-name">Meetings</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_activity.task
+            }}</span>
+            <span class="stat-name">Tasks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_activity.note
+            }}</span>
+            <span class="stat-name">Notes</span>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Recent Activities and Employee List -->
-    <div class="content-section grid-2">
-      <!-- Recent Activities -->
-      <nz-card [nzTitle]="'Recent Activities'">
-        <nz-list
-          [nzDataSource]="recentActivities"
-          [nzRenderItem]="activityItem"
-        >
-          <ng-template #activityItem let-item>
-            <nz-list-item>
-              <div class="activity-item">
-                <nz-avatar
-                  [nzIcon]="item.icon"
-                  [ngStyle]="{ 'background-color': item.color }"
-                ></nz-avatar>
-                <div class="activity-details">
-                  <div class="activity-title">{{ item.title }}</div>
-                  <div class="activity-time">{{ item.time }}</div>
-                </div>
-              </div>
-            </nz-list-item>
-          </ng-template>
-        </nz-list>
-      </nz-card>
-
-      <!-- Upcoming Reviews -->
-      <nz-card [nzTitle]="'Upcoming Reviews'">
-        <nz-table
-          #reviewTable
-          [nzData]="upcomingReviews"
-          [nzShowPagination]="false"
-        >
-          <thead>
-            <tr>
-              <th>Employee</th>
-              <th>Department</th>
-              <th>Review Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let review of reviewTable.data">
-              <td>
-                <div class="employee-info">
-                  <nz-avatar [nzText]="review.employeeInitials"></nz-avatar>
-                  <span>{{ review.employeeName }}</span>
-                </div>
-              </td>
-              <td>{{ review.department }}</td>
-              <td>{{ review.date }}</td>
-              <td>
-                <!-- <nz-tag [nzColor]="review.statusColor">{{
-                  review.status
-                }}</nz-tag> -->
-              </td>
-            </tr>
-          </tbody>
-        </nz-table>
-      </nz-card>
+    <!-- Communication Details -->
+    <div class="detail-card communication-details">
+      <div class="detail-header">
+        <h3>Communication Types</h3>
+      </div>
+      <div class="detail-content" *ngIf="dashboardData">
+        <div class="stat-grid">
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_communication.email
+            }}</span>
+            <span class="stat-name">Email</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_communication.call
+            }}</span>
+            <span class="stat-name">Call</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_communication.meeting
+            }}</span>
+            <span class="stat-name">Meeting</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_communication.chat
+            }}</span>
+            <span class="stat-name">Chat</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{
+              dashboardData.each_type_communication.other
+            }}</span>
+            <span class="stat-name">Other</span>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Recruitment Pipeline -->
-    <div class="content-section">
-      <nz-card [nzTitle]="'Recruitment Pipeline'">
-        <nz-steps [nzCurrent]="1">
-          <nz-step nzTitle="Applications" [nzDescription]="'32 new'"></nz-step>
-          <nz-step
-            nzTitle="Screening"
-            [nzDescription]="'12 candidates'"
-          ></nz-step>
-          <nz-step
-            nzTitle="Interviews"
-            [nzDescription]="'8 scheduled'"
-          ></nz-step>
-          <nz-step nzTitle="Offers" [nzDescription]="'3 pending'"></nz-step>
-        </nz-steps>
-      </nz-card>
+    <!-- Deal Pipeline -->
+    <div class="detail-card deal-pipeline">
+      <div class="detail-header">
+        <h3>Deal Pipeline</h3>
+      </div>
+      <div class="detail-content" *ngIf="dashboardData">
+        <div class="pipeline-stats">
+          <div class="pipeline-item" *ngFor="let stage of getDealStages()">
+            <div class="pipeline-stage">{{ stage.name }}</div>
+            <div class="pipeline-count">{{ stage.count }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Section -->
+  <div class="summary-section">
+    <div class="summary-card">
+      <div class="summary-header">
+        <h3>CRM Summary</h3>
+        <button nz-button nzType="link" (click)="fetchDashboardData()">
+          Refresh Data
+        </button>
+      </div>
+      <div class="summary-content" *ngIf="dashboardData">
+        <div class="summary-stats">
+          <div class="summary-stat">
+            <span class="summary-label">Active Contracts:</span>
+            <span class="summary-value">{{
+              dashboardData.each_status_contracts.active
+            }}</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-label">High Priority Contacts:</span>
+            <span class="summary-value">{{
+              dashboardData.each_tag_contacts["High Priority"] || 0
+            }}</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-label">Draft Proposals:</span>
+            <span class="summary-value">{{
+              dashboardData.each_status_proposals.draft
+            }}</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-label">Deals in Negotiation:</span>
+            <span class="summary-value">{{
+              dashboardData.each_stage_deals.negotiation
+            }}</span>
+          </div>
+        </div>
+        <div class="summary-actions">
+          <button nz-button nzType="primary" (click)="navigateToActivities()">
+            Manage Activities
+          </button>
+          <button nz-button nzType="default" (click)="navigateToDeals()">
+            View Deals
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
