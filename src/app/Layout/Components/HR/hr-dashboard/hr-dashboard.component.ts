@@ -190,4 +190,9 @@ export class HrDashboardComponent implements OnInit, AfterViewInit {
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count);
   }
+
+  // Navigation methods
+  navigateToEmployees(): void {
+    this.router.navigate(['/hr/employees']);
+  }
 }

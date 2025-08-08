@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProjectsService } from 'src/app/_services/pm-services/projects.service';
 import { DataService } from 'src/app/_services/shared-data/data.service';
+import { EventtriggerService } from 'src/app/_services/eventtrigger.service';
 import { ViewProjectComponent } from '../view-project/view-project.component';
 import { EditProjectComponent } from '../edit-project/edit-project.component';
 
@@ -21,11 +22,20 @@ export class PmProjectsComponent {
   constructor(
     public dataService: DataService,
     private projectsService: ProjectsService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private eventTriggerService: EventtriggerService
   ) {}
 
   ngOnInit() {
     this.getAllprojects();
+    
+    // Listen for the event to open add project modal
+    this.eventTriggerService.executeOnchangeFunction.subscribe((event: any) => {
+      if (event === 'openAddProjectModal') {
+        console.log('Opening add project modal from nav trigger');
+        this.addNewProject('create');
+      }
+    });
   }
 
   getAllprojects() {

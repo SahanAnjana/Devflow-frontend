@@ -71,134 +71,208 @@
     </div>
   </div>
 
-  <!-- Main Content Section -->
-  <div class="hr-main-content">
-    <!-- Recent HR Activity -->
-    <div class="activity-section">
-      <div class="section-header">
-        <h3>Recent HR Activity</h3>
-        <a class="view-all-link">View All</a>
-      </div>
-
-      <div class="activity-list">
-        <div class="activity-item">
-          <div class="activity-info">
-            <h4 class="activity-title">New Employee Onboarded</h4>
-            <p class="activity-description">
-              Sarah Johnson - Software Developer
-            </p>
+  <!-- HR Activity Breakdown Section -->
+  <div class="details-section">
+    <div class="detail-card activity-details">
+      <div class="detail-header">
+        <div class="header-left">
+          <div class="header-icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <path d="M20 8v6M23 11h-6"></path>
+            </svg>
           </div>
-          <div class="activity-details">
-            <div class="activity-amount income">Onboarded</div>
-            <div class="activity-date">2 hours ago</div>
-          </div>
+          <h3>HR Activity Breakdown</h3>
         </div>
-
-        <div class="activity-item">
-          <div class="activity-info">
-            <h4 class="activity-title">Performance Review Completed</h4>
-            <p class="activity-description">Michael Chen - Product Manager</p>
-          </div>
-          <div class="activity-details">
-            <div class="activity-amount income">Completed</div>
-            <div class="activity-date">5 hours ago</div>
-          </div>
-        </div>
-
-        <div class="activity-item">
-          <div class="activity-info">
-            <h4 class="activity-title">Leave Request Approved</h4>
-            <p class="activity-description">
-              Emma Davis - Marketing Specialist
-            </p>
-          </div>
-          <div class="activity-details">
-            <div class="activity-amount neutral">Approved</div>
-            <div class="activity-date">1 day ago</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="quick-actions-section">
-      <div class="section-header">
-        <h3>Quick Actions</h3>
-      </div>
-
-      <div class="action-buttons">
-        <button class="action-btn">
-          <span class="action-text">Add Employee</span>
-        </button>
-
-        <button class="action-btn">
-          <span class="action-text">Schedule Interview</span>
-        </button>
-
-        <button class="action-btn">
-          <span class="action-text">Generate Report</span>
-        </button>
-
-        <button class="action-btn">
-          <span class="action-text">Send Announcement</span>
-        </button>
-      </div>
-
-      <!-- Department Overview -->
-      <div class="budget-section">
-        <div class="budget-header">
-          <h4>Department Distribution</h4>
+        <div class="header-right">
           <button
-            (click)="fetchDashboardData()"
-            [disabled]=""
-            class="refresh-btn"
+            nz-button
+            nzType="link"
+            nzSize="small"
+            (click)="navigateToEmployees()"
           >
-            Refresh
+            View All
           </button>
         </div>
-        <div class="budget-content">
-          <div class="chart-container" style="margin-bottom: 20px">
-            <canvas id="departmentChart" width="300" height="200"></canvas>
+      </div>
+      <div class="detail-content">
+        <!-- HR Status Section -->
+        <div class="activity-section">
+          <div class="section-header">
+            <h4 class="section-title">By Status</h4>
+            <div class="section-divider"></div>
           </div>
-          <div
-            class="budget-stats"
-            *ngIf="departmentData && departmentData.length > 0"
-          >
-            <div
-              class="budget-spent"
-              *ngFor="let dept of departmentData.slice(0, 2)"
-            >
-              <span class="budget-label">{{ dept.name }}:</span>
-              <span class="budget-amount">{{ dept.count }}</span>
+          <div class="activity-stats-grid">
+            <div class="activity-stat-card pending">
+              <div class="stat-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12,6 12,12 16,14"></polyline>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number">{{ todayLeaves || 0 }}</span>
+                <span class="stat-label">On Leave</span>
+              </div>
+              <div class="stat-indicator pending-indicator"></div>
+            </div>
+
+            <div class="activity-stat-card completed">
+              <div class="stat-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22,4 12,14.01 9,11.01"></polyline>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number">{{
+                  totalEmployees - (todayLeaves || 0)
+                }}</span>
+                <span class="stat-label">Active</span>
+              </div>
+              <div class="stat-indicator completed-indicator"></div>
+            </div>
+
+            <div class="activity-stat-card in-progress">
+              <div class="stat-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="8.5" cy="7" r="4"></circle>
+                  <path d="M20 8v6M23 11h-6"></path>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number">{{ todayInterviews || 0 }}</span>
+                <span class="stat-label">Interviews</span>
+              </div>
+              <div class="stat-indicator in-progress-indicator"></div>
+            </div>
+
+            <div class="activity-stat-card cancelled">
+              <div class="stat-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="15" y1="9" x2="9" y2="15"></line>
+                  <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number">{{ currentJobPostings || 0 }}</span>
+                <span class="stat-label">Job Openings</span>
+              </div>
+              <div class="stat-indicator cancelled-indicator"></div>
             </div>
           </div>
-          <div
-            class="budget-progress"
-            *ngIf="
-              departmentData && departmentData.length > 0 && departmentData[0]
-            "
-          >
-            <nz-progress
-              [nzPercent]="
-                (departmentData[0].count / totalEmployees) * 100 || 0
-              "
-              nzStatus="active"
-              nzStrokeColor="#52c41a"
-            ></nz-progress>
-            <span class="budget-percentage">
-              {{ departmentData[0].name || "Top Department" }}:
-              {{
-                ((departmentData[0].count / totalEmployees) * 100 || 0).toFixed(
-                  1
-                )
-              }}% of total staff
-            </span>
+        </div>
+
+        <!-- Department Breakdown -->
+        <div class="activity-section">
+          <div class="section-header">
+            <h4 class="section-title">Department Distribution</h4>
+            <div class="section-divider"></div>
           </div>
-          <div
-            class="empty-state"
-            *ngIf="!departmentData || departmentData.length === 0"
-          >
-            <p>Loading department data...</p>
+          <div class="activity-stats-grid">
+            <div
+              class="activity-stat-card department"
+              *ngFor="let dept of departmentData?.slice(0, 4)"
+            >
+              <div class="stat-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M4 21v-2a4 4 0 0 1 3-3.87"></path>
+                  <circle cx="8" cy="7" r="4"></circle>
+                  <circle cx="16" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <span class="stat-number">{{ dept.count || 0 }}</span>
+                <span class="stat-label">{{ dept.name || "Department" }}</span>
+              </div>
+              <div class="stat-indicator department-indicator"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity Timeline -->
+        <div class="activity-section">
+          <div class="section-header">
+            <h4 class="section-title">Recent Activity</h4>
+            <div class="section-divider"></div>
+          </div>
+          <div class="activity-timeline">
+            <div class="timeline-item">
+              <div class="timeline-marker employee"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">New Employee Onboarded</div>
+                <div class="timeline-description">
+                  Sarah Johnson - Software Developer
+                </div>
+                <div class="timeline-time">2 hours ago</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker performance"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">Performance Review Completed</div>
+                <div class="timeline-description">
+                  Michael Chen - Product Manager
+                </div>
+                <div class="timeline-time">5 hours ago</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker leave"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">Leave Request Approved</div>
+                <div class="timeline-description">
+                  Emma Davis - Marketing Specialist
+                </div>
+                <div class="timeline-time">1 day ago</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
