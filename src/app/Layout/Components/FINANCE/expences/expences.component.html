@@ -1,0 +1,153 @@
+<div *ngIf="dataService.hasPermission('expenses:read')">
+  <div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+      <input nz-input placeholder="Search" />
+    </div>
+    <div nz-col [nzSpan]="12" class="add-button">
+      <button
+        class="btn button"
+        *ngIf="dataService.hasPermission('expenses:create')"
+        (click)="addNewExpense()"
+      >
+        Add New Expense
+      </button>
+      <button
+        class="btn button"
+        (click)="refreshExpenses()"
+        [disabled]="loading"
+        style="margin-left: 10px"
+      >
+        {{ loading ? "Loading..." : "Refresh" }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <nz-alert nzType="error" [nzMessage]="error" nzShowIcon></nz-alert>
+  </div>
+
+  <div class="table-container" [class.loading]="loading">
+    <nz-table
+      #expenceTable
+      [nzData]="expences"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+      [nzLoading]="loading"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th>
+            <div class="border-start-th">Description</div>
+          </th>
+          <th>
+            <div class="border-start-th">Amount</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Category</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Expense Date</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Employee ID</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Project ID</div>
+          </th>
+          <th>
+            <div class="border-middle-th">Department ID</div>
+          </th>
+
+          <th>
+            <div class="border-middle-th"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="body_tr">
+        <ng-container *ngIf="expences && expences.length; else noData">
+          <tr *ngFor="let expence of expenceTable.data">
+            <td>
+              <div class="border-middle">{{ expence.description }}</div>
+            </td>
+            <td>
+              <div class="border-middle">
+                {{
+                  expence.amount
+                    | currency : expence.currency : "symbol" : "1.2-2"
+                }}
+              </div>
+            </td>
+            <td>
+              <div class="border-middle">{{ expence.category }}</div>
+            </td>
+            <td>
+              <div class="border-middle">
+                {{ expence.expense_date | date : "short" }}
+              </div>
+            </td>
+            <td>
+              <div class="border-middle">{{ expence.employee_id }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ expence.project_id || "N/A" }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ expence.department_id }}</div>
+            </td>
+
+            <td>
+              <div class="border-middle btn-section">
+                <button
+                  class="action-button edit"
+                  title="Edit"
+                  *ngIf="dataService.hasPermission('expenses:update')"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                    />
+                    <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                  </svg>
+                </button>
+                <button
+                  class="action-button delete"
+                  title="Delete"
+                  *ngIf="dataService.hasPermission('expenses:delete')"
+                  (click)="deleteExpense(expence)"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="3,6 5,6 21,6" />
+                    <path
+                      d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #noData>
+          <tr>
+            <td colspan="9" style="text-align: center">
+              {{ loading ? "Loading expenses..." : "No expenses found." }}
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

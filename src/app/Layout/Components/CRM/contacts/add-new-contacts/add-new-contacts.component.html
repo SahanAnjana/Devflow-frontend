@@ -1,0 +1,89 @@
+<form [formGroup]="addContactForm">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>First Name</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your first name!">
+          <input
+            nz-input
+            formControlName="first_name"
+            id="first_name"
+            placeholder="First Name"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Last Name</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your last name!">
+          <input
+            nz-input
+            formControlName="last_name"
+            placeholder="last_name"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Email</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your email!">
+          <input
+            nz-input
+            formControlName="email"
+            id="email"
+            placeholder="email"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>phone</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your phone!">
+          <input
+            nz-input
+            type="number"
+            formControlName="phone"
+            id="phone"
+            placeholder="phone"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label>Company</nz-form-label>
+        <nz-form-control nzErrorTip="Please select the company!">
+          <nz-select formControlName="company_id">
+            <nz-option
+              *ngFor="let data of allCompanies"
+              [nzValue]="data.id"
+              [nzLabel]="data.name"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button nz-button class="btn" (click)="close()">Cancel</button>
+    <button
+      nz-button
+      class="btn"
+      (click)="index === 'edit' ? UpdateExistingContact() : saveNewContact()"
+    >
+      {{ index === "edit" ? "Update contact" : "Add New Contact" }}
+    </button>
+  </div>
+</form>

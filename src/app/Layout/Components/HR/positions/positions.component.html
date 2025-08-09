@@ -1,0 +1,126 @@
+<div *ngIf="dataService.hasPermission('positions:read')">
+  <div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+      <input nz-input placeholder="Search" />
+    </div>
+
+    <div nz-col [nzSpan]="12" class="add-button">
+      <button
+        class="btn button"
+        (click)="addnewPosition('create')"
+        *ngIf="dataService.hasPermission('positions:create')"
+      >
+        Add new Position
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <nz-table
+      #basicTable
+      [nzData]="allpositions"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th><div class="border-start-th">TITLE</div></th>
+          <th><div class="border-middle-th">DESCRIPTION</div></th>
+          <th>
+            <div class="border-middle-th">MIN SALARY</div>
+          </th>
+          <th><div class="border-start-th">MAX SALARY</div></th>
+          <th><div class="border-middle-th">CREATED DATE</div></th>
+          <th>
+            <div class="border-middle-th">UPDATED DATE</div>
+          </th>
+          <th><div class="border-middle-th"></div></th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let data of basicTable.data">
+          <td>
+            <div class="border-middle">{{ data?.title }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data?.description }}</div>
+          </td>
+          <td>
+            <div class="border-middle">
+              {{ data?.min_salary }}
+            </div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data?.max_salary }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data?.created_at }}</div>
+          </td>
+          <td>
+            <div class="border-middle">{{ data?.updated_at }}</div>
+          </td>
+          <td>
+            <div class="border-middle btn-section">
+              <button
+                class="action-button edit"
+                title="Edit"
+                (click)="editPosition(data, 'edit')"
+                *ngIf="dataService.hasPermission('positions:update')"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  />
+                  <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                </svg>
+              </button>
+              <button
+                class="action-button delete"
+                title="Delete"
+                (click)="deletePosition(data)"
+                *ngIf="dataService.hasPermission('positions:delete')"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="3,6 5,6 21,6" />
+                  <path
+                    d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="pagination-row">
+    <nz-pagination
+      class="pagination"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="currentPageIndex"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      [nzTotal]="totalRecord"
+      nzShowQuickJumper
+      [nzShowTotal]="rangeTemplate"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <span>{{ range[0] }} of {{ total }} items</span>
+    </ng-template>
+  </div>
+</div>

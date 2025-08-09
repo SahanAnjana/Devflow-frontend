@@ -1,0 +1,11 @@
+<div>
+  <nz-tabset [nzSelectedIndex]="0">
+    <nz-tab nzTitle="Details"
+      ><app-edit-project [data]="data"></app-edit-project>
+    </nz-tab>
+    <nz-tab nzTitle="Members"
+      ><app-members-tab [data]="data"></app-members-tab>
+    </nz-tab>
+    <nz-tab nzTitle="Setting"><app-setting></app-setting> </nz-tab>
+  </nz-tabset>
+</div>

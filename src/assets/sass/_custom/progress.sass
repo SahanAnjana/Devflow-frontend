@@ -1,0 +1,50 @@
+@import '../variable'
+@import '../mixin'
+
+.filter-active-details
+    @include media_query_all(190,null,null,null,null,190,"height")
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
+    width: 100%
+    background-color: #fff
+    @include media_query_all(10,null,null,null,null,10,"border-radius")
+    @include media_query_all(20,null,null,null,null,20,"padding-top")
+    @include media_query_all(28,null,null,null,null,28,"padding-bottom")
+
+    .active-details-heading
+        @include media_query_all(12,null,null,null,null,12,"margin-left")
+        @include media_query_all(12.8,null,null,null,null,12.8,"font-size")
+
+    .progress
+        width: 100%
+        display: flex
+        justify-content: center
+        align-items: center
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    .ant-progress-inner
+        @include media_query_all_im(90,null,null,null,null,90,"width")
+        @include media_query_all_im(90,null,null,null,null,90,"height")
+
+    .prograss-bottom
+        width: 100%
+        display: flex
+        flex-direction: row
+        justify-content: space-around
+        @include media_query_all(15,null,null,null,null,15,"margin-top")
+
+        .active
+            @include media_query_all(11,null,null,null,null,11,"gap")
+
+            i
+                @include media_query_all(10,null,null,null,null,10,"font-size")
+                @include media_query_all(11,null,null,null,null,11,"margin-right")
+                filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+            .first-circle
+                color: $primary-color
+
+            .sec-circle
+                color: #C4C4C4
+
+            span
+                @include media_query_all(10.24,null,null,null,null,10.24,"font-size")
+.ant-progress-circle .ant-progress-text
+    @include media_query_all(28,null,null,null,null,20,"font-size")

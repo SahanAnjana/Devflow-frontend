@@ -1,0 +1,49 @@
+.heading-row
+    @include media_query_all(40,null,null,null,null,40,"height")
+    flex-shrink: 0
+    background: transparent
+    text-align: center
+    color: #474642
+
+.data-row
+    @include media_query_all(40,null,null,null,null,40,"height")
+    flex-shrink: 0
+    border-radius: 5px
+    border: 1px solid #474642
+    background: #FFFFFF
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15)
+    text-align: center
+    color: #000
+
+.status
+    display: flex
+    justify-content: center
+    align-items: center
+    // width: 85px
+    // height: 24px
+    border-radius: 5px
+    background: #FE9
+
+.status span
+    display: flex
+    justify-content: center
+    align-items: center
+    font-weight: 500
+
+.table-row
+    display: flex
+    align-items: center
+    margin-top: 9px
+    @include media_query_all(12.8,null,null,null,null,12.8,"font-size")
+    font-style: normal
+    font-weight: 400
+    line-height: normal
+.table-body
+    max-height: 46vh
+    overflow-y: scroll
+    @include media_query_all(13,null,null,null,null,13,"padding-right")
+    &::-webkit-scrollbar
+        width: 10px
+    &::-webkit-scrollbar-thumb
+        border-radius: 5px
+        background: var(--gray-5, #E0E0E0)

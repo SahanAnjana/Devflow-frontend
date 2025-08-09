@@ -1,0 +1,144 @@
+<div nz-row class="title-bar">
+  <div nz-col [nzSpan]="8">
+    <input nz-input placeholder="Search" />
+  </div>
+
+  <div nz-col [nzSpan]="12" class="add-button">
+    <button class="btn button" (click)="addNewTestCase()">
+      Create New Test Case
+    </button>
+  </div>
+</div>
+
+<div class="table-container">
+  <nz-table
+    #testCaseTable
+    [nzData]="allTestCasesList"
+    [nzPageSize]="20"
+    [nzScroll]="{ x: '1300px' }"
+  >
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Priority</th>
+        <th>Issue Type</th>
+        <th>Status</th>
+        <th>Expand</th>
+        <th nzFixed="right" style="width: 150px">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let data of testCaseTable.data">
+        <tr>
+          <td>{{ data?.title }}</td>
+          <td>{{ data?.description }}</td>
+          <td>{{ data?.priority }}</td>
+          <td>{{ data?.category }}</td>
+          <td>{{ data?.status }}</td>
+          <td>
+            <a (click)="data.expand = !data.expand">
+              {{ data.expand ? "Hide Steps" : "Show Steps" }}
+            </a>
+          </td>
+          <td
+            nzRight
+            nzFixed="right"
+            class="btn-section"
+            style="text-align: center; margin-top: 28px"
+          >
+            <div class="border-middle btn-section">
+              <button
+                class="action-button view"
+                title="View"
+                (click)="viewTestCase(data)"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </button>
+              <button
+                class="action-button edit"
+                title="Edit"
+                (click)="editTestCase(data)"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  />
+                  <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                </svg>
+              </button>
+              <button
+                class="action-button delete"
+                title="Delete"
+                (click)="deleteTestCase(data.id)"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="3,6 5,6 21,6" />
+                  <path
+                    d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Expanded row -->
+        <tr *ngIf="data.expand">
+          <td colspan="6">
+            <div class="steps-container">
+              <h4>Steps</h4>
+              <ul>
+                <li *ngFor="let step of data.steps">
+                  <strong>{{ step.step }}:</strong> {{ step.description }}
+                </li>
+              </ul>
+              <p>
+                <strong>Expected Results:</strong> {{ data?.expected_results }}
+              </p>
+            </div>
+          </td>
+          <td nzFixed="right" style="background: #fff"></td>
+          <!-- Empty cell to preserve structure -->
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+
+  <ng-template #renderSteps let-item>
+    <div class="steps-container">
+      <h4>Steps</h4>
+      <ul>
+        <li *ngFor="let step of item?.steps">
+          <strong>{{ step?.step }}:</strong> {{ step?.description }}
+        </li>
+      </ul>
+      <p><strong>Expected Results:</strong> {{ item?.expected_results }}</p>
+    </div>
+  </ng-template>
+</div>

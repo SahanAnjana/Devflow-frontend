@@ -1,0 +1,182 @@
+<div class="form-container">
+  <form [formGroup]="testCaseForm" (ngSubmit)="submitForm()">
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Title <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="name"
+              class="modal-input"
+              placeholder="Enter test case name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Description <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="type"
+              class="modal-input"
+              placeholder="Enter test case name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Steps <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <div
+              *ngFor="let step of steps.controls; let i = index"
+              [formGroupName]="i"
+              class="step-group"
+            >
+              <div style="display: flex; gap: 10px; align-items: center">
+                <label>Step{{ i + 1 }}</label>
+                <input
+                  formControlName="step"
+                  placeholder="Step title"
+                  class="step-input"
+                />
+              </div>
+
+              <textarea
+                formControlName="description"
+                placeholder="Step description"
+                class="steps-textarea"
+              ></textarea>
+              <div style="display: flex; justify-content: space-between">
+                <button class="btn btn__cancel" (click)="removeStep(i)">
+                  Remove
+                </button>
+                <button class="btn btn__cancel" (click)="addStep()">
+                  Add Step
+                </button>
+              </div>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>
+            Category <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="category"
+              class="modal-input"
+              placeholder="category"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>
+            Priority <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="priority"
+              class="modal-input"
+              placeholder="category"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="24" nzMd="24">
+        <nz-form-item>
+          <nz-form-label>
+            status <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              rows="4"
+              nz-input
+              formControlName="status"
+              class="modal-input"
+              placeholder="Enter test case status"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="24" nzXs="24" nzSm="24" nzMd="24">
+        <nz-form-item>
+          <nz-form-label>
+            Expected results <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <textarea
+              rows="4"
+              nz-input
+              formControlName="expectedResults"
+              class="modal-input"
+              placeholder="Enter test case expectedResults"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="24" nzXs="24" nzSm="24" nzMd="24">
+        <nz-form-item>
+          <nz-form-label> Preconditions </nz-form-label>
+          <nz-form-control>
+            <textarea
+              rows="3"
+              nz-input
+              formControlName="preconditions"
+              class="modal-input"
+              placeholder="Enter preconditions (if any)"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <button
+        nz-col
+        nzLg="6"
+        nzXs="6"
+        nzSm="6"
+        nzMd="6"
+        nz-button
+        class="btn btn__cancel"
+        type="submit"
+      >
+        {{ isEdit ? "Update" : "Create" }}
+      </button>
+      <button
+        nz-col
+        nzLg="6"
+        nzXs="6"
+        nzSm="6"
+        nzMd="6"
+        nz-button
+        (click)="cancel()"
+        style="margin-left: 10px"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

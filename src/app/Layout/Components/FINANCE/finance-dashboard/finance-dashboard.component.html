@@ -1,0 +1,177 @@
+<div class="finance-dashboard-container">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <div class="header-left">
+      <h1 class="dashboard-title">Finance Overview</h1>
+    </div>
+  </div>
+
+  <!-- Finance KPI Cards -->
+  <div class="finance-kpi-section">
+    <div class="kpi-card total-invoices">
+      <div class="kpi-icon invoices-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Invoices</p>
+        <h2 class="kpi-value">
+          {{ totalInvoices }}
+        </h2>
+        <p class="kpi-trend neutral">All invoices</p>
+        <a class="view-link" (click)="navigateToInvoices()">View Details</a>
+      </div>
+    </div>
+
+    <div class="kpi-card total-expenses">
+      <div class="kpi-icon expenses-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Expenses</p>
+        <h2 class="kpi-value">
+          {{ totalExpenses }}
+        </h2>
+        <p class="kpi-trend neutral">All expenses</p>
+        <a class="view-link" (click)="navigateToExpenses()">View Details</a>
+      </div>
+    </div>
+
+    <div class="kpi-card total-budgets">
+      <div class="kpi-icon budgets-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Budgets</p>
+        <h2 class="kpi-value">
+          {{ totalBudgets }}
+        </h2>
+        <p class="kpi-trend neutral">Active budgets</p>
+        <a class="view-link" (click)="navigateToBudgets()">View Details</a>
+      </div>
+    </div>
+
+    <div class="kpi-card total-transactions">
+      <div class="kpi-icon transactions-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Transactions</p>
+        <h2 class="kpi-value">
+          {{ totalTransactions }}
+        </h2>
+        <p class="kpi-trend neutral">All transactions</p>
+        <a class="view-link" (click)="navigateToTransactions()">View Details</a>
+      </div>
+    </div>
+
+    <div class="kpi-card total-accounts">
+      <div class="kpi-icon accounts-icon"></div>
+      <div class="kpi-content">
+        <p class="kpi-label">Total Accounts</p>
+        <h2 class="kpi-value">
+          {{ totalAccounts }}
+        </h2>
+        <p class="kpi-trend neutral">Active accounts</p>
+        <a class="view-link" (click)="navigateToAccounts()">View Details</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Section -->
+  <!-- <div class="finance-main-content">
+    <div class="activity-section">
+      <div class="section-header">
+        <h3>Recent Financial Activity</h3>
+        <a class="view-all-link" (click)="viewAllActivities()">View All</a>
+      </div>
+
+      <div
+        class="activity-list"
+        *ngIf="!loadingActivities; else loadingActivitiesTemplate"
+      >
+        <div
+          class="activity-item"
+          *ngFor="let activity of recentFinancialActivities"
+        >
+          <div class="activity-info">
+            <h4 class="activity-title">{{ activity.title }}</h4>
+            <p class="activity-description">{{ activity.description }}</p>
+          </div>
+          <div class="activity-details">
+            <div class="activity-amount" [class]="activity.type">
+              <span *ngIf="activity.type === 'income'">+</span>
+              <span *ngIf="activity.type === 'expense'">-</span>
+              ${{ activity.amount | number : "1.2-2" }}
+            </div>
+            <div class="activity-date">{{ activity.date }}</div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #loadingActivitiesTemplate>
+        <div class="loading-container">
+          <nz-spin nzSize="large"></nz-spin>
+        </div>
+      </ng-template>
+    </div>
+
+   
+    <div class="quick-actions-section">
+      <div class="section-header">
+        <h3>Quick Actions</h3>
+      </div>
+
+      <div class="action-buttons">
+        <button class="action-btn" (click)="addNewExpense()">
+          <span class="action-text">Add New Expense</span>
+        </button>
+
+        <button class="action-btn" (click)="createNewInvoice()">
+          <span class="action-text">Create New Invoice</span>
+        </button>
+
+        <button class="action-btn" (click)="recordPayment()">
+          <span class="action-text">Record Payment</span>
+        </button>
+
+        <button class="action-btn" (click)="generateReport()">
+          <span class="action-text">Generate Report</span>
+        </button>
+      </div>
+
+    
+      <div class="budget-section">
+        <div class="budget-header">
+          <h4>Finance Summary</h4>
+          <button
+            (click)="fetchDashboardData()"
+            [disabled]=""
+            class="refresh-btn"
+          >
+            Refresh
+          </button>
+        </div>
+        <div class="budget-content">
+          <div class="budget-stats">
+            <div class="budget-spent">
+              <span class="budget-label">Invoices:</span>
+              <span class="budget-amount">{{ totalInvoices }}</span>
+            </div>
+            <div class="budget-total">
+              <span class="budget-label">Expenses:</span>
+              <span class="budget-amount">{{ totalExpenses }}</span>
+            </div>
+          </div>
+          <div class="budget-progress">
+            <nz-progress
+              [nzPercent]="
+                totalBudgets > 0
+                  ? (totalTransactions / (totalBudgets * 10)) * 100
+                  : 0
+              "
+              nzStatus="active"
+              nzStrokeColor="#52c41a"
+            >
+            </nz-progress>
+            <span class="budget-percentage">
+              Transactions: {{ totalTransactions }} | Accounts:
+              {{ totalAccounts }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>

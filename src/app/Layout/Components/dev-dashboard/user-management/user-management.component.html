@@ -1,0 +1,719 @@
+<div>
+  <!-- Error Display -->
+  <div *ngIf="error" class="error-banner">
+    <nz-alert nzType="error" [nzMessage]="error" nzShowIcon nzCloseable>
+    </nz-alert>
+  </div>
+
+  <!-- Title Bar with Search and Add Button -->
+  <div nz-row class="title-bar">
+    <div nz-col [nzSpan]="8">
+      <!-- <input
+        nz-input
+        placeholder="Search users..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        class="search-input"
+      /> -->
+    </div>
+
+    <div nz-col [nzSpan]="12" class="add-button">
+      <!-- <button
+        class="btn button refresh-btn"
+        (click)="refreshUsers()"
+        title="Refresh Users"
+      >
+        Refresh
+      </button> -->
+      <button class="btn button" (click)="showAddUserModal()">
+        Add New User
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <nz-spin nzSize="large" nzTip="Loading users data...">
+      <div class="loading-content"></div>
+    </nz-spin>
+  </div>
+
+  <!-- Main Table -->
+  <div class="table-container" *ngIf="!isLoading">
+    <nz-table
+      #basicTable
+      [nzData]="filteredUsers"
+      [nzPageSize]="50"
+      [nzShowPagination]="false"
+      [nzScroll]="{ x: '1200px' }"
+    >
+      <thead>
+        <tr class="heading_tr">
+          <th><div class="border-start-th">FIRST NAME</div></th>
+          <th><div class="border-middle-th">LAST NAME</div></th>
+          <th><div class="border-middle-th">USERNAME</div></th>
+          <th><div class="border-middle-th">EMAIL</div></th>
+          <th><div class="border-middle-th">ROLE</div></th>
+          <th><div class="border-middle-th">DEPARTMENT</div></th>
+          <th><div class="border-middle-th">STATUS</div></th>
+          <th><div class="border-middle-th">LAST LOGIN</div></th>
+          <th><div class="border-middle-th">PHONE</div></th>
+          <th><div class="border-middle-th">ACTIONS</div></th>
+        </tr>
+      </thead>
+
+      <tbody class="body_tr">
+        <tr *ngFor="let user of basicTable.data; trackBy: trackByUser">
+          <!-- First Name -->
+          <td>
+            <div class="border-middle">{{ user.firstName || "N/A" }}</div>
+          </td>
+
+          <!-- Last Name -->
+          <td>
+            <div class="border-middle">{{ user.lastName || "N/A" }}</div>
+          </td>
+
+          <!-- Username -->
+          <td>
+            <div class="border-middle">
+              <span class="username">{{ user.username || "N/A" }}</span>
+            </div>
+          </td>
+
+          <!-- Email -->
+          <td>
+            <div class="border-middle">
+              <span class="email">{{ user.email }}</span>
+            </div>
+          </td>
+
+          <!-- Role -->
+          <td>
+            <div class="border-middle">
+              <span
+                class="role-badge"
+                [ngClass]="'role-' + user.role.toLowerCase().replace(' ', '-')"
+              >
+                {{ user.role }}
+              </span>
+            </div>
+          </td>
+
+          <!-- Department -->
+          <td>
+            <div class="border-middle">{{ user.department || "N/A" }}</div>
+          </td>
+
+          <!-- Status -->
+          <td>
+            <div class="border-middle">
+              <span
+                class="status-badge"
+                [ngClass]="getUserStatusClass(user.status)"
+                [style.background-color]="getUserStatusColor(user.status)"
+              >
+                {{ user.status | titlecase }}
+              </span>
+            </div>
+          </td>
+
+          <!-- Last Login -->
+          <td>
+            <div class="border-middle">
+              <span class="last-login">{{
+                formatDateTime(user.lastLogin || "N/A")
+              }}</span>
+            </div>
+          </td>
+
+          <!-- Phone -->
+          <td>
+            <div class="border-middle">{{ user.phone || "N/A" }}</div>
+          </td>
+
+          <!-- Actions -->
+          <td>
+            <div class="border-middle btn-section">
+              <!-- View Button -->
+              <button
+                class="action-button view"
+                title="View User Details"
+                (click)="viewUser(user)"
+                [disabled]="isLoading"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </button>
+
+              <!-- Edit Button -->
+              <button
+                class="action-button edit"
+                title="Edit User"
+                (click)="editUser(user, 'edit')"
+                [disabled]="isLoading"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  />
+                  <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                </svg>
+              </button>
+
+              <!-- Activate/Deactivate Button -->
+              <button
+                *ngIf="user.status === 'inactive'"
+                class="action-button activate"
+                title="Activate User"
+                (click)="activateUser(user.id)"
+                [disabled]="isLoading"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M9 12l2 2 4-4" />
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+              </button>
+
+              <button
+                *ngIf="user.status === 'active'"
+                class="action-button deactivate"
+                title="Deactivate User"
+                (click)="deactivateUser(user.id)"
+                [disabled]="isLoading"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="15" y1="9" x2="9" y2="15" />
+                  <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+              </button>
+
+              <!-- Delete Button -->
+              <button
+                class="action-button delete"
+                title="Delete User"
+                (click)="deleteUser(user.id)"
+                [disabled]="isLoading"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="3,6 5,6 21,6" />
+                  <path
+                    d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"
+                  />
+                  <line x1="10" y1="11" x2="10" y2="17" />
+                  <line x1="14" y1="11" x2="14" y2="17" />
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredUsers.length === 0 && !isLoading" class="empty-state">
+      <nz-empty
+        nzNotFoundImage="simple"
+        [nzNotFoundContent]="
+          searchTerm
+            ? 'No users found matching your search'
+            : 'No users available'
+        "
+      >
+        <button
+          *ngIf="!searchTerm"
+          nz-button
+          nzType="primary"
+          (click)="showAddUserModal()"
+        >
+          Add First User
+        </button>
+        <button
+          *ngIf="searchTerm"
+          nz-button
+          nzType="default"
+          (click)="searchTerm = ''; onSearch()"
+        >
+          Clear Search
+        </button>
+      </nz-empty>
+    </div>
+  </div>
+</div>
+
+<!-- No Permission State -->
+<div *ngIf="!hasPermission('users:read')" class="no-permission">
+  <!-- <nz-result
+    nzStatus="403"
+    nzTitle="Access Denied"
+    nzSubTitle="You don't have permission to view user management data."
+  >
+  </nz-result> -->
+</div>
+
+<!-- Add User Modal -->
+<nz-modal
+  [(nzVisible)]="isAddUserModalVisible"
+  nzTitle="Add New User"
+  [nzOkText]="'Add User'"
+  [nzCancelText]="'Cancel'"
+  [nzOkLoading]="modalLoading"
+  (nzOnCancel)="hideAddUserModal()"
+  (nzOnOk)="submitAddUser()"
+  nzWidth="600px"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="addUserForm" nzLayout="vertical">
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>First Name</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(addUserForm, 'firstName')"
+              [nzValidateStatus]="
+                isFieldInvalid(addUserForm, 'firstName') ? 'error' : ''
+              "
+            >
+              <input
+                nz-input
+                formControlName="firstName"
+                placeholder="Enter first name"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Last Name</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(addUserForm, 'lastName')"
+              [nzValidateStatus]="
+                isFieldInvalid(addUserForm, 'lastName') ? 'error' : ''
+              "
+            >
+              <input
+                nz-input
+                formControlName="lastName"
+                placeholder="Enter last name"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Email</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(addUserForm, 'email')"
+              [nzValidateStatus]="
+                isFieldInvalid(addUserForm, 'email') ? 'error' : ''
+              "
+            >
+              <input
+                nz-input
+                formControlName="email"
+                placeholder="Enter email address"
+                type="email"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label>Phone</nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                formControlName="phone"
+                placeholder="Enter phone number"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Role</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(addUserForm, 'role')"
+              [nzValidateStatus]="
+                isFieldInvalid(addUserForm, 'role') ? 'error' : ''
+              "
+            >
+              <nz-select formControlName="role" nzPlaceHolder="Select role">
+                <nz-option
+                  *ngFor="let role of availableRoles"
+                  [nzValue]="role"
+                  [nzLabel]="role"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Department</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(addUserForm, 'department')"
+              [nzValidateStatus]="
+                isFieldInvalid(addUserForm, 'department') ? 'error' : ''
+              "
+            >
+              <nz-select
+                formControlName="department"
+                nzPlaceHolder="Select department"
+              >
+                <nz-option
+                  *ngFor="let dept of availableDepartments"
+                  [nzValue]="dept"
+                  [nzLabel]="dept"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Status</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(addUserForm, 'status')"
+              [nzValidateStatus]="
+                isFieldInvalid(addUserForm, 'status') ? 'error' : ''
+              "
+            >
+              <nz-select formControlName="status" nzPlaceHolder="Select status">
+                <nz-option nzValue="active" nzLabel="Active"></nz-option>
+                <nz-option nzValue="inactive" nzLabel="Inactive"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</nz-modal>
+
+<!-- Edit User Modal -->
+<nz-modal
+  [(nzVisible)]="isEditUserModalVisible"
+  nzTitle="Edit User"
+  [nzOkText]="'Update User'"
+  [nzCancelText]="'Cancel'"
+  [nzOkLoading]="modalLoading"
+  (nzOnCancel)="hideEditUserModal()"
+  (nzOnOk)="submitEditUser()"
+  nzWidth="600px"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="editUserForm" nzLayout="vertical">
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>First Name</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(editUserForm, 'firstName')"
+              [nzValidateStatus]="
+                isFieldInvalid(editUserForm, 'firstName') ? 'error' : ''
+              "
+            >
+              <input
+                nz-input
+                formControlName="firstName"
+                placeholder="Enter first name"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Last Name</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(editUserForm, 'lastName')"
+              [nzValidateStatus]="
+                isFieldInvalid(editUserForm, 'lastName') ? 'error' : ''
+              "
+            >
+              <input
+                nz-input
+                formControlName="lastName"
+                placeholder="Enter last name"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Email</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(editUserForm, 'email')"
+              [nzValidateStatus]="
+                isFieldInvalid(editUserForm, 'email') ? 'error' : ''
+              "
+            >
+              <input
+                nz-input
+                formControlName="email"
+                placeholder="Enter email address"
+                type="email"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label>Phone</nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                formControlName="phone"
+                placeholder="Enter phone number"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Role</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(editUserForm, 'role')"
+              [nzValidateStatus]="
+                isFieldInvalid(editUserForm, 'role') ? 'error' : ''
+              "
+            >
+              <nz-select formControlName="role" nzPlaceHolder="Select role">
+                <nz-option
+                  *ngFor="let role of availableRoles"
+                  [nzValue]="role"
+                  [nzLabel]="role"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Department</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(editUserForm, 'department')"
+              [nzValidateStatus]="
+                isFieldInvalid(editUserForm, 'department') ? 'error' : ''
+              "
+            >
+              <nz-select
+                formControlName="department"
+                nzPlaceHolder="Select department"
+              >
+                <nz-option
+                  *ngFor="let dept of availableDepartments"
+                  [nzValue]="dept"
+                  [nzLabel]="dept"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Status</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getFieldError(editUserForm, 'status')"
+              [nzValidateStatus]="
+                isFieldInvalid(editUserForm, 'status') ? 'error' : ''
+              "
+            >
+              <nz-select formControlName="status" nzPlaceHolder="Select status">
+                <nz-option nzValue="active" nzLabel="Active"></nz-option>
+                <nz-option nzValue="inactive" nzLabel="Inactive"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</nz-modal>
+
+<!-- View User Modal -->
+<nz-modal
+  [(nzVisible)]="isViewUserModalVisible"
+  [nzTitle]="
+    'View & Update User: ' +
+    (selectedUser?.firstName || selectedUser?.email || 'User')
+  "
+  [nzOkText]="'Update User'"
+  [nzCancelText]="'Close'"
+  [nzOkLoading]="modalLoading"
+  (nzOnCancel)="hideViewUserModal()"
+  (nzOnOk)="submitUpdateUser()"
+  nzWidth="600px"
+>
+  <ng-container *nzModalContent>
+    <div *ngIf="selectedUserDetails" class="user-details-section">
+      <!-- User Info Display -->
+      <div class="user-info-header">
+        <h4>User Information</h4>
+        <div class="user-meta">
+          <p><strong>User ID:</strong> {{ selectedUserDetails.id }}</p>
+          <p>
+            <strong>Created:</strong>
+            {{ formatDateTime(selectedUserDetails.created_at) }}
+          </p>
+          <p>
+            <strong>Last Updated:</strong>
+            {{ formatDateTime(selectedUserDetails.updated_at) }}
+          </p>
+        </div>
+      </div>
+
+      <nz-divider></nz-divider>
+
+      <!-- Editable Form -->
+      <form nz-form [formGroup]="viewUserForm" nzLayout="vertical">
+        <div nz-row [nzGutter]="16">
+          <div nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-label nzRequired>Email</nz-form-label>
+              <nz-form-control
+                [nzErrorTip]="getFieldError(viewUserForm, 'email')"
+                [nzValidateStatus]="
+                  isFieldInvalid(viewUserForm, 'email') ? 'error' : ''
+                "
+              >
+                <input
+                  nz-input
+                  formControlName="email"
+                  placeholder="Enter email address"
+                  type="email"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+
+        <div nz-row [nzGutter]="16">
+          <div nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label nzRequired>Role</nz-form-label>
+              <nz-form-control
+                [nzErrorTip]="getFieldError(viewUserForm, 'role')"
+                [nzValidateStatus]="
+                  isFieldInvalid(viewUserForm, 'role') ? 'error' : ''
+                "
+              >
+                <nz-select formControlName="role" nzPlaceHolder="Select role">
+                  <nz-option
+                    *ngFor="let role of availableRoles"
+                    [nzValue]="role"
+                    [nzLabel]="role"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label nzRequired>Status</nz-form-label>
+              <nz-form-control
+                [nzErrorTip]="getFieldError(viewUserForm, 'is_active')"
+                [nzValidateStatus]="
+                  isFieldInvalid(viewUserForm, 'is_active') ? 'error' : ''
+                "
+              >
+                <nz-select
+                  formControlName="is_active"
+                  nzPlaceHolder="Select status"
+                >
+                  <nz-option [nzValue]="true" nzLabel="Active"></nz-option>
+                  <nz-option [nzValue]="false" nzLabel="Inactive"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-label>New Password</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzExtra="Leave empty if you don't want to change the password"
+              >
+                <input
+                  nz-input
+                  formControlName="password"
+                  placeholder="Leave empty to keep current password"
+                  type="password"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Loading State -->
+    <div
+      *ngIf="modalLoading && !selectedUserDetails"
+      class="loading-user-details"
+    >
+      <nz-spin nzSize="large" nzTip="Loading user details...">
+        <div style="height: 200px"></div>
+      </nz-spin>
+    </div>
+  </ng-container>
+</nz-modal>

@@ -1,0 +1,138 @@
+<form [formGroup]="addLeaveForm" class="modal-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'name'">Leave Type</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the title!">
+          <nz-select
+            formControlName="leave_type"
+            id="name"
+            nzPlaceHolder="Leave Type"
+            (ngModelChange)="onLeaveTypeChange($event)"
+          >
+            <nz-option
+              *ngFor="let data of leavesTypes"
+              [nzValue]="data.name"
+              [nzLabel]="data.name"
+            >
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-control
+          nzErrorTip="Please input leave type!"
+          *ngIf="otherField"
+        >
+          <input
+            nz-input
+            formControlName="otherLeave"
+            id="name"
+            placeholder="other leave"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'manager_id'">Reason</nz-form-label>
+        <nz-form-control nzErrorTip="Please input reason!">
+          <input
+            nz-input
+            formControlName="reason"
+            id="name"
+            placeholder="enter your reason"
+            class="modal-input"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">Start Date</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the start date!">
+          <nz-date-picker
+            formControlName="start_date"
+            class="modal-input"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">End Date</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the end date!">
+          <nz-date-picker
+            formControlName="end_date"
+            class="modal-input"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">Employee</nz-form-label>
+        <nz-form-control nzErrorTip="Please select the employee!">
+          <nz-select formControlName="employee" nzPlaceHolder="Employee">
+            <nz-option
+              *ngFor="let data of Employees"
+              [nzValue]="data.id"
+              [nzLabel]="data.name"
+            >
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">Status</nz-form-label>
+        <nz-form-control nzErrorTip="Please select the employee!">
+          <nz-select formControlName="status" nzPlaceHolder="Status">
+            <nz-option
+              *ngFor="let data of Status"
+              [nzValue]="data.id"
+              [nzLabel]="data.name"
+            >
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24" *ngIf="showFields">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">Created date</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the description!">
+          <nz-date-picker
+            formControlName="created_at"
+            class="modal-input"
+            nzDisabled
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzFor]="'description'">Update date</nz-form-label>
+        <nz-form-control nzErrorTip="Please input the description!">
+          <nz-date-picker
+            formControlName="updated_at"
+            class="modal-input"
+            nzDisabled
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="12" class="btn-row">
+      <button nz-button class="btn" (click)="saveNewLeave()">Save</button>
+      <button nz-button class="btn" (click)="close()">Cancel</button>
+    </div>
+  </div>
+</form>

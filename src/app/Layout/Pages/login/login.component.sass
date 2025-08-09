@@ -1,0 +1,129 @@
+@import '../../../../assets/sass/index'
+
+.modal-input
+  border: none!important
+  border-radius: 0!important
+  box-shadow: none!important
+  width: 100%
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.40) !important
+
+.login-main
+  height: 100dvh
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  display: flex
+  align-items: center
+  justify-content: center
+  position: relative
+  z-index: 10
+
+.rightside
+  width: 50%
+  height: 100dvh  
+  background: $white-color
+ 
+.forget-password-link
+  display: flex
+  justify-content: center
+  font-weight: 500 
+  color: white
+  font-size: 12px
+.remember  
+  font-size: 12px
+.center-logo
+  padding: 15px !important
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  h2
+    color: white
+    font-size: 24px
+    font-weight: 700
+  .image
+    display: flex
+    @include media_query_all_im(80,null,null,null,80,96,'height')
+    @include media_query_all_im(227,null,null,null,227,270,'width')
+    flex-direction: column
+    align-items: center
+
+.login-form
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  @include media_query_all(44,null,null,null,null,44,'padding-top')
+  @include media_query_all(44,null,null,null,null,44,'padding-bottom')
+  @include media_query_all(27,null,null,null,null,27,'padding-left')
+  @include media_query_all(27,null,null,null,null,27,'padding-right')
+  border-radius: 5px
+  border-top-left-radius: 0px
+  border-bottom-left-radius: 0px
+  @include media_query_all(400,null,null,null,null,500,'min-height')
+  @include media_query_all(390,null,null,null,null,390,'width')
+  position: relative
+  z-index: 100
+// ::ng-deep .ant-form-item-label > label
+//   color: #fff
+.btn_login
+  border-radius: 5px
+  cursor: pointer
+  width: 100%
+  @include media_query_all_im(50,null,null,null,null,50,'height')
+  gap: 10px
+
+.login-title
+  text-align: center
+  font-weight: 900
+  font-size: 24px
+  color: #000
+
+.form
+  display: flex  
+.right-side
+  background: linear-gradient(135deg, #4057bb 0%, #6e4498 100%)
+  @include media_query_all(400,null,null,null,null,500,'min-height')
+  @include media_query_all(390,null,null,null,null,390,'width')
+  position: relative
+  z-index: 100
+  
+
+.form-group
+  margin-bottom: 15px
+  @include media_query_all_im(15,null,null,null,null,25,'margin')
+  display: flex
+  flex-direction: column
+
+.checkbox
+  display: flex
+  width: 100%
+  justify-content: space-between
+  margin-top: 20px
+
+.remember-me 
+  display: flex
+  gap: 10px
+  align-items: center
+  span
+    color: #fff 
+
+:host ::ng-deep .ant-form-item-control-input
+  min-height: unset
+ 
+
+:host ::ng-deep .ant-form-item-explain
+  @include media_query_all(12,null,null,null,null,12,'font-size')
+
+.input-feild
+  display: flex
+  flex-direction: column
+:host ::ng-deep .ant-form-item
+  display: block
+
+.modal-input
+  border: none
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4) !important
+  border-radius: 0
+  height: 35px
+  @include media_query_all_im(16,null,null,null,null,16,'font-size')
+  &:focus
+    border: none
+
+:host ::ng-deep .ant-input
+  border: none
+  border-color: #fff

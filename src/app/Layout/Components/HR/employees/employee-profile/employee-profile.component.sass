@@ -1,0 +1,169 @@
+.employee-profile-container
+  padding: 24px
+  max-width: 100%
+  min-height: 400px
+
+.profile-header
+  display: flex
+  align-items: flex-start
+  justify-content: space-between
+  margin-bottom: 24px
+
+.profile-avatar-section
+  display: flex
+  align-items: center
+  gap: 16px
+
+.profile-avatar
+  width: 80px
+  height: 80px
+  border-radius: 50%
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 24px
+  font-weight: bold
+  color: white
+  text-transform: uppercase
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15)
+
+.profile-basic-info
+  display: flex
+  flex-direction: column
+  gap: 4px
+
+.employee-name
+  font-size: 24px
+  font-weight: 600
+  color: #262626
+  margin: 0
+
+.employee-position
+  font-size: 16px
+  color: #595959
+  margin: 0
+  font-weight: 500
+
+.employee-department
+  font-size: 14px
+  color: #8c8c8c
+  margin: 0
+
+.profile-status
+  display: flex
+  align-items: center
+
+.status-badge
+  padding: 6px 14px
+  border-radius: 16px
+  font-size: 12px
+  font-weight: 500
+  text-transform: uppercase
+  letter-spacing: 0.5px
+
+  &.status-active
+    background-color: #f6ffed
+    color: #52c41a
+    border: 1px solid #b7eb8f
+
+  &.status-inactive
+    background-color: #fff2e8
+    color: #fa8c16
+    border: 1px solid #ffd591
+
+  &.status-on-leave
+    background-color: #f0f5ff
+    color: #1890ff
+    border: 1px solid #91d5ff
+
+.profile-details
+  display: flex
+  flex-direction: column
+  gap: 24px
+
+.details-section
+  background: #fafafa
+  padding: 20px
+  border-radius: 8px
+  border: 1px solid #f0f0f0
+
+.section-title
+  font-size: 16px
+  font-weight: 600
+  color: #262626
+  margin-bottom: 16px
+  border-bottom: 2px solid #1890ff
+  padding-bottom: 8px
+
+.info-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
+  gap: 16px
+
+.info-item
+  display: flex
+  flex-direction: column
+  gap: 4px
+
+.info-label
+  font-size: 12px
+  font-weight: 500
+  color: #8c8c8c
+  text-transform: uppercase
+  letter-spacing: 0.5px
+
+.info-value
+  font-size: 14px
+  color: #262626
+  font-weight: 400
+
+  &.salary
+    font-weight: 600
+    color: #52c41a
+
+.profile-actions
+  display: flex
+  justify-content: flex-end
+  gap: 12px
+  margin-top: 24px
+  padding-top: 16px
+  border-top: 1px solid #f0f0f0
+
+// Global modal styles
+:host ::ng-deep .employee-profile-modal
+  .ant-modal-content
+    border-radius: 12px
+    overflow: hidden
+
+  .ant-modal-header
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+    color: white
+    border-bottom: none
+    
+    .ant-modal-title
+      color: white
+      font-weight: 600
+
+  .ant-modal-close
+    color: white
+    
+    &:hover
+      color: rgba(255, 255, 255, 0.8)
+
+// Responsive design
+@media (max-width: 768px)
+  .profile-header
+    flex-direction: column
+    gap: 16px
+
+  .profile-avatar-section
+    flex-direction: column
+    text-align: center
+    gap: 12px
+
+  .info-grid
+    grid-template-columns: 1fr
+
+  .employee-profile-container
+    padding: 16px

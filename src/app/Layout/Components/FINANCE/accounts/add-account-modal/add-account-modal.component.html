@@ -1,0 +1,130 @@
+<div class="add-account-modal">
+  <form nz-form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+    <div class="form-content">
+      <!-- First Row -->
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true">Account Number</nz-form-label>
+            <nz-form-control [nzErrorTip]="'Please enter account number'">
+              <input
+                nz-input
+                formControlName="account_number"
+                placeholder="Enter account number"
+                class="form-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true">Account Name</nz-form-label>
+            <nz-form-control [nzErrorTip]="'Please enter account name'">
+              <input
+                nz-input
+                formControlName="name"
+                placeholder="Enter account name"
+                class="form-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <!-- Second Row -->
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true">Currency</nz-form-label>
+            <nz-form-control [nzErrorTip]="'Please select currency'">
+              <nz-select
+                formControlName="currency"
+                nzPlaceHolder="Select currency"
+                class="form-select"
+              >
+                <nz-option nzValue="USD" nzLabel="USD - US Dollar"></nz-option>
+                <nz-option nzValue="EUR" nzLabel="EUR - Euro"></nz-option>
+                <nz-option
+                  nzValue="GBP"
+                  nzLabel="GBP - British Pound"
+                ></nz-option>
+                <nz-option
+                  nzValue="LKR"
+                  nzLabel="LKR - Sri Lankan Rupee"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true">Initial Balance</nz-form-label>
+            <nz-form-control [nzErrorTip]="'Please enter initial balance'">
+              <nz-input-number
+                formControlName="balance"
+                [nzMin]="0"
+                [nzStep]="0.01"
+                nzPlaceHolder="0.00"
+                class="form-input"
+              ></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <!-- Third Row -->
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true">Account Type</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              [nzErrorTip]="'Please select account type'"
+            >
+              <nz-select
+                formControlName="account_type"
+                nzPlaceHolder="Select account type"
+                class="form-select"
+              >
+                <nz-option
+                  nzValue="savings"
+                  nzLabel="Savings Account"
+                ></nz-option>
+                <nz-option
+                  nzValue="checking"
+                  nzLabel="Checking Account"
+                ></nz-option>
+                <nz-option
+                  nzValue="business"
+                  nzLabel="Business Account"
+                ></nz-option>
+                <nz-option
+                  nzValue="investment"
+                  nzLabel="Investment Account"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button nz-button type="button" (click)="onCancel()" class="cancel-btn">
+        Cancel
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [nzLoading]="loading"
+        [disabled]="!accountForm.valid"
+        class="submit-btn"
+      >
+        <i nz-icon nzType="plus" nzTheme="outline"></i>
+        Add Account
+      </button>
+    </div>
+  </form>
+</div>

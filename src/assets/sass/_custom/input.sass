@@ -1,0 +1,58 @@
+@import  '../variable'
+
+.ant-input
+  overflow: visible
+  padding: 4px 11px
+  @include media_query_all(null,null,null,null,null,14,'font-size')
+  border-radius: 3px
+  border: 1px solid $input-border
+.ant-input-affix-wrapper
+  border-radius: 3px
+  border: 0.5px solid rgba(0,0 ,0 ,0.5 )
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover
+  border-color: rgba(0,0 ,0 ,0.5 )
+.ant-input-affix-wrapper-focused, .ant-input-affix-wrapper:focus
+  box-shadow: none
+  
+  @include media_query_all_im(16,null,null,null,null,16,'font-size')
+  border-radius: 5px
+
+.ant-input-affix-wrapper
+
+  border: 1px solid
+.ant-select
+  @include media_query_all(16,null,null,null,null,16,'font-size')
+
+::ng-deep.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled)
+    border: 0.5px solid rgba(0, 0, 0, 0.4) !important
+    @include media_query_all_im(null,null,null,null,null,50,'height')
+    box-shadow: none !important
+
+.ant-input-affix-wrapper:hover
+    border-color: rgba(0, 0, 0, 0.4) !important
+    box-shadow: none !important
+.ant-input-affix-wrapper-disabled
+    @include media_query_all_im(null,null,null,null,null,50,'height')
+
+// .ant-input:hover,
+// .ant-input:focus,
+// .ant-input-focused,
+// .ant-input:focus-visible
+//   border-radius: 5px
+//   border: 1px solid #C4C4C4 
+//   border-width: 1px
+//   box-shadow: none
+
+// .input-with-border
+//   border-radius: 5px $im
+//   border: 1px solid $input-border
+//   color: $input-text-color
+
+//   &:hover, &:focus, &:focus-visible
+//     border: 1px solid #40a9ff
+
+// .ant-select-container
+//   padding: 4px 11px    
+
+// .input
+//   border-radius: 10px    

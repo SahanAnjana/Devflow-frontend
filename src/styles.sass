@@ -1,0 +1,846 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/sass/index'
+
+*
+    font-family: 'Open Sans', sans-serif
+    margin: 0
+    padding: 0
+
+//body style start
+.module-selector
+    display: flex
+    align-items: center
+    @include media_query_all_im(null,null,null,null,null,10,"gap")
+    .dropdown_select
+        @include media_query_all(null,null,null,null,null,557,"width")
+        @include media_query_all(null,null,null,null,null,50,"height")
+        border-radius: 3px
+        background: #fff
+        border-radius: 5px
+
+        &.ant-select:not(.ant-select-customize-input) .ant-select-selector
+            @include media_query_all(null,null,null,null,null,50,"height")
+            border-radius: 5px
+        &.ant-select-single.ant-select-show-arrow .ant-select-selection-item
+            color: #4F4F4F
+            font-style: normal
+            font-weight: 600
+            @include media_query_all(null,null,null,null,null,16,"font-size")
+        &.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector
+            box-shadow: none
+        &.ant-select:not(.ant-select-customize-input) .ant-select-selector
+            border: 0.3px solid #00000033
+    .btn
+        font-style: normal
+        font-weight: 400
+.page-content
+    @include media_query_all(30,null,null,null,null,30,"padding-top")
+
+.content
+    .title-bar
+        h1
+            color: #000
+            @include media_query_all(null,null,null,null,null,32,'font-size')
+            font-weight: 700
+
+    .box
+        display: flex
+        gap: 30px
+        @include media_query_all(30,null,null,null,null,30,'padding-top')
+        .info_box
+            @include media_query_all(135,null,null,null,null,135,'height')
+            @include media_query_all(336,null,null,null,null,336,'width')
+            @include media_query_all(30,null,null,null,null,30,'padding-top')
+            @include media_query_all(50,null,null,null,null,50,'padding-left')
+            @include media_query_all(30,null,null,null,null,30,'padding-bottom')
+            @include media_query_all(50,null,null,null,null,50,'padding-right')
+            background: #f45300
+            border-radius: 6px
+            box-shadow: 0px 4px 4px rgba(0,0,0,0.28)
+            color: #ffff
+            display: flex
+            flex-direction: column
+            justify-content: space-around
+            .info_title
+                @include media_query_all(16,null,null,null,16,16,'font-size')
+                text-transform: uppercase
+                font-weight: 600
+
+            .info_content
+                @include media_query_all(32,null,null,null,32,32,'font-size')
+                text-transform: capitalize
+                font-weight: 600
+        // flex-wrap: wrap
+
+    .ant-input:hover
+        .ant-input:focus,
+        .ant-input-focused
+            border-radius: 5px
+            border: none
+
+    .filter-section
+        display: flex
+        align-items: center
+        justify-content: space-between
+
+    .filter-row
+        border: none
+        display: flex
+        flex-wrap: wrap
+        gap: 10px
+
+    .ant-input
+        // border: none
+        // box-shadow: 0px 1px 2px rgba(0,0,0,0.3)
+        @include media_query_all(30,30,null,null,null,40,'height')
+
+    .ant-input-suffix,.ant-input-affix-wrapper
+        @include media_query_all(16,20,null,null,null,30,'height')
+        //height: 30px
+
+    .ant-dropdown-trigger
+        display: flex
+        align-items: center
+        @include media_query_all(100,180,null,null,null,227,'width')
+        //width: 227px
+        color: rgba(0, 0, 0, 0.50)
+
+    .ant-dropdown-trigger:hover
+        color: rgba(0, 0, 0, 0.50)
+
+    .ant-input:hover
+    .ant-input:focus
+        border-radius: 5px
+        border: none
+
+    .ant-input:focused
+        border: none
+
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector
+        display: flex
+        align-items: center
+        border-radius: 5px
+        @include media_query_all(30,30,null,null,null,40,'height')
+        //height: 40px
+        padding: 1px 11px
+        @include media_query_all(200,250,null,null,null,250,'width')
+        //width: 250px
+        box-shadow: 0px 1px 2px rgba(0,0,0,0.3)
+    .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector
+        @include media_query_all(30,30,null,null,null,40,'height')
+        //height: 40px
+    .filter-inputs
+        @include media_query_all(200,250,null,null,null,250,'width')
+        //width: 250px
+        @include media_query_all(30,30,null,null,null,40,'height')
+        //height: 40px
+        border-radius: 5px
+        box-shadow: 0px 1px 2px rgba(0,0,0,0.3)
+        height: 20px
+    .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector
+        color: black
+
+    .table-content
+        border-radius: 6px 0px 0px 6px
+        // background: #FFF
+
+    .heading-row .table-col
+
+        display: flex
+        padding: 7px
+        @include media_query_all(12,null,null,null,16,16,'font-size')
+        @include media_query_all(68,null,null,null,68,68,'height')
+        font-weight: 600
+        color: #565658
+
+    .table-row
+        background: #ffffff
+        margin-top: 10px
+        display: flex
+        flex-wrap: nowrap
+
+        // gap: 8px
+
+    .heading-row,
+    .data-row
+        display: flex
+        //justify-content: space-between
+        align-items: center
+        @include media_query_all(68,null,null,null,68,68,'height')
+
+    .data-row .table-col
+        @include media_query_all(40,40,null,null,null,50,'height')
+        //height: 50px
+        padding: 7px
+        display: flex
+        align-items: center
+        @include media_query_all(12,null,null,null,16,16,'font-size')
+        //font-size: 12px
+
+        //@include media_query_all(10,null,null,null,10,15,'font-size')
+        font-weight: 400
+        color: #565658
+    .ant-select-borderless .ant-select-selector
+        border-bottom: 1px solid !important
+        width: 100% !important
+        border-radius: 0px !important
+        @include media_query_all(null,null,null,null,null,16,'font-size')
+        font-weight: 600
+    .status
+        color: #F45300
+
+    .pagination-row
+        @include media_query_all(20,20,null,null,null,30,'margin-top')
+        //margin-top: 30px
+
+    .desktop_only
+        @include media_query_all_im(none,null,null,null,block,block,"display")
+    .mobile_only
+        @include media_query_all_im(block,null,null,null,none,none,"display")
+
+.ant-modal-content
+    border-radius: 6px
+
+// Modal Styles Starts
+.ant-modal-header
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+    // @include media_query_all_im(56,null,null,null,null,48,'height')
+    height: 48px
+    border-radius: 5px 5px 0 0
+    .ant-modal-title
+        @include media_query_all_im(null,null,null,null,null,20,'font-size')
+        font-weight: 600
+        color: #ffff
+        height: 100%
+        display: flex
+        align-items: center
+
+.comp_title
+    color: #000
+    font-weight: 700
+    @include media_query_all(32,null,null,null,null,32,'font-size')
+    margin-bottom: 30px
+.title-bar
+    .modal-heading
+        font-weight: 900
+        @include media_query_all_im(20,null,null,null,null,24,"font-size")
+
+.view-modal-agent
+    @include media_query_all(1110,null,null,null,null,1110,'width')
+
+.view-modal-add
+    @include media_query_all(1110,null,null,null,null,1110,'width')
+
+.view-modal-customer
+    @include media_query_all(1110,null,null,null,null,1110,'width')
+
+.ant-form-item
+    display: flex
+    flex-direction: column
+
+.ant-form-item-label
+    text-align: left !important
+.ant-form-item-label>label
+    @include media_query_all(null,null,null,null,null,16,'font-size')
+    @include media_query_all_im(1110,null,null,null,null,1110,'width')
+
+.ant-form-item
+    display: flex
+    flex-direction: column
+
+.ant-form-item-label
+    text-align: left !important
+.ant-form-item-label>label
+    @include media_query_all_im(null,null,null,null,null,16,'font-size')
+.View-modal-delete
+    @include media_query_all_im(null,null,null,null,null,400,'width')
+    .ant-modal-header
+        @include media_query_all_im(null,null,null,null,null,60,'height')
+
+//-------------------------------------------------------------------------------------------------------------//
+.promotion-modal-agent
+    @include media_query_all_im(805,null,null,null,null,805,'width')
+
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+
+//-------------------------------------------------------------------------------------------------------------//
+
+.view-modal-user
+    @include media_query_all_im(805,null,null,null,null,910,'width')
+
+    .ant-modal-header
+        background-color: #F45300
+
+    .ant-modal-title
+        color: #FFF
+
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+
+//-------------------------------------------------------------------------------------------------------------//
+
+.view-approval-pending
+    @include media_query_all_im(805,null,null,null,null,1032,'width')
+
+    .ant-modal-header
+        background-color: #F45300
+
+    .ant-modal-title
+        color: #FFF
+
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+
+//-------------------------------------------------------------------------------------------------------------//
+
+.view-send-email
+    @include media_query_all_im(805,null,null,null,null,720,'width')
+
+    .ant-modal-header
+        background-color: #F45300
+
+    .ant-modal-title
+        color: #FFF
+
+    .angular-editor-textarea
+        min-height: 207px !important
+
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+
+//-------------------------------------------------------------------------------------------------------------//
+
+.update-new-transfer
+    // @include media_query_all_im(805,null,null,null,null,682,'width')
+
+    .ant-modal-header
+        background-color: #F45300
+
+    .ant-modal-title
+        color: #FFF
+
+    .angular-editor-textarea
+        min-height: 207px !important
+
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+
+//-------------------------------------------------------------------------------------------------------------//
+.modal_content
+    padding: 20px
+.agent-privillage-settings
+    @include media_query_all_im(1203,null,null,null,null,1203,'min-width')
+    .ant-table-thead > tr > th
+        padding: 10px
+    .ant-table-tbody > tr > td
+        padding: 10px
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+    .ant-modal-body
+        padding: 0
+    .ant-tabs-top > .ant-tabs-nav
+        background: #F45300
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn
+        color: #FFFFFF
+    .ant-tabs-top>.ant-tabs-nav::before
+        border-bottom: none
+    .ant-tabs-tab-btn
+        color: #FFFFFF
+    .ant-tabs-top > .ant-tabs-nav
+        // @include media_query_all_im(null,null,null,null,null,30,'padding-right')
+        @include media_query_all(null,null,null,null,null,30,'padding-left')
+        border-radius: 5px 5px 0 0
+    .ant-tabs-tab+.ant-tabs-tab
+        @include media_query_all(null,null,null,null,null,16,'margin-left')
+        @include media_query_all(null,null,null,null,null,16,'margin-right')
+    .ant-tabs-ink-bar
+        background: #FFFFFF
+    .ant-tabs>.ant-tabs-nav .ant-tabs-nav-wrap
+        @include media_query_all(null,null,null,null,null,12,'padding')
+    .ant-modal-close-x
+        width: 20px
+        height: 20px
+        .anticon svg
+            vertical-align: 0.875em
+            color: #ffff !important
+
+//-------------------------------------------------------------------------------------------------------------//
+
+.view-modal-privillage
+    @include media_query_all_im(805,null,null,null,null,1254,'width')
+
+    .ant-modal-header
+        background-color: #F45300
+
+    .ant-modal-title
+        color: #FFF
+
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+        font-weight: 600
+
+//-------------------------------------------------------------------------------------------------------------//
+
+//-------------------------------------------------------------------------------------------------------------//
+
+.view-sub-agent
+    @include media_query_all_im(805,null,null,null,null,1195,'width')
+
+    .ant-modal-header
+        background-color: #F45300
+.view-affiliate-modal
+    @include media_query_all_im(805,null,null,null,null,1195,'width')
+
+    .ant-modal-header
+        background-color: #F45300
+
+    .ant-modal-title
+        color: #FFF
+
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+
+//-------------------------------------------------------------------------------------------------------------//
+
+.add-new-role
+    // @include media_query_all_im(805,null,null,null,null,746,'width')
+
+    .ant-modal-header
+        background-color: #F45300
+
+    .ant-modal-title
+        color: #FFF
+
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+
+.view-existing-user
+    @include media_query_all_im(805,null,null,null,null,910,'width')
+
+    .ant-modal-header
+        background-color: #F45300
+
+    .ant-modal-title
+        color: #FFF
+
+    .ant-form-item
+        display: flex
+        flex-direction: column
+
+    .ant-form-item-label
+        text-align: left !important
+    .ant-form-item-label>label
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+
+.ant-form-item-label>label::after
+    content: none
+.p_output
+    @include media_query_all_im(null,null,null,null,null,16,'font-size')
+    font-weight: 400
+.summary
+    @include media_query_all_im(null,null,null,null,null,16,'font-size')
+    font-weight: 600
+    @include media_query_all_im(null,null,null,null,null,20,'padding-bottom')
+
+:host::ng-deep.ant-input
+    border: none
+    font-size: 16px
+    height: 50px
+    border-radius: 0px
+
+.toogle
+    align-items: baseline
+
+//Modal Styles Ends
+
+//Table Design Start
+.body_tr
+    @include media_query_all(16,null,null,null,null,16,'font-size')
+
+.ant-table-body
+    font-weight: 400
+    margin-top: 10px !important
+    @include media_query_all(16,null,null,null,null,16,'font-size')
+
+.ant-table-thead>tr>th
+    border-bottom: none
+    background-color: transparent
+    word-break: keep-all
+    // padding: 0
+    font-weight: 600
+    @include media_query_all(16,null,null,null,null,16,'font-size')
+.heading_tr
+    @include media_query_all(null,null,null,null,null,68,'min-height')
+
+.ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before
+    width: 0
+.ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-left:hover, .ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-right:hover, .ant-table-thead th.ant-table-column-sort
+    background: none
+
+.ant-table-thead th.ant-table-column-has-sorters:hover
+    background: none
+
+.ant-table-column-has-sorters ant-table-cell ng-star-inserted ant-table-column-sort
+    color: black
+
+.ant-table-column-sorter
+    color: black
+    flex: 0.4
+.ant-table-column-sorters
+    align-items: center
+
+.heading_tr
+    background: transparent
+
+    position: relative
+.ant-table-thead
+    background: #FFFFFF
+
+.edit-iimg-icon
+    @include media_query_all(20,null,null,null,null,24,'height')
+    @include media_query_all(20,null,null,null,null,24,'width')
+    //@include res-size(24,width)
+    //@include res-size(24,height)
+    @include img-contain-center
+    cursor: pointer
+.ant-table
+    background: transparent
+
+.ant-table table
+    border-spacing: 0 10px
+
+.ant-table-tbody>tr>td
+    // padding: 0
+    border-bottom: 0
+    padding-bottom: 10px
+    font-weight: 400
+    background: #fff
+
+.ant-table-column-sorters
+    background: #ffff
+
+.ant-table-column-sorter ant-table-column-sorter-full
+    color: black
+.ant-table-column-has-sorters ant-table-cell ng-star-inserted ant-table-column-sort,
+.ant-table-column-has-sorters ant-table-cell ng-star-inserted,
+.ant-table-column-sorters ng-star-inserted
+    color: black !important
+.filter-row2
+    margin-bottom: 10px
+
+// Table Design Ends
+
+// Table Design Ends
+
+//button row
+.btn_row
+    display: flex
+    gap: 10px
+    padding-top: 15px
+    padding-bottom: 10px
+
+// Form Style starts
+
+.form-figure
+    @include media_query_all(12,null,null,null,null,15,'padding-top')
+    .ant-form-item-label>label
+        @include media_query_all_im(16,16,null,null,null,16,'font-size')
+        font-weight: 600
+        @include media_query_all(10,null,null,null,null,10,'padding-bottom')
+    .ant-select-single .ant-select-selector .ant-select-selection-item, .ant-select-single .ant-select-selector .ant-select-selection-placeholder
+        @include media_query_all_im(null,null,null,null,null,16,'font-size')
+    .required-mark
+        color: red
+// madal design
+// //Table design in Modal starts
+.ant-modal
+    // @include media_query_all_im(1203,null,null,null,null,1203,'width')
+.agent-privillage-settings
+    @include media_query_all_im(1203,null,null,null,null,1203,'width')
+    .ant-tabs-content-holder
+        .ant-table
+            margin-top: 10px
+        // .ant-row
+        //     display: flex
+        //     flex-wrap: nowrap
+        //     @include media_query_all(68,null,null,null,null,68,"height")
+        //     margin-bottom: 10px
+        //     background: #fff8f5
+        //     align-content: center
+        //     &:hover
+        //         // background: #fff8f5
+
+        .ant-table-tbody>tr.ant-table-row:hover>td, .ant-table-tbody>tr>td.ant-table-cell-row-hover
+            background: none
+
+        .ant-table-tbody>tr.ant-table-placeholder
+            text-align: center
+            border-radius: 0px 0px 6px 6px
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.1)
+            border-bottom: 1px
+
+    .modal_table
+        .ant-row
+            align-items: center
+        .ant-table-row
+            margin-left: 0px !important
+            margin-right: 0px !important
+        .ant-table-thead
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.1)
+
+    //Table design in modal ends//
+    //input design
+        .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector
+            border: 0.5px solid rgba(0, 0, 0, 0.4)
+            box-shadow: none
+::ng-deep.ant-select:not(.ant-select-customize-input).ant-select-selector
+    border-radius: 3px !important
+    &:hover
+        border: none !important
+
+// Modal Notification Starts
+
+.notification
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)
+        background: #f45300
+        color: #ffff
+        border-color: #f45300
+        text-align: center
+
+    .ant-radio-button-wrapper
+        @include media_query_all_im(35,null,null,null,null,35,"height")
+        @include media_query_all_im(150,null,null,null,null,150,"width")
+        @include media_query_all_im(30,null,null,null,null,30,"margin-right")
+        @include media_query_all_im(50,null,null,null,null,50,"margin-top")
+        @include media_query_all_im(16,null,null,null,null,16,"font-size")
+        @include media_query_all_im(16,null,null,null,null,16,"line-height")
+        justify-content: center
+        display: flex
+        align-items: center
+        border: 1px solid #f45300
+        &:hover
+            color: black
+    .ant-radio-group
+        display: flex
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)
+        &:focus-within
+            box-shadow: none
+
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)
+        &:active
+            border-color: #f45300
+        &:hover
+            border-color: #f45300
+            border: none
+            box-shadow: none
+        &:focus
+            border: none
+        .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before
+            background: none
+    .ant-radio-button-wrapper-checked:not([class*=' ant-radio-button-wrapper-disabled']).ant-radio-button-wrapper:first-child
+        border-color: #f45300
+        justify-content: center
+        box-shadow: none
+    .ant-radio-button-wrapper:not(:first-child)::before
+        display: none
+    .ant-radio-button-wrapper-checked
+        &:hover
+            color: #ffff !important
+.forgot-page
+    @include media_query_all_im(null,null,null,null,null,390,"width")
+    .ant-modal-body
+        padding: 0 !important
+
+.documentation
+    .ant-modal-body
+        padding: 0 !important
+    ::ng-deep.ant-modal-body
+        padding: 0
+    .ant-tabs-content-holder
+        // .ant-table
+        //     margin-top: 10px
+        .ant-table-tbody>tr.ant-table-placeholder
+            text-align: center
+            border-radius: 0px 0px 6px 6px
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.1)
+            border-bottom: 1px
+            display: flex
+            justify-content: center
+            display: contents
+
+    .modal_table
+        .ant-row
+            align-items: center
+        .ant-table-row
+            margin-left: 0px !important
+            margin-right: 0px !important
+    .ant-tabs>.ant-tabs-nav .ant-tabs-nav-wrap, .ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-wrap
+        background: #f45300
+        color: #ffff
+        border-color: #f45300
+        text-align: center
+        padding: 10px
+        border-radius: 5px 5px 0 0
+        @include media_query_all_im(null,null,null,null,null,40,"padding-left")
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn
+        color: #FFFFFF
+    .ant-tabs-ink-bar
+        background: #ffff
+
+    .ant-tabs-tab:hover
+        color: #FFFFFF
+.filter_btn
+    width: 100%
+    background: #ffff
+    border-radius: 5px
+    border: 0.3px rgba(0, 0, 0, 0.5)
+    height: 100%
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
+    @include media_query_all_im(null,null,null,null,null,14,"font-size")
+    color: rgba(0,0,0,0.5)
+    padding-left: 5px
+.filter-txt
+    @include media_query_all_im(null,null,null,null,null,16,"font-size")
+    font-weight: 600
+.tab_heading
+    @include media_query_all_im(null,null,null,null,null,24,"font-size")
+    font-weight: 700
+    padding-top: 15px
+    padding-bottom: 15px
+.send_email
+    @include media_query_all_im(null,null,null,null,null,720,"width")
+    .ant-table-row
+        @include media_query_all_im(null,null,null,null,null,30,"height")
+        @include media_query_all_im(null,null,null,null,null,10,"margin-bottom")
+        // margin-bottom: 10px
+        margin-left: -5px
+        margin-right: -5px
+        background: #fff8f5
+        align-content: center
+
+        &:hover
+            background: #fff8f5
+        .ant-table-tbody>tr.ant-table-row:hover>td, .ant-table-tbody>tr>td.ant-table-cell-row-hover
+            background: none
+
+    .ant-table-thead
+        .ant-row .ant-table-row
+            margin-left: 0px !important
+            margin-right: 0px !important
+    .ant-table-tbody
+        .ant-table-row
+            padding-left: 5px !important
+.radio-group-row
+    .ant-radio-wrapper
+        @include media_query_all_im(null,null,null,null,null,15,"font-size")
+    .radio-group-col
+        display: flex
+        flex-direction: column
+        gap: 5px
+.btn_card
+    @include media_query_all_im(null,null,null,null,null,16,"font-size")
+    font-weight: 600
+
+.heading2
+    @include media_query_all_im(null,null,null,null,null,24,"font-size")
+    font-weight: 700
+.ant-menu-light .ant-menu-item:hover
+    color: #ffff
+.ant-btn
+    &::after
+        box-shadow: none !important
+.ref-select
+    width: 100%
+.date-select,
+.amount-select
+    border-radius: 5px !important
+    gap: 10px
+    @include media_query_all_im(null,null,null,null,null,38,'height')
+    @include media_query_all(null,null,null,null,null,15,'font-size')
+.start-date,
+.card_input
+    border-radius: 5px !important
+    border: 1px solid #C4C4C4
+    @include media_query_all_im(null,null,null,null,null,38,'height')
+    @include media_query_all_im(null,null,null,null,null,15,'font-size')
+.filter_sections
+    display: flex
+    justify-content: flex-start
+    @include media_query_all(null,null,null,null,null,30,'margin-top')
+    @include media_query_all(null,null,null,null,null,30,'margin-bottom')
+    gap: 10px
+
+.filter-txt
+    display: flex
+
+.ant-table-thead > tr > th
+    padding-bottom: 10px
+
+.images
+    @include media_query_all(null,null,null,null,null,25,'height')
+    @include media_query_all(null,null,null,null,null,25,'width')
+
+.ant-dropdown-menu-item:hover
+    background: none
+.ant-menu-title-content
+    width: 100%
+    display: flex
+    justify-content: space-between
+//at

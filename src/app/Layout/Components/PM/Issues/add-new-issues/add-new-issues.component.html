@@ -1,0 +1,191 @@
+<div class="form-container">
+  <form [formGroup]="IssuesForm">
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Title
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="title"
+              class="modal-input"
+              placeholder="title"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Description <span class="required-mark">*</span></nz-form-label
+          >
+          <input
+            nz-input
+            formControlName="description"
+            class="modal-input"
+            placeholder="description"
+          />
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Status
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="status"
+              class="modal-input"
+              placeholder="status"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Priority <span class="required-mark">*</span></nz-form-label
+          >
+          <input
+            nz-input
+            formControlName="priority"
+            class="modal-input"
+            placeholder="priority"
+          />
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Issue Type<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="issue_type"
+              class="modal-input"
+              placeholder="issue type"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Assignee<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              nzShowSearch
+              nzPlaceHolder="assignee"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+              formControlName="assignee"
+              [(ngModel)]="assigneeId"
+            >
+              <nz-option
+                *ngFor="let project of allMembers"
+                [nzValue]="project.id"
+                [nzLabel]="project.name"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Reporter<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              nzShowSearch
+              nzPlaceHolder="reporter"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+              formControlName="reporter"
+              [(ngModel)]="assigneeId"
+            >
+              <nz-option
+                *ngFor="let project of allReporters"
+                [nzValue]="project.id"
+                [nzLabel]="project.name"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Project<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              nzShowSearch
+              nzPlaceHolder="project"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+              formControlName="project"
+              [(ngModel)]="assigneeId"
+            >
+              <nz-option
+                *ngFor="let project of allPeojects"
+                [nzValue]="project.id"
+                [nzLabel]="project.name"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Create date<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-date-picker formControlName="create_date"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Update date<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-date-picker formControlName="update_date"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <button
+        nz-col
+        nzLg="6"
+        nzXs="6"
+        nzSm="6"
+        nzMd="6"
+        nz-button
+        class="btn btn__high_orange"
+        *ngIf="index !== 'view'"
+        (click)="index === 'edit' ? updateIssues() : createNewIssues()"
+      >
+        {{ index === "edit" ? "Update Issue" : "Add Issue" }}
+      </button>
+    </div>
+  </form>
+</div>

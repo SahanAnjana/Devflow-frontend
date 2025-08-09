@@ -1,0 +1,509 @@
+.crm-dashboard-container
+  padding: 20px
+  background: #f5f7fa
+  min-height: 100vh
+
+.dashboard-header
+  margin-bottom: 24px
+
+.dashboard-title
+  font-size: 28px
+  font-weight: 700
+  color: #1a1a1a
+  margin: 0
+
+.crm-kpi-section
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
+  gap: 24px
+  margin-bottom: 32px
+
+.kpi-card
+  background: white
+  border-radius: 16px
+  padding: 24px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
+  transition: all 0.3s ease
+  position: relative
+  min-height: 160px
+
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    height: 4px
+
+  &.total-activities::before
+    background: linear-gradient(135deg, #52c41a, #73d13d)
+
+  &.total-communications::before
+    background: linear-gradient(135deg, #fadb14, #ffd666)
+
+  &.total-companies::before
+    background: linear-gradient(135deg, #1890ff, #40a9ff)
+
+  &.total-contacts::before
+    background: linear-gradient(135deg, #722ed1, #9254de)
+
+  &.total-deals::before
+    background: linear-gradient(135deg, #eb2f96, #f759ab)
+
+  &:hover
+    transform: translateY(-4px)
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12)
+
+.kpi-icon
+  width: 48px
+  height: 48px
+  border-radius: 12px
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-bottom: 16px
+  font-size: 24px
+  color: white
+
+  &.activities-icon
+    background: linear-gradient(135deg, #52c41a, #73d13d)
+
+  &.communications-icon
+    background: linear-gradient(135deg, #fadb14, #ffd666)
+
+  &.companies-icon
+    background: linear-gradient(135deg, #1890ff, #40a9ff)
+
+  &.contacts-icon
+    background: linear-gradient(135deg, #722ed1, #9254de)
+
+  &.deals-icon
+    background: linear-gradient(135deg, #eb2f96, #f759ab)
+
+.kpi-content
+  flex: 1
+
+.kpi-label
+  font-size: 13px
+  color: #8c8c8c
+  margin: 0 0 8px 0
+  text-transform: uppercase
+  font-weight: 500
+
+.kpi-value
+  font-size: 32px
+  font-weight: 700
+  color: #1a1a1a
+  margin: 0 0 8px 0
+
+.kpi-trend
+  font-size: 12px
+  margin: 0 0 12px 0
+  font-weight: 500
+  color: #8c8c8c
+
+.view-link
+  color: #1890ff
+  font-size: 13px
+  text-decoration: none
+  font-weight: 500
+  cursor: pointer
+
+  &:hover
+    color: #40a9ff
+
+.content-section
+  display: grid
+  grid-template-columns: 2fr 1fr
+  gap: 32px
+
+.statistics-section
+  background: white
+  border-radius: 16px
+  padding: 24px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
+  margin-bottom: 24px
+
+.section-title
+  font-size: 20px
+  font-weight: 600
+  color: #1a1a1a
+  margin: 0 0 20px 0
+
+.stats-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))
+  gap: 16px
+
+.stat-item
+  text-align: center
+  padding: 16px
+  background: #fafafa
+  border-radius: 8px
+
+.stat-value
+  font-size: 24px
+  font-weight: 700
+  color: #1a1a1a
+  margin: 0 0 4px 0
+
+.stat-label
+  font-size: 12px
+  color: #8c8c8c
+  margin: 0
+
+.company-stats-section
+  background: white
+  border-radius: 16px
+  padding: 24px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
+
+.company-stats-list
+  list-style: none
+  padding: 0
+  margin: 0
+
+.company-stat-item
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 12px 0
+  border-bottom: 1px solid #f0f0f0
+
+  &:last-child
+    border-bottom: none
+
+.company-name
+  font-size: 14px
+  font-weight: 600
+  color: #1a1a1a
+
+.company-metrics
+  display: flex
+  gap: 16px
+
+.company-metric
+  text-align: center
+
+.metric-value
+  font-size: 16px
+  font-weight: 600
+  color: #1890ff
+
+.metric-label
+  font-size: 11px
+  color: #8c8c8c
+
+.quick-actions-section
+  background: white
+  border-radius: 16px
+  padding: 24px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
+
+.quick-actions-grid
+  display: grid
+  gap: 12px
+
+.quick-action-btn
+  display: flex
+  align-items: center
+  padding: 12px 16px
+  background: #fafafa
+  border: 1px solid #e6e6e6
+  border-radius: 8px
+  text-decoration: none
+  color: #1a1a1a
+  transition: all 0.2s ease
+  cursor: pointer
+
+  &:hover
+    background: #f0f5ff
+    border-color: #1890ff
+    color: #1890ff
+
+.quick-action-icon
+  width: 20px
+  height: 20px
+  margin-right: 8px
+  color: #1890ff
+
+.quick-action-text
+  font-size: 14px
+  font-weight: 500
+
+.loading-spinner
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: 20px
+
+@media (max-width: 768px)
+  .crm-dashboard-container
+    padding: 16px
+
+  .crm-kpi-section
+    grid-template-columns: 1fr
+    gap: 16px
+
+  .content-section
+    grid-template-columns: 1fr
+    gap: 24px
+
+@media (max-width: 480px)
+  .crm-dashboard-container
+    padding: 12px
+
+  .kpi-card
+    padding: 16px
+    min-height: 120px
+
+  .dashboard-title
+    font-size: 24px
+
+// Details Section Styles
+.details-section
+  display: grid
+  grid-template-columns: 2fr 1fr 1fr
+  gap: 24px
+  margin-bottom: 32px
+
+.detail-card
+  background: white
+  border-radius: 16px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
+  overflow: hidden
+
+.detail-header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 24px 24px 16px 24px
+  border-bottom: 1px solid #f0f0f0
+
+  .header-left
+    display: flex
+    align-items: center
+    gap: 12px
+
+    .header-icon
+      width: 40px
+      height: 40px
+      border-radius: 10px
+      background: linear-gradient(135deg, #1890ff, #40a9ff)
+      display: flex
+      align-items: center
+      justify-content: center
+      color: white
+
+    h3
+      font-size: 18px
+      font-weight: 600
+      color: #1a1a1a
+      margin: 0
+
+  .header-right
+    button
+      color: #1890ff
+      font-weight: 500
+
+.detail-content
+  padding: 0 24px 24px 24px
+
+.activity-section
+  margin-bottom: 28px
+
+  &:last-child
+    margin-bottom: 0
+
+.section-header
+  display: flex
+  align-items: center
+  margin-bottom: 16px
+  gap: 12px
+
+.section-title
+  font-size: 14px
+  font-weight: 600
+  color: #666
+  margin: 0
+  text-transform: uppercase
+  letter-spacing: 0.5px
+
+.section-divider
+  flex: 1
+  height: 1px
+  background: linear-gradient(to right, #e6e6e6, transparent)
+
+// Activity Status Cards
+.activity-stats-grid
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 12px
+  margin-bottom: 24px
+
+.activity-stat-card
+  background: #fafafa
+  border-radius: 12px
+  padding: 16px
+  display: flex
+  align-items: center
+  gap: 12px
+  border: 1px solid #f0f0f0
+  transition: all 0.3s ease
+  position: relative
+  overflow: hidden
+
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1)
+
+  &.pending
+    border-left: 4px solid #faad14
+
+  &.completed
+    border-left: 4px solid #52c41a
+
+  &.cancelled
+    border-left: 4px solid #ff4d4f
+
+.stat-icon
+  width: 36px
+  height: 36px
+  border-radius: 8px
+  display: flex
+  align-items: center
+  justify-content: center
+  background: white
+  color: #666
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+
+.stat-content
+  flex: 1
+
+.stat-number
+  font-size: 24px
+  font-weight: 700
+  color: #1a1a1a
+  line-height: 1
+  margin-bottom: 4px
+
+.stat-label
+  font-size: 12px
+  color: #8c8c8c
+  font-weight: 500
+
+.stat-indicator
+  position: absolute
+  top: 0
+  right: 0
+  width: 8px
+  height: 100%
+
+  &.pending-indicator
+    background: linear-gradient(180deg, #faad14, #ffc53d)
+
+  &.completed-indicator
+    background: linear-gradient(180deg, #52c41a, #73d13d)
+
+  &.cancelled-indicator
+    background: linear-gradient(180deg, #ff4d4f, #ff7875)
+
+// Activity Type Cards
+.activity-types-grid
+  display: grid
+  grid-template-columns: repeat(5, 1fr)
+  gap: 12px
+
+.activity-type-card
+  background: white
+  border: 1px solid #f0f0f0
+  border-radius: 10px
+  padding: 16px 12px
+  text-align: center
+  transition: all 0.3s ease
+  cursor: pointer
+
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1)
+    border-color: #d9d9d9
+
+.type-icon
+  width: 40px
+  height: 40px
+  border-radius: 8px
+  display: flex
+  align-items: center
+  justify-content: center
+  margin: 0 auto 12px auto
+  color: white
+
+  &.calls
+    background: linear-gradient(135deg, #52c41a, #73d13d)
+
+  &.emails
+    background: linear-gradient(135deg, #1890ff, #40a9ff)
+
+  &.meetings
+    background: linear-gradient(135deg, #722ed1, #9254de)
+
+  &.tasks
+    background: linear-gradient(135deg, #faad14, #ffc53d)
+
+  &.notes
+    background: linear-gradient(135deg, #eb2f96, #f759ab)
+
+.type-content
+  .type-number
+    font-size: 20px
+    font-weight: 700
+    color: #1a1a1a
+    line-height: 1
+    margin-bottom: 4px
+
+  .type-label
+    font-size: 11px
+    color: #8c8c8c
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.3px
+
+// Responsive adjustments for details section
+@media (max-width: 1200px)
+  .details-section
+    grid-template-columns: 1fr
+
+  .activity-stats-grid
+    grid-template-columns: repeat(3, 1fr)
+
+  .activity-types-grid
+    grid-template-columns: repeat(5, 1fr)
+
+@media (max-width: 768px)
+  .activity-stats-grid
+    grid-template-columns: 1fr
+
+  .activity-types-grid
+    grid-template-columns: repeat(3, 1fr)
+
+  .detail-header
+    padding: 20px 20px 12px 20px
+
+  .detail-content
+    padding: 0 20px 20px 20px
+
+@media (max-width: 480px)
+  .activity-types-grid
+    grid-template-columns: repeat(2, 1fr)
+
+  .activity-stat-card
+    padding: 12px
+
+  .type-icon
+    width: 32px
+    height: 32px

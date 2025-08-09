@@ -1,0 +1,98 @@
+<div class="form-container">
+  <form [formGroup]="viewProjectForm">
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Name
+            <span class="required-mark">*</span>
+          </nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              formControlName="name"
+              class="modal-input"
+              placeholder="Name"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Description <span class="required-mark">*</span></nz-form-label
+          >
+          <input
+            nz-input
+            formControlName="description"
+            class="modal-input"
+            placeholder="Description"
+          />
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Start Date<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-date-picker formControlName="startDate"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >End Date<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-date-picker formControlName="endDate"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row class="row1" [nzGutter]="10">
+      <div nz-col nzLg="12" nzXs="24" nzSm="12" nzMd="12">
+        <nz-form-item>
+          <nz-form-label
+            >Status<span class="required-mark">*</span></nz-form-label
+          >
+          <nz-form-control>
+            <nz-select
+              formControlName="status"
+              nzShowSearch
+              nzPlaceHolder="Status"
+              nzSuffixIcon="caret-down"
+              nzAllowClear="true"
+            >
+              <nz-option nzLabel="Planning" nzValue="planning"
+                >Pending</nz-option
+              >
+              <nz-option nzLabel="Active" nzValue="active">Pending</nz-option>
+              <nz-option nzLabel="Pending" nzValue="Pending">Pending</nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <button
+        nz-col
+        nzLg="6"
+        nzXs="6"
+        nzSm="6"
+        nzMd="6"
+        nz-button
+        class="btn btn__high_orange"
+        *ngIf="index !== 'view'"
+        (click)="index === 'edit' ? submit() : createNewproject()"
+      >
+        {{ index === "edit" ? "Update project" : "Add project" }}
+      </button>
+    </div>
+  </form>
+</div>

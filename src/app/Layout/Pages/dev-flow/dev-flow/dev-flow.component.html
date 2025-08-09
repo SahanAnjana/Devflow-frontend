@@ -1,0 +1,43 @@
+<nz-layout>
+  <nz-header class="desktop-view"
+    ><app-top-navigation
+      [userEmail]="userEmail || ''"
+      (logout)="onLogout()"
+      (profileClick)="onProfileClick()"
+      (settingsClick)="onSettingsClick()"
+      (moduleChange)="onModuleChange($event)"
+      [segments]="mainSegments"
+    >
+    </app-top-navigation
+  ></nz-header>
+  <nz-layout>
+    <nz-sider [nzWidth]="200" nzTheme="dark">
+      <app-sidebar
+        [items]="sidebarItems"
+        [activeItem]="activeSection"
+        (itemClick)="onSectionChange($event)"
+      >
+      </app-sidebar>
+    </nz-sider>
+    <nz-content>
+      <div class="dashboard-layout">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+
+  <!-- <div class="dashboard-container">
+  <div class="dashboard-main"></div>
+  <main class="dashboard-content">
+    <div *ngIf="activeSection === 'dashboard' && managementType === 'admin'">
+      <app-dev-dashboard></app-dev-dashboard>
+    </div>
+
+    <div *ngIf="activeSection === 'dashboard' && managementType === 'project'">
+      <app-pm-dashboard></app-pm-dashboard>
+    </div>
+
+    <div *ngIf="activeSection === 'projects' && managementType === 'project'">
+      <app-pm-projects></app-pm-projects>
+    </div> -->
+</nz-layout>

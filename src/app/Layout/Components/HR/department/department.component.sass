@@ -1,0 +1,52 @@
+// Department action buttons styling
+.btn-section
+  display: flex
+  gap: 8px
+  align-items: center
+
+  .action-button
+    padding: 6px 8px
+    border: none
+    border-radius: 6px
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: center
+    transition: all 0.2s ease
+    background: transparent
+
+    &:hover
+      transform: translateY(-1px)
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+
+    &.profile
+      background-color: #722ed1
+      color: white
+
+      &:hover
+        background-color: #531dab
+
+    &.view
+      background-color: #1890ff
+      color: white
+
+      &:hover
+        background-color: #40a9ff
+
+    &.edit
+      background-color: #52c41a
+      color: white
+
+      &:hover
+        background-color: #73d13d
+
+    &.delete
+      background-color: #ff4d4f
+      color: white
+
+      &:hover
+        background-color: #ff7875
+
+    svg
+      width: 16px
+      height: 16px

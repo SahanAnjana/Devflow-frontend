@@ -1,0 +1,546 @@
+<div class="permissions-container">
+  <!-- Header Section -->
+  <!-- <div class="permissions-header">
+    <div class="header-content">
+      <h2 class="page-title">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="3" y="11" width="18" height="10" rx="2" ry="2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        Role Permissions Management
+      </h2>
+      <p class="page-description">
+        Manage permissions for different roles to control access across the
+        application
+      </p>
+    </div>
+  </div> -->
+
+  <!-- Controls Section -->
+  <div class="controls-section">
+    <!-- Role Cards Section -->
+    <div class="role-cards-container">
+      <div class="role-cards-header">
+        <label class="selector-label">Select Role:</label>
+        <button
+          class="add-role-btn"
+          (click)="showAddRoleModal()"
+          nz-button
+          nzType="primary"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Add New Role
+        </button>
+      </div>
+      <div class="role-cards-grid">
+        <div
+          *ngFor="let role of Allroles"
+          class="role-card"
+          [class.active]="selectedRoleName === role.name"
+          (click)="onRoleCardClick(role)"
+        >
+          <div class="role-card-top">
+            <div class="role-card-icon">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div class="role-card-content">
+              <h3 class="role-name">{{ role.name }}</h3>
+              <p class="role-description">
+                {{ role.description || "Manage " + role.name + " permissions" }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Role Card Actions -->
+          <div class="role-card-actions">
+            <button
+              class="role-action-btn delete-btn"
+              (click)="deleteRole(role, $event)"
+              title="Delete Role"
+              [disabled]="selectedRoleName === role.name"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3,6 5,6 21,6"></polyline>
+                <path
+                  d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"
+                ></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </button>
+          </div>
+
+          <div class="role-card-badge" *ngIf="selectedRoleName === role.name">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="20,6 9,17 4,12"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="action-buttons"
+      *ngIf="showPermissionsTable && selectedRoleName"
+    >
+      <div class="permissions-summary">
+        <span class="summary-text">
+          {{ getEnabledPermissionsTotal() }} of
+          {{ getTotalPermissionsCount() }} permissions enabled
+        </span>
+      </div>
+      <button
+        nz-button
+        nzType="primary"
+        class="save-btn"
+        (click)="savePermissions()"
+        [disabled]="saving || loading"
+        [nzLoading]="saving"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+          />
+          <polyline points="17,21 17,13 7,13 7,21" />
+          <polyline points="7,3 7,8 15,8" />
+        </svg>
+        {{ saving ? "Saving..." : "Save Permissions" }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Permissions Table -->
+  <div
+    class="permissions-table-container"
+    *ngIf="showPermissionsTable && selectedRoleName"
+  >
+    <div class="table-header">
+      <h3 class="table-title">Permissions for "{{ selectedRoleName }}" Role</h3>
+      <div class="table-actions">
+        <nz-tag [nzColor]="'blue'">{{ selectedRoleName }}</nz-tag>
+      </div>
+    </div>
+
+    <!-- No Permissions Message -->
+    <div
+      class="no-permissions-message"
+      *ngIf="!loading && !hasPermissionsInRole()"
+    >
+      <nz-empty
+        nzNotFoundImage="simple"
+        [nzNotFoundContent]="'No permissions assigned to this role'"
+      >
+        <p nz-typography>
+          The "{{ selectedRoleName }}" role currently has no permissions
+          assigned. You can assign permissions using the controls below.
+        </p>
+      </nz-empty>
+    </div>
+
+    <!-- Permissions Table - Always show when role is selected -->
+    <div class="table-wrapper" [class.loading]="loading">
+      <nz-table
+        #basicTable
+        [nzData]="getPermissionsTableData()"
+        [nzPageSize]="50"
+        [nzShowPagination]="false"
+        [nzLoading]="loading"
+        class="permissions-table"
+      >
+        <thead>
+          <tr class="table-header-row">
+            <th class="module-col">
+              <div class="header-content">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <line x1="9" y1="9" x2="15" y2="9" />
+                  <line x1="9" y1="15" x2="15" y2="15" />
+                </svg>
+                Module
+              </div>
+            </th>
+            <th class="permission-col">
+              <div class="header-content">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M9 12l2 2 4-4" />
+                  <path
+                    d="M21 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"
+                  />
+                  <path
+                    d="M3 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"
+                  />
+                  <path
+                    d="M12 3c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"
+                  />
+                  <path
+                    d="M12 21c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"
+                  />
+                </svg>
+                Permission
+              </div>
+            </th>
+            <th class="description-col">
+              <div class="header-content">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                Description
+              </div>
+            </th>
+            <th class="status-col">
+              <div class="header-content">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22,4 12,14.01 9,11.01" />
+                </svg>
+                Status
+              </div>
+            </th>
+            <th class="toggle-col">
+              <div class="header-content">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="1" y="5" width="22" height="14" rx="7" ry="7" />
+                  <circle cx="8" cy="12" r="3" />
+                </svg>
+                Enable/Disable
+              </div>
+            </th>
+            <th class="actions-col">
+              <div class="header-content">Actions</div>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="table-body">
+          <tr
+            *ngFor="let item of basicTable.data"
+            class="permission-row"
+            [class.permission-enabled]="item.enabled"
+            [class.permission-disabled]="!item.enabled"
+          >
+            <td class="module-cell">
+              <div class="cell-content">
+                <div class="module-badge" [attr.data-module]="item.module">
+                  {{ formatModuleName(item.module) }}
+                </div>
+              </div>
+            </td>
+            <td class="permission-cell">
+              <div class="cell-content">
+                <span class="permission-name">{{
+                  formatActionName(item.action)
+                }}</span>
+                <span class="permission-key">{{ item.key }}</span>
+              </div>
+            </td>
+            <td class="description-cell">
+              <div class="cell-content">
+                {{ getPermissionDescription(item.action) }}
+              </div>
+            </td>
+            <td class="status-cell">
+              <div class="cell-content">
+                <nz-tag
+                  [nzColor]="item.enabled ? 'green' : 'default'"
+                  class="status-tag"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10" *ngIf="!item.enabled" />
+                    <path
+                      d="M22 11.08V12a10 10 0 1 1-5.93-9.14"
+                      *ngIf="item.enabled"
+                    />
+                    <polyline
+                      points="22,4 12,14.01 9,11.01"
+                      *ngIf="item.enabled"
+                    />
+                  </svg>
+                  {{ item.enabled ? "Active" : "Inactive" }}
+                </nz-tag>
+              </div>
+            </td>
+            <td class="toggle-cell">
+              <div class="cell-content">
+                <nz-switch
+                  [(ngModel)]="item.enabled"
+                  (ngModelChange)="onPermissionToggle(item)"
+                  [nzSize]="'small'"
+                  class="permission-switch"
+                ></nz-switch>
+              </div>
+            </td>
+            <td class="actions-cell">
+              <div class="cell-content">
+                <div class="action-buttons">
+                  <button
+                    nz-button
+                    nzType="text"
+                    nzSize="small"
+                    class="action-btn view-btn"
+                    title="View Permission Details"
+                    nz-tooltip="View Details"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  </button>
+                  <button
+                    *ngIf="isFirstPermissionOfModule(item)"
+                    nz-button
+                    nzType="text"
+                    nzSize="small"
+                    class="action-btn module-btn"
+                    title="Toggle All {{
+                      formatModuleName(item.module)
+                    }} Permissions"
+                    (click)="safeToggleModule(item.module)"
+                    nz-tooltip="Toggle All {{ formatModuleName(item.module) }}"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                      />
+                      <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                  </button>
+                  <button
+                    nz-button
+                    nzType="text"
+                    nzSize="small"
+                    class="action-btn reset-btn"
+                    title="Reset Permission"
+                    (click)="resetSinglePermission(item)"
+                    nz-tooltip="Reset Permission"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"
+                      />
+                      <path d="M21 3v5h-5" />
+                      <path
+                        d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"
+                      />
+                      <path d="M8 16H3v5" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!selectedRoleName">
+    <div class="empty-content">
+      <svg
+        width="64"
+        height="64"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1"
+      >
+        <rect x="3" y="11" width="18" height="10" rx="2" ry="2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+      <h3>Select a Role</h3>
+      <p>
+        Choose a role from the dropdown above to view and manage its permissions
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Add Role Modal -->
+<nz-modal
+  [(nzVisible)]="isAddRoleModalVisible"
+  nzTitle="Add New Role"
+  [nzOkText]="'Create Role'"
+  [nzCancelText]="'Cancel'"
+  [nzOkLoading]="isCreatingRole"
+  (nzOnCancel)="hideAddRoleModal()"
+  (nzOnOk)="submitAddRole()"
+  nzWidth="600px"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="addRoleForm" nzLayout="vertical">
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label nzRequired>Role Name</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getAddRoleFieldError('name')"
+              [nzValidateStatus]="isAddRoleFieldInvalid('name') ? 'error' : ''"
+            >
+              <input
+                nz-input
+                formControlName="name"
+                placeholder="Enter role name (e.g., Manager, Developer)"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label>Description</nz-form-label>
+            <nz-form-control>
+              <textarea
+                nz-input
+                formControlName="description"
+                placeholder="Enter role description (optional)"
+                [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+              ></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label>Permissions</nz-form-label>
+            <nz-form-control>
+              <div class="permissions-selection">
+                <p class="permissions-note">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 16v-4"></path>
+                    <path d="M12 8h.01"></path>
+                  </svg>
+                  You can assign permissions after creating the role.
+                </p>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</nz-modal>

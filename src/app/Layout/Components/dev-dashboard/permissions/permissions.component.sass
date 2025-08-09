@@ -1,0 +1,568 @@
+@import '../../../../../assets/sass/index'
+
+// Main Container
+.permissions-container
+  min-height: 100vh
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)
+  padding: 0
+
+// Header Section
+.permissions-header
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  padding: 32px
+  margin: 0
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2)
+  
+.header-content
+  max-width: 1400px
+  margin: 0 auto
+  
+.page-title
+  color: white
+  font-size: 28px
+  font-weight: 700
+  margin: 0 0 8px 0
+  display: flex
+  align-items: center
+  gap: 12px
+  
+  svg
+    color: rgba(255, 255, 255, 0.9)
+    
+.page-description
+  color: rgba(255, 255, 255, 0.8)
+  font-size: 16px
+  margin: 0
+  line-height: 1.5
+
+// Controls Section
+.controls-section
+  background: white
+  padding: 24px 32px
+  border-bottom: 1px solid #e2e8f0
+  
+.role-cards-container
+  margin-bottom: 24px
+  
+.selector-label
+  font-weight: 600
+  color: #374151
+  font-size: 16px
+  margin-bottom: 16px
+  display: block
+
+.role-cards-header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-bottom: 20px
+
+.add-role-btn
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%) !important
+  border: none !important
+  border-radius: 8px !important
+  height: 40px !important
+  padding: 0 20px !important
+  font-weight: 600 !important
+  display: flex !important
+  align-items: center !important
+  gap: 8px !important
+  transition: all 0.3s ease !important
+  
+  &:hover
+    transform: translateY(-1px) !important
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3) !important
+    
+  svg
+    width: 16px !important
+    height: 16px !important
+
+.role-cards-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+  gap: 16px
+  margin-bottom: 20px
+
+.role-card
+  background: white
+  border: 2px solid #e2e8f0
+  border-radius: 10px
+  padding: 16px
+  cursor: pointer
+  transition: all 0.3s ease
+  position: relative
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06)
+  display: flex
+  flex-direction: column
+  min-height: 140px
+  
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12)
+    border-color: #c7d2fe
+    
+  &.active
+    border-color: #6366f1
+    background: linear-gradient(135deg, #f8faff 0%, #f1f5ff 100%)
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15)
+
+.role-card-top
+  display: flex
+  align-items: flex-start
+  gap: 12px
+  flex: 1
+
+.role-card-actions
+  margin-top: auto
+  display: flex
+  justify-content: right
+  padding-top: 8px
+
+.role-action-btn
+  background: rgba(239, 68, 68, 0.1)
+  border: none
+  border-radius: 6px
+  width: 32px
+  height: 28px
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  transition: all 0.2s ease
+  opacity: 1
+
+  &:hover:not(:disabled)
+    background: rgba(239, 68, 68, 0.2)
+    transform: scale(1.05)
+
+  &:disabled
+    opacity: 0.3
+    cursor: not-allowed
+
+  svg
+    width: 14px
+    height: 14px
+    fill: #ef4444
+
+    
+.role-card-icon
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 40px
+  height: 40px
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)
+  border-radius: 10px
+  flex-shrink: 0
+  
+  svg
+    color: white
+    
+.role-card.active .role-card-icon
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%)
+
+.role-card-content
+  flex: 1
+  
+.role-name
+  font-size: 16px
+  font-weight: 600
+  color: #1f2937
+  margin: 0 0 6px 0
+  
+.role-description
+  font-size: 14px
+  color: #6b7280
+  margin: 0
+  line-height: 1.5
+  
+.role-card-badge
+  position: absolute
+  top: 16px
+  right: 16px
+  width: 24px
+  height: 24px
+  background: #10b981
+  border-radius: 50%
+  display: flex
+  align-items: center
+  justify-content: center
+  
+  svg
+    color: white
+    width: 12px
+    height: 12px
+
+.action-buttons
+  display: flex
+  align-items: center
+  gap: 16px
+  
+.permissions-summary
+  background: #f8fafc
+  padding: 8px 16px
+  border-radius: 8px
+  border: 1px solid #e2e8f0
+  
+.summary-text
+  font-size: 14px
+  font-weight: 500
+  color: #475569
+  
+.save-btn
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%) !important
+  border: none !important
+  border-radius: 8px !important
+  height: 40px !important
+  padding: 0 20px !important
+  font-weight: 600 !important
+  display: flex !important
+  align-items: center !important
+  gap: 8px !important
+  color: white !important
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important
+  transition: all 0.3s ease !important
+  
+  &:hover:not(:disabled)
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important
+    transform: translateY(-2px) !important
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important
+    
+  &:disabled
+    opacity: 0.6 !important
+    transform: none !important
+
+// Table Section
+.permissions-table-container
+  background: white
+  margin: 0 32px 32px 32px
+  border-radius: 12px
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06)
+  overflow: hidden
+  
+.table-header
+  padding: 20px 24px
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)
+  border-bottom: 1px solid #e2e8f0
+  display: flex
+  justify-content: space-between
+  align-items: center
+  
+.table-title
+  font-size: 18px
+  font-weight: 600
+  color: #1e293b
+  margin: 0
+  
+.table-actions
+  display: flex
+  gap: 8px
+  
+.table-wrapper
+  position: relative
+  
+  &.loading
+    opacity: 0.7
+    pointer-events: none
+
+// No Permissions Message
+.no-permissions-message
+  padding: 40px 24px
+  text-align: center
+  background: #fafafa
+  
+  :host ::ng-deep .ant-empty
+    .ant-empty-image
+      margin-bottom: 16px
+      
+    .ant-empty-description
+      color: #6b7280
+      font-size: 16px
+      margin-bottom: 16px
+      
+  p
+    color: #6b7280
+    font-size: 14px
+    line-height: 1.6
+    margin: 0
+    max-width: 400px
+    margin: 0 auto
+
+// Table Styling
+.permissions-table
+  :host ::ng-deep .ant-table
+    background: transparent
+    
+  :host ::ng-deep .ant-table-thead > tr > th
+    background: #f8fafc !important
+    border-bottom: 2px solid #e2e8f0 !important
+    padding: 16px 20px !important
+    font-weight: 600 !important
+    color: #374151 !important
+    
+  :host ::ng-deep .ant-table-tbody > tr > td
+    padding: 16px 20px !important
+    border-bottom: 1px solid #f1f5f9 !important
+    vertical-align: middle !important
+    
+  :host ::ng-deep .ant-table-tbody > tr
+    transition: all 0.2s ease !important
+    
+    &:hover
+      background: #f8fafc !important
+      
+.table-header-row
+  .header-content
+    display: flex
+    align-items: center
+    gap: 8px
+    font-weight: 600
+    color: #374151
+    
+    svg
+      opacity: 0.7
+
+// Table Columns
+.module-col
+  width: 15%
+  min-width: 120px
+  
+.permission-col
+  width: 20%
+  min-width: 150px
+  
+.description-col
+  width: 30%
+  min-width: 200px
+  
+.status-col
+  width: 12%
+  min-width: 100px
+  
+.toggle-col
+  width: 13%
+  min-width: 100px
+  text-align: center
+  
+.actions-col
+  width: 10%
+  min-width: 120px
+
+// Table Rows
+.permission-row
+  &.permission-enabled
+    background: rgba(16, 185, 129, 0.02) !important
+    
+    &:hover
+      background: rgba(16, 185, 129, 0.05) !important
+      
+  &.permission-disabled
+    background: rgba(239, 68, 68, 0.02) !important
+    
+    &:hover
+      background: rgba(239, 68, 68, 0.05) !important
+
+// Cell Content
+.cell-content
+  display: flex
+  align-items: center
+  gap: 8px
+  
+.module-badge
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)
+  color: white
+  padding: 4px 12px
+  border-radius: 6px
+  font-size: 12px
+  font-weight: 600
+  text-transform: uppercase
+  letter-spacing: 0.5px
+  
+  &[data-module="finance"]
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%)
+    
+  &[data-module="hr"]
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)
+    
+  &[data-module="projects"]
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)
+    
+  &[data-module="crm"]
+    background: linear-gradient(135deg, #ef4444 0%, #f87171 100%)
+
+.permission-name
+  font-weight: 600
+  color: #1e293b
+  
+.permission-key
+  font-size: 11px
+  color: #64748b
+  background: #f1f5f9
+  padding: 2px 6px
+  border-radius: 4px
+  display: block
+  margin-top: 2px
+
+.status-tag
+  display: flex !important
+  align-items: center !important
+  gap: 4px !important
+  
+  svg
+    width: 12px !important
+    height: 12px !important
+
+.permission-switch
+  :host ::ng-deep .ant-switch
+    background: #cbd5e1 !important
+    
+    &.ant-switch-checked
+      background: #10b981 !important
+      
+    &:hover:not(.ant-switch-disabled)
+      background: #94a3b8 !important
+      
+    &.ant-switch-checked:hover:not(.ant-switch-disabled)
+      background: #059669 !important
+
+// Action Buttons
+.action-buttons
+  display: flex
+  gap: 4px
+  
+.action-btn
+  width: 28px !important
+  height: 28px !important
+  border-radius: 6px !important
+  border: none !important
+  display: flex !important
+  align-items: center !important
+  justify-content: center !important
+  transition: all 0.2s ease !important
+  
+  &.view-btn:hover
+    background: #dbeafe !important
+    color: #1d4ed8 !important
+    
+  &.module-btn:hover
+    background: #fef3c7 !important
+    color: #d97706 !important
+    
+  &.reset-btn:hover
+    background: #fee2e2 !important
+    color: #dc2626 !important
+    
+  svg
+    width: 14px !important
+    height: 14px !important
+
+// Empty State
+.empty-state
+  display: flex
+  justify-content: center
+  align-items: center
+  min-height: 400px
+  margin: 32px
+  
+.empty-content
+  text-align: center
+  color: #64748b
+  
+  svg
+    margin-bottom: 16px
+    opacity: 0.5
+    
+  h3
+    font-size: 18px
+    font-weight: 600
+    color: #374151
+    margin: 0 0 8px 0
+    
+  p
+    margin: 0
+    font-size: 14px
+    line-height: 1.5
+
+// Loading States
+:host ::ng-deep .ant-spin-nested-loading > div > .ant-spin
+  max-height: none !important
+  
+:host ::ng-deep .ant-spin-container
+  transition: opacity 0.3s ease !important
+
+// Responsive Design
+@media (max-width: 1200px)
+  .controls-section
+    flex-direction: column
+    align-items: stretch
+    gap: 16px
+    
+  .role-selector-container
+    justify-content: flex-start
+    
+  .action-buttons
+    justify-content: flex-end
+
+@media (max-width: 768px)
+  .permissions-header
+    padding: 20px 16px
+    
+  .page-title
+    font-size: 22px
+    
+  .controls-section
+    padding: 16px 20px
+    
+  .permissions-table-container
+    margin: 0 16px 16px 16px
+    
+  .table-header
+    padding: 16px 20px
+    
+  .table-title
+    font-size: 16px
+    
+  .role-select
+    min-width: 200px
+    
+  // Hide some table columns on mobile
+  .description-col, .actions-col
+    display: none
+    
+  .module-col, .permission-col, .status-col, .toggle-col
+    width: 25%
+
+// Animations
+@keyframes slideInUp
+  from
+    opacity: 0
+    transform: translateY(20px)
+  to
+    opacity: 1
+    transform: translateY(0)
+
+.permissions-table-container
+  animation: slideInUp 0.3s ease-out
+
+.permission-row
+  animation: slideInUp 0.2s ease-out
+
+// Add Role Modal Styles
+.permissions-selection
+  background: #f8fafc
+  border: 2px dashed #e2e8f0
+  border-radius: 8px
+  padding: 20px
+  text-align: center
+
+.permissions-note
+  color: #6b7280
+  font-size: 14px
+  margin: 0
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 8px
+  
+  svg
+    color: #3b82f6

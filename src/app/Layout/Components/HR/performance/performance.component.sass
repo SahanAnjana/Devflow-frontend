@@ -1,0 +1,26 @@
+@import '../../../../../assets/sass/index'
+
+::ng-deep .title-bar .anticon svg  
+    color: #000000
+
+.title-bar
+    display: flex
+    justify-content: space-between
+.my-performance    
+    height: 100%
+    padding: 10px
+    border: 0.5px solid rgba(0, 0, 0, 0.4) !important
+    border-radius: 5px
+
+.right  
+    display: flex
+    gap: 20px 
+
+:host ::ng-deep .ant-select    
+    height: 100%
+
+:host ::ng-deep .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector   
+    height: 100% !important 
+
+:host ::ng-deep .ant-select-single .ant-select-selector .ant-select-selection-placeholder   
+    line-height: 42px
