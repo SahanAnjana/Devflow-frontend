@@ -1,16 +1,4 @@
 <div>
-  <!-- Debug Info -->
-  <div *ngIf="debugMode" class="debug-banner">
-    <nz-alert
-      nzType="info"
-      nzMessage="User Management"
-      nzDescription="Integrated with API endpoint: 8000/auth/users. Fallback to mock data if API unavailable."
-      nzShowIcon
-      nzCloseable
-    >
-    </nz-alert>
-  </div>
-
   <!-- Error Display -->
   <div *ngIf="error" class="error-banner">
     <nz-alert nzType="error" [nzMessage]="error" nzShowIcon nzCloseable>
@@ -20,23 +8,23 @@
   <!-- Title Bar with Search and Add Button -->
   <div nz-row class="title-bar">
     <div nz-col [nzSpan]="8">
-      <input
+      <!-- <input
         nz-input
         placeholder="Search users..."
         [(ngModel)]="searchTerm"
         (input)="onSearch()"
         class="search-input"
-      />
+      /> -->
     </div>
 
     <div nz-col [nzSpan]="12" class="add-button">
-      <button
+      <!-- <button
         class="btn button refresh-btn"
         (click)="refreshUsers()"
         title="Refresh Users"
       >
         Refresh
-      </button>
+      </button> -->
       <button class="btn button" (click)="showAddUserModal()">
         Add New User
       </button>

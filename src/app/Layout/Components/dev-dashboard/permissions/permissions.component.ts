@@ -367,6 +367,7 @@ export class PermissionsComponent implements OnInit {
     });
 
     this.rolePermissions = {};
+    this.showPermissionsTable = false;
     console.log('All permissions reset');
   }
 
