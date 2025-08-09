@@ -48,7 +48,7 @@ export class DevFlowComponent {
     switch (section) {
       case 'devflow':
         this.sidebarItems = [
-          // { id: '', label: 'Dashboard', icon: 'home' },
+          { id: 'dashboard', label: 'Dashboard', icon: 'home' },
           { id: 'permissions', label: 'Role Management', icon: 'permissions' },
           {
             id: 'user-management',
@@ -147,6 +147,9 @@ export class DevFlowComponent {
     if (this.urlLink === 'devflow') {
       switch (section) {
         case '':
+          this.router.navigate(['/devflow']);
+          break;
+        case 'dashboard':
           this.router.navigate(['/devflow']);
           break;
         case 'permissions':

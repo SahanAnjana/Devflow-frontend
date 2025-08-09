@@ -81,6 +81,27 @@
           <!-- Role Card Actions -->
           <div class="role-card-actions">
             <button
+              class="role-action-btn edit-btn"
+              (click)="changePermissions(role, $event)"
+              title="Change Permissions"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                ></path>
+                <path
+                  d="m18.5 2.5 a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                ></path>
+              </svg>
+            </button>
+            <button
               class="role-action-btn delete-btn"
               (click)="deleteRole(role, $event)"
               title="Delete Role"
@@ -169,23 +190,7 @@
       </div>
     </div>
 
-    <!-- No Permissions Message -->
-    <div
-      class="no-permissions-message"
-      *ngIf="!loading && !hasPermissionsInRole()"
-    >
-      <nz-empty
-        nzNotFoundImage="simple"
-        [nzNotFoundContent]="'No permissions assigned to this role'"
-      >
-        <p nz-typography>
-          The "{{ selectedRoleName }}" role currently has no permissions
-          assigned. You can assign permissions using the controls below.
-        </p>
-      </nz-empty>
-    </div>
-
-    <!-- Permissions Table - Always show when role is selected -->
+    <!-- Permissions Table -->
     <div class="table-wrapper" [class.loading]="loading">
       <nz-table
         #basicTable
@@ -518,24 +523,50 @@
       <div nz-row>
         <div nz-col [nzSpan]="24">
           <nz-form-item>
-            <nz-form-label>Permissions</nz-form-label>
-            <nz-form-control>
-              <div class="permissions-selection">
-                <p class="permissions-note">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
+            <nz-form-label nzRequired>Permissions</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getAddRoleFieldError('permissions')"
+              [nzValidateStatus]="
+                isAddRoleFieldInvalid('permissions') ? 'error' : ''
+              "
+            >
+              <nz-select
+                formControlName="permissions"
+                nzMode="multiple"
+                nzPlaceHolder="Select at least one permission"
+                nzAllowClear
+                nzShowSearch
+                [nzMaxTagCount]="3"
+                style="width: 100%"
+                (ngModelChange)="onPermissionSelectionChange($event)"
+              >
+                <nz-option-group
+                  *ngFor="let group of allPermissions"
+                  [nzLabel]="formatModuleName(group.module)"
+                >
+                  <nz-option
+                    *ngFor="let permission of group.permissions"
+                    [nzValue]="permission.key"
+                    [nzLabel]="formatActionName(permission.action)"
                   >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M12 16v-4"></path>
-                    <path d="M12 8h.01"></path>
-                  </svg>
-                  You can assign permissions after creating the role.
-                </p>
+                    <span class="permission-option">
+                      <span class="permission-module">{{
+                        formatModuleName(group.module)
+                      }}</span>
+                      <span class="permission-action">{{
+                        formatActionName(permission.action)
+                      }}</span>
+                    </span>
+                  </nz-option>
+                </nz-option-group>
+              </nz-select>
+              <div
+                class="permissions-selection-info"
+                *ngIf="selectedPermissions.length > 0"
+              >
+                <nz-tag [nzColor]="'blue'" style="margin-top: 8px">
+                  {{ selectedPermissions.length }} permission(s) selected
+                </nz-tag>
               </div>
             </nz-form-control>
           </nz-form-item>

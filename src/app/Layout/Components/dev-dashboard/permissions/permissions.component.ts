@@ -62,6 +62,7 @@ export class PermissionsComponent implements OnInit {
   isAddRoleModalVisible = false;
   isCreatingRole = false;
   addRoleForm: FormGroup;
+  selectedPermissions: string[] = [];
 
   constructor(
     private authService: AuthserviceService,
@@ -76,7 +77,7 @@ export class PermissionsComponent implements OnInit {
     this.addRoleForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       description: [''],
-      permissions: [[]],
+      permissions: [[], [Validators.required, Validators.minLength(1)]],
     });
   }
 
@@ -105,20 +106,30 @@ export class PermissionsComponent implements OnInit {
 
   loadRoles() {
     const data: any = {};
+    console.log('Loading roles...');
+
     this.dashboardService.getAllRoles().subscribe({
       next: (res) => {
         if (res) {
-          console.log('roleId', res);
+          console.log('Roles loaded successfully:', res);
           this.Allroles = res;
           this.allRoles = res.map((role: any) => ({
             id: role.id,
             name: role.name,
             description: role.description || '',
           }));
+          console.log('Processed roles:', this.allRoles);
+          console.log('Allroles array length:', this.Allroles.length);
+        } else {
+          console.log('No roles returned from API');
         }
       },
       error: (error) => {
         console.error('Error loading roles:', error);
+        this.notification.error(
+          'Error',
+          'Failed to load roles. Please try again.'
+        );
       },
     });
   }
@@ -129,6 +140,16 @@ export class PermissionsComponent implements OnInit {
     const groupedPermissions: { [key: string]: Permission[] } = {};
 
     console.log('DataService permissions:', permissionsMap);
+
+    // Check if permissionsMap exists and has data
+    if (!permissionsMap || Object.keys(permissionsMap).length === 0) {
+      console.log(
+        'No permissions found in DataService, initializing with default permissions'
+      );
+      // Initialize with some default permissions if DataService is empty
+      this.initializeDefaultPermissions();
+      return;
+    }
 
     // Group permissions by module
     Object.keys(permissionsMap).forEach((permissionKey) => {
@@ -159,6 +180,77 @@ export class PermissionsComponent implements OnInit {
     console.log('Initialized all permissions:', this.allPermissions);
   }
 
+  // Initialize with default permissions if DataService is empty
+  initializeDefaultPermissions() {
+    const defaultPermissions = [
+      // User Management
+      'user:create',
+      'user:read',
+      'user:update',
+      'user:delete',
+      // Role Management
+      'role:create',
+      'role:read',
+      'role:update',
+      'role:delete',
+      // Dashboard
+      'dashboard:view',
+      'dashboard:manage',
+      // HR Module
+      'hr:view',
+      'hr:manage',
+      'hr:employee_create',
+      'hr:employee_update',
+      // Finance Module
+      'finance:view',
+      'finance:manage',
+      'finance:budget_create',
+      'finance:budget_update',
+      // Project Management
+      'pm:view',
+      'pm:manage',
+      'pm:project_create',
+      'pm:project_update',
+      // CRM Module
+      'crm:view',
+      'crm:manage',
+      'crm:customer_create',
+      'crm:customer_update',
+      // Reports
+      'reports:view',
+      'reports:generate',
+      'reports:export',
+    ];
+
+    const groupedPermissions: { [key: string]: Permission[] } = {};
+
+    defaultPermissions.forEach((permissionKey) => {
+      const [module, action] = permissionKey.split(':');
+
+      if (!groupedPermissions[module]) {
+        groupedPermissions[module] = [];
+      }
+
+      groupedPermissions[module].push({
+        key: permissionKey,
+        module: module,
+        action: action,
+        enabled: false,
+      });
+    });
+
+    this.allPermissions = Object.keys(groupedPermissions)
+      .map((module) => ({
+        module: module,
+        permissions: groupedPermissions[module].sort((a, b) =>
+          a.action.localeCompare(b.action)
+        ),
+      }))
+      .sort((a, b) => a.module.localeCompare(b.module));
+
+    console.log('Initialized default permissions:', this.allPermissions);
+  }
+
   // Handle role selection
   onUserSelect(roleName: string) {
     this.selectedRoleName = roleName;
@@ -172,9 +264,14 @@ export class PermissionsComponent implements OnInit {
 
   // Handle role card click
   onRoleCardClick(role: any) {
+    console.log('Role card clicked:', role);
     this.selectedRoleName = role.name;
     this.selectedRole = role;
     this.showPermissionsTable = true;
+
+    console.log('Selected role name:', this.selectedRoleName);
+    console.log('Show permissions table:', this.showPermissionsTable);
+    console.log('All permissions available:', this.allPermissions.length);
 
     if (this.selectedRoleName) {
       this.loadRolePermissions(role.name);
@@ -183,29 +280,64 @@ export class PermissionsComponent implements OnInit {
     }
   }
 
+  // Handle change permissions button click
+  changePermissions(role: any, event: Event) {
+    event.stopPropagation(); // Prevent the card click event
+
+    console.log('Change permissions clicked for role:', role);
+
+    // Select the role and show permissions table
+    this.selectedRoleName = role.name;
+    this.selectedRole = role;
+    this.showPermissionsTable = true;
+
+    // Load the role's current permissions
+    if (this.selectedRoleName) {
+      this.loadRolePermissions(role.name);
+    }
+
+    // Show a notification to guide the user
+    this.notification.info(
+      'Change Permissions',
+      `Now you can modify permissions for the "${role.name}" role using the table below. Make your changes and click "Save Permissions" when done.`
+    );
+  }
+
   loadRolePermissions(roleName: string) {
     this.loading = true;
     console.log('Loading permissions for role:', roleName);
-
-    // Reset all permissions first
-    this.resetPermissions();
 
     this.userPermissionsService.getUserPermissions(roleName).subscribe({
       next: (response: any) => {
         console.log('API Response:', response);
 
+        // Ensure we have permissions to display - use default if allPermissions is empty
+        if (this.allPermissions.length === 0) {
+          console.log('No permissions initialized, using default permissions');
+          this.initializeDefaultPermissions();
+        }
+
+        // First, reset all permissions to disabled
+        this.allPermissions.forEach((group) => {
+          group.permissions.forEach((permission) => {
+            permission.enabled = false;
+          });
+        });
+        this.rolePermissions = {};
+
         // Handle the response format where permissions is an array
         if (
           response &&
           response.permissions &&
-          Array.isArray(response.permissions)
+          Array.isArray(response.permissions) &&
+          response.permissions.length > 0
         ) {
           console.log('Role permissions from API:', response.permissions);
 
           // Add any missing permissions from API to our allPermissions list
           this.addMissingPermissionsFromAPI(response.permissions);
 
-          // Convert permissions array to object format
+          // Convert permissions array to object format and update states
           response.permissions.forEach((permission: string) => {
             this.rolePermissions[permission] = true;
             console.log(`Setting permission ${permission} to true`);
@@ -213,26 +345,50 @@ export class PermissionsComponent implements OnInit {
 
           // Update the DataService permissions for immediate use
           this.updateDataServicePermissions(response.permissions);
+
+          // Update all permission states
+          this.updatePermissionsState();
         } else {
-          console.log('No permissions found in response or wrong format');
+          console.log(
+            'Role has no permissions - showing all permissions as disabled'
+          );
+          // Role has no permissions, but we still show all available permissions as disabled
+          this.updatePermissionsState();
         }
 
-        console.log('Processed Role Permissions Object:', this.rolePermissions);
-        this.updatePermissionsState();
+        console.log('Final Role Permissions Object:', this.rolePermissions);
+        console.log('All permissions after update:', this.allPermissions);
         this.loading = false;
 
-        this.notification.success(
-          'Permissions Loaded',
-          `Loaded ${
-            Object.keys(this.rolePermissions).length
-          } permissions for ${roleName}`
-        );
+        if (Object.keys(this.rolePermissions).length > 0) {
+          this.notification.success(
+            'Permissions Loaded',
+            `Loaded ${
+              Object.keys(this.rolePermissions).length
+            } permissions for ${roleName}`
+          );
+        } else {
+          this.notification.info(
+            'No Permissions',
+            `Role "${roleName}" has no permissions assigned`
+          );
+        }
       },
       error: (error) => {
         console.error('Error loading role permissions:', error);
-        // Reset to empty permissions on error
+
+        // Ensure we have permissions to display even on error
+        if (this.allPermissions.length === 0) {
+          this.initializeDefaultPermissions();
+        }
+
+        // Reset to empty permissions on error but show all permissions as disabled
+        this.allPermissions.forEach((group) => {
+          group.permissions.forEach((permission) => {
+            permission.enabled = false;
+          });
+        });
         this.rolePermissions = {};
-        this.updatePermissionsState();
         this.loading = false;
 
         this.notification.error(
@@ -320,19 +476,35 @@ export class PermissionsComponent implements OnInit {
       'Updating permissions state with role permissions:',
       this.rolePermissions
     );
+    console.log('Total permissions to check:', this.getTotalPermissionsCount());
+
+    let enabledCount = 0;
+    let totalCount = 0;
 
     this.allPermissions.forEach((group) => {
       group.permissions.forEach((permission) => {
+        totalCount++;
         // Check if this permission is in the role's permissions
+        const wasEnabled = permission.enabled;
         permission.enabled = this.rolePermissions[permission.key] === true;
-        console.log(
-          `Permission ${permission.key}: ${
-            permission.enabled ? 'ENABLED' : 'DISABLED'
-          }`
-        );
+
+        if (permission.enabled) {
+          enabledCount++;
+        }
+
+        if (wasEnabled !== permission.enabled) {
+          console.log(
+            `Permission ${permission.key}: ${
+              wasEnabled ? 'ENABLED' : 'DISABLED'
+            } -> ${permission.enabled ? 'ENABLED' : 'DISABLED'}`
+          );
+        }
       });
     });
 
+    console.log(
+      `Updated permissions state: ${enabledCount}/${totalCount} permissions enabled`
+    );
     console.log('Updated all permissions state:', this.allPermissions);
   }
 
@@ -369,6 +541,20 @@ export class PermissionsComponent implements OnInit {
     this.rolePermissions = {};
     this.showPermissionsTable = false;
     console.log('All permissions reset');
+  }
+
+  // Reset permissions but keep table visible
+  resetPermissionsOnly() {
+    console.log('Resetting permissions only (keeping table visible)');
+
+    this.allPermissions.forEach((group) => {
+      group.permissions.forEach((permission) => {
+        permission.enabled = false;
+      });
+    });
+
+    this.rolePermissions = {};
+    console.log('Permissions reset (table remains visible)');
   }
 
   // Toggle permission for a role
@@ -427,7 +613,7 @@ export class PermissionsComponent implements OnInit {
 
   // Save permissions for selected role
   savePermissions() {
-    if (!this.selectedRoleName) {
+    if (!this.selectedRoleName || !this.selectedRole) {
       this.notification.warning('Warning', 'Please select a role first');
       return;
     }
@@ -440,13 +626,23 @@ export class PermissionsComponent implements OnInit {
     );
 
     console.log('Saving permissions:', enabledPermissions);
+    console.log('Selected role:', this.selectedRole);
+
+    // Prepare the request body according to the API specification
+    const requestBody = {
+      name: this.selectedRole.name,
+      description: this.selectedRole.description || '',
+      permissions: enabledPermissions,
+    };
+
+    console.log('Request body:', requestBody);
 
     this.userPermissionsService
-      .updateUserPermissions(this.selectedRoleName, {
-        permissions: enabledPermissions,
-      })
+      .updateRolePermissions(this.selectedRole.id, requestBody)
       .subscribe({
         next: (response: any) => {
+          console.log('Permissions update response:', response);
+
           // Update DataService permissions immediately
           this.updateDataServicePermissions(enabledPermissions);
 
@@ -505,12 +701,23 @@ export class PermissionsComponent implements OnInit {
 
   // Check if the selected role has any permissions
   hasPermissionsInRole(): boolean {
-    return this.getEnabledPermissionsTotal() > 0;
+    const enabledCount = this.getEnabledPermissionsTotal();
+    const hasPermissions = enabledCount > 0;
+    console.log(
+      `hasPermissionsInRole() - Role: ${this.selectedRoleName}, Enabled: ${enabledCount}, HasPermissions: ${hasPermissions}`
+    );
+    return hasPermissions;
   }
 
   // Get flattened permissions data for table
   getPermissionsTableData(): Permission[] {
     const tableData: Permission[] = [];
+
+    console.log(
+      'Getting table data, allPermissions length:',
+      this.allPermissions.length
+    );
+
     this.allPermissions.forEach((group) => {
       group.permissions.forEach((permission) => {
         tableData.push(permission);
@@ -522,9 +729,12 @@ export class PermissionsComponent implements OnInit {
       tableData.map((p) => ({
         key: p.key,
         enabled: p.enabled,
+        module: p.module,
+        action: p.action,
       }))
     );
 
+    console.log('Total table data items:', tableData.length);
     return tableData;
   }
 
@@ -593,16 +803,6 @@ export class PermissionsComponent implements OnInit {
   }
 
   // Add Role Modal Methods
-  showAddRoleModal(): void {
-    this.isAddRoleModalVisible = true;
-    this.addRoleForm.reset();
-  }
-
-  hideAddRoleModal(): void {
-    this.isAddRoleModalVisible = false;
-    this.addRoleForm.reset();
-  }
-
   submitAddRole(): void {
     if (this.addRoleForm.valid) {
       this.isCreatingRole = true;
@@ -701,11 +901,17 @@ export class PermissionsComponent implements OnInit {
     const field = this.addRoleForm.get(fieldName);
     if (field && field.invalid && (field.dirty || field.touched)) {
       if (field.errors?.['required']) {
+        if (fieldName === 'permissions') {
+          return 'At least one permission must be selected';
+        }
         return `${
           fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
         } is required`;
       }
       if (field.errors?.['minlength']) {
+        if (fieldName === 'permissions') {
+          return 'At least one permission must be selected';
+        }
         return `${
           fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
         } must be at least ${
@@ -714,6 +920,42 @@ export class PermissionsComponent implements OnInit {
       }
     }
     return '';
+  }
+
+  // Handle permission selection change
+  onPermissionSelectionChange(selectedPermissions: string[]): void {
+    this.selectedPermissions = selectedPermissions;
+    this.addRoleForm.patchValue({ permissions: selectedPermissions });
+    console.log('Selected permissions:', selectedPermissions);
+  }
+
+  // Reset add role modal
+  resetAddRoleModal(): void {
+    this.selectedPermissions = [];
+    this.addRoleForm.reset();
+    this.addRoleForm.patchValue({
+      name: '',
+      description: '',
+      permissions: [],
+    });
+  }
+
+  // Override showAddRoleModal to reset properly
+  showAddRoleModal(): void {
+    this.isAddRoleModalVisible = true;
+    this.resetAddRoleModal();
+
+    // Ensure we have permissions available for selection
+    if (this.allPermissions.length === 0) {
+      this.initializeDefaultPermissions();
+    }
+  }
+
+  // Override hideAddRoleModal to reset properly
+  hideAddRoleModal(): void {
+    this.isAddRoleModalVisible = false;
+    this.isCreatingRole = false;
+    this.resetAddRoleModal();
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {
