@@ -463,6 +463,20 @@
   align-items: center
   min-height: 400px
   margin: 32px
+
+.no-permissions-container
+  background: white
+  margin: 0 32px 32px 32px
+  border-radius: 12px
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06)
+  overflow: hidden
+  
+.no-permissions-message
+  display: flex
+  justify-content: center
+  align-items: center
+  min-height: 300px
+  padding: 40px
   
 .empty-content
   text-align: center
@@ -566,3 +580,44 @@
   
   svg
     color: #3b82f6
+
+// Permission Selection Dropdown Styles
+.permissions-selection-info
+  display: flex
+  align-items: center
+  gap: 8px
+
+:host ::ng-deep .ant-select-selection-item
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important
+  border: none !important
+  color: white !important
+  font-weight: 500 !important
+
+:host ::ng-deep .permission-option
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  gap: 2px
+
+.permission-module
+  font-size: 11px
+  color: #64748b
+  font-weight: 500
+  text-transform: uppercase
+
+.permission-action
+  font-size: 13px
+  color: #1e293b
+  font-weight: 600
+
+:host ::ng-deep .ant-select-item-option-content .permission-option
+  padding: 4px 0
+
+:host ::ng-deep .ant-select-dropdown
+  border-radius: 8px !important
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important
+
+:host ::ng-deep .ant-select-item-group-list
+  border-radius: 6px
+  background: #f8fafc
+  margin: 2px 0
