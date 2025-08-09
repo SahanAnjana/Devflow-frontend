@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { DashboardService } from 'src/app/_services/dashboard.service';
@@ -10,7 +10,7 @@ import { TokenserviceService } from 'src/app/_services/tokenservice.service';
   templateUrl: './dev-flow.component.html',
   styleUrls: ['./dev-flow.component.sass'],
 })
-export class DevFlowComponent {
+export class DevFlowComponent implements OnInit {
   @Input() userEmail: string | null = '';
   @Output() logout = new EventEmitter<void>();
 
@@ -19,6 +19,8 @@ export class DevFlowComponent {
   sidebarItems: any = [];
   urlLink: any;
   mainSegments: any;
+  currentUserEmail: string = '';
+  userDetailsLoaded: boolean = false;
 
   constructor(
     private dataService: DataService,
@@ -42,22 +44,48 @@ export class DevFlowComponent {
         this.setSidebarItems(urlSegment);
         this.urlLink = urlSegment;
         this.activeSection = segments.length > 2 ? segments[2] : 'dashboard';
+
+        // Check if non-admin user is trying to access admin pages
+        if (segments.length > 2 && !this.isAdmin()) {
+          const restrictedSections = ['permissions', 'user-management'];
+          if (restrictedSections.includes(segments[2])) {
+            console.warn('Access denied: Redirecting to dashboard');
+            this.router.navigate(['/devflow']);
+            return;
+          }
+        }
       });
   }
+
+  // Check if current user is admin
+  isAdmin(): boolean {
+    console.log('Checking admin status for:', this.currentUserEmail);
+    return this.currentUserEmail.toLowerCase() === 'admin@devflow.com';
+  }
+
   setSidebarItems(section: string) {
     switch (section) {
       case 'devflow':
+        // Start with basic items that all users can see
         this.sidebarItems = [
           { id: 'dashboard', label: 'Dashboard', icon: 'home' },
-          { id: 'permissions', label: 'Role Management', icon: 'permissions' },
-          {
-            id: 'user-management',
-            label: 'User Management',
-            icon: 'user-management',
-          },
-          // { id: 'profile', label: 'Profile', icon: 'profile' },
-          // { id: 'settings', label: 'Settings', icon: 'settings' },
         ];
+
+        // Add admin-only tabs if user is admin
+        if (this.isAdmin()) {
+          this.sidebarItems.push(
+            {
+              id: 'permissions',
+              label: 'Role Management',
+              icon: 'permissions',
+            },
+            {
+              id: 'user-management',
+              label: 'User Management',
+              icon: 'user-management',
+            }
+          );
+        }
         break;
       case 'projects':
         this.sidebarItems = [
@@ -138,11 +166,12 @@ export class DevFlowComponent {
     }
   }
 
-  ngOninit() {
+  ngOnInit() {
     this.getUserDEtails();
   }
 
   onSectionChange(section: string) {
+    console.log('Section change requested:', section);
     this.activeSection = section;
     if (this.urlLink === 'devflow') {
       switch (section) {
@@ -153,9 +182,21 @@ export class DevFlowComponent {
           this.router.navigate(['/devflow']);
           break;
         case 'permissions':
+          console.log(
+            'Attempting to navigate to permissions, admin status:',
+            this.isAdmin()
+          );
+          console.log('Current user email:', this.currentUserEmail);
+          // Always navigate for now, let the component handle the permission check
           this.router.navigate(['/devflow/permissions']);
           break;
         case 'user-management':
+          console.log(
+            'Attempting to navigate to user-management, admin status:',
+            this.isAdmin()
+          );
+          console.log('Current user email:', this.currentUserEmail);
+          // Always navigate for now, let the component handle the permission check
           this.router.navigate(['/devflow/user-management']);
           break;
         // case 'profile':
@@ -285,10 +326,26 @@ export class DevFlowComponent {
     this.dashboardService.getuserdetails().subscribe({
       next: (res) => {
         if (res) {
+          console.log('User details:', res);
           console.log('roleId', res['role']);
+
+          // Store the current user's email
+          this.currentUserEmail = res['email'] || res['username'] || '';
+          console.log('Current user email:', this.currentUserEmail);
+
+          // Mark user details as loaded
+          this.userDetailsLoaded = true;
+
           this.dataService.userId = res['id'];
           this.getPrivilages(res['role']);
+
+          // Refresh sidebar items based on user permissions
+          this.setSidebarItems(this.urlLink);
         }
+      },
+      error: (error) => {
+        console.error('Error fetching user details:', error);
+        this.userDetailsLoaded = true; // Set to true even on error to prevent blocking
       },
     });
   }

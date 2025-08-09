@@ -4,6 +4,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { DownloadReportsService } from 'src/app/_services/download-reports.service';
 import { ReportService } from 'src/app/_services/finance/report.service';
 import { DataService } from 'src/app/_services/shared-data/data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-report',
@@ -24,6 +25,8 @@ export class ReportComponent {
   showTable: boolean = false; // Track whether to show the table
   selectedReportData: any = null; // Store the selected report data
   filepath: any;
+  pdfUrl: string = ''; // Store the PDF URL from API response
+  isLoading: boolean = false; // Prevent multiple simultaneous API calls
 
   reportForm!: FormGroup;
 
@@ -63,7 +66,7 @@ export class ReportComponent {
       toDate: [null],
       selectedReport: [null],
     });
-    this.getFinancialSummary();
+    // Remove automatic API call - only load data when user selects a report
   }
 
   // Format date to YYYY-MM-DD format for API
@@ -76,128 +79,183 @@ export class ReportComponent {
   }
 
   getFinancialSummary() {
+    if (this.isLoading) return; // Prevent multiple simultaneous calls
+    this.isLoading = true;
+
     const data: any = [];
     data['from_date'] = this.formatDate(this.fromDate);
     data['to_date'] = this.formatDate(this.toDate);
-    this.reportService.getFinancialSummary(data).subscribe((res) => {
-      console.log('API Response:', res);
+    this.reportService.getFinancialSummary(data).subscribe(
+      (res) => {
+        console.log('API Response:', res);
 
-      // Handle different response formats
-      if (res && res['data']) {
-        // If data is an array, use it directly
-        if (Array.isArray(res['data'])) {
-          this.allReportSummary = res['data'];
+        // Handle different response formats
+        if (res && res['data']) {
+          // If data is an array, use it directly
+          if (Array.isArray(res['data'])) {
+            this.allReportSummary = res['data'];
+          } else {
+            // If data is an object, wrap it in an array for the table
+            this.allReportSummary = [res['data']];
+          }
+        } else if (res) {
+          // If the response itself is the data, wrap it in an array
+          this.allReportSummary = [res];
         } else {
-          // If data is an object, wrap it in an array for the table
-          this.allReportSummary = [res['data']];
+          // Fallback to empty array
+          this.allReportSummary = [];
         }
-      } else if (res) {
-        // If the response itself is the data, wrap it in an array
-        this.allReportSummary = [res];
-      } else {
-        // Fallback to empty array
-        this.allReportSummary = [];
-      }
 
-      console.log('Processed Financial Summary:', this.allReportSummary);
-      this.filepath = res?.file_path || '';
-    });
+        console.log('Processed Financial Summary:', this.allReportSummary);
+        this.filepath = res?.file_path || '';
+        this.pdfUrl = res?.pdf_url || ''; // Store the PDF URL from response
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error loading financial summary:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   getProfitandLossReport() {
+    if (this.isLoading) return; // Prevent multiple simultaneous calls
+    this.isLoading = true;
+
     const data: any = [];
     data['from_date'] = this.formatDate(this.fromDate);
     data['to_date'] = this.formatDate(this.toDate);
-    this.reportService.getProfitLossReport(data).subscribe((res) => {
-      console.log('Profit & Loss API Response:', res);
+    this.reportService.getProfitLossReport(data).subscribe(
+      (res) => {
+        console.log('Profit & Loss API Response:', res);
 
-      // Handle different response formats
-      if (res && res['data']) {
-        if (Array.isArray(res['data'])) {
-          this.allReportSummary = res['data'];
+        // Handle different response formats
+        if (res && res['data']) {
+          if (Array.isArray(res['data'])) {
+            this.allReportSummary = res['data'];
+          } else {
+            this.allReportSummary = [res['data']];
+          }
+        } else if (res) {
+          this.allReportSummary = [res];
         } else {
-          this.allReportSummary = [res['data']];
+          this.allReportSummary = [];
         }
-      } else if (res) {
-        this.allReportSummary = [res];
-      } else {
-        this.allReportSummary = [];
-      }
 
-      this.filepath = res?.file_path || '';
-    });
+        this.filepath = res?.file_path || '';
+        this.pdfUrl = res?.pdf_url || ''; // Store the PDF URL from response
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error loading profit & loss report:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   getRevenueReport() {
+    if (this.isLoading) return; // Prevent multiple simultaneous calls
+    this.isLoading = true;
+
     const data: any = [];
     data['from_date'] = this.formatDate(this.fromDate);
     data['to_date'] = this.formatDate(this.toDate);
-    this.reportService.getRevenueReport(data).subscribe((res) => {
-      console.log('Revenue API Response:', res);
+    this.reportService.getRevenueReport(data).subscribe(
+      (res) => {
+        console.log('Revenue API Response:', res);
 
-      // Handle different response formats
-      if (res && res['data']) {
-        if (Array.isArray(res['data'])) {
-          this.allReportSummary = res['data'];
+        // Handle different response formats
+        if (res && res['data']) {
+          if (Array.isArray(res['data'])) {
+            this.allReportSummary = res['data'];
+          } else {
+            this.allReportSummary = [res['data']];
+          }
+        } else if (res) {
+          this.allReportSummary = [res];
         } else {
-          this.allReportSummary = [res['data']];
+          this.allReportSummary = [];
         }
-      } else if (res) {
-        this.allReportSummary = [res];
-      } else {
-        this.allReportSummary = [];
-      }
 
-      this.filepath = res?.file_path || '';
-    });
+        this.filepath = res?.file_path || '';
+        this.pdfUrl = res?.pdf_url || ''; // Store the PDF URL from response
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error loading revenue report:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   getExpensiveReport() {
+    if (this.isLoading) return; // Prevent multiple simultaneous calls
+    this.isLoading = true;
+
     const data: any = [];
     data['from_date'] = this.formatDate(this.fromDate);
     data['to_date'] = this.formatDate(this.toDate);
-    this.reportService.getExpnsiveReport(data).subscribe((res) => {
-      console.log('Expenses API Response:', res);
+    this.reportService.getExpnsiveReport(data).subscribe(
+      (res) => {
+        console.log('Expenses API Response:', res);
 
-      // Handle different response formats
-      if (res && res['data']) {
-        if (Array.isArray(res['data'])) {
-          this.allReportSummary = res['data'];
+        // Handle different response formats
+        if (res && res['data']) {
+          if (Array.isArray(res['data'])) {
+            this.allReportSummary = res['data'];
+          } else {
+            this.allReportSummary = [res['data']];
+          }
+        } else if (res) {
+          this.allReportSummary = [res];
         } else {
-          this.allReportSummary = [res['data']];
+          this.allReportSummary = [];
         }
-      } else if (res) {
-        this.allReportSummary = [res];
-      } else {
-        this.allReportSummary = [];
-      }
 
-      this.filepath = res?.file_path || '';
-    });
+        this.filepath = res?.file_path || '';
+        this.pdfUrl = res?.pdf_url || ''; // Store the PDF URL from response
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error loading expenses report:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   getProjectFinanceReport() {
+    if (this.isLoading) return; // Prevent multiple simultaneous calls
+    this.isLoading = true;
+
     const data: any = [];
     data['from_date'] = this.formatDate(this.fromDate);
     data['to_date'] = this.formatDate(this.toDate);
-    this.reportService.getProjectFInanceReport(data).subscribe((res) => {
-      console.log('Project Finance API Response:', res);
+    this.reportService.getProjectFInanceReport(data).subscribe(
+      (res) => {
+        console.log('Project Finance API Response:', res);
 
-      // Handle different response formats
-      if (res && res['data']) {
-        if (Array.isArray(res['data'])) {
-          this.allReportSummary = res['data'];
+        // Handle different response formats
+        if (res && res['data']) {
+          if (Array.isArray(res['data'])) {
+            this.allReportSummary = res['data'];
+          } else {
+            this.allReportSummary = [res['data']];
+          }
+        } else if (res) {
+          this.allReportSummary = [res];
         } else {
-          this.allReportSummary = [res['data']];
+          this.allReportSummary = [];
         }
-      } else if (res) {
-        this.allReportSummary = [res];
-      } else {
-        this.allReportSummary = [];
-      }
 
-      this.filepath = res?.file_path || '';
-    });
+        this.filepath = res?.file_path || '';
+        this.pdfUrl = res?.pdf_url || ''; // Store the PDF URL from response
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error loading project finance report:', error);
+        this.isLoading = false;
+      }
+    );
   }
   // }
 
@@ -220,6 +278,8 @@ export class ReportComponent {
 
   // Load data based on selected report
   loadReportData() {
+    if (!this.selectedReport || this.isLoading) return; // Only load if report is selected and not already loading
+
     switch (this.selectedReport) {
       case 1:
         this.getFinancialSummary();
@@ -239,6 +299,18 @@ export class ReportComponent {
       default:
         break;
     }
+  }
+
+  // Handle date changes with debouncing to prevent multiple API calls
+  onDateChange() {
+    if (!this.selectedReport) return; // Only reload if a report is selected
+
+    // Add a small delay to prevent multiple rapid calls when both dates change
+    setTimeout(() => {
+      if (!this.isLoading) {
+        this.loadReportData();
+      }
+    }, 300);
   }
 
   // Go back to card view
@@ -266,15 +338,31 @@ export class ReportComponent {
   }
 
   downloadReport() {
-    const data: any = [];
-    data['file_path'] = this.filepath; // Example file path, adjust as needed
-    this.downloadReportsService.downloadFinancialSummary(data).subscribe(
-      (res) => {
-        // Handle successful response
-      },
-      (error) => {
-        // Handle error response
-      }
-    );
+    if (!this.pdfUrl) {
+      console.error('No PDF URL available for download');
+      return;
+    }
+
+    // Construct the full download URL using the base URL from environment
+    const baseUrl = environment.baseUrl + '8002'; // Finance module base URL
+    const fullDownloadUrl = baseUrl + this.pdfUrl;
+
+    console.log('Downloading report from:', fullDownloadUrl);
+
+    // Create a temporary anchor element to trigger download
+    const link = document.createElement('a');
+    link.href = fullDownloadUrl;
+    link.target = '_blank'; // Open in new tab as fallback
+    link.download = this.getDownloadFileName(); // Set filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  // Generate appropriate filename based on selected report
+  getDownloadFileName(): string {
+    const reportName = this.selectedReportData?.label || 'financial_report';
+    const dateStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+    return `${reportName.toLowerCase().replace(/\s+/g, '_')}_${dateStr}.pdf`;
   }
 }

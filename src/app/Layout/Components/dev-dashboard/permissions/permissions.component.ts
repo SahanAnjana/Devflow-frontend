@@ -87,6 +87,16 @@ export class PermissionsComponent implements OnInit {
     this.loadAllSystemPermissions();
   }
 
+  // Check if a role is the protected System Admin role
+  isSystemAdminRole(roleName: string): boolean {
+    return roleName === 'System Admin';
+  }
+
+  // Check if a role can be deleted or updated
+  canModifyRole(roleName: string): boolean {
+    return !this.isSystemAdminRole(roleName);
+  }
+
   // Load all available permissions from the system
   loadAllSystemPermissions() {
     this.userPermissionsService.getAllAvailablePermissions().subscribe({
@@ -618,6 +628,15 @@ export class PermissionsComponent implements OnInit {
       return;
     }
 
+    // Check if this is the System Admin role
+    if (this.isSystemAdminRole(this.selectedRoleName)) {
+      this.notification.warning(
+        'Cannot Update Permissions',
+        'The System Admin role is protected and its permissions cannot be modified.'
+      );
+      return;
+    }
+
     this.saving = true;
 
     // Convert rolePermissions object back to array format for API
@@ -847,6 +866,15 @@ export class PermissionsComponent implements OnInit {
   deleteRole(role: any, event: Event): void {
     // Stop event propagation to prevent card click
     event.stopPropagation();
+
+    // Check if this is the System Admin role
+    if (this.isSystemAdminRole(role.name)) {
+      this.notification.warning(
+        'Cannot Delete Role',
+        'The System Admin role is protected and cannot be deleted.'
+      );
+      return;
+    }
 
     this.modalService.confirm({
       nzTitle: 'Delete Role',

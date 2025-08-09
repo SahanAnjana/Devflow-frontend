@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DataService } from 'src/app/_services/shared-data/data.service';
+import { DashboardService } from 'src/app/_services/dashboard.service';
+import { DepartmentService } from 'src/app/_services/hr-services/department.service';
 import { environment } from 'src/environments/environment';
 
 interface ApiUser {
@@ -66,38 +68,20 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   selectedUserDetails: ApiUser | null = null;
 
   // Available roles and departments
-  availableRoles = [
-    'Developer',
-    'Manager',
-    'Analyst',
-    'Designer',
-    'Admin',
-    'QA Engineer',
-    'Sales Rep',
-    'Accountant',
-    'user',
-  ];
-  availableDepartments = [
-    'IT',
-    'HR',
-    'Finance',
-    'Marketing',
-    'Sales',
-    'General',
-    'Management',
-    'Analytics',
-    'Design',
-  ];
+  availableRoles: any[] = []; // Will be loaded from API
+  availableDepartments: any[] = []; // Will be loaded from HR API
 
   // Component lifecycle
   private componentDestroyed = false;
-
+  show = false;
   constructor(
     private http: HttpClient,
     public dataService: DataService,
     private fb: FormBuilder,
     private notification: NzNotificationService,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private dashboardService: DashboardService,
+    private departmentService: DepartmentService
   ) {
     if (this.debugMode) console.log('🔧 User Management constructor called');
 
@@ -134,16 +118,128 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     if (this.debugMode) console.log('🔧 User Management ngOnInit called');
 
     try {
+      this.loadRoles(); // Load roles from API
+      this.loadDepartments(); // Load departments from HR API
       this.fetchUsers();
     } catch (error) {
       console.error('❌ Error in User Management ngOnInit:', error);
       this.error = 'Error initializing User Management';
     }
+
+    this.isCurrentUserAdmin();
   }
 
   ngOnDestroy(): void {
     if (this.debugMode) console.log('🔧 User Management ngOnDestroy called');
     this.componentDestroyed = true;
+  }
+
+  // Load all available roles from API
+  loadRoles(): void {
+    if (this.debugMode) console.log('🔧 Loading roles from API...');
+
+    this.dashboardService.getAllRoles().subscribe({
+      next: (res) => {
+        if (res) {
+          if (this.debugMode) console.log('✅ Roles loaded successfully:', res);
+
+          // Transform the API response to match our dropdown format
+          this.availableRoles = res.map((role: any) => ({
+            label: role.name,
+            value: role.name,
+            id: role.id,
+            description: role.description || '',
+          }));
+
+          if (this.debugMode)
+            console.log(
+              '🔄 Processed roles for dropdown:',
+              this.availableRoles
+            );
+        } else {
+          console.warn('⚠️ No roles returned from API');
+          this.notification.warning('Warning', 'No roles found in the system');
+        }
+      },
+      error: (error) => {
+        console.error('❌ Error loading roles:', error);
+        this.notification.error(
+          'Error',
+          'Failed to load roles. Please try again.'
+        );
+
+        // Fallback to basic roles if API fails
+        this.availableRoles = [
+          { label: 'User', value: 'user' },
+          { label: 'Admin', value: 'Admin' },
+        ];
+      },
+    });
+  }
+
+  // Load all available departments from HR API
+  loadDepartments(): void {
+    if (this.debugMode) console.log('🔧 Loading departments from HR API...');
+
+    this.departmentService.getAllDepartments().subscribe({
+      next: (res) => {
+        if (res && res.length > 0) {
+          if (this.debugMode)
+            console.log('✅ Departments loaded successfully:', res);
+
+          // Transform the API response to match our dropdown format
+          this.availableDepartments = res.map((dept: any) => ({
+            label: dept.name || dept.department_name || dept.title,
+            value: dept.name || dept.department_name || dept.title,
+            id: dept.id,
+            description: dept.description || '',
+          }));
+
+          if (this.debugMode)
+            console.log(
+              '🔄 Processed departments for dropdown:',
+              this.availableDepartments
+            );
+        } else {
+          console.warn('⚠️ No departments returned from API');
+          this.notification.warning(
+            'Warning',
+            'No departments found in the system'
+          );
+
+          // Fallback to basic departments if API returns empty
+          this.availableDepartments = [
+            { label: 'IT', value: 'IT' },
+            { label: 'HR', value: 'HR' },
+            { label: 'Finance', value: 'Finance' },
+            { label: 'General', value: 'General' },
+          ];
+        }
+      },
+      error: (error) => {
+        console.error('❌ Error loading departments:', error);
+        this.notification.error(
+          'Error',
+          'Failed to load departments. Using fallback options.'
+        );
+
+        // Fallback to basic departments if API fails
+        this.availableDepartments = [
+          { label: 'IT', value: 'IT' },
+          { label: 'HR', value: 'HR' },
+          { label: 'Finance', value: 'Finance' },
+          { label: 'Marketing', value: 'Marketing' },
+          { label: 'Sales', value: 'Sales' },
+          { label: 'General', value: 'General' },
+        ];
+
+        if (this.debugMode)
+          console.log(
+            '🔄 Using fallback departments:',
+            this.availableDepartments
+          );
+      },
+    });
   }
 
   private loadMockUsers(): void {
@@ -673,21 +769,228 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   activateUser(userId: string): void {
     if (this.debugMode) console.log('🔧 Activate user:', userId);
 
-    const user = this.allUsers.find((u) => u.id === userId);
-    if (user) {
-      user.status = 'active';
-      console.log('User activated:', userId);
+    // Check if current user is admin
+    if (!this.isCurrentUserAdmin()) {
+      this.notification.error(
+        'Access Denied',
+        'Only administrators can activate/deactivate users.'
+      );
+      return;
     }
+
+    // Find the user to activate
+    const user = this.allUsers.find((u) => u.id === userId);
+    if (!user) {
+      this.notification.error('Error', 'User not found.');
+      return;
+    }
+
+    // Prevent activation of SYSTEM ADMIN accounts
+    if (user.role === 'SYSTEM ADMIN') {
+      this.notification.error(
+        'Access Denied',
+        'System Administrator accounts cannot be activated. They are always active.'
+      );
+      return;
+    }
+
+    // Confirm action
+    this.modal.confirm({
+      nzTitle: 'Activate User',
+      nzContent: `Are you sure you want to activate user "${user.email}"?`,
+      nzOkText: 'Yes, Activate',
+      nzCancelText: 'Cancel',
+      nzOkType: 'primary',
+      nzOnOk: () => {
+        this.updateUserStatus(userId, true);
+      },
+    });
   }
 
   deactivateUser(userId: string): void {
     if (this.debugMode) console.log('🔧 Deactivate user:', userId);
 
-    const user = this.allUsers.find((u) => u.id === userId);
-    if (user) {
-      user.status = 'inactive';
-      console.log('User deactivated:', userId);
+    // Check if current user is admin
+    if (!this.isCurrentUserAdmin()) {
+      this.notification.error(
+        'Access Denied',
+        'Only administrators can activate/deactivate users.'
+      );
+      return;
     }
+
+    // Find the user to deactivate
+    const user = this.allUsers.find((u) => u.id === userId);
+    if (!user) {
+      this.notification.error('Error', 'User not found.');
+      return;
+    }
+
+    // Prevent deactivation of SYSTEM ADMIN accounts
+    if (user.role === 'SYSTEM ADMIN') {
+      this.notification.error(
+        'Access Denied',
+        'System Administrator accounts cannot be deactivated. They are always active.'
+      );
+      return;
+    }
+
+    // Confirm action
+    this.modal.confirm({
+      nzTitle: 'Deactivate User',
+      nzContent: `Are you sure you want to deactivate user "${user.email}"? The user will no longer be able to access the system.`,
+      nzOkText: 'Yes, Deactivate',
+      nzCancelText: 'Cancel',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.updateUserStatus(userId, false);
+      },
+    });
+  }
+
+  // Helper method to update user status via API
+  private updateUserStatus(userId: string, isActive: boolean): void {
+    this.isLoading = true;
+
+    // Find the user to get their current data
+    const user = this.allUsers.find((u) => u.id === userId);
+    if (!user) {
+      this.notification.error('Error', 'User not found.');
+      this.isLoading = false;
+      return;
+    }
+
+    // Prepare update data
+    const updateData: UpdateUserRequest = {
+      email: user.email,
+      is_active: isActive,
+      role: user.role,
+    };
+
+    const updateUrl = `${environment.updateUser}${userId}`;
+
+    if (this.debugMode) {
+      console.log('🔧 Updating user status via API:', {
+        userId,
+        isActive,
+        updateUrl,
+        updateData,
+      });
+    }
+
+    this.http.put<ApiUser>(updateUrl, updateData).subscribe({
+      next: (updatedUser) => {
+        if (this.debugMode)
+          console.log('✅ User status updated successfully:', updatedUser);
+
+        // Update the user in local arrays
+        const userIndex = this.allUsers.findIndex(
+          (u) => u.id === updatedUser.id
+        );
+        if (userIndex !== -1) {
+          this.allUsers[userIndex] = this.transformApiUsers([updatedUser])[0];
+        }
+
+        const filteredIndex = this.filteredUsers.findIndex(
+          (u) => u.id === updatedUser.id
+        );
+        if (filteredIndex !== -1) {
+          this.filteredUsers[filteredIndex] = this.transformApiUsers([
+            updatedUser,
+          ])[0];
+        }
+
+        this.isLoading = false;
+
+        // Show success notification
+        const action = isActive ? 'activated' : 'deactivated';
+        this.notification.success(
+          'Success',
+          `User has been ${action} successfully!`
+        );
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('❌ Update user status API Error:', error);
+        this.isLoading = false;
+
+        const action = isActive ? 'activate' : 'deactivate';
+        this.notification.error(
+          'Error',
+          `Failed to ${action} user: ${error.status} - ${error.message}`
+        );
+      },
+    });
+  }
+
+  // Helper method to get current user's email
+  private getCurrentUserEmail(): string {
+    return (
+      this.dataService.loggedInUser?.email ||
+      this.dataService.userDetails?.email ||
+      ''
+    );
+  }
+
+  // Helper method to get current user's role
+  private getCurrentUserRole(): string {
+    return (
+      this.dataService.loggedInUser?.role ||
+      this.dataService.userDetails?.role ||
+      ''
+    );
+  }
+
+  // Public method for template access - check if current user is admin
+  isCurrentUserAdmin(): any {
+    const currentUserEmail = this.getCurrentUserEmail();
+    const currentUserRole = this.getCurrentUserRole();
+
+    if (currentUserRole?.toLowerCase() === 'system admin') {
+      this.show = true;
+    } else {
+      this.show = false;
+    }
+    // Check by email (Admin@devflow.com) or role
+  }
+
+  // Helper method to check if a user can be deactivated
+  canDeactivateUser(user: User): boolean {
+    // Only protect SYSTEM ADMIN users - they are always active
+    if (user.role === 'SYSTEM ADMIN') {
+      return false;
+    }
+
+    // All other users (including USER role) can be deactivated
+    return true;
+  }
+
+  // Get appropriate tooltip for deactivate button
+  getDeactivateButtonTitle(user: User): string {
+    if (user.role === 'SYSTEM ADMIN') {
+      return 'System Administrator accounts cannot be deactivated - they are always active';
+    }
+
+    return 'Deactivate User';
+  }
+
+  // Helper method to check if a user can be activated
+  canActivateUser(user: User): boolean {
+    // Only protect SYSTEM ADMIN users - they are always active
+    if (user.role === 'SYSTEM ADMIN') {
+      return false;
+    }
+
+    // All other users (including USER role) can be activated
+    return true;
+  }
+
+  // Get appropriate tooltip for activate button
+  getActivateButtonTitle(user: User): string {
+    if (user.role === 'SYSTEM ADMIN') {
+      return 'System Administrator accounts are always active';
+    }
+
+    return 'Activate User';
   }
 
   // Status helpers

@@ -179,11 +179,10 @@
 
               <!-- Activate/Deactivate Button -->
               <button
-                *ngIf="user.status === 'inactive'"
                 class="action-button activate"
-                title="Activate User"
+                [title]="getActivateButtonTitle(user)"
                 (click)="activateUser(user.id)"
-                [disabled]="isLoading"
+                [disabled]="show"
               >
                 <svg
                   width="16"
@@ -197,28 +196,6 @@
                   <circle cx="12" cy="12" r="10" />
                 </svg>
               </button>
-
-              <button
-                *ngIf="user.status === 'active'"
-                class="action-button deactivate"
-                title="Deactivate User"
-                (click)="deactivateUser(user.id)"
-                [disabled]="isLoading"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="15" y1="9" x2="9" y2="15" />
-                  <line x1="9" y1="9" x2="15" y2="15" />
-                </svg>
-              </button>
-
               <!-- Delete Button -->
               <button
                 class="action-button delete"
@@ -385,9 +362,16 @@
               <nz-select formControlName="role" nzPlaceHolder="Select role">
                 <nz-option
                   *ngFor="let role of availableRoles"
-                  [nzValue]="role"
-                  [nzLabel]="role"
-                ></nz-option>
+                  [nzValue]="role.value"
+                  [nzLabel]="role.label"
+                >
+                  <span>{{ role.label }}</span>
+                  <small
+                    *ngIf="role.description"
+                    style="color: #8c8c8c; display: block; font-size: 11px"
+                    >{{ role.description }}</small
+                  >
+                </nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
@@ -407,8 +391,8 @@
               >
                 <nz-option
                   *ngFor="let dept of availableDepartments"
-                  [nzValue]="dept"
-                  [nzLabel]="dept"
+                  [nzValue]="dept.value"
+                  [nzLabel]="dept.label"
                 ></nz-option>
               </nz-select>
             </nz-form-control>
@@ -534,9 +518,16 @@
               <nz-select formControlName="role" nzPlaceHolder="Select role">
                 <nz-option
                   *ngFor="let role of availableRoles"
-                  [nzValue]="role"
-                  [nzLabel]="role"
-                ></nz-option>
+                  [nzValue]="role.value"
+                  [nzLabel]="role.label"
+                >
+                  <span>{{ role.label }}</span>
+                  <small
+                    *ngIf="role.description"
+                    style="color: #8c8c8c; display: block; font-size: 11px"
+                    >{{ role.description }}</small
+                  >
+                </nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
@@ -556,8 +547,8 @@
               >
                 <nz-option
                   *ngFor="let dept of availableDepartments"
-                  [nzValue]="dept"
-                  [nzLabel]="dept"
+                  [nzValue]="dept.value"
+                  [nzLabel]="dept.label"
                 ></nz-option>
               </nz-select>
             </nz-form-control>

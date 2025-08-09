@@ -71,9 +71,34 @@
               </svg>
             </div>
             <div class="role-card-content">
-              <h3 class="role-name">{{ role.name }}</h3>
+              <h3 class="role-name">
+                {{ role.name }}
+                <span
+                  *ngIf="isSystemAdminRole(role.name)"
+                  class="protected-badge"
+                  title="Protected System Role"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                    ></path>
+                  </svg>
+                </span>
+              </h3>
               <p class="role-description">
                 {{ role.description || "Manage " + role.name + " permissions" }}
+                <span
+                  *ngIf="isSystemAdminRole(role.name)"
+                  class="protected-text"
+                  >• Protected Role</span
+                >
               </p>
             </div>
           </div>
@@ -84,6 +109,12 @@
               class="role-action-btn edit-btn"
               (click)="changePermissions(role, $event)"
               title="Change Permissions"
+              [disabled]="isSystemAdminRole(role.name)"
+              [title]="
+                isSystemAdminRole(role.name)
+                  ? 'System Admin role cannot be modified'
+                  : 'Change Permissions'
+              "
             >
               <svg
                 width="14"
@@ -105,7 +136,14 @@
               class="role-action-btn delete-btn"
               (click)="deleteRole(role, $event)"
               title="Delete Role"
-              [disabled]="selectedRoleName === role.name"
+              [disabled]="
+                selectedRoleName === role.name || isSystemAdminRole(role.name)
+              "
+              [title]="
+                isSystemAdminRole(role.name)
+                  ? 'System Admin role cannot be deleted'
+                  : 'Delete Role'
+              "
             >
               <svg
                 width="14"
@@ -156,8 +194,13 @@
         nzType="primary"
         class="save-btn"
         (click)="savePermissions()"
-        [disabled]="saving || loading"
+        [disabled]="saving || loading || isSystemAdminRole(selectedRoleName)"
         [nzLoading]="saving"
+        [title]="
+          isSystemAdminRole(selectedRoleName)
+            ? 'System Admin role permissions cannot be modified'
+            : 'Save Permissions'
+        "
       >
         <svg
           width="16"

@@ -35,7 +35,7 @@
                 <span class="spinner"></span>
               </div>
               <span class="error-state" *ngIf="projectsError"
-                >Error loading</span
+                >Don't have any access</span
               >
             </div>
           </div>
@@ -58,7 +58,9 @@
               <div class="loading-spinner" *ngIf="isLoadingIssues">
                 <span class="spinner"></span>
               </div>
-              <span class="error-state" *ngIf="issuesError">Error loading</span>
+              <span class="error-state" *ngIf="issuesError"
+                >Don't have any access</span
+              >
             </div>
           </div>
           <div class="kpi-trend negative">
@@ -79,7 +81,7 @@
                 <span class="spinner"></span>
               </div>
               <span class="error-state" *ngIf="budgetsError"
-                >Error loading</span
+                >Don't have any access</span
               >
             </div>
           </div>
@@ -103,7 +105,7 @@
                 <span class="spinner"></span>
               </div>
               <span class="error-state" *ngIf="companiesError"
-                >Error loading</span
+                >Don't have any access</span
               >
             </div>
           </div>
