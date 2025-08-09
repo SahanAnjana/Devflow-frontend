@@ -101,8 +101,8 @@
   </div>
 
   <!-- Details Section -->
-  <div class="details-section">
-    <!-- Activity Details -->
+  <!-- <div class="details-section">
+  
     <div class="detail-card activity-details">
       <div class="detail-header">
         <div class="header-left">
@@ -135,7 +135,7 @@
         </div>
       </div>
       <div class="detail-content" *ngIf="dashboardData">
-        <!-- Status Section -->
+       
         <div class="activity-section">
           <div class="section-header">
             <h4 class="section-title">By Status</h4>
@@ -214,7 +214,7 @@
           </div>
         </div>
 
-        <!-- Type Section -->
+      
         <div class="activity-section">
           <div class="section-header">
             <h4 class="section-title">By Type</h4>
@@ -343,6 +343,63 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <h2 class="section-title">Analytics & Reports</h2>
+
+    <div class="charts-grid">
+      <!-- Activity Status Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Activity Status</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="activityChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Communication Direction Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Communication Flow</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="communicationChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Contract Status Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Contract Status</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="contractChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Deal Stage Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Deal Pipeline</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="dealChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Proposal Status Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">Proposal Status</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="proposalChart"></canvas>
         </div>
       </div>
     </div>

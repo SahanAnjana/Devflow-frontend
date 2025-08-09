@@ -346,3 +346,77 @@
     
   .ant-spin
     color: #1890ff
+
+// Charts Section
+.charts-section
+  margin: 32px 0
+
+.charts-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr))
+  gap: 24px
+
+.chart-card
+  background: white
+  border-radius: 16px
+  padding: 24px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+  border: 1px solid #f0f0f0
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+
+  &:hover
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12)
+    transform: translateY(-2px)
+
+  &.timeline-chart
+    grid-column: 1 / -1
+    min-height: 400px
+
+.chart-header
+  display: flex
+  align-items: center
+  margin-bottom: 20px
+  padding-bottom: 16px
+  border-bottom: 1px solid #f0f0f0
+
+.chart-title
+  font-size: 18px
+  font-weight: 600
+  color: #1a1a1a
+  margin: 0
+  display: flex
+  align-items: center
+  gap: 8px
+
+  svg
+    color: #1890ff
+
+.chart-content
+  position: relative
+  height: 300px
+
+  canvas
+    max-width: 100%
+    height: 100%
+
+// Responsive chart adjustments
+@media (max-width: 1200px)
+  .charts-grid
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr))
+
+@media (max-width: 768px)
+  .charts-section
+    margin: 24px 0
+
+  .charts-grid
+    grid-template-columns: 1fr
+    gap: 16px
+
+  .chart-card
+    padding: 20px
+
+  .chart-content
+    height: 250px
+
+  .timeline-chart .chart-content
+    height: 300px

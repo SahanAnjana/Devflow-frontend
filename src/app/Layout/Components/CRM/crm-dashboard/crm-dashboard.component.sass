@@ -507,3 +507,71 @@
   .type-icon
     width: 32px
     height: 32px
+
+// Charts Section
+.charts-section
+  margin-top: 32px
+  padding: 24px
+  background: white
+  border-radius: 16px
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08)
+
+  .section-title
+    font-size: 24px
+    font-weight: 700
+    color: #1a1a1a
+    margin-bottom: 24px
+    text-align: center
+
+.charts-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr))
+  gap: 24px
+
+.chart-card
+  background: white
+  border-radius: 12px
+  padding: 20px
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06)
+  border: 1px solid #f0f0f0
+  transition: all 0.3s ease
+
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12)
+
+.chart-header
+  margin-bottom: 16px
+  padding-bottom: 12px
+  border-bottom: 1px solid #f0f0f0
+
+  .chart-title
+    font-size: 16px
+    font-weight: 600
+    color: #1a1a1a
+    margin: 0
+
+.chart-container
+  height: 300px
+  position: relative
+
+  canvas
+    max-height: 100%
+    width: 100% !important
+    height: 100% !important
+
+// Responsive adjustments for charts
+@media (max-width: 1200px)
+  .charts-grid
+    grid-template-columns: repeat(2, 1fr)
+
+@media (max-width: 768px)
+  .charts-grid
+    grid-template-columns: 1fr
+    gap: 16px
+
+  .chart-card
+    padding: 16px
+
+  .chart-container
+    height: 250px

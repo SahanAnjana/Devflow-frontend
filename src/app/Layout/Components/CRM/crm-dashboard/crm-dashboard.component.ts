@@ -90,6 +90,8 @@ export class CrmDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   private activityChart: Chart | null = null;
   private communicationChart: Chart | null = null;
   private contractChart: Chart | null = null;
+  private dealChart: Chart | null = null;
+  private proposalChart: Chart | null = null;
 
   // Computed properties for easy access
   get totalPendingActivities(): number {
@@ -214,17 +216,16 @@ export class CrmDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.debugMode) console.log('🔧 CRM Dashboard ngAfterViewInit called');
 
     try {
-      // Create charts immediately if data is available (no setTimeout)
-      if (
-        !this.debugMode &&
-        this.dashboardData &&
-        !this.chartsCreated &&
-        !this.componentDestroyed
-      ) {
-        this.createAllCharts();
-      } else {
-        console.log('🔧 Debug mode: Skipping chart creation');
-      }
+      // Create charts after view initialization
+      setTimeout(() => {
+        if (
+          this.dashboardData &&
+          !this.chartsCreated &&
+          !this.componentDestroyed
+        ) {
+          this.createAllCharts();
+        }
+      }, 100);
     } catch (error) {
       console.error('❌ Error in CRM ngAfterViewInit:', error);
     }
@@ -386,6 +387,8 @@ export class CrmDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.createActivityChart();
       this.createCommunicationChart();
       this.createContractChart();
+      this.createDealChart();
+      this.createProposalChart();
 
       this.chartsCreated = true;
       console.log('✅ All CRM charts created successfully');
@@ -408,6 +411,14 @@ export class CrmDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.contractChart) {
         this.contractChart.destroy();
         this.contractChart = null;
+      }
+      if (this.dealChart) {
+        this.dealChart.destroy();
+        this.dealChart = null;
+      }
+      if (this.proposalChart) {
+        this.proposalChart.destroy();
+        this.proposalChart = null;
       }
     } catch (error) {
       console.error('❌ Error destroying charts:', error);
@@ -534,6 +545,135 @@ export class CrmDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       } catch (error) {
         console.error('❌ Error creating contract chart:', error);
+      }
+    }
+  }
+
+  createDealChart(): void {
+    const ctx = document.getElementById('dealChart') as HTMLCanvasElement;
+    if (ctx && this.dashboardData && !this.componentDestroyed) {
+      try {
+        const dealData = this.dashboardData.each_stage_deals;
+        this.dealChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [
+              'Prospecting',
+              'Qualified',
+              'Proposal Sent',
+              'Negotiation',
+              'Won',
+              'Lost',
+            ],
+            datasets: [
+              {
+                label: 'Deals by Stage',
+                data: [
+                  dealData.prospecting,
+                  dealData.qualified,
+                  dealData.proposal_sent,
+                  dealData.negotiation,
+                  dealData.won,
+                  dealData.lost,
+                ],
+                backgroundColor: [
+                  '#1890ff',
+                  '#52c41a',
+                  '#faad14',
+                  '#722ed1',
+                  '#13c2c2',
+                  '#f5222d',
+                ],
+                borderWidth: 0,
+                borderRadius: 4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              title: { display: true, text: 'Deals by Stage' },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: { stepSize: 1 },
+              },
+            },
+          },
+        });
+      } catch (error) {
+        console.error('❌ Error creating deal chart:', error);
+      }
+    }
+  }
+
+  createProposalChart(): void {
+    const ctx = document.getElementById('proposalChart') as HTMLCanvasElement;
+    if (ctx && this.dashboardData && !this.componentDestroyed) {
+      try {
+        const proposalData = this.dashboardData.each_status_proposals;
+        this.proposalChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: [
+              'Draft',
+              'Sent',
+              'Under Review',
+              'Accepted',
+              'Rejected',
+              'Expired',
+            ],
+            datasets: [
+              {
+                data: [
+                  proposalData.draft,
+                  proposalData.sent,
+                  proposalData.under_review,
+                  proposalData.accepted,
+                  proposalData.rejected,
+                  proposalData.expired,
+                ],
+                backgroundColor: [
+                  '#d9d9d9',
+                  '#1890ff',
+                  '#faad14',
+                  '#52c41a',
+                  '#f5222d',
+                  '#722ed1',
+                ],
+                borderWidth: 2,
+                borderColor: '#fff',
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'right' },
+              title: { display: true, text: 'Proposal Status Distribution' },
+              tooltip: {
+                callbacks: {
+                  label: function (context: any) {
+                    const value = context.parsed || 0;
+                    const total =
+                      context.dataset.data.reduce(
+                        (a: number, b: number) => a + b,
+                        0
+                      ) || 1;
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    return `${context.label}: ${value} (${percentage}%)`;
+                  },
+                },
+              },
+            },
+          },
+        });
+      } catch (error) {
+        console.error('❌ Error creating proposal chart:', error);
       }
     }
   }

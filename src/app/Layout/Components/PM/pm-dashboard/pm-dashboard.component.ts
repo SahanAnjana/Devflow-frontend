@@ -1,6 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
 
 interface PMDashboardData {
   total_projects: number;
@@ -25,7 +33,22 @@ interface ProjectActivity {
   templateUrl: './pm-dashboard.component.html',
   styleUrls: ['./pm-dashboard.component.sass'],
 })
-export class PmDashboardComponent implements OnInit, OnDestroy {
+export class PmDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
+  // Chart canvas references
+  @ViewChild('projectStatusChart', { static: false })
+  projectStatusChartRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('taskProgressChart', { static: false })
+  taskProgressChartRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('productivityChart', { static: false })
+  productivityChartRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('timelineChart', { static: false })
+  timelineChartRef!: ElementRef<HTMLCanvasElement>;
+
+  // Chart instances
+  private projectStatusChart: Chart | null = null;
+  private taskProgressChart: Chart | null = null;
+  private productivityChart: Chart | null = null;
+  private timelineChart: Chart | null = null;
   // Debug mode flag
   debugMode = true;
 
@@ -138,6 +161,9 @@ export class PmDashboardComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient, private router: Router) {
     if (this.debugMode) console.log('🔧 PM Dashboard constructor called');
+
+    // Register Chart.js components
+    Chart.register(...registerables);
   }
 
   ngOnInit(): void {
@@ -158,9 +184,21 @@ export class PmDashboardComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit(): void {
+    if (this.debugMode) console.log('🔧 PM Dashboard ngAfterViewInit called');
+
+    // Wait a bit for the view to be fully rendered, then create charts
+    setTimeout(() => {
+      this.createCharts();
+    }, 100);
+  }
+
   ngOnDestroy(): void {
     if (this.debugMode) console.log('🔧 PM Dashboard ngOnDestroy called');
     this.componentDestroyed = true;
+
+    // Clean up charts
+    this.destroyCharts();
   }
 
   private initializeDefaults(): void {
@@ -220,6 +258,294 @@ export class PmDashboardComponent implements OnInit, OnDestroy {
           this.loadMockData();
         },
       });
+  }
+
+  // Chart Methods
+  private createCharts(): void {
+    if (this.debugMode) console.log('🔧 Creating PM dashboard charts');
+
+    try {
+      this.createProjectStatusChart();
+      this.createTaskProgressChart();
+      this.createProductivityChart();
+      this.createTimelineChart();
+    } catch (error) {
+      console.error('❌ Error creating charts:', error);
+    }
+  }
+
+  private createProjectStatusChart(): void {
+    if (!this.projectStatusChartRef?.nativeElement) return;
+
+    const ctx = this.projectStatusChartRef.nativeElement.getContext('2d');
+    if (!ctx) return;
+
+    const data = {
+      labels: ['Active Projects', 'Completed Projects'],
+      datasets: [
+        {
+          data: [
+            this.activeProjects,
+            this.dashboardData?.completed_projects ?? 13,
+          ],
+          backgroundColor: ['#1890ff', '#52c41a'],
+          borderWidth: 2,
+          borderColor: '#ffffff',
+        },
+      ],
+    };
+
+    const config: ChartConfiguration<'pie'> = {
+      type: 'pie',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              padding: 20,
+              usePointStyle: true,
+            },
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                const value = context.parsed;
+                const total = (context.dataset.data as number[]).reduce(
+                  (a, b) => a + b,
+                  0
+                );
+                const percentage = ((value / total) * 100).toFixed(1);
+                return `${context.label}: ${value} (${percentage}%)`;
+              },
+            },
+          },
+        },
+      },
+    };
+
+    this.projectStatusChart = new Chart(ctx, config);
+  }
+
+  private createTaskProgressChart(): void {
+    if (!this.taskProgressChartRef?.nativeElement) return;
+
+    const ctx = this.taskProgressChartRef.nativeElement.getContext('2d');
+    if (!ctx) return;
+
+    const data = {
+      labels: ['Completed', 'Pending', 'In Progress'],
+      datasets: [
+        {
+          label: 'Tasks',
+          data: [
+            this.completedTasks,
+            this.pendingTasks,
+            this.totalTasks - this.completedTasks - this.pendingTasks,
+          ],
+          backgroundColor: ['#52c41a', '#faad14', '#1890ff'],
+          borderWidth: 1,
+          borderRadius: 4,
+        },
+      ],
+    };
+
+    const config: ChartConfiguration<'bar'> = {
+      type: 'bar',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: '#f0f0f0',
+            },
+          },
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                return `${context.label}: ${context.parsed.y} tasks`;
+              },
+            },
+          },
+        },
+      },
+    };
+
+    this.taskProgressChart = new Chart(ctx, config);
+  }
+
+  private createProductivityChart(): void {
+    if (!this.productivityChartRef?.nativeElement) return;
+
+    const ctx = this.productivityChartRef.nativeElement.getContext('2d');
+    if (!ctx) return;
+
+    const productivityValue = this.teamProductivity;
+    const remaining = 100 - productivityValue;
+
+    const data = {
+      labels: ['Productivity', 'Remaining'],
+      datasets: [
+        {
+          data: [productivityValue, remaining],
+          backgroundColor: ['#722ed1', '#f5f5f5'],
+          borderWidth: 0,
+          cutout: '70%',
+        },
+      ],
+    };
+
+    const config: ChartConfiguration<'doughnut'> = {
+      type: 'doughnut',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                if (context.dataIndex === 0) {
+                  return `Team Productivity: ${context.parsed}%`;
+                }
+                return '';
+              },
+            },
+          },
+        },
+      },
+      plugins: [
+        {
+          id: 'centerText',
+          beforeDraw: (chart) => {
+            const { ctx, width, height } = chart;
+            ctx.restore();
+            const fontSize = (height / 114).toFixed(2);
+            ctx.font = `bold ${fontSize}em sans-serif`;
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#722ed1';
+
+            const text = `${productivityValue}%`;
+            const textX = Math.round((width - ctx.measureText(text).width) / 2);
+            const textY = height / 2;
+
+            ctx.fillText(text, textX, textY);
+            ctx.save();
+          },
+        },
+      ],
+    };
+
+    this.productivityChart = new Chart(ctx, config);
+  }
+
+  private createTimelineChart(): void {
+    if (!this.timelineChartRef?.nativeElement) return;
+
+    const ctx = this.timelineChartRef.nativeElement.getContext('2d');
+    if (!ctx) return;
+
+    const data = {
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+      datasets: [
+        {
+          label: 'Tasks Completed',
+          data: [45, 62, 78, 85, 92, 98],
+          borderColor: '#52c41a',
+          backgroundColor: 'rgba(82, 196, 26, 0.1)',
+          fill: true,
+          tension: 0.4,
+        },
+        {
+          label: 'Project Milestones',
+          data: [20, 35, 45, 60, 75, 85],
+          borderColor: '#1890ff',
+          backgroundColor: 'rgba(24, 144, 255, 0.1)',
+          fill: true,
+          tension: 0.4,
+        },
+      ],
+    };
+
+    const config: ChartConfiguration<'line'> = {
+      type: 'line',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            grid: {
+              color: '#f0f0f0',
+            },
+          },
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              usePointStyle: true,
+              padding: 20,
+            },
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+          },
+        },
+        interaction: {
+          mode: 'nearest',
+          axis: 'x',
+          intersect: false,
+        },
+      },
+    };
+
+    this.timelineChart = new Chart(ctx, config);
+  }
+
+  private destroyCharts(): void {
+    if (this.projectStatusChart) {
+      this.projectStatusChart.destroy();
+      this.projectStatusChart = null;
+    }
+    if (this.taskProgressChart) {
+      this.taskProgressChart.destroy();
+      this.taskProgressChart = null;
+    }
+    if (this.productivityChart) {
+      this.productivityChart.destroy();
+      this.productivityChart = null;
+    }
+    if (this.timelineChart) {
+      this.timelineChart.destroy();
+      this.timelineChart = null;
+    }
   }
 
   // Navigation methods

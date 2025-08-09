@@ -155,6 +155,11 @@ export class FinanceDashboardComponent implements OnInit, OnDestroy {
   upcomingReviews: any;
   recentActivities: any;
 
+  // Chart properties
+  expenseChart: Chart | null = null;
+  revenueChart: Chart | null = null;
+  budgetChart: Chart | null = null;
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -179,6 +184,8 @@ export class FinanceDashboardComponent implements OnInit, OnDestroy {
       } else {
         console.log('🔧 Debug mode: Loading mock finance data');
         this.loadMockFinanceData();
+        // Create charts after loading mock data
+        setTimeout(() => this.createCharts(), 100);
       }
     } catch (error) {
       console.error('❌ Error in Finance ngOnInit:', error);
@@ -189,6 +196,20 @@ export class FinanceDashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.debugMode) console.log('🔧 Finance Dashboard ngOnDestroy called');
     this.componentDestroyed = true;
+
+    // Clean up charts
+    if (this.expenseChart) {
+      this.expenseChart.destroy();
+      this.expenseChart = null;
+    }
+    if (this.revenueChart) {
+      this.revenueChart.destroy();
+      this.revenueChart = null;
+    }
+    if (this.budgetChart) {
+      this.budgetChart.destroy();
+      this.budgetChart = null;
+    }
   }
 
   private initializeDefaults(): void {
@@ -350,6 +371,231 @@ export class FinanceDashboardComponent implements OnInit, OnDestroy {
     this.availableFunds = this.totalRevenue - this.recentExpenseAmount;
     if (this.debugMode)
       console.log('✅ Available funds calculated:', this.availableFunds);
+
+    // Create charts after data processing
+    setTimeout(() => this.createCharts(), 100);
+  }
+
+  // Chart creation methods
+  createCharts(): void {
+    try {
+      this.createExpenseChart();
+      this.createRevenueChart();
+      this.createBudgetChart();
+      console.log('✅ Finance charts created successfully');
+    } catch (error) {
+      console.error('❌ Error creating finance charts:', error);
+    }
+  }
+
+  createExpenseChart(): void {
+    const canvas = document.getElementById('expenseChart') as HTMLCanvasElement;
+    if (!canvas) {
+      console.warn('⚠️ Expense chart canvas not found');
+      return;
+    }
+
+    if (this.expenseChart) {
+      this.expenseChart.destroy();
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    this.expenseChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Recent Expenses', 'Available Budget'],
+        datasets: [
+          {
+            data: [this.recentExpenseAmount, this.availableFunds],
+            backgroundColor: ['#ef4444', '#10b981'],
+            borderWidth: 0,
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              padding: 20,
+              font: {
+                family: 'Inter, sans-serif',
+                size: 12,
+              },
+            },
+          },
+          tooltip: {
+            callbacks: {
+              label: (context: any) => {
+                const value = context.parsed as number;
+                const total = (context.dataset.data as number[]).reduce(
+                  (a: number, b: number) => a + b,
+                  0
+                );
+                const percentage = ((value / total) * 100).toFixed(1);
+                return `${
+                  context.label
+                }: $${value.toLocaleString()} (${percentage}%)`;
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  createRevenueChart(): void {
+    const canvas = document.getElementById('revenueChart') as HTMLCanvasElement;
+    if (!canvas) {
+      console.warn('⚠️ Revenue chart canvas not found');
+      return;
+    }
+
+    if (this.revenueChart) {
+      this.revenueChart.destroy();
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Mock monthly revenue data
+    const monthlyRevenue = [45000, 52000, 48000, 61000, 58000, 67000];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
+    this.revenueChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          {
+            label: 'Monthly Revenue',
+            data: monthlyRevenue,
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#3b82f6',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            pointHoverRadius: 8,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            callbacks: {
+              label: (context: any) => {
+                return `Revenue: $${(
+                  context.parsed.y as number
+                ).toLocaleString()}`;
+              },
+            },
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: (value: any) => {
+                return '$' + (value as number).toLocaleString();
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  createBudgetChart(): void {
+    const canvas = document.getElementById('budgetChart') as HTMLCanvasElement;
+    if (!canvas) {
+      console.warn('⚠️ Budget chart canvas not found');
+      return;
+    }
+
+    if (this.budgetChart) {
+      this.budgetChart.destroy();
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Budget breakdown data
+    const budgetData = {
+      labels: ['Marketing', 'Operations', 'Development', 'HR', 'Others'],
+      spending: [this.marketingBudget.spent, 15000, 25000, 12000, 8000],
+      budgets: [this.marketingBudget.total, 20000, 30000, 15000, 10000],
+    };
+
+    this.budgetChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: budgetData.labels,
+        datasets: [
+          {
+            label: 'Budget',
+            data: budgetData.budgets,
+            backgroundColor: 'rgba(59, 130, 246, 0.3)',
+            borderColor: '#3b82f6',
+            borderWidth: 1,
+          },
+          {
+            label: 'Spending',
+            data: budgetData.spending,
+            backgroundColor: 'rgba(239, 68, 68, 0.7)',
+            borderColor: '#ef4444',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              font: {
+                family: 'Inter, sans-serif',
+                size: 12,
+              },
+            },
+          },
+          tooltip: {
+            callbacks: {
+              label: (context: any) => {
+                return `${context.dataset.label}: $${(
+                  context.parsed.y as number
+                ).toLocaleString()}`;
+              },
+            },
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: (value: any) => {
+                return '$' + (value as number).toLocaleString();
+              },
+            },
+          },
+        },
+      },
+    });
   }
 
   // REMOVED: All the old loadXXXData methods with setTimeout

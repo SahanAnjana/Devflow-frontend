@@ -49,6 +49,104 @@
     </div>
   </div>
 
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div class="charts-grid">
+      <!-- Project Status Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M3 3v18h18" />
+              <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
+            </svg>
+            Project Status Distribution
+          </h3>
+        </div>
+        <div class="chart-content">
+          <canvas #projectStatusChart></canvas>
+        </div>
+      </div>
+
+      <!-- Task Progress Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <rect x="7" y="7" width="3" height="9" />
+              <rect x="14" y="7" width="3" height="5" />
+            </svg>
+            Task Progress Overview
+          </h3>
+        </div>
+        <div class="chart-content">
+          <canvas #taskProgressChart></canvas>
+        </div>
+      </div>
+
+      <!-- Team Productivity Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+            Team Productivity
+          </h3>
+        </div>
+        <div class="chart-content">
+          <canvas #productivityChart></canvas>
+        </div>
+      </div>
+
+      <!-- Timeline Chart -->
+      <div class="chart-card timeline-chart">
+        <div class="chart-header">
+          <h3 class="chart-title">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M3 3v18h18" />
+              <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
+            </svg>
+            Project Timeline & Progress
+          </h3>
+        </div>
+        <div class="chart-content">
+          <canvas #timelineChart></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Content Section -->
   <!-- <div class="pm-main-content">
    
