@@ -27,7 +27,7 @@
       <div class="kpi-content">
         <p class="kpi-label">Today's Leaves</p>
         <h2 class="kpi-value">
-          {{ todayLeaves }}
+          {{ todayLeaveCount }}
         </h2>
         <p class="kpi-trend neutral">Employees on leave</p>
         <a class="view-link">View Details</a>
@@ -67,71 +67,6 @@
         </h2>
         <p class="kpi-trend neutral">New employees</p>
         <a class="view-link">View Details</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Charts Section -->
-  <div class="charts-section">
-    <!-- Department Distribution Chart -->
-    <div class="chart-card department-chart-card">
-      <div class="chart-header">
-        <div class="header-left">
-          <div class="header-icon">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M12 1v6m0 6v6"></path>
-              <path d="m21 12-6-3-6 3-6-3-6 3"></path>
-            </svg>
-          </div>
-          <h3>Department Distribution</h3>
-        </div>
-        <div class="chart-legend">
-          <span class="legend-text">{{ totalEmployees }} Total Employees</span>
-        </div>
-      </div>
-      <div class="chart-content">
-        <div class="chart-container">
-          <canvas id="departmentChart"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Employee Status Chart -->
-    <div class="chart-card status-chart-card">
-      <div class="chart-header">
-        <div class="header-left">
-          <div class="header-icon">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <line x1="18" y1="20" x2="18" y2="10"></line>
-              <line x1="12" y1="20" x2="12" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="14"></line>
-            </svg>
-          </div>
-          <h3>Employee Status Overview</h3>
-        </div>
-        <div class="chart-legend">
-          <span class="legend-text">Current Status Breakdown</span>
-        </div>
-      </div>
-      <div class="chart-content">
-        <div class="chart-container">
-          <canvas id="statusChart"></canvas>
-        </div>
       </div>
     </div>
   </div>
@@ -191,7 +126,7 @@
                 </svg>
               </div>
               <div class="stat-content">
-                <span class="stat-number">{{ todayLeaves || 0 }}</span>
+                <span class="stat-number">{{ todayLeaveCount || 0 }}</span>
                 <span class="stat-label">On Leave</span>
               </div>
               <div class="stat-indicator pending-indicator"></div>
@@ -213,7 +148,7 @@
               </div>
               <div class="stat-content">
                 <span class="stat-number">{{
-                  totalEmployees - (todayLeaves || 0)
+                  totalEmployees - (todayLeaveCount || 0)
                 }}</span>
                 <span class="stat-label">Active</span>
               </div>
