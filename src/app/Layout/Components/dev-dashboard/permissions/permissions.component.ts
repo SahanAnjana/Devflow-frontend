@@ -280,6 +280,29 @@ export class PermissionsComponent implements OnInit {
     }
   }
 
+  // Handle change permissions button click
+  changePermissions(role: any, event: Event) {
+    event.stopPropagation(); // Prevent the card click event
+
+    console.log('Change permissions clicked for role:', role);
+
+    // Select the role and show permissions table
+    this.selectedRoleName = role.name;
+    this.selectedRole = role;
+    this.showPermissionsTable = true;
+
+    // Load the role's current permissions
+    if (this.selectedRoleName) {
+      this.loadRolePermissions(role.name);
+    }
+
+    // Show a notification to guide the user
+    this.notification.info(
+      'Change Permissions',
+      `Now you can modify permissions for the "${role.name}" role using the table below. Make your changes and click "Save Permissions" when done.`
+    );
+  }
+
   loadRolePermissions(roleName: string) {
     this.loading = true;
     console.log('Loading permissions for role:', roleName);
@@ -590,7 +613,7 @@ export class PermissionsComponent implements OnInit {
 
   // Save permissions for selected role
   savePermissions() {
-    if (!this.selectedRoleName) {
+    if (!this.selectedRoleName || !this.selectedRole) {
       this.notification.warning('Warning', 'Please select a role first');
       return;
     }
@@ -603,13 +626,23 @@ export class PermissionsComponent implements OnInit {
     );
 
     console.log('Saving permissions:', enabledPermissions);
+    console.log('Selected role:', this.selectedRole);
+
+    // Prepare the request body according to the API specification
+    const requestBody = {
+      name: this.selectedRole.name,
+      description: this.selectedRole.description || '',
+      permissions: enabledPermissions,
+    };
+
+    console.log('Request body:', requestBody);
 
     this.userPermissionsService
-      .updateUserPermissions(this.selectedRoleName, {
-        permissions: enabledPermissions,
-      })
+      .updateRolePermissions(this.selectedRole.id, requestBody)
       .subscribe({
         next: (response: any) => {
+          console.log('Permissions update response:', response);
+
           // Update DataService permissions immediately
           this.updateDataServicePermissions(enabledPermissions);
 

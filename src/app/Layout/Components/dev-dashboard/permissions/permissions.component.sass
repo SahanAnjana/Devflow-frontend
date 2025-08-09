@@ -113,13 +113,14 @@
   flex: 1
 
 .role-card-actions
-  margin-top: auto
   display: flex
-  justify-content: right
-  padding-top: 8px
+  gap: 8px
+  justify-content: flex-end
+  margin-top: auto
+  padding-top: 12px
+  padding-top: 12px
 
 .role-action-btn
-  background: rgba(239, 68, 68, 0.1)
   border: none
   border-radius: 6px
   width: 32px
@@ -131,18 +132,35 @@
   transition: all 0.2s ease
   opacity: 1
 
-  &:hover:not(:disabled)
-    background: rgba(239, 68, 68, 0.2)
-    transform: scale(1.05)
+  &.edit-btn
+    background: rgba(59, 130, 246, 0.1)
+    
+    &:hover:not(:disabled)
+      background: rgba(59, 130, 246, 0.2)
+      transform: scale(1.05)
+      
+    svg
+      width: 14px
+      height: 14px
+      stroke: #3b82f6
+      fill: none
 
-  &:disabled
-    opacity: 0.3
-    cursor: not-allowed
+  &.delete-btn
+    background: rgba(239, 68, 68, 0.1)
+    
+    &:hover:not(:disabled)
+      background: rgba(239, 68, 68, 0.2)
+      transform: scale(1.05)
 
-  svg
-    width: 14px
-    height: 14px
-    fill: #ef4444
+    &:disabled
+      opacity: 0.3
+      cursor: not-allowed
+
+    svg
+      width: 14px
+      height: 14px
+      stroke: #ef4444
+      fill: none
 
     
 .role-card-icon

@@ -47,6 +47,20 @@ export class UserPermissionsService {
     );
   }
 
+  // Update role permissions using the correct API endpoint
+  updateRolePermissions(roleId: string, roleData: any) {
+    const url = `${environment.baseUrl}/auth/roles/${roleId}`;
+
+    return this.http.put(url, roleData).pipe(
+      catchError((error) => {
+        return this.commonService.catchError(error);
+      }),
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
   // Get all available permissions
   getAllAvailablePermissions() {
     const url = `${environment.baseUrl}/permissions`;
