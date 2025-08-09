@@ -13,7 +13,8 @@ RUN npm run build
 
 # Production stage
 FROM nginx:alpine AS production
-COPY --from=build /app/dist/devflow-frontend /usr/share/nginx/html
+
+COPY --from=build /app/build /usr/share/nginx/html
 
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
 
