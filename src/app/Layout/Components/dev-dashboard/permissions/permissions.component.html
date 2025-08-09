@@ -27,7 +27,28 @@
   <div class="controls-section">
     <!-- Role Cards Section -->
     <div class="role-cards-container">
-      <label class="selector-label">Select Role:</label>
+      <div class="role-cards-header">
+        <label class="selector-label">Select Role:</label>
+        <button
+          class="add-role-btn"
+          (click)="showAddRoleModal()"
+          nz-button
+          nzType="primary"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Add New Role
+        </button>
+      </div>
       <div class="role-cards-grid">
         <div
           *ngFor="let role of Allroles"
@@ -54,6 +75,33 @@
               {{ role.description || "Manage " + role.name + " permissions" }}
             </p>
           </div>
+
+          <!-- Role Card Actions -->
+          <div class="role-card-actions">
+            <button
+              class="role-action-btn delete-btn"
+              (click)="deleteRole(role, $event)"
+              title="Delete Role"
+              [disabled]="selectedRoleName === role.name"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3,6 5,6 21,6"></polyline>
+                <path
+                  d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"
+                ></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </button>
+          </div>
+
           <div class="role-card-badge" *ngIf="selectedRoleName === role.name">
             <svg
               width="16"
@@ -417,3 +465,80 @@
     </div>
   </div>
 </div>
+
+<!-- Add Role Modal -->
+<nz-modal
+  [(nzVisible)]="isAddRoleModalVisible"
+  nzTitle="Add New Role"
+  [nzOkText]="'Create Role'"
+  [nzCancelText]="'Cancel'"
+  [nzOkLoading]="isCreatingRole"
+  (nzOnCancel)="hideAddRoleModal()"
+  (nzOnOk)="submitAddRole()"
+  nzWidth="600px"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="addRoleForm" nzLayout="vertical">
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label nzRequired>Role Name</nz-form-label>
+            <nz-form-control
+              [nzErrorTip]="getAddRoleFieldError('name')"
+              [nzValidateStatus]="isAddRoleFieldInvalid('name') ? 'error' : ''"
+            >
+              <input
+                nz-input
+                formControlName="name"
+                placeholder="Enter role name (e.g., Manager, Developer)"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label>Description</nz-form-label>
+            <nz-form-control>
+              <textarea
+                nz-input
+                formControlName="description"
+                placeholder="Enter role description (optional)"
+                [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+              ></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label>Permissions</nz-form-label>
+            <nz-form-control>
+              <div class="permissions-selection">
+                <p class="permissions-note">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 16v-4"></path>
+                    <path d="M12 8h.01"></path>
+                  </svg>
+                  You can assign permissions after creating the role.
+                </p>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</nz-modal>

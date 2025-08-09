@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AuthserviceService } from 'src/app/_services/authservice.service';
 import { UserPermissionsService } from 'src/app/_services/user-permissions.service';
 import { DataService } from 'src/app/_services/shared-data/data.service';
 import { DashboardService } from 'src/app/_services/dashboard.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 interface Role {
   id: string;
@@ -55,14 +58,27 @@ export class PermissionsComponent implements OnInit {
 
   Allroles: any = [];
 
+  // Add Role Modal properties
+  isAddRoleModalVisible = false;
+  isCreatingRole = false;
+  addRoleForm: FormGroup;
+
   constructor(
     private authService: AuthserviceService,
     private userPermissionsService: UserPermissionsService,
     private modalService: NzModalService,
     private notification: NzNotificationService,
     public dataService: DataService,
-    private dashboardService: DashboardService
-  ) {}
+    private dashboardService: DashboardService,
+    private formBuilder: FormBuilder,
+    private http: HttpClient
+  ) {
+    this.addRoleForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      description: [''],
+      permissions: [[]],
+    });
+  }
 
   ngOnInit() {
     this.initializePermissions();
@@ -573,5 +589,136 @@ export class PermissionsComponent implements OnInit {
       'Info',
       `Permission ${permission.key} has been reset for role ${this.selectedRoleName}`
     );
+  }
+
+  // Add Role Modal Methods
+  showAddRoleModal(): void {
+    this.isAddRoleModalVisible = true;
+    this.addRoleForm.reset();
+  }
+
+  hideAddRoleModal(): void {
+    this.isAddRoleModalVisible = false;
+    this.addRoleForm.reset();
+  }
+
+  submitAddRole(): void {
+    if (this.addRoleForm.valid) {
+      this.isCreatingRole = true;
+
+      const roleData = {
+        name: this.addRoleForm.get('name')?.value,
+        description: this.addRoleForm.get('description')?.value || '',
+        permissions: this.addRoleForm.get('permissions')?.value || [],
+      };
+
+      this.createRole(roleData);
+    } else {
+      this.markFormGroupTouched(this.addRoleForm);
+    }
+  }
+
+  createRole(roleData: any): void {
+    const url = `${environment.baseUrl}8000/auth/roles`;
+
+    this.http.post(url, roleData).subscribe({
+      next: (response: any) => {
+        this.notification.success(
+          'Success',
+          `Role "${roleData.name}" created successfully!`
+        );
+        this.hideAddRoleModal();
+        this.loadRoles(); // Refresh the roles list
+        this.isCreatingRole = false;
+      },
+      error: (error) => {
+        console.error('Error creating role:', error);
+        this.notification.error(
+          'Error',
+          error.error?.message || `Failed to create role "${roleData.name}"`
+        );
+        this.isCreatingRole = false;
+      },
+    });
+  }
+
+  // Delete Role Method
+  deleteRole(role: any, event: Event): void {
+    // Stop event propagation to prevent card click
+    event.stopPropagation();
+
+    this.modalService.confirm({
+      nzTitle: 'Delete Role',
+      nzContent: `Are you sure you want to delete the role "${role.name}"? This action cannot be undone.`,
+      nzOkText: 'Delete',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzCancelText: 'Cancel',
+      nzOnOk: () => {
+        this.performDeleteRole(role);
+      },
+    });
+  }
+
+  private performDeleteRole(role: any): void {
+    const url = `${environment.baseUrl}8000/auth/roles/${role.id}`;
+
+    this.http.delete(url).subscribe({
+      next: (response: any) => {
+        this.notification.success(
+          'Success',
+          `Role "${role.name}" deleted successfully!`
+        );
+
+        // If the deleted role was selected, clear the selection
+        if (this.selectedRoleName === role.name) {
+          this.selectedRoleName = '';
+          this.selectedRole = null;
+          this.showPermissionsTable = false;
+          this.resetPermissions();
+        }
+
+        this.loadRoles(); // Refresh the roles list
+      },
+      error: (error) => {
+        console.error('Error deleting role:', error);
+        this.notification.error(
+          'Error',
+          error.error?.message || `Failed to delete role "${role.name}"`
+        );
+      },
+    });
+  }
+
+  // Form validation helpers for Add Role
+  isAddRoleFieldInvalid(fieldName: string): boolean {
+    const field = this.addRoleForm.get(fieldName);
+    return !!(field && field.invalid && (field.dirty || field.touched));
+  }
+
+  getAddRoleFieldError(fieldName: string): string {
+    const field = this.addRoleForm.get(fieldName);
+    if (field && field.invalid && (field.dirty || field.touched)) {
+      if (field.errors?.['required']) {
+        return `${
+          fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+        } is required`;
+      }
+      if (field.errors?.['minlength']) {
+        return `${
+          fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+        } must be at least ${
+          field.errors['minlength'].requiredLength
+        } characters`;
+      }
+    }
+    return '';
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+      control?.markAsTouched({ onlySelf: true });
+    });
   }
 }
