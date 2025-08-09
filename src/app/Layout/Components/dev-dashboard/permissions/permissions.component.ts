@@ -41,6 +41,7 @@ export class PermissionsComponent implements OnInit {
   allRoles: Role[] = [];
   selectedRoleName: string = '';
   selectedRole: Role | null = null;
+  showPermissionsTable: boolean = false;
 
   // Permissions data
   allPermissions: PermissionGroup[] = [];
@@ -152,6 +153,20 @@ export class PermissionsComponent implements OnInit {
       this.resetPermissions();
     }
   }
+
+  // Handle role card click
+  onRoleCardClick(role: any) {
+    this.selectedRoleName = role.name;
+    this.selectedRole = role;
+    this.showPermissionsTable = true;
+
+    if (this.selectedRoleName) {
+      this.loadRolePermissions(role.name);
+    } else {
+      this.resetPermissions();
+    }
+  }
+
   loadRolePermissions(roleName: string) {
     this.loading = true;
     console.log('Loading permissions for role:', roleName);
@@ -469,6 +484,11 @@ export class PermissionsComponent implements OnInit {
       (total, group) => total + group.permissions.length,
       0
     );
+  }
+
+  // Check if the selected role has any permissions
+  hasPermissionsInRole(): boolean {
+    return this.getEnabledPermissionsTotal() > 0;
   }
 
   // Get flattened permissions data for table

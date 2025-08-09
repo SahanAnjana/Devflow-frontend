@@ -28,7 +28,7 @@ export class PmProjectsComponent {
 
   ngOnInit() {
     this.getAllprojects();
-    
+
     // Listen for the event to open add project modal
     this.eventTriggerService.executeOnchangeFunction.subscribe((event: any) => {
       if (event === 'openAddProjectModal') {

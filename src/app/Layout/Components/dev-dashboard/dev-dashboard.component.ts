@@ -318,10 +318,10 @@ export class DevDashboardComponent {
 
   startNewProject() {
     console.log('Starting new project...');
-    
+
     // Set the sidebar to project mode
     this.dataService.sidebarItem = 'project';
-    
+
     // Navigate to projects module
     this.router.navigate(['/projects/projects']).then(() => {
       // After navigation is complete, trigger the add new project modal

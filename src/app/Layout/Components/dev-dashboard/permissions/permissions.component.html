@@ -1,7 +1,4 @@
-<div
-  *ngIf="dataService.hasPermission('employees:read')"
-  class="permissions-container"
->
+<div class="permissions-container">
   <!-- Header Section -->
   <div class="permissions-header">
     <div class="header-content">
@@ -28,26 +25,55 @@
 
   <!-- Controls Section -->
   <div class="controls-section">
-    <div class="role-selector-container">
+    <!-- Role Cards Section -->
+    <div class="role-cards-container">
       <label class="selector-label">Select Role:</label>
-      <nz-select
-        nzAllowClear="true"
-        nzShowSearch="true"
-        nzPlaceHolder="Choose a role to manage permissions"
-        (ngModelChange)="onUserSelect($event)"
-        [(ngModel)]="selectedRoleName"
-        class="role-select"
-        [nzLoading]="loading"
-      >
-        <nz-option
+      <div class="role-cards-grid">
+        <div
           *ngFor="let role of Allroles"
-          [nzValue]="role.name"
-          [nzLabel]="role.name"
-        ></nz-option>
-      </nz-select>
+          class="role-card"
+          [class.active]="selectedRoleName === role.name"
+          (click)="onRoleCardClick(role)"
+        >
+          <div class="role-card-icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="role-card-content">
+            <h3 class="role-name">{{ role.name }}</h3>
+            <p class="role-description">
+              {{ role.description || "Manage " + role.name + " permissions" }}
+            </p>
+          </div>
+          <div class="role-card-badge" *ngIf="selectedRoleName === role.name">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="20,6 9,17 4,12"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="action-buttons" *ngIf="selectedRoleName">
+    <div
+      class="action-buttons"
+      *ngIf="showPermissionsTable && selectedRoleName"
+    >
       <div class="permissions-summary">
         <span class="summary-text">
           {{ getEnabledPermissionsTotal() }} of
@@ -82,7 +108,10 @@
   </div>
 
   <!-- Permissions Table -->
-  <div class="permissions-table-container" *ngIf="selectedRoleName">
+  <div
+    class="permissions-table-container"
+    *ngIf="showPermissionsTable && selectedRoleName"
+  >
     <div class="table-header">
       <h3 class="table-title">Permissions for "{{ selectedRoleName }}" Role</h3>
       <div class="table-actions">
@@ -90,6 +119,23 @@
       </div>
     </div>
 
+    <!-- No Permissions Message -->
+    <div
+      class="no-permissions-message"
+      *ngIf="!loading && !hasPermissionsInRole()"
+    >
+      <nz-empty
+        nzNotFoundImage="simple"
+        [nzNotFoundContent]="'No permissions assigned to this role'"
+      >
+        <p nz-typography>
+          The "{{ selectedRoleName }}" role currently has no permissions
+          assigned. You can assign permissions using the controls below.
+        </p>
+      </nz-empty>
+    </div>
+
+    <!-- Permissions Table - Always show when role is selected -->
     <div class="table-wrapper" [class.loading]="loading">
       <nz-table
         #basicTable
