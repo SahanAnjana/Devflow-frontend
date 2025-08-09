@@ -1,96 +1,168 @@
-<div>
-  <form nz-form [formGroup]="reportForm">
-    <div nz-row class="title-bar">
-      <div nz-col [nzSpan]="4">
-        <nz-select
-          nzAllowClear="true"
-          nzSuffixIcon="caret-down"
-          nzPlaceHolder="select report"
-          (ngModelChange)="onReportChange($event)"
-          [(ngModel)]="selectedReport"
-          formControlName="selectedReport"
-        >
-          <nz-option
-            *ngFor="let data of reportList"
-            [nzValue]="data.id"
-            [nzLabel]="data.label"
-          ></nz-option>
-        </nz-select>
-      </div>
-      <div nz-col [nzSpan]="4">
-        <nz-date-picker
-          nzPlaceHolder="From date"
-          [(ngModel)]="fromDate"
-          formControlName="fromDate"
-        ></nz-date-picker>
-      </div>
-      <div nz-col [nzSpan]="4">
-        <nz-date-picker
-          nzPlaceHolder="To date"
-          [(ngModel)]="toDate"
-          formControlName="toDate"
-        ></nz-date-picker>
-      </div>
-      <div class="download-btn" nz-col [nzSpan]="10">
-        <button class="btn" (click)="downloadReport()">Download report</button>
+<div class="reports-container">
+  <!-- Header -->
+  <div class="reports-header">
+    <h2 class="page-title">Financial Reports</h2>
+    <p class="page-description">
+      Select a report type to view detailed financial information
+    </p>
+  </div>
+
+  <!-- Show cards when table is not visible -->
+  <div class="reports-cards-section" *ngIf="!showTable">
+    <div class="reports-cards-grid">
+      <div
+        class="report-card"
+        *ngFor="let report of reportList"
+        (click)="onReportCardClick(report.id)"
+      >
+        <div class="report-card-icon">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+            ></path>
+            <polyline points="14,2 14,8 20,8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10,9 9,9 8,9"></polyline>
+          </svg>
+        </div>
+        <div class="report-card-content">
+          <h3 class="report-title">{{ report.label }}</h3>
+          <p class="report-description">
+            {{ getReportDescription(report.id) }}
+          </p>
+        </div>
+        <div class="report-card-arrow">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="9,18 15,12 9,6"></polyline>
+          </svg>
+        </div>
       </div>
     </div>
-  </form>
-
-  <div class="table-container">
-    <nz-table
-      #basicTable
-      [nzData]="allReportSummary || []"
-      [nzPageSize]="50"
-      [nzShowPagination]="false"
-    >
-      <thead>
-        <tr class="heading_tr">
-          <th><div class="border-start-th">TOTAL INCOME</div></th>
-          <th><div class="border-middle-th">TOTAL EXPENCESS</div></th>
-          <th>
-            <div class="border-middle-th">NET PROFIT</div>
-          </th>
-          <th><div class="border-start-th">PENDING INVOICES</div></th>
-          <th><div class="border-middle-th">OVERDIVE INVOICES</div></th>
-        </tr>
-      </thead>
-
-      <tbody class="body_tr">
-        <tr *ngFor="let data of basicTable.data">
-          <td>
-            <div class="border-middle">{{ data?.total_income }}</div>
-          </td>
-          <td>
-            <div class="border-middle">{{ data?.total_expenses }}</div>
-          </td>
-          <td>
-            <div class="border-middle">
-              {{ data?.net_profit }}
-            </div>
-          </td>
-          <td>
-            <div class="border-middle">{{ data?.pending_invoices }}</div>
-          </td>
-          <td>
-            <div class="border-middle">{{ data?.overdue_invoices }}</div>
-          </td>
-        </tr>
-      </tbody>
-    </nz-table>
   </div>
-  <div class="pagination-row">
-    <nz-pagination
-      class="pagination"
-      [nzPageSize]="pageSize"
-      [nzPageIndex]="currentPageIndex"
-      [nzTotal]="totalRecord"
-      nzShowQuickJumper
-      [nzShowTotal]="rangeTemplate"
-    >
-    </nz-pagination>
-    <ng-template #rangeTemplate let-range="range" let-total>
-      <span>{{ range[0] }} of {{ total }} items</span>
-    </ng-template>
+
+  <!-- Show table and controls when a report is selected -->
+  <div class="report-details-section" *ngIf="showTable">
+    <!-- Back button and selected report info -->
+    <div class="report-header">
+      <button class="back-button" (click)="goBackToCards()">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+        Back to Reports
+      </button>
+      <div class="selected-report-info">
+        <h3>{{ selectedReportData?.label }}</h3>
+        <p>{{ getReportDescription(selectedReport) }}</p>
+      </div>
+    </div>
+
+    <!-- Date filters and download -->
+    <form nz-form [formGroup]="reportForm">
+      <div nz-row class="title-bar">
+        <div nz-col [nzSpan]="5">
+          <nz-date-picker
+            nzPlaceHolder="From date"
+            [(ngModel)]="fromDate"
+            formControlName="fromDate"
+            (ngModelChange)="loadReportData()"
+          ></nz-date-picker>
+        </div>
+        <div nz-col [nzSpan]="5">
+          <nz-date-picker
+            nzPlaceHolder="To date"
+            [(ngModel)]="toDate"
+            formControlName="toDate"
+            (ngModelChange)="loadReportData()"
+          ></nz-date-picker>
+        </div>
+        <div class="download-btn" nz-col [nzSpan]="12">
+          <button class="btn" (click)="downloadReport()">
+            Download Report
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Table Section -->
+    <div class="table-container">
+      <nz-table
+        #basicTable
+        [nzData]="allReportSummary || []"
+        [nzPageSize]="50"
+        [nzShowPagination]="false"
+      >
+        <thead>
+          <tr class="heading_tr">
+            <th><div class="border-start-th">TOTAL INCOME</div></th>
+            <th><div class="border-middle-th">TOTAL EXPENCESS</div></th>
+            <th>
+              <div class="border-middle-th">NET PROFIT</div>
+            </th>
+            <th><div class="border-start-th">PENDING INVOICES</div></th>
+            <th><div class="border-middle-th">OVERDIVE INVOICES</div></th>
+          </tr>
+        </thead>
+
+        <tbody class="body_tr">
+          <tr *ngFor="let data of basicTable.data">
+            <td>
+              <div class="border-middle">{{ data?.total_income }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ data?.total_expenses }}</div>
+            </td>
+            <td>
+              <div class="border-middle">
+                {{ data?.net_profit }}
+              </div>
+            </td>
+            <td>
+              <div class="border-middle">{{ data?.pending_invoices }}</div>
+            </td>
+            <td>
+              <div class="border-middle">{{ data?.overdue_invoices }}</div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-row">
+      <nz-pagination
+        class="pagination"
+        [nzPageSize]="pageSize"
+        [nzPageIndex]="currentPageIndex"
+        [nzTotal]="totalRecord"
+        nzShowQuickJumper
+        [nzShowTotal]="rangeTemplate"
+      >
+      </nz-pagination>
+      <ng-template #rangeTemplate let-range="range" let-total>
+        <span>{{ range[0] }} of {{ total }} items</span>
+      </ng-template>
+    </div>
   </div>
 </div>

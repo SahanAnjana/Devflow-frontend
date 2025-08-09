@@ -21,6 +21,8 @@ export class ReportComponent {
   fromDate: any = new Date(new Date().getFullYear(), new Date().getMonth(), 1); // First day of current month
   toDate: any = new Date(); // Today's date
   selectedReport: any = 1;
+  showTable: boolean = false; // Track whether to show the table
+  selectedReportData: any = null; // Store the selected report data
   filepath: any;
 
   reportForm!: FormGroup;
@@ -202,6 +204,22 @@ export class ReportComponent {
   onReportChange(event: any) {
     console.log('Selected Report:', event);
     this.selectedReport = event;
+    this.loadReportData();
+  }
+
+  // Handle card click to select report and show table
+  onReportCardClick(reportId: number) {
+    console.log('Report card clicked:', reportId);
+    this.selectedReport = reportId;
+    this.selectedReportData = this.reportList.find(
+      (report: any) => report.id === reportId
+    );
+    this.showTable = true;
+    this.loadReportData();
+  }
+
+  // Load data based on selected report
+  loadReportData() {
     switch (this.selectedReport) {
       case 1:
         this.getFinancialSummary();
@@ -220,6 +238,30 @@ export class ReportComponent {
         break;
       default:
         break;
+    }
+  }
+
+  // Go back to card view
+  goBackToCards() {
+    this.showTable = false;
+    this.selectedReportData = null;
+  }
+
+  // Get description for each report type
+  getReportDescription(reportId: number): string {
+    switch (reportId) {
+      case 1:
+        return 'Comprehensive overview of financial performance including income, expenses, and profit metrics.';
+      case 2:
+        return 'Detailed analysis of revenue versus expenses to determine net profit or loss.';
+      case 3:
+        return 'Revenue breakdown by sources, projects, and time periods.';
+      case 4:
+        return 'Detailed view of all expenses categorized by type and department.';
+      case 5:
+        return 'Project-specific financial data including costs, revenue, and profitability.';
+      default:
+        return 'Financial report with detailed analysis and insights.';
     }
   }
 

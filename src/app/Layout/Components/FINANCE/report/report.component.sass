@@ -1,11 +1,151 @@
 @import '../../../../../assets/sass/index'
 
+// Main Container
+.reports-container
+  padding: 24px
+  background: #f5f7fa
+  min-height: 100vh
+
+// Header Section
+.reports-header
+  margin-bottom: 32px
+  text-align: center
+
+.page-title
+  font-size: 28px
+  font-weight: 700
+  color: #1f2937
+  margin-bottom: 8px
+
+.page-description
+  font-size: 16px
+  color: #6b7280
+  margin: 0
+
+// Cards Section
+.reports-cards-section
+  margin-bottom: 32px
+
+.reports-cards-grid
+  display: grid
+  grid-template-columns: 1fr
+  gap: 16px
+  max-width: 800px
+  margin: 0 auto
+
+.report-card
+  background: white
+  border-radius: 12px
+  padding: 24px
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+  cursor: pointer
+  transition: all 0.3s ease
+  display: flex
+  align-items: center
+  gap: 20px
+  border: 2px solid transparent
+
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15)
+    border-color: #3b82f6
+
+.report-card-icon
+  width: 64px
+  height: 64px
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)
+  border-radius: 12px
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-shrink: 0
+
+  svg
+    color: white
+
+.report-card-content
+  flex: 1
+
+.report-title
+  font-size: 18px
+  font-weight: 600
+  color: #1f2937
+  margin: 0 0 8px 0
+
+.report-description
+  font-size: 14px
+  color: #6b7280
+  margin: 0
+  line-height: 1.5
+
+.report-card-arrow
+  flex-shrink: 0
+  opacity: 0.5
+  transition: opacity 0.3s ease
+
+  svg
+    color: #9ca3af
+
+.report-card:hover .report-card-arrow
+  opacity: 1
+
+// Report Details Section
+.report-details-section
+  background: white
+  border-radius: 12px
+  overflow: hidden
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+
+.report-header
+  padding: 24px
+  border-bottom: 1px solid #e5e7eb
+  display: flex
+  align-items: center
+  gap: 20px
+
+.back-button
+  background: #f3f4f6
+  border: none
+  border-radius: 8px
+  padding: 8px 16px
+  display: flex
+  align-items: center
+  gap: 8px
+  cursor: pointer
+  transition: all 0.3s ease
+  font-size: 14px
+  color: #374151
+
+  &:hover
+    background: #e5e7eb
+
+  svg
+    color: #6b7280
+
+.selected-report-info
+  flex: 1
+
+  h3
+    font-size: 20px
+    font-weight: 600
+    color: #1f2937
+    margin: 0 0 4px 0
+
+  p
+    font-size: 14px
+    color: #6b7280
+    margin: 0
+
+// Form Controls
 :host ::ng-deep .ant-select
     width: 100% !important  
 
 .title-bar  
     justify-content: flex-start
-    gap: 20px  
+    gap: 20px
+    padding: 24px
+    background: #f9fafb
+    border-bottom: 1px solid #e5e7eb
 
 .download-btn    
     display: flex
@@ -13,5 +153,27 @@
     align-items: center
 
 .btn
-    padding: 10px    
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%)
+    color: white
+    border: none
+    border-radius: 8px
+    padding: 12px 24px
+    font-weight: 600
+    cursor: pointer
+    transition: all 0.3s ease
+
+    &:hover
+      transform: translateY(-1px)
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3)
+
+// Table Container
+.table-container
+  padding: 24px
+
+// Pagination
+.pagination-row
+  padding: 16px 24px
+  border-top: 1px solid #e5e7eb
+  display: flex
+  justify-content: center    
     
